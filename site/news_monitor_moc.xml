@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+	<prop name="site" value="moc" />
+	<prop name="siteName" value="moc_news_monitor" />
+	<prop name="siteFlag" value="1" />
+	<prop name="charset" value="utf-8" />
+	<prop name="downInterval" value="2" />
+	<prop name="page" value="5" />
+	<prop name="threadNum" value="1" />
+	<prop name="accessUrl" value="" />
+<!-- 列表页 -->
+	<prop name="title" value="//TABLE/TBODY/TR/TD[2]/A[@title and contains(@href,'.html')]" />
+	<prop name="url" value="//TABLE/TBODY/TR/TD[2]/A[@title and contains(@href,'.html')]/@href" />
+	<prop name="url_prefix" value="http://www.moc.gov.cn/zhuzhan/jiaotongxinwen/xinwenredian" />
+	
+	<prop name="next" value="//A[contains(IMG/@src,'but_next')]/@href" />
+	<prop name="next_prefix" value="http://www.moc.gov.cn/zhuzhan/jiaotongxinwen/xinwenredian/" />
+	
+	
+	<prop name="originalSource" value="//TBODY/TR[2]/TD[@align='center'][contains(.,'日')]" />
+	<prop name="originalPubtime" value="//TBODY/TR[2]/TD[@align='center'][contains(.,'日')]" />
+	<prop name="author" value="//TBODY/TR[2]/TD[@align='center'][contains(.,'日')]" />
+	<prop name="content" value="//DIV[@class='TRS_Editor']" />
+	
+	<prop name="brief" value="" />
+	<prop name="keyword" value="" />
+	<prop name="refer_num" value="" />
+	<prop name="same_num" value="" />
+	<prop name="same_url" value="" />
+	<prop name="cache" value="" />
+	
+</site>

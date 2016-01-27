@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+	<prop name="site" value="qtv" />
+	<prop name="siteName" value="qtv_bbs_monitor" />
+	<prop name="siteFlag" value="1" />
+	<prop name="charset" value="utf-8" />
+	<prop name="downInterval" value="10" />
+	<prop name="page" value="10" />
+	<prop name="threadNum" value="1" />
+	
+	<prop name="accessUrl" value="" />
+<!-- 列表页 -->
+	<prop name="title" value="//TBODY[contains(@id,'normalthread')]//A[@class='s xst']" />
+	<prop name="url" value="//TBODY[contains(@id,'normalthread')]//A[@class='s xst']/@href" />
+    <prop name="url_prefix" value="http://bbs.qtv.com.cn/"/>
+	<prop name="next" value="(//A[@class='nxt']/@href)[1]" />
+	<prop name="next_prefix" value="http://bbs.qtv.com.cn/" />
+
+	<prop name="author_l" value="//TBODY[contains(@id,'normalthread')]//TR/TD[@class='by'][1]/CITE" />
+	<prop name="reply_count_l" value="//TBODY[contains(@id,'normalthread')]//TR/TD[@class='num']/A" />
+	<prop name="click_count_l" value="//TBODY[contains(@id,'normalthread')]//TR/TD[@class='num']/EM" />
+
+<!-- 内容页 -->
+	<prop name="author" value=""/>
+	<prop name="pubtime" value="(//DIV[@class='authi']/EM)[1]" />
+	<prop name="content" value="(//TR/TD[@class='plc']/DIV[@class='pct'])[1]" />
+	<prop name="source" value="" />
+	
+	<prop name="column" value="//DIV[@class='z']" />
+	<prop name="img_url" value="(//TR/TD[@class='plc']/DIV[@class='pct'])[1]//IMG/@src" />
+	
+	<prop name="pageTitle" value="//SPAN[@id='thread_subject']" />
+	<prop name="reply_content" value="//TR/TD[@class='plc']/DIV[@class='pct']" />
+	<prop name="reply_time" value="//DIV[@class='authi']/EM" />
+	<prop name="reply_name" value="//DIV[@class='authi']/A[@class='xw1']" />
+	<prop name="reply_next" value="(//A[@class='nxt']/@href)[1]" />
+	<prop name="reply_next_prefix" value="http://bbs.qtv.com.cn/" />
+</site>

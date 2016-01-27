@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+	<prop name="site" value="qdznjt" />
+	<prop name="siteName" value="qdznjt_news_monitor" />
+	<prop name="siteFlag" value="1" />
+	<prop name="charset" value="utf-8" />
+	<prop name="downInterval" value="10" />
+	<prop name="page" value="10" />
+	<prop name="threadNum" value="1" />
+    <prop name="accessUrl" value="" />
+    <!-- 列表页 -->
+    <prop name="title" value="//DIV[@id='subMain']//DIV[@class='r_traffic']/UL/LI/A" />
+    <prop name="url" value="//DIV[@id='subMain']//DIV[@class='r_traffic']/UL/LI/@onclick" />
+    <prop name="url_prefix" value="" />
+
+    <prop name="next" value="" /><!--不需要-->
+    <prop name="next_prefix" value="" /><!--不需要-->
+
+
+    <prop name="imgs_url" value="//DIV[@id='img-content']/DIV[@id='js_content']//IMG/@data-src" />
+
+
+
+
+    <prop name="originalSource" value="//A[@id='post-user']" /><!---->
+	<prop name="originalPubtime" value="//EM[@id='post-date']/text()" /><!---->
+	<prop name="author" value="//A[@id='post-user']" /><!---->
+	<prop name="content" value="//DIV[@id='img-content']/DIV[@id='js_content']//P" /><!---->
+	
+	<prop name="brief" value="" />
+	<prop name="keyword" value="" />
+	<prop name="refer_num" value="" />
+	<prop name="same_num" value="" />
+	<prop name="same_url" value="" />
+	<prop name="cache" value="" />
+	
+</site>

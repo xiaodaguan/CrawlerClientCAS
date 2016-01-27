@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+	<prop name="site" value="qingdaonews" />
+	<prop name="siteName" value="qingdaonews_news_search" />
+	<prop name="siteFlag" value="1" />
+	<prop name="charset" value="utf-8" />
+	<!-- test -->
+	<!--
+	<prop name="downInterval" value="15" />
+	<prop name="page" value="6" />
+	<prop name="threadNum" value="2" />
+	 -->
+	 <!-- run -->
+	<prop name="downInterval" value="10" />
+	<prop name="page" value="10" />
+	<prop name="threadNum" value="1" />
+	
+	<!-- <prop name="accessUrl" value="http://news.baidu.com/ns?ie=utf-8&amp;sr=0&amp;cl=2&amp;rn=20&amp;tn=news&amp;ct=0&amp;clk=sortbyrel&amp;word=&lt;keyword&gt;" />-->
+	<prop name="accessUrl" value="http://club.qingdaonews.com/queryResult_new.php?q=&lt;keyword&gt;" />
+<!-- 列表页 -->
+	<prop name="title" value="//UL[@id='results']/LI/H3/A" />
+	<prop name="url" value="//UL[@id='results']/LI/H3/A/@href" />
+	<prop name="source" value="//UL[@id='results']/LI/DIV[@class='node']/SPAN[not(@class)]" />
+	<prop name="next" value="//A[@class='btn']/@href" />
+    <prop name="next_prefix" value="http://club.qingdaonews.com/queryResult_new.php" />
+
+	<prop name="pubtime" value="//UL[@id='results']/LI/DIV[@class='node']/SPAN[@class='date']" />
+	<prop name="brief" value="//UL[@id='results']/LI/DIV[@class='desc']" />
+	<prop name="keyword" value="" />
+	<prop name="refer_num" value="" />
+	<prop name="same_num" value="" />
+	<prop name="same_url" value="" />
+	<prop name="cache" value="" />
+
+	
+</site>
