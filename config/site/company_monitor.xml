@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    <!-- 新闻搜索站点公有配置 -->
+    <bean id="company_monitor_${site}" class="common.siteinfo.Siteinfo">
+        <property name="siteName" value="${siteName}"/>
+        <property name="siteFlag" value="${siteFlag}"/>
+        <property name="charset" value="${charset}"/>
+        <property name="downInterval" value="${downInterval}"/>
+        <property name="page" value="${page}"/>
+        <property name="threadNum" value="${threadNum}"/>
+        <property name="agent" value="${agent}"/>
+        <property name="login" value="${login}"/>
+        <!-- 站点入口url -->
+        <property name="url" value="${accessUrl}"/>
+        <!-- 站点的抽取组件，分为元数据、详细数据等类型 -->
+        <property name="commonComponent">
+            <map>
+                <entry key="META" value-ref="meta_${site}_company_monitor"/>
+                <entry key="DATA" value-ref="data_${site}_company_monitor"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- 元数据抽取组件 -->
+    <bean id="meta_${site}_company_monitor" class="common.siteinfo.CommonComponent">
+        <!-- 组件类型 -->
+        <property name="type" value="META"/>
+
+        <!-- 组件包含的属性 -->
+        <property name="components">
+            <map>
+                <!-- title -->
+                <entry key="title">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="title"/>
+                        <property name="xpath" value="${title}"/>
+                    </bean>
+                </entry>
+
+                <!-- 名称 -->
+                <entry key="company_name">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="company_name"/>
+                        <property name="xpath" value="${company_name}"/>
+                    </bean>
+                </entry>
+                <!-- URL -->
+                <entry key="url">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="url"/>
+                        <property name="xpath" value="${url}"/>
+                        <property name="prefix" value="${url_prefix}"/>
+                    </bean>
+                </entry>
+                <!-- 翻页 -->
+                <entry key="next">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="NEXTPAGE"/>
+                        <property name="name" value="next"/>
+                        <property name="xpath" value="${next}"/>
+                        <property name="prefix" value="${next_prefix}"/>
+                    </bean>
+                </entry>
+
+                <!-- 公司logo -->
+                <entry key="ico">
+                    <bean class="common.siteinfo.Component">
+                        <property name="name" value="ico"/>
+                        <property name="xpath" value="${ico}"/>
+                    </bean>
+                </entry>
+                <!-- 所在地 -->
+                <entry key="address">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="address"/>
+                        <property name="xpath" value="${address}"/>
+                    </bean>
+                </entry>
+                <!-- 涉足领域 -->
+                <entry key="field">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="field"/>
+                        <property name="xpath" value="${field}"/>
+                    </bean>
+                </entry>
+                <!-- 相关产品 -->
+                <entry key="products">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="products"/>
+                        <property name="xpath" value="${products}"/>
+                    </bean>
+                </entry>
+
+
+            </map>
+        </property>
+    </bean>
+
+    <bean>
+        <property name="type" value="DATA"/>
+        <property name="components">
+            <map>
+                <entry key="found_date">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="found_date"/>
+                        <property name="xpath" value="${found_date}"/>
+                    </bean>
+                </entry>
+                <entry key="website">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="website"/>
+                        <property name="xpath" value="${website}"/>
+                    </bean>
+                </entry>
+
+                <entry key="contact">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="contact"/>
+                        <property name="xpath" value="${contact}"/>
+                    </bean>
+                </entry>
+                <entry key="brief">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="brief"/>
+                        <property name="xpath" value="${brief}"/>
+                    </bean>
+                </entry>
+                <entry key="brief_products">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="brief_products"/>
+                        <property name="xpath" value="${brief_products}"/>
+                    </bean>
+                </entry>
+                <entry key="funding_experience">
+                    <bean class="common.siteinfo.Component">
+                        <property name="type" value="XPATH"/>
+                        <property name="name" value="funding_experience"/>
+                        <property name="xpath" value="${funding_experience}"/>
+                    </bean>
+                </entry>
+
+            </map>
+        </property>
+
+    </bean>
+
+</beans>

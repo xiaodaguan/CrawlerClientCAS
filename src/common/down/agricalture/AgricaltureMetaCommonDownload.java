@@ -1,22 +1,22 @@
 package common.down.agricalture;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import common.bean.HtmlInfo;
 import common.bean.AgricaltureData;
+import common.bean.HtmlInfo;
 import common.down.DataThreadControl;
 import common.down.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * 下载元数据
  * 
- * @author grs
+ * @author gxd
  */
 public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<AgricaltureData> {
 

@@ -1,27 +1,22 @@
 package common.extractor.xpath.academic.search;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import common.bean.HtmlInfo;
 import common.bean.AgricaltureData;
-import common.bean.ReplyData;
+import common.bean.HtmlInfo;
 import common.extractor.xpath.XpathExtractor;
-import common.siteinfo.CollectDataType;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.MD5Util;
 import common.util.StringUtil;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 论坛抽取实现类
@@ -109,14 +104,12 @@ public class AcademicSearchXpathExtractor extends XpathExtractor<AgricaltureData
 	@Override
 	public void processPage(AgricaltureData data, Node domtree,
 			Map<String, Component> map, String... args) {
-		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void processList(List<AgricaltureData> list, Node domtree,
 			Map<String, Component> components, String... args) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

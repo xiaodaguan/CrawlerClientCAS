@@ -1,29 +1,5 @@
 package common.extractor.xpath.weixin.search;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.JDBCType;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.text.html.HTML;
-import javax.xml.transform.TransformerException;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.xpath.XPathAPI;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import common.bean.HtmlInfo;
 import common.bean.Proxy;
 import common.bean.WeixinData;
@@ -34,11 +10,27 @@ import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.AppContext;
 import common.system.Systemconfig;
-import common.util.DOMUtil;
-import common.util.EncoderUtil;
-import common.util.MD5Util;
-import common.util.StringUtil;
-import common.util.TimeUtil;
+import common.util.*;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.xpath.XPathAPI;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.transform.TransformerException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 抽取实现类

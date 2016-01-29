@@ -1,23 +1,20 @@
-package common.extractor.xpath.company.search;
-
-import java.util.List;
-import java.util.Map;
-
-import org.w3c.dom.Node;
+package common.extractor.xpath.companyReport.search;
 
 import common.bean.ReportData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
-import common.system.Systemconfig;
 import common.util.MD5Util;
-import common.util.StringUtil;
+import org.w3c.dom.Node;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 抽取实现类
  * 
  * @author gxd
  */
-public class CompanyReport_searchXpathExtractor extends XpathExtractor<ReportData> implements CompanySearchExtractorAttribute {
+public class CompanyReport_searchXpathExtractor extends XpathExtractor<ReportData> implements CompanyReportSearchExtractorAttribute {
 
 	
 	@Override

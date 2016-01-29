@@ -129,7 +129,8 @@
 		<property name="reportOracleService" ref="reportOracleService" />
 		<property name="conferenceOracleService" ref="conferenceOracleService" />
 		<property name="personOracleService" ref="personOracleService" />
-		
+		<property name="companyOracleService" ref="companyOracleService" />
+
 	</bean>
 
 	<bean id="newsOracleService" class="common.service.oracle.NewsOracleService">
@@ -161,6 +162,9 @@
 	<!--<property name="jdbcTemplate" ref="jdbcTemplate" /> -->
 	<!--</bean> -->
 	<bean id="reportOracleService" class="common.service.oracle.ReportOracleService">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="companyOracleService" class="common.service.oracle.CompanyOracleService">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<!-- <bean id="dbService" class="common.service.hbase.UnitHbaseService"> <property name="service" ref="service" /> </bean> -->

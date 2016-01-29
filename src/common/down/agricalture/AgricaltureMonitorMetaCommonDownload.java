@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 下载元数据
  * 
- * @author grs
+ * @author gxd
  */
 public class AgricaltureMonitorMetaCommonDownload extends GenericMetaCommonDownload<AgricaltureData> {
 

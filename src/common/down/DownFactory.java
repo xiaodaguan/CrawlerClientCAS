@@ -2,18 +2,7 @@ package common.down;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.AgricaltureData;
-import common.bean.BBSData;
-import common.bean.BlogData;
-import common.bean.CommonData;
-import common.bean.ConferenceData;
-import common.bean.EbusinessData;
-import common.bean.NewsData;
-import common.bean.PersonData;
-import common.bean.ReportData;
-import common.bean.VideoData;
-import common.bean.WeiboData;
-import common.bean.WeixinData;
+import common.bean.*;
 import common.down.agricalture.AgricaltureDataCommonDownload;
 import common.down.agricalture.AgricaltureMetaCommonDownload;
 import common.down.agricalture.AgricaltureMonitorMetaCommonDownload;
@@ -23,6 +12,8 @@ import common.down.bbs.BBSMetaCommonDownload;
 import common.down.bbs.BBSMetaMonitorDownload;
 import common.down.blog.BlogDataCommonDownload;
 import common.down.blog.BlogMetaCommonDownload;
+import common.down.company.CompanyDataCommonDownload;
+import common.down.company.CompanyMetaCommonDownload;
 import common.down.conference.ConferenceDataCommonDownload;
 import common.down.conference.ConferenceMetaCommonDownload;
 import common.down.ebusiness.EbusinessDataCommonDownload;
@@ -105,6 +96,9 @@ public class DownFactory {
 		case 31:
 		case 32:
 			return new PersonMetaCommonDownload(key);
+			case 33:
+			case 34:
+				return new CompanyMetaCommonDownload(key);
 
 		default:
 			return new SimpleMetaCommonDownload(key);
@@ -161,8 +155,12 @@ public class DownFactory {
 		case 31:
 		case 32:
 			return (GenericDataCommonDownload<T>) new PersonDataCommonDownload(siteFlag, (PersonData) data, count, key);
+			case 33:
+			case 34:
+				return (GenericDataCommonDownload<T>) new CompanyDataCommonDownload(siteFlag,(CompanyData)data,count,key);
 		default:
 			return (GenericDataCommonDownload<T>) new SimpleDataCommonDownload(siteFlag, (CommonData) data, count, key);
+
 		}
 	}
 

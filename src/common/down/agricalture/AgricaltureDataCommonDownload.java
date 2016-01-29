@@ -1,21 +1,20 @@
 package common.down.agricalture;
 
-import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
-
 import common.bean.AgricaltureData;
 import common.bean.HtmlInfo;
-import common.bean.NewsData;
 import common.down.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.StringUtil;
 import common.util.TimeUtil;
 
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+
 /**
  * 下载详细页面
  * 
- * @author grs
+ * @author gxd
  */
 public class AgricaltureDataCommonDownload extends GenericDataCommonDownload<AgricaltureData> implements Runnable {
 
