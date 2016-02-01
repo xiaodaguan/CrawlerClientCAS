@@ -28,6 +28,7 @@
 
 		<property name="siteExtractClass">
 			<map>
+				<entry key="pedaily_company_monitor" value="common.extractor.xpath.company.monitor.sub.PedailyExtractor" />
 				<entry key="cngold_conference_monitor" value="common.extractor.xpath.conference.monitor.sub.CngoldExtractor" />
 				<entry key="huiyi31_conference_monitor" value="common.extractor.xpath.conference.monitor.sub.Huiyi31Extractor" />
 				<entry key="hexun_blog_search" value="common.extractor.xpath.blog.search.sub.HexunExtractor" />

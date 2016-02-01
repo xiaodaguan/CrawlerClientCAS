@@ -35,9 +35,63 @@ public class CompanyMonitorXpathExtractor extends XpathExtractor<CompanyData> im
         this.parseUrl(list, domtree, comp.get("url"));
         this.parseIco(list, domtree, comp.get("ico"));
         this.parseAddress(list, domtree, comp.get("address"));
-        //todo
         this.parseField(list, domtree, comp.get("field"));
         this.parseProducts(list, domtree, comp.get("products"));
+    }
+
+    public void parseFundingExperience(CompanyData cd, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        String con = "";
+        for (int i = 0; i < nl.getLength(); i++) {
+            con += nl.item(i).getTextContent() + "\n";
+        }
+        cd.setFundingExperience(con);
+    }
+
+    public void parseBriefProducts(CompanyData cd, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        String con = "";
+        for (int i = 0; i < nl.getLength(); i++) {
+            con += nl.item(i).getTextContent() + "\n";
+        }
+        cd.setBriefProducts(con);
+    }
+
+    public void parseBrief(CompanyData cd, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        String con = "";
+        for (int i = 0; i < nl.getLength(); i++) {
+            con += nl.item(i).getTextContent() + "\n";
+        }
+        cd.setBrief(con);
+    }
+
+    public void parseContact(CompanyData cd, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        String con = "";
+        for (int i = 0; i < nl.getLength(); i++) {
+            con += nl.item(i).getTextContent() + "\n";
+        }
+        cd.setContact(con);
+    }
+
+    public void parseWebsite(CompanyData cd, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        String con = "";
+        for (int i = 0; i < nl.getLength(); i++) {
+            con += nl.item(i).getTextContent() + "\n";
+        }
+        cd.setWebsite(con);
     }
 
 
@@ -49,7 +103,7 @@ public class CompanyMonitorXpathExtractor extends XpathExtractor<CompanyData> im
         for (int i = 0; i < nl.getLength(); i++) {
             con += nl.item(i).getTextContent() + "\n";
         }
-        cd.setContent(con);
+        cd.setFoundDate(con);
     }
 
     public void parseProducts(List<CompanyData> list, Node dom, Component component, String... args) {
