@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -23,13 +23,7 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="2fa34fe2-9ce0-4caf-9665-1501b94b49dc">
-        <schema name="JINRONG" object-types="cluster, column, constraint, dblink, dimension, function, index, materialized view, nested table, package, procedure, sequence, synonym, table, dataset trigger, database trigger, type, view" />
-        <schema name="PUBLIC" object-types="function, materialized view, package, sequence, synonym, table, type, view" />
-        <schema name="SYS" object-types="synonym, type, view" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="2fa34fe2-9ce0-4caf-9665-1501b94b49dc">

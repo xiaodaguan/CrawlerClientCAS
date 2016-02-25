@@ -15,6 +15,15 @@ public class CompanyData extends CommonData {
 	private String brief;//简介
 	private String briefProducts;//相关产品简介
 	private String fundingExperience;//融资经历
+	private String shortName;//简称
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
 
 	public String getIco() {
 		return ico;

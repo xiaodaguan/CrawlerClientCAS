@@ -30,13 +30,16 @@ public class CompanyOracleService extends OracleService<CompanyData> {
             "website," +
             "md5," +
             "title," +
-            "url" +
+            "url," +
+            "short_name,"+
+            "search_keyword"+
             ")" +
             " values" +
             "(" +
             "?,?,?,?,?," +
             "?,?,?,?,?," +
-            "?,?,?,?" +
+            "?,?,?,?,?," +
+            "?"+
             ")";
 
     public void saveData(final CompanyData vd) {
@@ -61,6 +64,8 @@ public class CompanyOracleService extends OracleService<CompanyData> {
                 ps.setString(12, vd.getMd5());
                 ps.setString(13, vd.getTitle());
                 ps.setString(14, vd.getUrl());
+                ps.setString(15,vd.getShortName());
+                ps.setString(16,vd.getSearchKey());
                 return ps;
             }
         }, keyHolder);

@@ -37,7 +37,7 @@ public class Job {
      * @return
      */
     private static boolean filter(String site) {
-        if (site.contains(""))// site
+        if (site.contains("baidu"))// site
             return false;
         return true;
     }

@@ -1,15 +1,8 @@
 package common.down.weibo;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
+import common.bean.HtmlInfo;
 import common.bean.UserData;
 import common.bean.WeiboData;
-import common.bean.HtmlInfo;
 import common.down.GenericMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
@@ -19,14 +12,19 @@ import common.rmi.packet.ViewInfo.InnerInfo;
 import common.service.mysql.WeiboMysqlService;
 import common.service.oracle.WeiboOracleService;
 import common.siteinfo.CollectDataType;
-import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttr;
 import common.system.UserManager;
 import common.util.TimeUtil;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 /**
- * 下载元数据
+ * 微博监控列表页下载
  * 
  * @author grs
  */

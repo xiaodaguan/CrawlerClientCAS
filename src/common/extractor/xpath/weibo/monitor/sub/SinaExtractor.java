@@ -253,7 +253,7 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
         if (component == null) return;
         NodeList nl = head(component.getXpath(), domtree, list.size(), component.getName());
         for (int i = 0; i < nl.getLength(); i++) {
-            list.get(i).setUid(nl.item(i).getTextContent().replace("id=", ""));
+            list.get(i).setUid(nl.item(i).getTextContent().replace("/", ""));
         }
     }
 

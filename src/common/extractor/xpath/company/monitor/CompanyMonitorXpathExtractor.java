@@ -26,6 +26,7 @@ public class CompanyMonitorXpathExtractor extends XpathExtractor<CompanyData> im
         this.parseBrief(data, domtree, comp.get("brief"));
         this.parseBriefProducts(data, domtree, comp.get("brief_products"));
         this.parseFundingExperience(data, domtree, comp.get("funding_experience"));
+
     }
 
     @Override
@@ -37,6 +38,16 @@ public class CompanyMonitorXpathExtractor extends XpathExtractor<CompanyData> im
         this.parseAddress(list, domtree, comp.get("address"));
         this.parseField(list, domtree, comp.get("field"));
         this.parseProducts(list, domtree, comp.get("products"));
+        this.parseShortName(list, domtree, comp.get("short_name"));
+    }
+
+    public void parseShortName(List<CompanyData> list, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
+        if (nl == null) return;
+        for (int i = 0; i < nl.getLength(); i++) {
+            list.get(i).setShortName(nl.item(i).getTextContent());
+        }
     }
 
     public void parseFundingExperience(CompanyData cd, Node dom, Component component, String... args) {

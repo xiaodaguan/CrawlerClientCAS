@@ -1,16 +1,15 @@
 package common.extractor.xpath.news.search.sub;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import common.bean.NewsData;
 import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 /**
  * 百度新闻搜索特殊属性抽取
  * @author grs
@@ -36,7 +35,8 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 			Component component, String... args) {
 		if(component == null) return;
 		for(int i = 0;i < list.size();i++) {
-			NodeList nl = commonList("//LI["+(i+1)+component.getXpath(), dom);
+			String xpath=component.getXpath().replace("index",(i+1)+"");
+			NodeList nl = commonList(xpath, dom);
 			if(nl.item(0)!=null) {
 				list.get(i).setSameUrl(urlProcess(component, nl.item(0)));
 			}
@@ -147,7 +147,8 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 		Component component, String... args) {
 		if(component == null) return;
 		for(int i = 0;i < list.size();i++) {
-			NodeList nl = commonList("//LI["+(i+1)+component.getXpath(), dom);
+			String xpath=component.getXpath().replace("index",(i+1)+"");
+			NodeList nl = commonList(xpath, dom);
 			if(nl.item(0)!=null) {
 				String s = StringUtil.extrator(nl.item(0).getTextContent(), "\\d+");
 				list.get(i).setSamenum(Integer.parseInt(s==null?"0":s));

@@ -21,10 +21,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
- * 下载元数据
+ * 微博账号监控列表页下载
  *
  * @author grs
  */
@@ -80,7 +79,9 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
         try {
             if (nexturl != null && !nexturl.equals("")) {
                 html.setOrignUrl(nexturl);
-
+                /**
+                 * 先解析博主
+                 */
                 try {
                     http.getContent(html, userAttr);
                     // html.setContent(common.util.StringUtil.getContent("filedown/USER/sina_weibo_monitor/51d4cea4821e13b750088647e44f2543.htm"));
@@ -118,6 +119,9 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
             // Future<?> follow = followexec.submit(new
             // FollowCommonDownload(followKey, user.getId(), userAttr));
 
+            /**
+             * 再采集博主的微博
+             */
             WeiboData data = new WeiboData();
             if (userData.getWeiboUrl() == null) {
                 data.setUrl(nexturl);
@@ -125,7 +129,10 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
                 data.setUrl(userData.getWeiboUrl());
             data.setId(userData.getId());
             data.setCategoryCode(userData.getCategoryCode());
-            Future<?> weibo = weiboexec.submit(new WeiboDataCommonDownload(siteFlag, data, null, userAttr, key));
+//            Future<?> weibo = weiboexec.submit(new WeiboDataCommonDownload(siteFlag, data, null, userAttr, key));
+
+            WeiboDataCommonDownload wdcd=new WeiboDataCommonDownload(siteFlag,data,null,userAttr,key);
+            wdcd.process();
 
             // try {
             // fans.get();
@@ -137,12 +144,12 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
             // } catch (Exception e) {
             // e.printStackTrace();
             // }
-            try {
-                weibo.get();
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }
+//            try {
+//                weibo.get();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//
+//            }
         } finally {
             UserManager.releaseUser(siteFlag, userAttr);
         }

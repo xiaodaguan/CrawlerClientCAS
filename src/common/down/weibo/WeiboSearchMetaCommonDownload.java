@@ -22,6 +22,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+/**
+ * 微博搜索列表页下载
+ */
 public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<WeiboData> {
 
 	public WeiboSearchMetaCommonDownload(SearchKey key) {

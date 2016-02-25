@@ -39,8 +39,9 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
      * 解析博主信息
      *
      * @param html
-     * @param siteFlag
-     * @param collectFlag
+     * @param data
+     * @param first
+     * @param keyword
      * @throws IOException
      * @throws SAXException
      */
@@ -193,13 +194,17 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
         }
         CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
         parseCommentAuthor(list, domtree, comp.getComponents().get("comment_author"));
-        parseCommentAuthorUrl(list, domtree, comp.getComponents().get("comment_author_url"));
-        parseCommentAuthorImg(list, domtree, comp.getComponents().get("comment_author_img"));
-        parseCommentTime(list, domtree, comp.getComponents().get("comment_time"));
-        parseCommentContent(list, domtree, comp.getComponents().get("comment_content"));
-        parseCommentUid(list, domtree, comp.getComponents().get("comment_uid"));
-        for (WeiboData wd : list) {
-            wd.setMd5(MD5Util.MD5(wd.getUid() + wd.getPubtime()));
+        if(list.size()==0) {
+            Systemconfig.sysLog.log("没有抓取到评论."+html.getOrignUrl());
+            return null;
+        }
+            parseCommentAuthorUrl(list, domtree, comp.getComponents().get("comment_author_url"));
+            parseCommentAuthorImg(list, domtree, comp.getComponents().get("comment_author_img"));
+            parseCommentTime(list, domtree, comp.getComponents().get("comment_time"));
+            parseCommentContent(list, domtree, comp.getComponents().get("comment_content"));
+            parseCommentUid(list, domtree, comp.getComponents().get("comment_uid"));
+            for (WeiboData wd : list) {
+                wd.setMd5(MD5Util.MD5(wd.getUid() + wd.getPubtime()));
             wd.setId(Integer.parseInt(keyword[0]));
             wd.setInserttime(new Date());
         }
@@ -470,6 +475,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
         if (nl == null) return;
         for (int i = 0; i < nl.getLength(); i++) {
             list.get(i).setBrief(nl.item(i).getTextContent());
+            list.get(i).setContent(nl.item(i).getTextContent());
         }
     }
 

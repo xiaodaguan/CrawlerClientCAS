@@ -28,8 +28,8 @@
 	<prop name="keyword" value="//INPUT[@id='kw']/@value" />
 	
 	<prop name="refer_num" value="//SPAN[@class='nums']" />
-	<prop name="same_num" value="]/DIV//A[contains(.,'相同新闻')]" />
-	<prop name="same_url" value="]/DIV//A[contains(.,'相同新闻')]/@href" />
+	<prop name="same_num" value="//DIV[@class='result'][index]//SPAN/A[contains(.,'相同新闻')]" />
+	<prop name="same_url" value="//DIV[@class='result'][index]//SPAN/A[contains(.,'相同新闻')]/@href" />
 	<prop name="cache" value="//A[contains(.,'百度快照')]/@href" />
 	
 	<prop name="next_prefix" value="http://news.baidu.com" />

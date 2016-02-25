@@ -17,10 +17,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
- * 下载详细页面
+ * 博主微博下载:列表页(采集全部属性)
  *
  * @author grs
  */
@@ -142,29 +144,34 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     break;
                 }
             }
-            Systemconfig.dbService.saveDatas(alllist);
-            Systemconfig.sysLog.log("saved." + alllist.size());
-            for (int i = 0; i < alllist.size(); i++)
+
+            /**
+             *  根据需要采集转发评论
+             */
+            process(alllist);
+//            Systemconfig.dbService.saveDatas(alllist);
+            for (int i = 0; i < alllist.size(); i++) {
                 synchronized (key) {
                     key.savedCountIncrease();
                 }
+            }
+            Systemconfig.sysLog.log("saved." + alllist.size());
             alllist.clear();
 
-        } catch (IOException e) {
-            // 4605 6.20 pm 4:00 zhiqian
-            e.printStackTrace();
-            try {
-                Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+//        } catch (IOException e) {
+//            // 4605 6.20 pm 4:00 zhiqian
+//            e.printStackTrace();
+//            try {
+//                Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
+//        }
         } finally {
             alllist.clear();
             list.clear();
             TimeUtil.rest(siteinfo.getDownInterval());
         }
-        // 根据需要采集转发评论
-        process(alllist);
     }
 
     private ExecutorService comes = Executors.newFixedThreadPool(5);
@@ -173,29 +180,46 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
     private void process(List<WeiboData> list) {
 
         for (WeiboData wd : list) {
-            if (wd.getCommentNum() > 0) {
-                key.setKey(wd.getCommentUrl());
-                Future<?> com = comes.submit(new WeiboCommentDownload(key, wd.getId(), user));
-                try {
-                    com.get();
-                } catch (InterruptedException e) {
-                    com.cancel(true);
-                } catch (ExecutionException e) {
-                    com.cancel(true);
-                }
+            /**
+             * 采集评论
+             */
+            Systemconfig.sysLog.log("开始采集微博: " + wd.getUrl() + " 的评论...");
+//            if (wd.getCommentNum() > 0) {
+//                key.setKey(wd.getCommentUrl());
+//                Future<?> com = comes.submit(new WeiboCommentDownload(key, wd.getId(), user));
+//                try {
+//                    com.get();
+//                } catch (InterruptedException e) {
+//                    com.cancel(true);
+//                } catch (ExecutionException e) {
+//                    com.cancel(true);
+//                }
+//            }
+            key.setKey(wd.getCommentUrl());
+            WeiboCommentDownload wcd = new WeiboCommentDownload(key, wd.getId(), user);
+            wcd.process();
+            try {
+                Systemconfig.dbService.saveData(wd);
+                Systemconfig.sysLog.log("微博: "+wd.getUrl()+" 保存完成.");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            if (wd.getRttNum() > 0) {
-                key.setKey(wd.getRttUrl());
-                Future<?> rtt = rttes.submit(new WeiboRttDownload(key, wd.getId(), user));
-                try {
-                    rtt.get();
-                } catch (InterruptedException e) {
-                    rtt.cancel(true);
-                } catch (ExecutionException e) {
-                    rtt.cancel(true);
-                }
-            }
+
+            /**
+             * 采集转发
+             */
+//            if (wd.getRttNum() > 0) {
+//                key.setKey(wd.getRttUrl());
+//                Future<?> rtt = rttes.submit(new WeiboRttDownload(key, wd.getId(), user));
+//                try {
+//                    rtt.get();
+//                } catch (InterruptedException e) {
+//                    rtt.cancel(true);
+//                } catch (ExecutionException e) {
+//                    rtt.cancel(true);
+//                }
+//            }
         }
 
     }
