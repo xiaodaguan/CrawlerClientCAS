@@ -105,6 +105,12 @@ public class EbusinessHbaseService extends HbaseService<EbusinessData> {
 	
 	public void updateProxyOrder(String proxyInfo) {
 	}
+
+	@Override
+	public void saveCommentData(EbusinessData ebusinessData) throws IOException {
+		
+	}
+
 	/**
 	 * 随机返回一个header
 	 */

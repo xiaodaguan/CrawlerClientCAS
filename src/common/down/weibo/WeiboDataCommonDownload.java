@@ -62,8 +62,12 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     // http.getContent(html, user);//下载获取用户的微博页面
                     String html1 = html.getContent();// 页面html
                     String userName = StringUtil.regMatcher(html1, "\\$CONFIG\\['onick'\\]\\s*=\\s*'", "'");
+                    String uId = StringUtil.regMatcher(html1, "\\$CONFIG\\['uid'\\]\\s*=\\s*'", "'");
 
                     xpath.templateListPage(list, html, count, data.getId() + "", nexturl, data.getCategoryCode() + "", key.getKey(), userName);// 解析微博列表
+                    for (WeiboData wd : list) {
+                        wd.setUid(uId);
+                    }
 
                     if (list.size() == 0) {
                         Systemconfig.sysLog.log(url + "数据页面解析为空！！");
@@ -82,7 +86,10 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                         Systemconfig.sysLog.log("err--->mid");
                     }
                     String pageId = StringUtil.regMatcher(html1, "\\$CONFIG\\['page_id'\\]\\s*=\\s*'", "'");
-                    String uId = StringUtil.regMatcher(html1, "\\$CONFIG\\['uid'\\]\\s*=\\s*'", "'");
+                    uId = StringUtil.regMatcher(html1, "\\$CONFIG\\['uid'\\]\\s*=\\s*'", "'");
+                    if (uId == null) {
+                        System.out.println("debug.");
+                    }
                     String ajaxUrl1 = "http://weibo.com/p/aj/v6/mblog/mbloglist?ajwvr=6&" + "domain=100106&" + "is_search=0&" + "visible=0&" + "is_tag=0&" + "profile_ftype=1&" + "page=" + page + "&" + "pre_page=" + page + "&" + "max_id=&" + "end_id=" + list.get(0).getMid() + "&" + "pagebar=0&" + "filtered_min_id=&" + "pl_name=Pl_Official_MyProfileFeed__22&" + "id=" + pageId + "&" + "script_uri=/u/" + uId + "&" + "feed_type=0&" + "domain_op=100106";
                     // 下载第一次加载
                     URL url1 = new URL(ajaxUrl1);
@@ -113,16 +120,24 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     // 解析延时加载的内容
                     list.clear();
                     nexturl = xpath.templateListPage(list, html, count, data.getId() + "", nexturl, data.getCategoryCode() + "", key.getKey(), userName);// 解析微博列表
+                    for (WeiboData wd : list) {
+                        wd.setUid(uId);
+                    }
+
+
                     if (list.size() == 0) {
                         Systemconfig.sysLog.log(url + "下拉加载解析为空！！");
                         break;
                     }
-                    Systemconfig.sysLog.log(url + "下拉加载解析完成。" + list.size());
-
                     Systemconfig.dbService.getNorepeatData(list, "weibo_data");
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log(url + "无新数据.");
+                        Systemconfig.sysLog.log(url + "下拉加载解无新数据.");
                         break;
+                    }
+                    Systemconfig.sysLog.log(url + "下拉加载解析完成。" + list.size());
+
+                    for (WeiboData wd : list) {
+                        wd.setUid(uId);
                     }
                     alllist.addAll(list);
 
@@ -195,12 +210,25 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
 //                    com.cancel(true);
 //                }
 //            }
-            key.setKey(wd.getCommentUrl());
-            WeiboCommentDownload wcd = new WeiboCommentDownload(key, wd.getId(), user);
-            wcd.process();
+            if (wd.getCommentNum() > 0) {
+
+                if (wd.getUid() == null) {
+                    System.err.println("uid is missing.");
+                    continue;
+                }
+                if (wd.getMid() == null) {
+                    System.err.println("mid is missing.");
+                    continue;
+                }
+                String commUrl = "http://m.weibo.cn/" + wd.getUid() + "/" + wd.getMid() + "/rcMod?format=cards&type=comment&page=1";
+                key.setKey(commUrl);
+
+                WeiboCommentDownload wcd = new WeiboCommentDownload(key, wd.getId(), user);
+                wcd.process();
+            }
             try {
                 Systemconfig.dbService.saveData(wd);
-                Systemconfig.sysLog.log("微博: "+wd.getUrl()+" 保存完成.");
+                Systemconfig.sysLog.log("微博: " + wd.getUrl() + " 保存完成.");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 import java.util.Random;
@@ -21,6 +22,10 @@ import java.util.Random;
  * @author grs
  */
 public abstract class OracleService<T> extends AbstractDBService<T> {
+    @Override
+    public void saveCommentData(T t) throws IOException {
+
+    }
 
     @Override
     public void updateStatus(final CrawlerStatus cs, final CrawlerTaskStatus cts, final SearchKey key, final int type) {
@@ -186,7 +191,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         String clause = " where status=2";
         switch (Systemconfig.crawlerType) {
             case 1: {
-                clause += " and type like '%1%'";
+                clause += " and type like '%1%' and type <> 16 ";
                 break;
             }
             case 3:

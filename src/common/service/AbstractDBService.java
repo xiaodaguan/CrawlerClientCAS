@@ -1,34 +1,24 @@
 package common.service;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import common.bean.CommonData;
+import common.rmi.packet.CrawlerType;
+import common.rmi.packet.SearchKey;
+import common.system.SiteTemplateAttr;
+import common.system.Systemconfig;
+import common.system.UserAttr;
+import common.util.StringUtil;
+import common.util.UserAgent;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import common.bean.CommonData;
-import common.rmi.packet.CrawlerType;
-import common.rmi.packet.SearchKey;
-import common.system.Job;
-import common.system.SiteTemplateAttr;
-import common.system.Systemconfig;
-import common.system.UserAttr;
-import common.util.StringUtil;
-import common.util.UserAgent;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.sql.*;
+import java.util.*;
 
 public abstract class AbstractDBService<T> implements DBService<T> {
 
@@ -163,6 +153,12 @@ public abstract class AbstractDBService<T> implements DBService<T> {
 	public void saveDatas(List<T> list) throws IOException {
 		for (T t : list) {
 			saveData(t);
+		}
+	}
+	@Override
+	public void saveCommentDatas(List<T> list) throws IOException{
+		for(T t:  list){
+			saveCommentData(t);
 		}
 	}
 

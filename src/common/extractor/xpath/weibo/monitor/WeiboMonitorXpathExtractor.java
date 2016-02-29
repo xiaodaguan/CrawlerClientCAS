@@ -208,7 +208,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
             wd.setId(Integer.parseInt(keyword[0]));
             wd.setInserttime(new Date());
         }
-        String nextPage = parseCommentNext(domtree, comp.getComponents().get("comment_next"));
+        String nextPage = parseCommentNext(domtree, comp.getComponents().get("comment_next"),html.getOrignUrl());
         domtree = null;
         return nextPage;
     }

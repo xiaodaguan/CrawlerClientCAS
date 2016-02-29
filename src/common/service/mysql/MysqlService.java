@@ -1,20 +1,16 @@
 package common.service.mysql;
 
+import common.bean.*;
+import common.rmi.packet.SearchKey;
+import common.service.AbstractDBService;
+import common.system.Systemconfig;
+import org.springframework.jdbc.core.RowMapper;
+
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
-
-import org.springframework.jdbc.core.RowMapper;
-
-import common.bean.CrawlerStatus;
-import common.bean.CrawlerTaskStatus;
-import common.bean.Header;
-import common.bean.Proxy;
-import common.bean.WxpublicData;
-import common.rmi.packet.SearchKey;
-import common.service.AbstractDBService;
-import common.system.Systemconfig;
 
 /**
  * 数据库操作
@@ -22,6 +18,10 @@ import common.system.Systemconfig;
  *
  */
 public abstract class MysqlService<T> extends AbstractDBService<T> {
+	@Override
+	public void saveCommentData(T t) throws IOException {
+
+	}
 	public void updateProxyOrder(String proxyInfo) {
 	}
 	public int saveGongzhongData(WxpublicData wpd) {

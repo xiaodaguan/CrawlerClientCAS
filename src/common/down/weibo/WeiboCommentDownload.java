@@ -38,7 +38,7 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(siteFlag);
         String url = getRealUrl(siteinfo, gloaburl);
         String wbUrl = url;
-        String nexturl = url.replace("http://s.weibo.com/weibo/", "");
+        String nexturl = url;
         HtmlInfo html = htmlInfo(CollectDataType.COMM.name());
         try {
             while (nexturl != null && !nexturl.equals("")) {
@@ -48,6 +48,11 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
 
                 try {
                     http.getContent(html, user);
+                    if(html.getContent()==null||html.getContent().equals(""))
+                    {
+//                        nexturl="http://m.weibo.cn/"+1435160552/3945741208568191/rcMod?format=cards&type=comment&hot=1
+                    }
+
 
                     nexturl = ((WeiboMonitorXpathExtractor) ((XpathExtractor) xpath)).templateComment(list, html, 0, id + "", nexturl);
 
@@ -59,13 +64,17 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
 
                     Systemconfig.dbService.getNorepeatData(list, "");
                     if (list.size() == 0) break;
+
                     alllist.addAll(list);
 
                     url = nexturl;
-                    TimeUtil.rest(siteinfo.getDownInterval());
+//                    break;
+                    TimeUtil.rest(5);
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.err.println("err while downloading: " + nexturl);
+                    System.err.println("wb url " + wbUrl);
                     try {
                         Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
                     } catch (IOException e1) {
@@ -74,10 +83,12 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
                     break;
                 }
             }
-            Systemconfig.dbService.saveDatas(alllist);
+            Systemconfig.dbService.saveCommentDatas(alllist);
             Systemconfig.sysLog.log("微博: " + wbUrl + " 评论保存完成.");
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("err while parsing comments:" + nexturl);
+            System.err.println("webo url: " + wbUrl);
         } finally {
             alllist.clear();
             list.clear();

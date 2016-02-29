@@ -4,9 +4,15 @@ import common.bean.HtmlInfo;
 import common.bean.UserData;
 import common.bean.WeiboData;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
+import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
+import common.siteinfo.Siteinfo;
+import common.system.Systemconfig;
 import common.util.JsonUtil;
+import common.util.MD5Util;
 import common.util.StringUtil;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -45,6 +51,117 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
     // return super.getRealDOM(html);
     //
     // }
+
+    /**
+     * 覆盖微博评论解析方法,解析移动版json文件
+     *
+     * @param list
+     * @param html
+     * @param page
+     * @param keyword
+     * @return
+     * @throws SAXException
+     * @throws IOException
+     */
+    @Override
+    public String templateComment(List<WeiboData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+        Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
+//        Node domtree = getRealDOM(html);
+//        if (domtree == null) {
+//            Systemconfig.sysLog.log("DOM解析为NULL！！");
+//            return null;
+//
+        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
+        String cont = html.getContent();
+        if(cont.contains("\"msg\": null")){
+            return null;
+        }
+        /**
+         * 解析json
+         */
+//        System.out.println(cont);
+        JSONArray root = null;
+        try {
+            root = JSONArray.fromObject(cont);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("json content: \r\n" + cont);
+        }
+
+//        JSONArray cardGroup = null;
+//        if (root.size() > 1) cardGroup = (JSONArray) root.getJSONObject(1).get("card_group");
+//        else cardGroup = (JSONArray) root.getJSONObject(0).get("card_group");
+//        if (cardGroup == null) {
+//            System.out.println("debug");
+//        }
+        for (int j = 0; j < root.size(); j++) {
+            JSONObject child = root.getJSONObject(j);
+            JSONArray cardGroup = null;
+            if (child.get("card_group") == null) continue;
+            else {
+                cardGroup = (JSONArray) child.get("card_group");
+            }
+            for (int i = 0; i < cardGroup.size(); i++) {
+                WeiboData wd = new WeiboData();
+
+                JSONObject comment = cardGroup.getJSONObject(i);
+                String commentId = comment.getLong("id") + "";
+//            wd.setMid(commentId);
+                String commentPubtime = comment.getString("created_at");
+                wd.setPubtime(commentPubtime);
+                wd.setPubdate(timeprocess(commentPubtime));
+                String commentSource = comment.getString("source");
+                wd.setSource(commentSource);
+                JSONObject commentUser = comment.getJSONObject("user");
+                {
+                    String commentUserId = commentUser.getLong("id") + "";
+                    wd.setUid(commentUserId);
+                    String commentUserName = commentUser.getString("screen_name");
+                    wd.setAuthor(commentUserName);
+                    String commentUserImg = commentUser.getString("profile_image_url");
+                    wd.setAuthorImg(commentUserImg);
+                    String commentUserUrl = "http://weibo.com" + commentUser.getString("profile_url");
+                    wd.setAuthorurl(commentUserUrl);
+                }
+                String commentContent = comment.getString("text");
+                wd.setContent(commentContent);
+                String commentLikeCount = comment.getInt("like_counts") + "";
+                //todo
+                String commentUrl = comment.getString("url");
+                wd.setCommentUrl(commentUrl);
+                wd.setUrl(html.getOrignUrl());
+                list.add(wd);
+
+
+//                System.out.println(commentUrl);
+
+            }
+        }
+
+//        parseCommentAuthorUrl(list, domtree, comp.getComponents().get("comment_author_url"));
+//        parseCommentAuthorImg(list, domtree, comp.getComponents().get("comment_author_img"));
+//        parseCommentTime(list, domtree, comp.getComponents().get("comment_time"));
+//        parseCommentContent(list, domtree, comp.getComponents().get("comment_content"));
+//        parseCommentUid(list, domtree, comp.getComponents().get("comment_uid"));
+        for (WeiboData wd : list) {
+            wd.setMd5(MD5Util.MD5(wd.getUid() + wd.getPubtime()));
+            wd.setId(Integer.parseInt(keyword[0]));
+//            wd.setInserttime(new Date());
+        }
+
+        Node domtree = null;
+        String nextPage = parseCommentNext(domtree, comp.getComponents().get("comment_next"), keyword[1]);
+        return nextPage;
+    }
+
+    @Override
+    public String parseCommentNext(Node domtree, Component component, String... args) {
+        String currUrl = args[0];
+        String currPage = currUrl.substring(currUrl.lastIndexOf("&page=") + 6);
+        int currPageNum = Integer.parseInt(currPage);
+        String nextUrl = currUrl.replace("&page=" + currPage, "&page=" + (currPageNum + 1));
+        return nextUrl;
+    }
 
     @Override
     protected Node getRealDOM(HtmlInfo html) throws SAXException, IOException {
@@ -237,7 +354,10 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
     @Override
     public void parseWeiboCommentUrl(List<WeiboData> list, Node dom, Component component, String... args) {
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).setCommentUrl("http://weibo.com/aj/comment/big?id=" + list.get(i).getMid());
+//            list.get(i).setCommentUrl("http://weibo.com/aj/comment/big?id=" + list.get(i).getMid());
+            if (list.get(i).getMid() != null) {
+                list.get(i).setCommentUrl("http://m.weibo.cn/single/rcList?format=cards&id=" + list.get(i).getMid() + "&type=comment&hot=0&page=1");
+            }
         }
     }
 
