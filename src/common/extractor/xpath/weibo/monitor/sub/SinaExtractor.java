@@ -129,6 +129,7 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
                 //todo
                 String commentUrl = comment.getString("url");
                 wd.setCommentUrl(commentUrl);
+                wd.setMid(commentUrl.substring(commentUrl.indexOf("/comment?id=")+12,commentUrl.indexOf("&reply=")));
                 wd.setUrl(html.getOrignUrl());
                 list.add(wd);
 

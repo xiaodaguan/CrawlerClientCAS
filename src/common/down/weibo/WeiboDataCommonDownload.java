@@ -225,6 +225,9 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
 
                 WeiboCommentDownload wcd = new WeiboCommentDownload(key, wd.getId(), user);
                 wcd.process();
+            }else
+            {
+                Systemconfig.sysLog.log("微博:"+wd.getUrl()+" 无评论");
             }
             try {
                 Systemconfig.dbService.saveData(wd);
