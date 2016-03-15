@@ -90,13 +90,13 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         } else if (type == 4) {// downloading
             String sql = "update crawler_status set status=?, url_count=?, down_count = ?, saved_count=?, insert_time = ? where id = ?";
             this.jdbcTemplate.update(sql, cts.getStatus(), cts.getFetchCount(), cts.getDownCount(), cts.getSavedCount(), new Timestamp(System.currentTimeMillis()), cts.getDbID());
-			/* 更新父任务(爬虫)状态 */
+            /* 更新父任务(爬虫)状态 */
             this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
 
         } else if (type == 5) {// (task)complete
             String sql = "update crawler_status set status = ?, saved_count=?, insert_time = ? where id = ?";
             this.jdbcTemplate.update(sql, cts.getStatus(), cts.getSavedCount(), new Timestamp(System.currentTimeMillis()), cts.getDbID());
-			/* 更新父任务(爬虫)状态 */
+            /* 更新父任务(爬虫)状态 */
             this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
 
         } else if (type == 6) {// (crawler)complete
@@ -144,9 +144,13 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         Systemconfig.sysLog.log("proxy:{" + proxy_info + "} last used updated.");
     }
 
+
+    public static String HEADER_TABLE = "headers";
+
     @Override
     public Header randomHeaderFromDB() {
-        String sql = "select id, cookie ,user_agent, host, accept, accept_language, accept_encoding, connection, cache_control, referer " + "from headers where site_name = 'sogou'  and cookie not like '%-1%' and trunc(sysdate)-trunc(insert_time)<7 and cookie is not null";
+        String sql = "select id, cookie ,user_agent, host, accept, accept_language, accept_encoding, connection, cache_control, referer " + "from " + HEADER_TABLE + " where site_name = 'sogou'  and cookie not like '%-1%' and trunc(sysdate)-trunc(insert_time)<7 and cookie is not null";
+        System.out.println(sql);
         List<Header> headers = this.jdbcTemplate.query(sql, new RowMapper<Header>() {
 
             @Override
@@ -169,7 +173,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         });
 
         if (headers.size() > 0) {
-			/* 随机返回一个 */
+            /* 随机返回一个 */
             Random random = new Random();
             int num = random.nextInt(headers.size());
 
@@ -185,42 +189,45 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
 
     @Override
     public List<SearchKey> searchKeys() {
+
+
+        this.jdbcTemplate.update("update search_keyword set type = ';'||type where type not like ';%'");
+        this.jdbcTemplate.update("update search_keyword set type = type||';' where type not like '%;'");
         String table = "search_keyword";
         String col = "keyword";
         String sql = null;
         String clause = " where status=2";
         switch (Systemconfig.crawlerType) {
             case 1: {
-                clause += " and type like '%1%' and type <> 16 ";
+                //news
+                clause += " and type like '%;1;%' ";
                 break;
             }
-            case 3:
-            case 5:
-            case 7:
-            case 9:
-            case 11:
+            case 3: {
+                //forum
+                clause += " and type like '%;2;%' ";
+                break;
+            }
+            case 5: {
+                //blog
+                clause += " and type like '%;3;%' ";
+                break;
+
+            }
+            case 7: {
+                //weibo
+                clause += " and type like '%;4;%' ";
+                break;
+            }
             case 15: {
-                clause += " and category1 != 1 and type like '%1%'";
+//                weixin
+                clause += " and type like '%;8;%' ";
                 break;
             }
-            case 13: {
-                clause += " and type like '%2%'";
-                break;
-            }
-            case 21: {
-                clause += " and type like '%3%'";
-                break;
-            }
-            case 27:
-            case 29: {
-                //
-                break;
-            }
+
             case 31: {
+                //person
                 clause += " and type like '%16%' ";
-                break;
-            }
-            case 33: {
                 break;
             }
             case 2:

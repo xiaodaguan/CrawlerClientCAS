@@ -1,17 +1,53 @@
 package common.extractor.xpath.blog.search.sub;
 
-import java.util.List;
-
+import common.bean.BlogData;
+import common.bean.HtmlInfo;
+import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
+import common.siteinfo.Component;
+import common.system.Systemconfig;
+import common.util.ExtractResult;
+import common.util.StringUtil;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.BlogData;
-import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
-import common.siteinfo.Component;
-import common.util.StringUtil;
+import java.sql.Timestamp;
+import java.util.List;
 
 
-public class SougouExtractor extends BlogSearchXpathExtractor {
+public class SogouExtractor extends BlogSearchXpathExtractor {
+
+	@Override
+	public String templateContentPage(BlogData data, HtmlInfo html, int page, String... keyword) {
+		ExtractResult result = null;
+		try {
+			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
+		} catch (Exception e) {
+			Systemconfig.sysLog.log("出错url：" + html.getOrignUrl());
+			e.printStackTrace();
+		}
+		String title = data.getTitle() == null ? result.getTitle() : data.getTitle();
+		// 标题需要处理
+		// 搜索词里面带有特殊符号的情况
+		boolean spe = false;
+		if (data.getSearchKey().indexOf("_") > -1 || data.getSearchKey().indexOf("-") > -1) {
+			spe = true;
+			title = title.replace(data.getSearchKey(), "{temp}");
+		}
+		// 其他情况
+		if (title.indexOf("_") > -1) {
+			title = title.split("_")[0].trim();
+		}
+		// if(title.indexOf("-") > -1) {
+		// title = title.split("-")[0].trim();
+		// }
+		if (spe)
+			title = title.replace("{temp}", data.getSearchKey());
+		data.setTitle(title);
+		data.setContent(result.getContent());
+		data.setImgUrl(result.getImgs());
+		data.setInserttime(new Timestamp(System.currentTimeMillis()));
+		return null;
+	}
 
 	@Override
 	public void parseAuthor(List<BlogData> list, Node dom,

@@ -68,7 +68,7 @@
 				<entry key="qtv_bbs_monitor" value="common.extractor.xpath.bbs.monitor.sub.QtvExtractor" />
 
 				<entry key="google_blog_search" value="common.extractor.xpath.blog.search.sub.GoogleExtractor" />
-				<entry key="sougou_blog_search" value="common.extractor.xpath.blog.search.sub.SougouExtractor" />
+				<entry key="sogou_blog_search" value="common.extractor.xpath.blog.search.sub.SogouExtractor" />
 
 				<entry key="renren_weibo_search" value="common.extractor.xpath.weibo.search.sub.RenrenExtractor" />
 				<entry key="sina_weibo_search" value="common.extractor.xpath.weibo.search.sub.SinaExtractor" />

@@ -1,28 +1,14 @@
 package common.extractor.xpath.blog.search;
 
-import java.io.File;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import common.bean.BlogData;
+import common.extractor.xpath.XpathExtractor;
+import common.siteinfo.Component;
+import common.util.StringUtil;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
-import common.bean.WeixinData;
-import common.bean.BlogData;
-import common.extractor.xpath.XpathExtractor;
-import common.siteinfo.CommonComponent;
-import common.siteinfo.Component;
-import common.siteinfo.Siteinfo;
-import common.system.Systemconfig;
-import common.util.DOMUtil;
-import common.util.ExtractResult;
-import common.util.MD5Util;
-import common.util.StringUtil;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 抽取实现类
@@ -30,6 +16,7 @@ import common.util.StringUtil;
  * @author grs
  */
 public class BlogSearchXpathExtractor extends XpathExtractor<BlogData> implements BlogSearchExtractorAttribute {
+
 
 	@Override public void processPage(BlogData data, Node domtree, Map<String, Component> comp, String... args) {
 
@@ -137,7 +124,7 @@ public class BlogSearchXpathExtractor extends XpathExtractor<BlogData> implement
 			data.setBlogAuthor(StringUtil.format(nl.item(0).getTextContent()));
 	}
 
-	private void parseContent(BlogData data, Node domtree, Component component, String... strings) {
+	protected void parseContent(BlogData data, Node domtree, Component component, String... strings) {
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), domtree);

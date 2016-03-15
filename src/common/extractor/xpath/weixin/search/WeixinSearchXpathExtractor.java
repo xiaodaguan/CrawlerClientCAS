@@ -39,433 +39,434 @@ import java.util.Map;
  */
 public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> implements WeixinSearchExtractorAttribute {
 
-	@Override
-	public void parseUrl(List<WeixinData> list, Node dom, Component component, String... args) {
-		/**
-		 * args: 0 cookie 1 referer 2 domain id
-		 */
-		if (args[0] == null || args[0] == "")
-			return;
 
-		if (component == null)
-			return;
-		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
-		if (nl == null)
-			return;
+    public void parseUrl1(List<WeixinData> list, Node dom, Component component, String... args) {
+        if (args[0] == null || args[0] == "") {
+            return;
+        }
+        if (component == null) return;
+        NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
+        if (nl == null) return;
+        for (int i = 0; i < nl.getLength(); i++) {
+            String url = "http://weixin.sogou.com" + urlProcess(component, nl.item(i));
+            list.get(i).setUrl(url);
+        }
 
-		String cookie = args[0];
-		String referer = args[1];
-		for (int i = 0; i < nl.getLength(); i++) {
-			String tmpUrl = "http://weixin.sogou.com" + urlProcess(component, nl.item(i));
 
-			Proxy p = Systemconfig.dbService.getProxy(Integer.parseInt(args[2]));
+    }
 
-			java.net.Proxy proxy = null;
-			if (p != null)
-				proxy = new java.net.Proxy(java.net.Proxy.Type.HTTP, new InetSocketAddress(p.gethHost().getHostName(), p.gethHost().getPort()));
+    @Override
+    public void parseUrl(List<WeixinData> list, Node dom, Component component, String... args) {
+        /**
+         * args: 0 cookie 1 referer 2 domain id
+         */
+        if (args[0] == null || args[0] == "") return;
 
-			String loc = null;
-			try {
-				Systemconfig.sysLog.log("url：" + tmpUrl);
-				Systemconfig.sysLog.log("本次请求通过代理：" + proxy);
-				HttpURLConnection conn = null;
-				if (p != null)
-					conn = (HttpURLConnection) new URL(tmpUrl).openConnection(proxy);
-				else {
-					conn = (HttpURLConnection) new URL(tmpUrl).openConnection();
-				}
-				Systemconfig.dbService.updateProxyOrder(p.gethHost().getHostName() + ":" + p.gethHost().getPort() + ":" + args[2]);
+        if (component == null) return;
+        NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
+        if (nl == null) return;
 
-				conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:38.0) Gecko/20100101 Firefox/38.0");
-				conn.setRequestProperty("Cookie", cookie);
-				conn.setRequestProperty("Referer", referer);
-				HttpURLConnection.setFollowRedirects(false);
-				conn.setFollowRedirects(false);
-				conn.connect();
-				loc = conn.getHeaderField("Location");
-				if (loc != null) {
-					Systemconfig.sysLog.log(conn.getResponseMessage());
-					if (loc.contains("antispider")) {
-						Systemconfig.sysLog.log("ip被屏蔽，请手动验证！@详情页");
-						System.in.read();
-						i--;
-						continue;
-					}
-				}
-				Systemconfig.sysLog.log("real url: " + loc);
+        String cookie = args[0];
+        String referer = args[1];
+        for (int i = 0; i < nl.getLength(); i++) {
+            String tmpUrl = "http://weixin.sogou.com" + urlProcess(component, nl.item(i));
 
-				int sleepTime = 30 + (int) (Math.random() * 30);
-				// int sleepTime = 2;
-				Systemconfig.sysLog.log("sleep..." + sleepTime);
-				TimeUtil.rest(sleepTime);
+            Proxy p = Systemconfig.dbService.getProxy(Integer.parseInt(args[2]));
 
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            java.net.Proxy proxy = null;
+            if (p != null) proxy = new java.net.Proxy(java.net.Proxy.Type.HTTP, new InetSocketAddress(p.gethHost().getHostName(), p.gethHost().getPort()));
 
-			list.get(i).setUrl(loc == null ? "err." : loc);
-		}
+            String loc = null;
+            try {
+                Systemconfig.sysLog.log("url：" + tmpUrl);
+                Systemconfig.sysLog.log("本次请求通过代理：" + proxy);
+                HttpURLConnection conn = null;
+                if (p != null) conn = (HttpURLConnection) new URL(tmpUrl).openConnection(proxy);
+                else {
+                    conn = (HttpURLConnection) new URL(tmpUrl).openConnection();
+                }
+                Systemconfig.dbService.updateProxyOrder(p.gethHost().getHostName() + ":" + p.gethHost().getPort() + ":" + args[2]);
 
-	}
+                conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:38.0) Gecko/20100101 Firefox/38.0");
+                conn.setRequestProperty("Cookie", cookie);
+                conn.setRequestProperty("Referer", referer);
+                HttpURLConnection.setFollowRedirects(false);
+                conn.setFollowRedirects(false);
+                conn.connect();
+                loc = conn.getHeaderField("Location");
+                if (loc != null) {
+                    Systemconfig.sysLog.log(conn.getResponseMessage());
+                    if (loc.contains("antispider")) {
+                        Systemconfig.sysLog.log("ip被屏蔽，请手动验证！@详情页");
+                        System.in.read();
+                        i--;
+                        continue;
+                    }
+                }
+                Systemconfig.sysLog.log("real url: " + loc);
 
-	@Override
-	public void processList(List<WeixinData> list, Node domtree, Map<String, Component> comp, String... args) {
-		/**
-		 * args: 0 html content 1 siteflag 2 cookie 3 ... 4 search url 5 search
-		 * keyword 6 domain id
-		 */
+                int sleepTime = 30 + (int) (Math.random() * 30);
+                // int sleepTime = 2;
+                Systemconfig.sysLog.log("sleep..." + sleepTime);
+                TimeUtil.rest(sleepTime);
 
-		this.parseTitle(list, domtree, comp.get("title"));
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
-		if (list.size() == 0)
-			return;
+            list.get(i).setUrl(loc == null ? "err." : loc);
+        }
 
-		this.parseUrl(list, domtree, comp.get("url"), args[2], args[4], args[6]);
+    }
 
-		this.parseBrief(list, domtree, comp.get("brief"));
-		this.parseImg_brief(list, domtree, comp.get("img_brief"));
+    @Override
+    public void processList(List<WeixinData> list, Node domtree, Map<String, Component> comp, String... args) {
+        /**
+         * args: 0 html content 1 siteflag 2 cookie 3 ... 4 search url 5 search
+         * keyword 6 domain id
+         */
 
-	}
+        this.parseTitle(list, domtree, comp.get("title"));
 
-	@Override
-	public String templateListPage(List<WeixinData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
-		list.clear();
-		/**
-		 * keyword 0: search_keyword 1: search_url(list) 2: ... 3: cookies
-		 */
-		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
-		Node domtree = getRealDOM(html);
-		if (domtree == null) {
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
-			return null;
-		}
-		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));// 得到元数据的配置组件
+        if (list.size() == 0) return;
 
-		processList(list, domtree, comp.getComponents(), html.getContent(), String.valueOf(siteinfo.getSiteFlag()), keyword[3], keyword[2], keyword[1], keyword[0], siteinfo.getDomainId() + "");
-		if (list.size() == 0)
-			return null;
-		attrSet(list, siteinfo.getSiteFlag(), keyword[0], Integer.parseInt(keyword[2]), keyword[3]);
-		return parseNext(domtree, comp.getComponents().get("next"), new String[] { keyword[1], page + "" });
-	}
+//        this.parseUrl(list, domtree, comp.get("url"), args[2], args[4], args[6]);
+        this.parseUrl1(list, domtree, comp.get("url"), args[2], args[4], args[6]);
 
-	public static void main(String args[]) throws SAXException {
-		AppContext.initAppCtx("");
-		WeixinSearchXpathExtractor extractor = new WeixinSearchXpathExtractor();
-		WeixinData wd = new WeixinData();
-		wd.setWeixinName("tianjinluntan");
-		wd.setAuthor("天津论坛");
-		wd.setSource("天津论坛");
-		wd.setUrl("http://mp.weixin.qq.com/s?__biz=MzA3NjQwNDgwMQ==&mid=206615025&idx=3&sn=5d7138f96701fe22a7f3260ee94a68fb&3rd=MzA3MDU4NTYzMw==&scene=6#rd");
+        this.parseBrief(list, domtree, comp.get("brief"));
+        this.parsePubtime(list, domtree, comp.get("pubtime_l"));
+        this.parseImg_brief(list, domtree, comp.get("img_brief"));
 
-		HtmlInfo html = new HtmlInfo();
-		html.setEncode("utf-8");
-		html.setType("DATA");
-		html.setCookie(
-				"ABTEST=0|1428050026|v1; IPLOC=CN1200; SUID=2BB1E29FE518920A00000000551E506A; SUID=2BB1E29F2524920A00000000551E506A; SUV=008864049FE2B12B551E506A6FCAF436; weixinIndexVisited=1; SUIR=1428052952; SNUID=FF65364BD3D6C11DAF2665E6D40EF01C; sct=2; wapsogou_qq_nickname=");
-		extractor.parseGongzhong(wd, html, "");
-	}
+    }
 
-	@Override
-	public void processPage(WeixinData data, Node domtree, Map<String, Component> comp, String... args) {
-		this.parseSource(data, domtree, comp.get("source"));
-		this.parsePubtime(data, domtree, comp.get("pubtime"), args[0]);
-		this.parseAuthor(data, domtree, comp.get("author"));
-		this.parseContent(data, domtree, comp.get("content"));
-		this.parseImgUrl(data, domtree, comp.get("imgs_url"));
-		// this.parseNumber(data, domtree, comp.get(""));
-		this.parseWeixinName(data, domtree, comp.get("account"));
-	}
+    @Override
+    public String templateListPage(List<WeixinData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+        list.clear();
+        /**
+         * keyword 0: search_keyword 1: search_url(list) 2: ... 3: cookies
+         */
+        Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
+        Node domtree = getRealDOM(html);
+        if (domtree == null) {
+            Systemconfig.sysLog.log("DOM解析为NULL！！");
+            return null;
+        }
+        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));// 得到元数据的配置组件
 
-	public void parseGongzhong(WeixinData data, HtmlInfo html, String content) throws SAXException {
-		System.out.println("正在解析文章：" + data.getTitle() + "的公众号信息.");
-		String url = "http://weixin.sogou.com/weixin?type=1&query=" + data.getAuthor() + "&page=1";
-		int page = 1;
-		if (url != null)// 只在第一页搜索
-		{
-			System.out.println(page++ + "\t" + url);
-			HttpClient client = new HttpClient();
-			url = EncoderUtil.encodeKeyWords(url, "utf-8");
+        processList(list, domtree, comp.getComponents(), html.getContent(), String.valueOf(siteinfo.getSiteFlag()), keyword[3], keyword[2], keyword[1], keyword[0], siteinfo.getDomainId() + "");
+        if (list.size() == 0) return null;
+        attrSet(list, siteinfo.getSiteFlag(), keyword[0], Integer.parseInt(keyword[2]), keyword[3]);
+        return parseNext(domtree, comp.getComponents().get("next"), new String[]{keyword[1], page + ""});
+    }
 
-			GetMethod get = new GetMethod(url);
-			if (html.getCookie() != null) {
-				get.addRequestHeader("cookie", data.getCrawler_cookie());
-			}
+    public static void main(String args[]) throws SAXException {
+        AppContext.initAppCtx("");
+        WeixinSearchXpathExtractor extractor = new WeixinSearchXpathExtractor();
+        WeixinData wd = new WeixinData();
+        wd.setWeixinName("tianjinluntan");
+        wd.setAuthor("天津论坛");
+        wd.setSource("天津论坛");
+        wd.setUrl("http://mp.weixin.qq.com/s?__biz=MzA3NjQwNDgwMQ==&mid=206615025&idx=3&sn=5d7138f96701fe22a7f3260ee94a68fb&3rd=MzA3MDU4NTYzMw==&scene=6#rd");
 
-			try {
-				client.executeMethod(get);
-				get.getResponseBodyAsStream();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(get.getResponseBodyAsStream()));
-				String line = null;
-				StringBuilder sb = new StringBuilder();
-				while ((line = reader.readLine()) != null)
-					sb.append(line).append("\r\n");
-				String text = sb.toString();
-				// StringUtil.writeFile("tmp.htm", text.getBytes());
-				DOMUtil dom = new DOMUtil();
-				Node root = dom.ini(text, "utf-8");
-				Node n = XPathAPI.selectSingleNode(root, "//DIV[@href and contains(.,'" + data.getWeixinName() + "')]/@href");
-				if (n != null) {
-					String xBrief = "(//DIV[@href and contains(.,'" + data.getWeixinName() + "')]//SPAN[@class='sp-txt'])[1]";
-					String xUserIcon = "//DIV[@href and contains(.,'" + data.getWeixinName() + "')]//DIV[@class='img-box']/IMG/@src";
-					String xPosIcon = "//DIV[@href and contains(.,'" + data.getWeixinName() + "')]//DIV[@class='pos-ico']/DIV/IMG/@src";
-					String xVerify = "(//DIV[@href and contains(.,'" + data.getWeixinName() + "')]//SPAN[@class='sp-txt'])[2]";
-					// 找到匹配的公众号
-					String gongzhongUrl = n.getTextContent();
-					String brief = XPathAPI.selectSingleNode(root, xBrief).getTextContent();
-					String userIcon = XPathAPI.selectSingleNode(root, xUserIcon).getTextContent();
-					String posIcon = XPathAPI.selectSingleNode(root, xPosIcon).getTextContent();
-					String verify = XPathAPI.selectSingleNode(root, xVerify).getTextContent();
+        HtmlInfo html = new HtmlInfo();
+        html.setEncode("utf-8");
+        html.setType("DATA");
+        html.setCookie("ABTEST=0|1428050026|v1; IPLOC=CN1200; SUID=2BB1E29FE518920A00000000551E506A; SUID=2BB1E29F2524920A00000000551E506A; SUV=008864049FE2B12B551E506A6FCAF436; weixinIndexVisited=1; SUIR=1428052952; SNUID=FF65364BD3D6C11DAF2665E6D40EF01C; sct=2; wapsogou_qq_nickname=");
+        extractor.parseGongzhong(wd, html, "");
+    }
 
-					String openid = gongzhongUrl.substring(gongzhongUrl.indexOf("openid=") + 7);
+    @Override
+    public void processPage(WeixinData data, Node domtree, Map<String, Component> comp, String... args) {
+        this.parseSource(data, domtree, comp.get("source"));
+        this.parsePubtime(data, domtree, comp.get("pubtime"), args[0]);
+        this.parseAuthor(data, domtree, comp.get("author"));
+        this.parseContent(data, domtree, comp.get("content"));
+        this.parseImgUrl(data, domtree, comp.get("imgs_url"));
+        // this.parseNumber(data, domtree, comp.get(""));
+        this.parseWeixinName(data, domtree, comp.get("account"));
+    }
 
-					String md5 = MD5Util.MD5(gongzhongUrl);
+    public void parseGongzhong(WeixinData data, HtmlInfo html, String content) throws SAXException {
+        System.out.println("正在解析文章：" + data.getTitle() + "的公众号信息.");
+        String url = "http://weixin.sogou.com/weixin?type=1&query=" + data.getAuthor() + "&page=1";
+        int page = 1;
+        if (url != null)// 只在第一页搜索
+        {
+            System.out.println(page++ + "\t" + url);
+            HttpClient client = new HttpClient();
+            url = EncoderUtil.encodeKeyWords(url, "utf-8");
 
-					WxpublicData wpd = new WxpublicData();
-					wpd.setName(data.getAuthor());
-					wpd.setWeixinName(data.getWeixinName());
-					wpd.setUrl(gongzhongUrl);
-					wpd.setBrief(brief);
-					wpd.setUserIcon(userIcon);
-					wpd.setPosIcon(posIcon);
-					wpd.setVerify(verify);
-					wpd.setOpenId(openid);
-					wpd.setMd5(md5);
-					wpd.setFromAriticle(1);
-					wpd.setCustomizeId(data.getCustomizeId());
+            GetMethod get = new GetMethod(url);
+            if (html.getCookie() != null) {
+                get.addRequestHeader("cookie", data.getCrawler_cookie());
+            }
 
-					List<WxpublicData> list = new ArrayList<WxpublicData>();
-					list.add(wpd);
-					// Systemconfig.dbService.getNorepeatData(list,
-					// "vip_temp_gongzhong");
-					if (list.size() > 0) {
-						int gongzhongid = Systemconfig.dbService.saveGongzhongData(wpd);
-						data.setGongzhongId(gongzhongid);
-						System.out.println("文章：" + data.getTitle() + "的公众号：" + wpd.getName() + "保存完成.");
-						return;
-					} else {
-						System.out.println("无新公众号。");
-					}
+            try {
+                client.executeMethod(get);
+                get.getResponseBodyAsStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(get.getResponseBodyAsStream()));
+                String line = null;
+                StringBuilder sb = new StringBuilder();
+                while ((line = reader.readLine()) != null) sb.append(line).append("\r\n");
+                String text = sb.toString();
+                // StringUtil.writeFile("tmp.htm", text.getBytes());
+                DOMUtil dom = new DOMUtil();
+                Node root = dom.ini(text, "utf-8");
+                Node n = XPathAPI.selectSingleNode(root, "//DIV[@href and contains(.,'" + data.getWeixinName() + "')]/@href");
+                if (n != null) {
+                    String xBrief = "(//DIV[@href and contains(.,'" + data.getWeixinName() + "')]//SPAN[@class='sp-txt'])[1]";
+                    String xUserIcon = "//DIV[@href and contains(.,'" + data.getWeixinName() + "')]//DIV[@class='img-box']/IMG/@src";
+                    String xPosIcon = "//DIV[@href and contains(.,'" + data.getWeixinName() + "')]//DIV[@class='pos-ico']/DIV/IMG/@src";
+                    String xVerify = "(//DIV[@href and contains(.,'" + data.getWeixinName() + "')]//SPAN[@class='sp-txt'])[2]";
+                    // 找到匹配的公众号
+                    String gongzhongUrl = n.getTextContent();
+                    String brief = XPathAPI.selectSingleNode(root, xBrief).getTextContent();
+                    String userIcon = XPathAPI.selectSingleNode(root, xUserIcon).getTextContent();
+                    String posIcon = XPathAPI.selectSingleNode(root, xPosIcon).getTextContent();
+                    String verify = XPathAPI.selectSingleNode(root, xVerify).getTextContent();
 
-				} // end if 解析到dom节点
+                    String openid = gongzhongUrl.substring(gongzhongUrl.indexOf("openid=") + 7);
 
-			} catch (HttpException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (TransformerException e) {
-				e.printStackTrace();
-			}
-		} // end if
-		System.out.println("没有找到匹配公众号。");
-	}
+                    String md5 = MD5Util.MD5(gongzhongUrl);
 
-	/**
-	 * 微信账号
-	 *
-	 * @param data
-	 * @param dom
-	 * @param component
-	 * @param args
-	 */
-	public void parseWeixinName(WeixinData data, Node dom, Component component, String... args) {
-		// // var user_name = "gh_558fe111f4e3";
-		// String weixinName = StringUtil.regMatcher(content,
-		// "var user_name = \"", "\";").trim();
-		// if (weixinName != null)
-		// data.setWeixinName(weixinName);
+                    WxpublicData wpd = new WxpublicData();
+                    wpd.setName(data.getAuthor());
+                    wpd.setWeixinName(data.getWeixinName());
+                    wpd.setUrl(gongzhongUrl);
+                    wpd.setBrief(brief);
+                    wpd.setUserIcon(userIcon);
+                    wpd.setPosIcon(posIcon);
+                    wpd.setVerify(verify);
+                    wpd.setOpenId(openid);
+                    wpd.setMd5(md5);
+                    wpd.setFromAriticle(1);
+                    wpd.setCustomizeId(data.getCustomizeId());
 
-		if (component == null)
-			return;
-		NodeList nl = commonList(component.getXpath(), dom);
-		if (nl == null)
-			return;
-		if (nl.item(0) != null)
-			data.setWeixinName(nl.item(0).getTextContent().trim());
+                    List<WxpublicData> list = new ArrayList<WxpublicData>();
+                    list.add(wpd);
+                    // Systemconfig.dbService.getNorepeatData(list,
+                    // "vip_temp_gongzhong");
+                    if (list.size() > 0) {
+                        int gongzhongid = Systemconfig.dbService.saveGongzhongData(wpd);
+                        data.setGongzhongId(gongzhongid);
+                        System.out.println("文章：" + data.getTitle() + "的公众号：" + wpd.getName() + "保存完成.");
+                        return;
+                    } else {
+                        System.out.println("无新公众号。");
+                    }
 
-	}
+                } // end if 解析到dom节点
 
-	@Override
-	public void parseImgUrl(WeixinData data, Node dom, Component component, String... args) {
-		if (component == null)
-			return;
-		NodeList nl = commonList(component.getXpath(), dom);
-		if (nl == null)
-			return;
-		String imgs = "";
-		for (int i = 0; i < nl.getLength(); i++) {
-			imgs += StringUtil.format(nl.item(i).getTextContent()) + ";";
-		}
-		data.setImgUrl(imgs);
-	}
+            } catch (HttpException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (TransformerException e) {
+                e.printStackTrace();
+            }
+        } // end if
+        System.out.println("没有找到匹配公众号。");
+    }
 
-	@Override
-	public void parseAuthor(WeixinData data, Node dom, Component component, String... args) {
-		if (component == null)
-			return;
-		NodeList nl = commonList(component.getXpath(), dom);
-		if (nl == null)
-			return;
-		if (nl.item(0) != null)
-			data.setAuthor(StringUtil.format(nl.item(0).getTextContent()));
-	}
+    /**
+     * 微信账号
+     *
+     * @param data
+     * @param dom
+     * @param component
+     * @param args
+     */
+    public void parseWeixinName(WeixinData data, Node dom, Component component, String... args) {
+        // // var user_name = "gh_558fe111f4e3";
+        // String weixinName = StringUtil.regMatcher(content,
+        // "var user_name = \"", "\";").trim();
+        // if (weixinName != null)
+        // data.setWeixinName(weixinName);
 
-	/**
-	 * 简介图片
-	 *
-	 * @param list
-	 * @param dom
-	 * @param component
-	 * @param strings
-	 */
-	public void parseImg_brief(List<WeixinData> list, Node dom, Component component, String... args) {
-		if (component == null)
-			return;
-		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
-		if (nl == null)
-			return;
-		for (int i = 0; i < nl.getLength(); i++) {
-			list.get(i).setBrief(nl.item(i).getTextContent());
-		}
-	}
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        if (nl.item(0) != null) data.setWeixinName(nl.item(0).getTextContent().trim());
 
-	@Override
-	public void parseTitle(List<WeixinData> list, Node dom, Component component, String... args) {
-		if (component == null)
-			return;
-		NodeList nl = head(component.getXpath(), dom);
-		for (int i = 0; i < nl.getLength(); i++) {
-			WeixinData vd = new WeixinData();
-			vd.setTitle(StringUtil.format(nl.item(i).getTextContent()));
-			list.add(vd);
-		}
-	}
+    }
 
-	@Override
-	public String parseNext(Node dom, Component component, String... args) {
-		if (component == null)
-			return null;
-		NodeList nl = commonList(component.getXpath(), dom);
-		if (nl == null)
-			return null;
-		if (nl.item(0) != null) {
-			return urlProcess(component, nl.item(0));
-		}
-		return null;
-	}
+    @Override
+    public void parseImgUrl(WeixinData data, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        String imgs = "";
+        for (int i = 0; i < nl.getLength(); i++) {
+            imgs += StringUtil.format(nl.item(i).getTextContent()) + ";";
+        }
+        data.setImgUrl(imgs);
+    }
 
-	/**
-	 * 摘要
-	 *
-	 * @param list
-	 * @param dom
-	 * @param component
-	 * @param strings
-	 */
-	@Override
-	public void parseBrief(List<WeixinData> list, Node dom, Component component, String... args) {
-		if (component == null)
-			return;
-		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
-		if (nl == null)
-			return;
-		for (int i = 0; i < nl.getLength(); i++) {
-			list.get(i).setBrief(nl.item(i).getTextContent());
-		}
-	}
+    @Override
+    public void parseAuthor(WeixinData data, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        if (nl.item(0) != null) data.setAuthor(StringUtil.format(nl.item(0).getTextContent()));
+    }
 
-	/**
-	 * 来源
-	 *
-	 * @param list
-	 * @param dom
-	 * @param component
-	 * @param strings
-	 */
-	@Override
-	public void parseSource(List<WeixinData> list, Node dom, Component component, String... strings) {
-		if (component == null)
-			return;
-		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
-		if (nl == null)
-			return;
-		for (int i = 0; i < nl.getLength(); i++) {
-			list.get(i).setSource(StringUtil.format(nl.item(i).getTextContent()));
-		}
-	}
+    /**
+     * 简介图片
+     *
+     * @param list
+     * @param dom
+     * @param component
+     * @param strings
+     */
+    public void parseImg_brief(List<WeixinData> list, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
+        if (nl == null) return;
+        for (int i = 0; i < nl.getLength(); i++) {
+            list.get(i).setBrief(nl.item(i).getTextContent());
+        }
+    }
 
-	@Override
-	public void parsePubtime(WeixinData data, Node dom, Component component, String... args) {
-		// if (component == null)
-		// return;
-		// NodeList nl = commonList(component.getXpath(), dom);
-		// if (nl == null)
-		// return;
-		// if (nl.item(0) != null) {
-		// data.setPubtime(nl.item(0).getTextContent());
-		// data.setPubdate(timeProcess(data.getPubtime().trim()));
-		// }
-		String content = args[0];
-		String pubtime = StringUtil.regMatcher(content, "var ct = \"", "\";");
-		data.setPubtime(pubtime);
-	}
+    @Override
+    public void parseTitle(List<WeixinData> list, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = head(component.getXpath(), dom);
+        for (int i = 0; i < nl.getLength(); i++) {
+            WeixinData vd = new WeixinData();
+            vd.setTitle(StringUtil.format(nl.item(i).getTextContent()));
+            list.add(vd);
+        }
+    }
 
-	@Override
-	public void parseSource(WeixinData data, Node dom, Component component, String... strings) {
-		if (component == null)
-			return;
-		NodeList nl = commonList(component.getXpath(), dom);
-		if (nl == null)
-			return;
-		if (nl.item(0) != null)
-			data.setSource(StringUtil.format(nl.item(0).getTextContent()));
-	}
+    @Override
+    public String parseNext(Node dom, Component component, String... args) {
+        if (component == null) return null;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return null;
+        if (nl.item(0) != null) {
+            return urlProcess(component, nl.item(0));
+        }
+        return null;
+    }
 
-	@Override
-	public void parseContent(WeixinData data, Node dom, Component component, String... strings) {
-		if (component == null)
-			return;
-		NodeList nl = commonList(component.getXpath(), dom);
-		if (nl == null)
-			return;
-		String str = "";// 正文文本
-		String html = "";// 正文html
-		for (int i = 0; i < nl.getLength(); i++) {
-			// html
-			html += DOMUtil.dom2Html(nl.item(i)) + "\r\n";
-			// 文本
-			str += nl.item(i).getTextContent() + "\r\n";
-		}
-		data.setContent(str);
+    /**
+     * 摘要
+     *
+     * @param list
+     * @param dom
+     * @param component
+     * @param strings
+     */
+    @Override
+    public void parseBrief(List<WeixinData> list, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
+        if (nl == null) return;
+        for (int i = 0; i < nl.getLength(); i++) {
+            list.get(i).setBrief(nl.item(i).getTextContent());
+        }
+    }
 
-		// 去掉html代码的根节点
-		String tmp = html.replace("<div class=\"rich_media_content\" id=\"js_content\">", "");
-		if (tmp.length() < html.length())
-			html = tmp.substring(0, html.lastIndexOf("</div>"));
-		data.setContentHtml(html);
+    public void parsePubtime(List<WeixinData> list, Node dom, Component component, String... args) {
+        if (component == null) return;
+        NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
+        if (nl == null) return;
+        for (int i = 0; i < nl.getLength(); i++) {
+            String timestamp = nl.item(i).getTextContent();
+            String time = TimeUtil.timestamp2Str(Long.parseLong(timestamp + "000"), "yyyy-MM-dd hh:mm:ss");
+            list.get(i).setPubtime(time);
+            list.get(i).setPubdate(timeProcess(time));
 
-	}
+//            list.get(i).setBrief(nl.item(i).getTextContent());
+        }
+    }
 
-	/**
-	 * 共有属性设置
-	 *
-	 * @param list
-	 * @param siteflag
-	 * @param key
-	 * @param code
-	 */
-	protected void attrSet(List<WeixinData> list, int siteflag, String key, int code, String cookie) {
-		for (WeixinData wd : list) {
-			wd.setSearchKey(key);
-			wd.setCategoryCode(code);
-			wd.setCustomizeId(code);
-			wd.setMd5(MD5Util.MD5(wd.getUrl()));
-			wd.setSiteId(siteflag);
-			wd.setCrawler_cookie(cookie);
-		}
-	}
+
+    /**
+     * 来源
+     *
+     * @param list
+     * @param dom
+     * @param component
+     * @param strings
+     */
+    @Override
+    public void parseSource(List<WeixinData> list, Node dom, Component component, String... strings) {
+        if (component == null) return;
+        NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
+        if (nl == null) return;
+        for (int i = 0; i < nl.getLength(); i++) {
+            list.get(i).setSource(StringUtil.format(nl.item(i).getTextContent()));
+        }
+    }
+
+    @Override
+    public void parsePubtime(WeixinData data, Node dom, Component component, String... args) {
+        // if (component == null)
+        // return;
+        // NodeList nl = commonList(component.getXpath(), dom);
+        // if (nl == null)
+        // return;
+        // if (nl.item(0) != null) {
+        // data.setPubtime(nl.item(0).getTextContent());
+        // data.setPubdate(timeProcess(data.getPubtime().trim()));
+        // }
+        String content = args[0];
+        String pubtime = StringUtil.regMatcher(content, "var ct = \"", "\";");
+        data.setPubtime(pubtime);
+    }
+
+    @Override
+    public void parseSource(WeixinData data, Node dom, Component component, String... strings) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        if (nl.item(0) != null) data.setSource(StringUtil.format(nl.item(0).getTextContent()));
+    }
+
+    @Override
+    public void parseContent(WeixinData data, Node dom, Component component, String... strings) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null) return;
+        String str = "";// 正文文本
+        String html = "";// 正文html
+        for (int i = 0; i < nl.getLength(); i++) {
+            // html
+            html += DOMUtil.dom2Html(nl.item(i)) + "\r\n";
+            // 文本
+            str += nl.item(i).getTextContent() + "\r\n";
+        }
+        data.setContent(str);
+
+        // 去掉html代码的根节点
+        String tmp = html.replace("<div class=\"rich_media_content\" id=\"js_content\">", "");
+        if (tmp.length() < html.length()) html = tmp.substring(0, html.lastIndexOf("</div>"));
+        data.setContentHtml(html);
+
+    }
+
+    /**
+     * 共有属性设置
+     *
+     * @param list
+     * @param siteflag
+     * @param key
+     * @param code
+     */
+    protected void attrSet(List<WeixinData> list, int siteflag, String key, int code, String cookie) {
+        for (WeixinData wd : list) {
+            wd.setSearchKey(key);
+            wd.setCategoryCode(code);
+            wd.setCustomizeId(code);
+            wd.setMd5(MD5Util.MD5(wd.getUrl()));
+            wd.setSiteId(siteflag);
+            wd.setCrawler_cookie(cookie);
+        }
+    }
 
 }

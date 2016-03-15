@@ -303,6 +303,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
 		String monitorOrSearch = Systemconfig.crawlerType % 2 == 0 ? "MONITOR_TEMPLATE" : "SEARCH_TEMPLATE";
 		String sql = "SELECT " + monitorOrSearch + " from MEDIA_TYPE where id = "
 				+ ((Systemconfig.crawlerType + 1) / 2);
+		Systemconfig.sysLog.log(sql);
 		String result = this.jdbcTemplate.queryForObject(sql, String.class);
 		return result;
 
