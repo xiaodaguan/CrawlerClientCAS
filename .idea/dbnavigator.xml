@@ -25,7 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="56bfcdc0-682a-4d55-8aad-bcb743665668">
-        <schema name="YLB2016" object-types="cluster, column, constraint, dblink, dimension, function, index, materialized view, nested table, package, procedure, sequence, synonym, table, dataset trigger, database trigger, type, view" />
+        <schema name="YLB2016" object-types="table" />
       </connection>
     </loaded-nodes>
   </component>
