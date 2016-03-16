@@ -1,18 +1,7 @@
 package common.extractor.xpath.bbs.search;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import common.bean.HtmlInfo;
 import common.bean.BBSData;
+import common.bean.HtmlInfo;
 import common.bean.ReplyData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -21,6 +10,16 @@ import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.MD5Util;
 import common.util.StringUtil;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 论坛抽取实现类
@@ -31,7 +30,7 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 	public void processList(List<BBSData> list, Node domtree,
 			Map<String, Component> components, String... args) {
 		this.parseTitle(list, domtree, components.get("title"));
-		
+
 		if (list.size() == 0) return;
 		
 		this.parseUrl(list, domtree, components.get("url"));
@@ -149,6 +148,7 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		if(nl.item(0)!=null) {
 			String time = nl.item(0).getTextContent().replace("年", "-").replace("月", "").replace("日", "");
 			data.setPubtime(time);
+			data.setPubdate(timeProcess(time));
 		}
 	}
 	@Override

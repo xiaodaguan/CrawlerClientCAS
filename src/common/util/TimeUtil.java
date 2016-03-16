@@ -11,7 +11,9 @@ import java.util.concurrent.TimeUnit;
  * @since 2011年7月 
  */
 public class TimeUtil {
-	
+	public static void main(String[] args) {
+		System.out.println(str2Timestamp("2016-3-16","yyyy-MM-dd")/1000);
+	}
 	
 	public static String timestamp2Str(long mill, String format) {
 		Date date = new Date(mill);

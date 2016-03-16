@@ -26,6 +26,7 @@ import common.rmi.packet.SearchKey;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.EncoderUtil;
+import common.util.TimeUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -90,6 +91,10 @@ public abstract class GenericCommonDownload<T> {
                 url = url.replace("<keyword>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[0], siteinfo.getCharset()));
                 url = url.replace("<begin>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[1], siteinfo.getCharset()));
                 url = url.replace("<end>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[2], siteinfo.getCharset()));
+                if (url.contains("news.baidu")) {
+                    url += "&bt=" + (TimeUtil.str2Timestamp(key.getKey().split(";")[1], "yyyy-MM-dd")/1000);
+                    url += "&et=" + (TimeUtil.str2Timestamp(key.getKey().split(";")[2], "yyyy-MM-dd")/1000);
+                }
             }
         } else url = key.getKey();
 
