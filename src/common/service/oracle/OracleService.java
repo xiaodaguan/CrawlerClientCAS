@@ -4,15 +4,13 @@ import common.bean.*;
 import common.rmi.packet.SearchKey;
 import common.service.AbstractDBService;
 import common.system.Systemconfig;
-import common.util.StringUtil;
 import org.apache.http.HttpHost;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Random;
 
@@ -29,80 +27,80 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
 
     @Override
     public void updateStatus(final CrawlerStatus cs, final CrawlerTaskStatus cts, final SearchKey key, final int type) {
-        if (type == 1) {// init
-            final String sql = "insert into crawler_status(media_type, start_time, status, keyword_all, ip, crawler_name, insert_time, keyword_count, complete_count) values (?,?,?,?,?,?,?,?,?)";
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            this.jdbcTemplate.update(new PreparedStatementCreator() {
-                @Override
-                public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                    PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
-
-                    ps.setInt(1, cs.getCrawlerType());
-                    ps.setTimestamp(2, new Timestamp(cs.getStartTime().getTime()));
-                    ps.setString(3, cs.getStatus());
-                    ps.setString(4, cs.getStartKeywordSet().toString());
-                    ps.setString(5, cs.getIp());
-                    ps.setString(6, cs.getCrawlerName());
-                    ps.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
-                    ps.setInt(8, cs.getStartKeywordSet().size());
-                    ps.setInt(9, cs.getCrawedCount());
-                    return ps;
-                }
-            }, keyHolder);
-
-            cs.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
-
-        } else if (type == 2) {// (start)fetching
-
-            final String sql = "insert into crawler_status" + "(media_type, start_time, status, interval, threads, keyword_all, keyword_current, keyword_exist, url_count, ip, crawler_name, task_name, parent_id, insert_time)" + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            this.jdbcTemplate.update(new PreparedStatementCreator() {
-                @Override
-                public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                    PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
-                    ps.setInt(1, cs.getCrawlerType());
-                    ps.setTimestamp(2, new Timestamp(cts.getStartTime().getTime()));
-                    ps.setString(3, cts.getStatus());
-                    ps.setInt(4, cts.getInterval());
-                    ps.setInt(5, cts.getThreadNum());
-                    ps.setString(6, cs.getStartKeywordSet().toString());
-                    ps.setString(7, cts.getKeyword());
-                    ps.setString(8, cs.getAllKeywords().toString());
-                    ps.setInt(9, cts.getFetchCount());
-                    ps.setString(10, cs.getIp());
-                    ps.setString(11, cs.getCrawlerName());
-                    ps.setString(12, cts.getId());
-                    ps.setInt(13, cs.getId());
-                    ps.setTimestamp(14, new Timestamp(System.currentTimeMillis()));
-                    return ps;
-                }
-            }, keyHolder);
-
-            cts.setDbID(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
-            /* 更新父任务(爬虫)状态 */
-            this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
-        } else if (type == 3) {// fetching
-            String sql = "update crawler_status set url_count = ?, insert_time = ? where id = ?";
-            this.jdbcTemplate.update(sql, cts.getFetchCount(), new Timestamp(System.currentTimeMillis()), cts.getDbID());
-            /* 更新父任务(爬虫)状态 */
-            this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
-
-        } else if (type == 4) {// downloading
-            String sql = "update crawler_status set status=?, url_count=?, down_count = ?, saved_count=?, insert_time = ? where id = ?";
-            this.jdbcTemplate.update(sql, cts.getStatus(), cts.getFetchCount(), cts.getDownCount(), cts.getSavedCount(), new Timestamp(System.currentTimeMillis()), cts.getDbID());
-            /* 更新父任务(爬虫)状态 */
-            this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
-
-        } else if (type == 5) {// (task)complete
-            String sql = "update crawler_status set status = ?, saved_count=?, insert_time = ? where id = ?";
-            this.jdbcTemplate.update(sql, cts.getStatus(), cts.getSavedCount(), new Timestamp(System.currentTimeMillis()), cts.getDbID());
-            /* 更新父任务(爬虫)状态 */
-            this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
-
-        } else if (type == 6) {// (crawler)complete
-            String sql = "update crawler_status set status = ?, keyword_count=?, complete_count=?, insert_time = ? where id = ?";
-            this.jdbcTemplate.update(sql, cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), new Timestamp(System.currentTimeMillis()), cs.getId());
-        }
+//        if (type == 1) {// init
+//            final String sql = "insert into crawler_status(media_type, start_time, status, keyword_all, ip, crawler_name, insert_time, keyword_count, complete_count) values (?,?,?,?,?,?,?,?,?)";
+//            KeyHolder keyHolder = new GeneratedKeyHolder();
+//            this.jdbcTemplate.update(new PreparedStatementCreator() {
+//                @Override
+//                public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+//                    PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
+//
+//                    ps.setInt(1, cs.getCrawlerType());
+//                    ps.setTimestamp(2, new Timestamp(cs.getStartTime().getTime()));
+//                    ps.setString(3, cs.getStatus());
+//                    ps.setString(4, cs.getStartKeywordSet().toString());
+//                    ps.setString(5, cs.getIp());
+//                    ps.setString(6, cs.getCrawlerName());
+//                    ps.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
+//                    ps.setInt(8, cs.getStartKeywordSet().size());
+//                    ps.setInt(9, cs.getCrawedCount());
+//                    return ps;
+//                }
+//            }, keyHolder);
+//
+//            cs.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+//
+//        } else if (type == 2) {// (start)fetching
+//
+//            final String sql = "insert into crawler_status" + "(media_type, start_time, status, interval, threads, keyword_all, keyword_current, keyword_exist, url_count, ip, crawler_name, task_name, parent_id, insert_time)" + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//            KeyHolder keyHolder = new GeneratedKeyHolder();
+//            this.jdbcTemplate.update(new PreparedStatementCreator() {
+//                @Override
+//                public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+//                    PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
+//                    ps.setInt(1, cs.getCrawlerType());
+//                    ps.setTimestamp(2, new Timestamp(cts.getStartTime().getTime()));
+//                    ps.setString(3, cts.getStatus());
+//                    ps.setInt(4, cts.getInterval());
+//                    ps.setInt(5, cts.getThreadNum());
+//                    ps.setString(6, cs.getStartKeywordSet().toString());
+//                    ps.setString(7, cts.getKeyword());
+//                    ps.setString(8, cs.getAllKeywords().toString());
+//                    ps.setInt(9, cts.getFetchCount());
+//                    ps.setString(10, cs.getIp());
+//                    ps.setString(11, cs.getCrawlerName());
+//                    ps.setString(12, cts.getId());
+//                    ps.setInt(13, cs.getId());
+//                    ps.setTimestamp(14, new Timestamp(System.currentTimeMillis()));
+//                    return ps;
+//                }
+//            }, keyHolder);
+//
+//            cts.setDbID(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+//            /* 更新父任务(爬虫)状态 */
+//            this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
+//        } else if (type == 3) {// fetching
+//            String sql = "update crawler_status set url_count = ?, insert_time = ? where id = ?";
+//            this.jdbcTemplate.update(sql, cts.getFetchCount(), new Timestamp(System.currentTimeMillis()), cts.getDbID());
+//            /* 更新父任务(爬虫)状态 */
+//            this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
+//
+//        } else if (type == 4) {// downloading
+//            String sql = "update crawler_status set status=?, url_count=?, down_count = ?, saved_count=?, insert_time = ? where id = ?";
+//            this.jdbcTemplate.update(sql, cts.getStatus(), cts.getFetchCount(), cts.getDownCount(), cts.getSavedCount(), new Timestamp(System.currentTimeMillis()), cts.getDbID());
+//            /* 更新父任务(爬虫)状态 */
+//            this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
+//
+//        } else if (type == 5) {// (task)complete
+//            String sql = "update crawler_status set status = ?, saved_count=?, insert_time = ? where id = ?";
+//            this.jdbcTemplate.update(sql, cts.getStatus(), cts.getSavedCount(), new Timestamp(System.currentTimeMillis()), cts.getDbID());
+//            /* 更新父任务(爬虫)状态 */
+//            this.jdbcTemplate.update("update crawler_status set status = ?, keyword_count=?, complete_count=? where id = ?", cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), cs.getId());
+//
+//        } else if (type == 6) {// (crawler)complete
+//            String sql = "update crawler_status set status = ?, keyword_count=?, complete_count=?, insert_time = ? where id = ?";
+//            this.jdbcTemplate.update(sql, cs.getStatus(), cs.getStartKeywordSet().size(), cs.getCrawedCount(), new Timestamp(System.currentTimeMillis()), cs.getId());
+//        }
     }
 
     ;
