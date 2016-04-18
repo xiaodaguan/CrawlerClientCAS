@@ -743,5 +743,17 @@
       </library>
     </orderEntry>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.ideaLibSources/mongo-java-driver-3.2.2-sources.jar!/" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
