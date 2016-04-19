@@ -17,12 +17,13 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-public class Mongo2Ora {
+public class mongo2Ora {
 
-    static Logger logger = LoggerFactory.getLogger(Mongo2Ora.class);
+    static Logger logger = LoggerFactory.getLogger(mongo2Ora.class);
 
     static final List<String> movedIds = new ArrayList<String>();
-    static MongoClient client = new MongoClient("172.18.79.31:27017");
+    static final List<String> faikedIds = new ArrayList<String>();
+    static MongoClient client = new MongoClient("192.168.1.103:27017");
     static final MongoDatabase db = client.getDatabase("wechatdb");
     static MongoCollection coll = db.getCollection("wechat_article_info");
 
@@ -34,7 +35,7 @@ public class Mongo2Ora {
 
         logger.info("start moving items from mongodb to oracle...");
 
-        final Db<WeixinData> wxDb = new Db<WeixinData>();
+        final mongo.db<WeixinData> wxDb = new weixinDataDb();
 
         try {
             iter.forEach(new Block<Document>() {
@@ -84,14 +85,22 @@ public class Mongo2Ora {
 
                     }
 
-
-                    wxDb.saveData(wd);
-                    if (wd.getReadNum() > 0) {
+                    if (wd.getPubtime() == null) {
                         JSONObject obj = (JSONObject) jObjs.get("_id");
-
-                        movedIds.add(obj.getString("$oid"));
+                        faikedIds.add(obj.getString("$oid"));
                     }
+                    if (wxDb.saveData(wd) >= 0) {
+                        logger.info("inserted {}", wd.getTitle());
+                        if (wd.getReadNum() > 0) {
+                            JSONObject obj = (JSONObject) jObjs.get("_id");
 
+                            movedIds.add(obj.getString("$oid"));
+                        }
+
+                    } else {
+                        logger.error("failed");
+
+                    }
 
                 }
             });
@@ -137,8 +146,15 @@ public class Mongo2Ora {
     }
 
     public static void main(String[] args) {
-        move();
-        if (movedIds.size() > 0) remove();
-
+        while (true) {
+            move();
+            if (movedIds.size() > 0) remove();
+            if (faikedIds.size() > 0) remove();
+            try {
+                Thread.sleep(1000 * 60 * 5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
