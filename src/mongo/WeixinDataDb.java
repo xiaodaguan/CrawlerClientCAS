@@ -9,15 +9,15 @@ import java.sql.*;
 /**
  * Created by guanxiaoda on 16/4/15.
  */
-public class WeixinDataDb extends Db<WeixinData> {
-    Logger logger = LoggerFactory.getLogger(WeixinDataDb.class);
+public class weixinDataDb extends db<WeixinData> {
+    Logger logger = LoggerFactory.getLogger(weixinDataDb.class);
     private Connection conn = null;
-    private String URL = "jdbc:oracle:thin:@172.18.79.3:1521/ORCL";
-    private String USERNAME = "jinrong";
-    private String PASSWORD = "jinrong";
+    private String URL = "jdbc:oracle:thin:@192.168.1.103:1521/ORCL";
+    private String USERNAME = "qdtramgr";
+    private String PASSWORD = "qdtramgr";
     private String TABLE = "weixin_data";
 
-    public WeixinDataDb() {
+    public weixinDataDb() {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
 
@@ -38,6 +38,12 @@ public class WeixinDataDb extends Db<WeixinData> {
 
     @Override
     public int saveData(WeixinData wd) {
+        if (wd.getPubtime()==null)
+            return -2;
+
+
+
+
         String sql = "insert into " + TABLE + "(" +
                 "title, author, pubtime, url, search_keyword, " +
                 "source, category_code, inserttime, md5, content, " +
@@ -84,7 +90,7 @@ public class WeixinDataDb extends Db<WeixinData> {
     public static void main(String[] args) {
         WeixinData wd = new WeixinData();
         wd.setTitle("test");
-        WeixinDataDb wdb = new WeixinDataDb();
+        weixinDataDb wdb = new weixinDataDb();
         wdb.saveData(wd);
     }
 }
