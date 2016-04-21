@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -23,7 +24,7 @@ public class mongo2Ora {
 
     static final List<String> movedIds = new ArrayList<String>();
     static final List<String> faikedIds = new ArrayList<String>();
-    static MongoClient client = new MongoClient("192.168.1.103:27017");
+    static MongoClient client = new MongoClient("172.18.79.31:27017");
     static final MongoDatabase db = client.getDatabase("wechatdb");
     static MongoCollection coll = db.getCollection("wechat_article_info");
 
@@ -36,13 +37,13 @@ public class mongo2Ora {
         logger.info("start moving items from mongodb to oracle...");
 
         final mongo.db<WeixinData> wxDb = new weixinDataDb();
-
+        final List<String> crawledMd5s = wxDb.getCrawled();
         try {
             iter.forEach(new Block<Document>() {
                 @Override
                 public void apply(Document document) {
 //                System.out.println(document);
-                    logger.info("document: {}", document.get("_id"));
+//                    logger.info("document: {}", document.get("_id"));
 
 
                     WeixinData wd = new WeixinData();
@@ -89,7 +90,15 @@ public class mongo2Ora {
                         JSONObject obj = (JSONObject) jObjs.get("_id");
                         faikedIds.add(obj.getString("$oid"));
                     }
-                    if (wxDb.saveData(wd) >= 0) {
+                    if (wd.getInserttime() == null) {
+                        wd.setInserttime(new Timestamp(System.currentTimeMillis()));
+                    }
+                    int status = 0;
+                    if (crawledMd5s.contains(wd.getMd5())) {
+                        logger.info("crawled {}", wd.getMd5() + ":" + wd.getTitle());
+                    } else
+                        wxDb.saveData(wd);
+                    if (status >= 0) {
                         logger.info("inserted {}", wd.getTitle());
                         if (wd.getReadNum() > 0) {
                             JSONObject obj = (JSONObject) jObjs.get("_id");
@@ -98,7 +107,8 @@ public class mongo2Ora {
                         }
 
                     } else {
-                        logger.error("failed");
+                        if (status == -2)
+                            logger.error("pubtime is null");
 
                     }
 
@@ -132,6 +142,7 @@ public class mongo2Ora {
         }
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hhmmss");
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             return sdf1.parse(strTime);
@@ -139,7 +150,11 @@ public class mongo2Ora {
             try {
                 return sdf2.parse(strTime);
             } catch (ParseException e1) {
-                e1.printStackTrace();
+                try {
+                    sdf3.parse(strTime);
+                } catch (ParseException e2) {
+                    e2.printStackTrace();
+                }
             }
         }
         return null;
@@ -148,8 +163,8 @@ public class mongo2Ora {
     public static void main(String[] args) {
         while (true) {
             move();
-            if (movedIds.size() > 0) remove();
-            if (faikedIds.size() > 0) remove();
+//            if (movedIds.size() > 0) remove();
+//            if (faikedIds.size() > 0) remove();
             try {
                 Thread.sleep(1000 * 60 * 5);
             } catch (InterruptedException e) {
