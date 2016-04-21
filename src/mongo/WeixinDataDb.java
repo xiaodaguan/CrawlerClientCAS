@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by guanxiaoda on 16/4/15.
@@ -12,9 +14,9 @@ import java.sql.*;
 public class weixinDataDb extends db<WeixinData> {
     Logger logger = LoggerFactory.getLogger(weixinDataDb.class);
     private Connection conn = null;
-    private String URL = "jdbc:oracle:thin:@192.168.1.103:1521/ORCL";
-    private String USERNAME = "qdtramgr";
-    private String PASSWORD = "qdtramgr";
+    private String URL = "jdbc:oracle:thin:@172.18.79.3:1521/ORCL";
+    private String USERNAME = "jinrong";
+    private String PASSWORD = "jinrong";
     private String TABLE = "weixin_data";
 
     public weixinDataDb() {
@@ -37,9 +39,40 @@ public class weixinDataDb extends db<WeixinData> {
 
 
     @Override
+    public List<String> getCrawled(){
+        List<String> md5List = new ArrayList<String>();
+        String sql = "select distinct(md5) from "+TABLE;
+        Statement st= null;
+        ResultSet rs = null;
+        try {
+             st = conn.createStatement();
+             rs = st.executeQuery(sql);
+            while(rs.next()){
+                md5List.add(rs.getString("md5"));
+            }
+            return md5List;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                st.close();
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+        return null;
+    }
+
+    @Override
     public int saveData(WeixinData wd) {
-        if (wd.getPubtime()==null)
+        if (wd.getPubtime()==null||wd.getPubdate()==null){
             return -2;
+        }
 
 
 
@@ -54,8 +87,9 @@ public class weixinDataDb extends db<WeixinData> {
                 "?,?,?,?" +
                 ")";
 //        String sql = "insert into " + TABLE + "(title) values(?)";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
 
             ps.setString(1, wd.getTitle());
             ps.setString(2, wd.getAuthor());
@@ -65,7 +99,10 @@ public class weixinDataDb extends db<WeixinData> {
 
             ps.setString(6, wd.getSource());
             ps.setInt(7, wd.getCategoryCode());
+            if (wd.getInserttime()!=null)
             ps.setTimestamp(8, new Timestamp(wd.getInserttime().getTime()));
+            else
+            ps.setTimestamp(8,new Timestamp(System.currentTimeMillis()));
             ps.setString(9, wd.getMd5());
             ps.setString(10, wd.getContent());
 
@@ -77,10 +114,16 @@ public class weixinDataDb extends db<WeixinData> {
             ps.execute();
             int count = ps.getUpdateCount();
 
-            logger.info("weixindata:[{}] wrote into oracle: [{}]", wd.getTitle(), URL + "/" + TABLE);
+//            logger.info("weixindata:[{}] wrote into oracle: [{}]", wd.getTitle(), URL + "/" + TABLE);
             return count;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally{
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return -1;

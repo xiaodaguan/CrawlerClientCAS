@@ -2,201 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4071e09-31d5-4027-94a5-48fe14699642" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/bean/CrawlerStatus.class" afterPath="$PROJECT_DIR$/bin/common/bean/CrawlerStatus.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/communicate/CopyConfig.class" afterPath="$PROJECT_DIR$/bin/common/communicate/CopyConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/GenericCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/GenericCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/GenericDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/GenericDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/GenericMetaCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/GenericMetaCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/SimpleDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/SimpleDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/agricalture/AgricaltureDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/agricalture/AgricaltureDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/agricalture/AgricaltureMetaCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/agricalture/AgricaltureMetaCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/agricalture/AgricaltureMonitorMetaCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/agricalture/AgricaltureMonitorMetaCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/bbs/BBSDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/bbs/BBSDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/bbs/BBSDataMonitorDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/bbs/BBSDataMonitorDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/blog/BlogDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/blog/BlogDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/company/CompanyDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/company/CompanyDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/conference/ConferenceDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/conference/ConferenceDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/ebusiness/EbusinessCommentDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/ebusiness/EbusinessCommentDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/ebusiness/EbusinessMetaCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/ebusiness/EbusinessMetaCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/ebusiness/EbusinessOwnerDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/ebusiness/EbusinessOwnerDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/news/NewsDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/news/NewsDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/news/NewsMetaCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/news/NewsMetaCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/person/PersonDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/person/PersonDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/video/VideoDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/video/VideoDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/weibo/WeiboAddressDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/weibo/WeiboAddressDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/weibo/WeiboDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/weibo/WeiboDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/weibo/WeiboMonitorMetaCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/weibo/WeiboMonitorMetaCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/weibo/WeiboSearchDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/weibo/WeiboSearchDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/weibo/WeiboSearchMetaCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/weibo/WeiboSearchMetaCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/weibo/WeiboUserMonitorMetaCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/weibo/WeiboUserMonitorMetaCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/weixin/WeixinDataCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/weixin/WeixinDataCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/down/weixin/WeixinMetaCommonDownload.class" afterPath="$PROJECT_DIR$/bin/common/down/weixin/WeixinMetaCommonDownload.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/SimpleXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/SimpleXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/XpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/XpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/academic/monitor/AcademicMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/academic/monitor/AcademicMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/academic/search/AcademicSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/academic/search/AcademicSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/agricalture/monitor/AgricaltureMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/agricalture/monitor/AgricaltureMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/agricalture/search/AgricaltureSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/agricalture/search/AgricaltureSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/BbsMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/BbsMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/BandaoHdExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/BandaoHdExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/BandaoQdExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/BandaoQdExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/BandaoSnExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/BandaoSnExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/QtvExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/QtvExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/TianyaExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/monitor/sub/TianyaExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/search/BbsSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/search/BbsSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/search/sub/AutohomeExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/search/sub/AutohomeExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/search/sub/XcarExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/bbs/search/sub/XcarExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/blog/monitor/BlogMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/blog/monitor/BlogMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/blog/search/BlogSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/blog/search/BlogSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/blog/search/sub/GoogleExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/blog/search/sub/GoogleExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/blog/search/sub/SogouExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/blog/search/sub/SogouExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/company/monitor/CompanyMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/company/monitor/CompanyMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/companyReport/search/CompanyReport_searchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/companyReport/search/CompanyReport_searchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/conference/monitor/ConferenceMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/conference/monitor/ConferenceMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/conference/monitor/sub/Huiyi31Extractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/conference/monitor/sub/Huiyi31Extractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/conference/search/ConferenceSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/conference/search/ConferenceSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/monitor/EbusinessMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/monitor/EbusinessMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/monitor/sub/TaobaoExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/monitor/sub/TaobaoExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/search/EbusinessSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/search/EbusinessSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/search/sub/JDExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/search/sub/JDExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/search/sub/TaobaoExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/ebusiness/search/sub/TaobaoExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/news/monitor/NewsMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/news/monitor/NewsMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/news/monitor/sub/MocMonitorExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/news/monitor/sub/MocMonitorExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/news/monitor/sub/QdznjtMonitorExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/news/monitor/sub/QdznjtMonitorExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/news/monitor/sub/ZgjtbMonitorExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/news/monitor/sub/ZgjtbMonitorExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/news/search/NewsSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/news/search/NewsSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/news/search/sub/BaiduExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/news/search/sub/BaiduExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/news/search/sub/GoogleExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/news/search/sub/GoogleExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/news/search/sub/TirechinaExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/news/search/sub/TirechinaExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/person/search/PersonSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/person/search/PersonSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/video/monitor/VideoMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/video/monitor/VideoMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/video/search/VideoSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/video/search/VideoSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/weibo/monitor/WeiboMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/weibo/monitor/WeiboMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/weibo/monitor/sub/SinaExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/weibo/monitor/sub/SinaExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/weibo/search/WeiboSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/weibo/search/WeiboSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/weibo/search/sub/SinaExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/weibo/search/sub/SinaExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/weixin/monitor/WeixinMonitorXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/weixin/monitor/WeixinMonitorXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/extractor/xpath/weixin/search/WeixinSearchXpathExtractor.class" afterPath="$PROJECT_DIR$/bin/common/extractor/xpath/weixin/search/WeixinSearchXpathExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/SimpleHttpProcess$1.class" afterPath="$PROJECT_DIR$/bin/common/http/SimpleHttpProcess$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/SimpleHttpProcess$2.class" afterPath="$PROJECT_DIR$/bin/common/http/SimpleHttpProcess$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/SimpleHttpProcess.class" afterPath="$PROJECT_DIR$/bin/common/http/SimpleHttpProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/HexunPersonHttpProcess.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/HexunPersonHttpProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/Hz18HttpProcess.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/Hz18HttpProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/QdfpHttpProcess.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/QdfpHttpProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/RenrenHttpProcess$VerifyCookie.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/RenrenHttpProcess$VerifyCookie.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/RenrenHttpProcess.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/RenrenHttpProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/SinaHttpProcess$SinaUserLoginEntity.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/SinaHttpProcess$SinaUserLoginEntity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/SinaHttpProcess$VerifyCookie.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/SinaHttpProcess$VerifyCookie.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/SinaHttpProcess.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/SinaHttpProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/TiebaHttpProcess$VerifyCookie.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/TiebaHttpProcess$VerifyCookie.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/TiebaHttpProcess.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/TiebaHttpProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/http/sub/WeixinHttpProcess.class" afterPath="$PROJECT_DIR$/bin/common/http/sub/WeixinHttpProcess.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/rmi/packet/CrawlerType.class" afterPath="$PROJECT_DIR$/bin/common/rmi/packet/CrawlerType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/rmi/packet/ExceptionCode.class" afterPath="$PROJECT_DIR$/bin/common/rmi/packet/ExceptionCode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/rmi/packet/Status.class" afterPath="$PROJECT_DIR$/bin/common/rmi/packet/Status.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/rmi/packet/ViewInfo$InnerInfo.class" afterPath="$PROJECT_DIR$/bin/common/rmi/packet/ViewInfo$InnerInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/AbstractDBService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/AbstractDBService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/AbstractDBService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/AbstractDBService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/AbstractDBService$3.class" afterPath="$PROJECT_DIR$/bin/common/service/AbstractDBService$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/AbstractDBService.class" afterPath="$PROJECT_DIR$/bin/common/service/AbstractDBService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService$3.class" afterPath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService$4.class" afterPath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService.class" afterPath="$PROJECT_DIR$/bin/common/service/hbase/EbusinessHbaseService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/hbase/HbaseService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/hbase/HbaseService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/hbase/HbaseService.class" afterPath="$PROJECT_DIR$/bin/common/service/hbase/HbaseService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/BbsMysqlService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/BbsMysqlService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/BbsMysqlService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/BbsMysqlService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/BbsMysqlService.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/BbsMysqlService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/BlogMysqlService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/BlogMysqlService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/BlogMysqlService.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/BlogMysqlService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/MysqlService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/MysqlService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/MysqlService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/MysqlService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/MysqlService.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/MysqlService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/NewsMysqlService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/NewsMysqlService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/NewsMysqlService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/NewsMysqlService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/NewsMysqlService.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/NewsMysqlService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/WeiboMysqlService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/WeiboMysqlService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/WeiboMysqlService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/WeiboMysqlService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/WeiboMysqlService$3.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/WeiboMysqlService$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/mysql/WeiboMysqlService.class" afterPath="$PROJECT_DIR$/bin/common/service/mysql/WeiboMysqlService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/AgricaltureOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/AgricaltureOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/AgricaltureOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/AgricaltureOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/BbsOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/BbsOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/BbsOracleService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/BbsOracleService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/BbsOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/BbsOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/BlogOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/BlogOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/BlogOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/BlogOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/CompanyOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/CompanyOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/CompanyOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/CompanyOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/ConferenceOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/ConferenceOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/ConferenceOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/ConferenceOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/EbusinessOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/EbusinessOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/EbusinessOracleService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/EbusinessOracleService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/EbusinessOracleService$3.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/EbusinessOracleService$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/EbusinessOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/EbusinessOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/NewsOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/NewsOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/NewsOracleService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/NewsOracleService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/NewsOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/NewsOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/OracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/OracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/OracleService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/OracleService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/OracleService$3.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/OracleService$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/OracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/OracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/PersonOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/PersonOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/PersonOracleService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/PersonOracleService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/PersonOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/PersonOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/ReportOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/ReportOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/ReportOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/ReportOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService$3.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService$4.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/WeiboOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/WeixinOracleService$1.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/WeixinOracleService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/WeixinOracleService$2.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/WeixinOracleService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/WeixinOracleService$3.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/WeixinOracleService$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/service/oracle/WeixinOracleService.class" afterPath="$PROJECT_DIR$/bin/common/service/oracle/WeixinOracleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/siteinfo/CollectDataType.class" afterPath="$PROJECT_DIR$/bin/common/siteinfo/CollectDataType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/AppContext$FileEntry.class" afterPath="$PROJECT_DIR$/bin/common/system/AppContext$FileEntry.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/AppContext.class" afterPath="$PROJECT_DIR$/bin/common/system/AppContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/Job.class" afterPath="$PROJECT_DIR$/bin/common/system/Job.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/LoggerManager$1.class" afterPath="$PROJECT_DIR$/bin/common/system/LoggerManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/LoggerManager$LogThread.class" afterPath="$PROJECT_DIR$/bin/common/system/LoggerManager$LogThread.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/LoggerManager$NULLThrowable.class" afterPath="$PROJECT_DIR$/bin/common/system/LoggerManager$NULLThrowable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/LoggerManager.class" afterPath="$PROJECT_DIR$/bin/common/system/LoggerManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/Systemconfig.class" afterPath="$PROJECT_DIR$/bin/common/system/Systemconfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/TaskMonitor.class" afterPath="$PROJECT_DIR$/bin/common/system/TaskMonitor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/system/UserManager.class" afterPath="$PROJECT_DIR$/bin/common/system/UserManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/up2hdfs/PollLocalFiles$1.class" afterPath="$PROJECT_DIR$/bin/common/up2hdfs/PollLocalFiles$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/up2hdfs/PollLocalFiles.class" afterPath="$PROJECT_DIR$/bin/common/up2hdfs/PollLocalFiles.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/up2hdfs/UpFile2HDFS.class" afterPath="$PROJECT_DIR$/bin/common/up2hdfs/UpFile2HDFS.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/BloomFilter.class" afterPath="$PROJECT_DIR$/bin/common/util/BloomFilter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/CharsetDetector$1.class" afterPath="$PROJECT_DIR$/bin/common/util/CharsetDetector$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/CharsetDetector.class" afterPath="$PROJECT_DIR$/bin/common/util/CharsetDetector.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/DOMUtil.class" afterPath="$PROJECT_DIR$/bin/common/util/DOMUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/DataClassUtil.class" afterPath="$PROJECT_DIR$/bin/common/util/DataClassUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/EncoderUtil.class" afterPath="$PROJECT_DIR$/bin/common/util/EncoderUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/HtmlExtractor$ContentNode.class" afterPath="$PROJECT_DIR$/bin/common/util/HtmlExtractor$ContentNode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/HtmlExtractor$WeightedTable.class" afterPath="$PROJECT_DIR$/bin/common/util/HtmlExtractor$WeightedTable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/HtmlExtractor.class" afterPath="$PROJECT_DIR$/bin/common/util/HtmlExtractor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/MD5Util.class" afterPath="$PROJECT_DIR$/bin/common/util/MD5Util.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/UrlReduplicationRemove.class" afterPath="$PROJECT_DIR$/bin/common/util/UrlReduplicationRemove.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/common/util/WeixinUtil.class" afterPath="$PROJECT_DIR$/bin/common/util/WeixinUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/mongo/mongo2Ora$1.class" afterPath="$PROJECT_DIR$/bin/mongo/mongo2Ora$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/mongo/mongo2Ora.class" afterPath="$PROJECT_DIR$/bin/mongo/mongo2Ora.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/mongo/weixinDataDb.class" afterPath="$PROJECT_DIR$/bin/mongo/weixinDataDb.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/special/BaiduEverydayCount.class" afterPath="$PROJECT_DIR$/bin/special/BaiduEverydayCount.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/special/SpeWeiboCrawler.class" afterPath="$PROJECT_DIR$/bin/special/SpeWeiboCrawler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/test/CharEncodingExchange.class" afterPath="$PROJECT_DIR$/bin/test/CharEncodingExchange.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/test/TestSelenium.class" afterPath="$PROJECT_DIR$/bin/test/TestSelenium.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/test/testHbase.class" afterPath="$PROJECT_DIR$/bin/test/testHbase.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/test/testJson.class" afterPath="$PROJECT_DIR$/bin/test/testJson.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/test/testLogin.class" afterPath="$PROJECT_DIR$/bin/test/testLogin.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/test/testThread.class" afterPath="$PROJECT_DIR$/bin/test/testThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/mongo/db.class" afterPath="$PROJECT_DIR$/bin/mongo/db.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler_client_v0.951.iml" afterPath="$PROJECT_DIR$/crawler_client_v0.951.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mongo/db.java" afterPath="$PROJECT_DIR$/src/mongo/db.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mongo/WeixinDataDb.java" afterPath="$PROJECT_DIR$/src/mongo/WeixinDataDb.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mongo/mongo2Ora.java" afterPath="$PROJECT_DIR$/src/mongo/mongo2Ora.java" />
     </list>
     <ignored path="crawler_client_v0.951.iws" />
@@ -222,8 +30,8 @@
       <file leaf-file-name="mongo2Ora.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/mongo/mongo2Ora.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="100" column="38" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+            <state relative-caret-position="223">
+              <caret line="164" column="19" selection-start-line="164" selection-start-column="19" selection-end-line="164" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1255#4827#0" expanded="true" />
@@ -645,6 +453,14 @@
       <option name="presentableId" value="Default" />
       <updated>1459415757390</updated>
     </task>
+    <task id="LOCAL-00001" summary="已存在数据的过滤及一些细节">
+      <created>1461210561582</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1461210561582</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -687,6 +503,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="已存在数据的过滤及一些细节" />
+    <option name="LAST_COMMIT_MESSAGE" value="已存在数据的过滤及一些细节" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -771,8 +591,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mongo/mongo2Ora.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="100" column="38" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+        <state relative-caret-position="223">
+          <caret line="164" column="19" selection-start-line="164" selection-start-column="19" selection-end-line="164" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1255#4827#0" expanded="true" />

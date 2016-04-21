@@ -166,7 +166,8 @@ public class mongo2Ora {
 //            if (movedIds.size() > 0) remove();
 //            if (faikedIds.size() > 0) remove();
             try {
-                Thread.sleep(1000 * 60 * 5);
+                logger.info("15min 后继续...");
+                Thread.sleep(1000 * 60 * 15);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
