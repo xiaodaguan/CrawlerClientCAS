@@ -24,7 +24,7 @@ public class mongo2Ora {
 
     static final List<String> movedIds = new ArrayList<String>();
     static final List<String> faikedIds = new ArrayList<String>();
-    static MongoClient client = new MongoClient("172.18.79.31:27017");
+    static MongoClient client = new MongoClient("192.168.1.103:27017");
     static final MongoDatabase db = client.getDatabase("wechatdb");
     static MongoCollection coll = db.getCollection("wechat_article_info");
 
@@ -59,7 +59,7 @@ public class mongo2Ora {
                             wd.setBrief(jObjs.getString(key));
                         } else if (key.equals("title")) {
                             wd.setTitle(jObjs.getString(key));
-                        } else if (key.equals("author")) {
+                        } else if (key.equals("weixin_name")) {
                             wd.setAuthor(jObjs.getString(key));
                             wd.setSource(jObjs.getString(key));
                         } else if (key.equals("pubtime")) {
@@ -89,6 +89,7 @@ public class mongo2Ora {
                     if (wd.getPubtime() == null) {
                         JSONObject obj = (JSONObject) jObjs.get("_id");
                         faikedIds.add(obj.getString("$oid"));
+                        logger.error("pubtime null : {}", obj.getString("$oid") );
                     }
                     if (wd.getInserttime() == null) {
                         wd.setInserttime(new Timestamp(System.currentTimeMillis()));
@@ -97,8 +98,8 @@ public class mongo2Ora {
                     if (crawledMd5s.contains(wd.getMd5())) {
                         logger.info("crawled {}", wd.getMd5() + ":" + wd.getTitle());
                     } else
-                        wxDb.saveData(wd);
-                    if (status >= 0) {
+                        status = wxDb.saveData(wd);
+                    if (status > 0) {
                         logger.info("inserted {}", wd.getTitle());
                         if (wd.getReadNum() > 0) {
                             JSONObject obj = (JSONObject) jObjs.get("_id");
@@ -107,8 +108,8 @@ public class mongo2Ora {
                         }
 
                     } else {
-                        if (status == -2)
-                            logger.error("pubtime is null");
+                        if (status == -2);
+//                            logger.error("pubtime is null ");
 
                     }
 
@@ -151,7 +152,7 @@ public class mongo2Ora {
                 return sdf2.parse(strTime);
             } catch (ParseException e1) {
                 try {
-                    sdf3.parse(strTime);
+                    return sdf3.parse(strTime);
                 } catch (ParseException e2) {
                     e2.printStackTrace();
                 }
@@ -162,12 +163,14 @@ public class mongo2Ora {
 
     public static void main(String[] args) {
         while (true) {
+            if (movedIds!=null) movedIds.clear();
             move();
+
 //            if (movedIds.size() > 0) remove();
 //            if (faikedIds.size() > 0) remove();
             try {
-                logger.info("15min 后继续...");
-                Thread.sleep(1000 * 60 * 15);
+                logger.info("1min 后继续...");
+                Thread.sleep(1000 * 60 * 1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
