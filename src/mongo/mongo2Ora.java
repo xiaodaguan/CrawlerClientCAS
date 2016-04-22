@@ -24,7 +24,7 @@ public class mongo2Ora {
 
     static final List<String> movedIds = new ArrayList<String>();
     static final List<String> faikedIds = new ArrayList<String>();
-    static MongoClient client = new MongoClient("192.168.1.103:27017");
+    static MongoClient client = new MongoClient("172.18.79.31:27017");
     static final MongoDatabase db = client.getDatabase("wechatdb");
     static MongoCollection coll = db.getCollection("wechat_article_info");
 
@@ -169,7 +169,7 @@ public class mongo2Ora {
 //            if (movedIds.size() > 0) remove();
 //            if (faikedIds.size() > 0) remove();
             try {
-                logger.info("1min 后继续...");
+                logger.info("1min later...");
                 Thread.sleep(1000 * 60 * 1);
             } catch (InterruptedException e) {
                 e.printStackTrace();

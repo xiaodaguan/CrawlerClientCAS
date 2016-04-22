@@ -14,9 +14,9 @@ import java.util.List;
 public class weixinDataDb extends db<WeixinData> {
     Logger logger = LoggerFactory.getLogger(weixinDataDb.class);
     private Connection conn = null;
-    private String URL = "jdbc:oracle:thin:@192.168.1.103:1521/ORCL";
-    private String USERNAME = "qdtramgr";
-    private String PASSWORD = "qdtramgr";
+    private String URL = "jdbc:oracle:thin:@172.18.79.3:1521/ORCL";
+    private String USERNAME = "jinrong";
+    private String PASSWORD = "jinrong";
     private String TABLE = "weixin_data";
 
     public weixinDataDb() {
