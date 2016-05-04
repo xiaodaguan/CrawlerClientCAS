@@ -147,6 +147,7 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
 			String time = nl.item(0).getTextContent().replace("年", "-").replace("月", "").replace("日", "");
+			time = StringUtil.extrator(time,"\\d+-\\d+-\\d+.\\d*.\\d*.\\d*");
 			data.setPubtime(time);
 			data.setPubdate(timeProcess(time));
 		}
