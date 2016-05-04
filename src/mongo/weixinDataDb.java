@@ -2,6 +2,7 @@ package mongo;
 
 import com.sun.xml.internal.ws.api.server.EndpointData;
 import common.bean.WeixinData;
+import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +18,18 @@ import java.util.List;
 public class weixinDataDb extends db<WeixinData> {
     Logger logger = LoggerFactory.getLogger(weixinDataDb.class);
     private Connection conn = null;
+    private String URL = null;
+    private String USERNAME = null;
+    private String PASSWORD = null;
 
     public weixinDataDb(String url, String uname, String passwd) {
+        URL = url;
+        USERNAME = uname;
+        PASSWORD = passwd;
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
 
-            this.conn = DriverManager.getConnection(url, uname, passwd);
+            this.conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -34,6 +41,11 @@ public class weixinDataDb extends db<WeixinData> {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return USERNAME + "@" + URL;
     }
 
     @Override
@@ -94,6 +106,114 @@ public class weixinDataDb extends db<WeixinData> {
     }
 
 
+    /**
+     * 是否存在于oracle中,如果是返回表中id,否则-1
+     *
+     * @param wd
+     * @param table
+     * @return
+     */
+    private int getOracleId(WeixinData wd, String table) {
+
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select id from " + table + " where md5 = '" + wd.getMd5() + "'");
+            if (rs.next()) {
+                return rs.getInt("id");
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * update data
+     *
+     * @param wd
+     * @param table
+     * @param id
+     * @throws SQLException
+     */
+    private void updateData(WeixinData wd, String table, int id) throws SQLException {
+        String sql = "update " + table + " set read_num_24hours= ?, like_num_24hours = ?, update_time = ? where id = " + id;
+        PreparedStatement ps = null;
+        ps = conn.prepareStatement(sql);
+        ps.setInt(1, wd.getReadNum());
+        ps.setInt(2, wd.getPraiseNum());
+        ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+        ps.execute();
+        ps.close();
+    }
+
+    /**
+     * insert data
+     *
+     * @param wd
+     * @param table
+     */
+    private void insertData(WeixinData wd, String table) throws SQLException {
+        String sql = "insert into " + table + "(" +
+                "title, author, pubtime, url, search_keyword, " +
+                "source, category1, create_time, md5, content, " +
+                "brief, ";
+        sql += table.equals("article") ? "img, " : "img_url, ";
+        sql += "read_num, like_num, gongzhong_id, " +
+                "read_num_24hours, like_num_24hours, update_time" +
+                ") values(" +
+                "?,?,?,?,?," +
+                "?,?,?,?,?," +
+                "?,?,?,?,?," +
+                "?,?,?" +
+                ")";
+
+
+        PreparedStatement ps = null;
+
+        ps = conn.prepareStatement(sql);
+
+        ps.setString(1, wd.getTitle());
+        ps.setString(2, wd.getAuthor());
+        ps.setTimestamp(3, new Timestamp(wd.getPubdate().getTime()));
+        ps.setString(4, wd.getUrl());
+        ps.setString(5, wd.getSearchKey());
+
+        ps.setString(6, wd.getSource());
+        ps.setInt(7, wd.getCategoryCode());
+        if (wd.getInserttime() != null) ps.setTimestamp(8, new Timestamp(wd.getInserttime().getTime()));
+        else ps.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+        ps.setString(9, wd.getMd5());
+        ps.setString(10, wd.getContent());
+
+        ps.setString(11, wd.getBrief());
+        ps.setString(12, wd.getImgUrl());
+        ps.setInt(13, wd.getReadNum());
+        ps.setInt(14, wd.getPraiseNum());
+        ps.setInt(15, wd.getGongzhongId());
+        ps.setInt(16, wd.getReadNum());
+        ps.setInt(17, wd.getPraiseNum());
+        ps.setTimestamp(18, new Timestamp(wd.getInserttime().getTime()));
+
+        ps.execute();
+        ps.close();
+
+
+    }
+
     @Override
     public int saveOrUpdateData(WeixinData wd, String table) {
         if (wd.getPubdate() == null) {
@@ -102,111 +222,29 @@ public class weixinDataDb extends db<WeixinData> {
         }
 
 
-        String sql = null;
-        PreparedStatement ps = null;
-        if (wd.getGongzhongId() != 0) {//公众号
-            Statement stmt = null;
-            ResultSet rs = null;
+        int id = getOracleId(wd, table);
+        if (id >= 0) {//表中已存在
+
+            //已采集过的记录,只更新readlike
             try {
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery("select id from " + table + " where md5 = '" + wd.getMd5() + "'");
-                if (rs.next()) {
-                    int id = rs.getInt("id");
-                    //已采集过的记录,只更新readlike
-                    sql = "update " + table + " set read_num_24hours= ?, like_num_24hours = ?, update_time = ? where gongzhong_id = " + wd.getGongzhongId();
-                    ps = conn.prepareStatement(sql);
-                    ps.setInt(1, wd.getReadNum());
-                    ps.setInt(2, wd.getPraiseNum());
-                    ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-                    boolean flag = ps.execute();
+                updateData(wd, table, id);
+                logger.debug("updated id: " + id);
 
-
-                    logger.debug("updated id: " + wd.getGongzhongId());
-
-                    return 2;
-
-                }
-
-
+                return 2;
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
-                try {
-                    if (rs != null) rs.close();
-                    if (stmt != null) stmt.close();
-                    if (ps != null) ps.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            sql = "insert into " + table + "(" +
-                    "title, author, pubtime, url, search_keyword, " +
-                    "source, category1, create_time, md5, content, " +
-                    "brief, img, read_num, like_num, gongzhong_id, " +
-                    "read_num_24hours, like_num_24hours, update_time" +
-                    ") values(" +
-                    "?,?,?,?,?," +
-                    "?,?,?,?,?," +
-                    "?,?,?,?,?," +
-                    "?,?,?" +
-                    ")";
-
-
-        } else {//搜索
-            sql = "insert into " + table + "(" +
-                    "title, author, pubtime, url, search_keyword, " +
-                    "source, category1, inserttime, md5, content, " +
-                    "brief, img_url, read_num, like_num" +
-                    ") values(" +
-                    "?,?,?,?,?," +
-                    "?,?,?,?,?," +
-                    "?,?,?,?" +
-                    ")";
-        }
-
-//        String sql = "insert into " + TABLE + "(title) values(?)";
-
-        try {
-            ps = conn.prepareStatement(sql);
-
-            ps.setString(1, wd.getTitle());
-            ps.setString(2, wd.getAuthor());
-            ps.setTimestamp(3, new Timestamp(wd.getPubdate().getTime()));
-            ps.setString(4, wd.getUrl());
-            ps.setString(5, wd.getSearchKey());
-
-            ps.setString(6, wd.getSource());
-            ps.setInt(7, wd.getCategoryCode());
-            if (wd.getInserttime() != null) ps.setTimestamp(8, new Timestamp(wd.getInserttime().getTime()));
-            else ps.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
-            ps.setString(9, wd.getMd5());
-            ps.setString(10, wd.getContent());
-
-            ps.setString(11, wd.getBrief());
-            ps.setString(12, wd.getImgUrl());
-            ps.setInt(13, wd.getReadNum());
-            ps.setInt(14, wd.getPraiseNum());
-            if (wd.getGongzhongId() != 0) {
-                ps.setInt(15, wd.getGongzhongId());
-                ps.setInt(16, wd.getReadNum());
-                ps.setInt(17, wd.getPraiseNum());
-                ps.setTimestamp(18, new Timestamp(wd.getInserttime().getTime()));
             }
 
-            ps.execute();
-            ps.close();
-
-//            logger.info("weixindata:[{}] wrote into oracle: [{}]", wd.getTitle(), URL + "/" + TABLE);
-            return 1;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
+        } else {
             try {
-                ps.close();
+                insertData(wd, table);
+                logger.debug("inserted.");
+                return 1;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+
 
         return -1;
     }
@@ -225,7 +263,7 @@ public class weixinDataDb extends db<WeixinData> {
             e.printStackTrace();
         } finally {
             try {
-                stmt.close();
+                if (stmt != null) stmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

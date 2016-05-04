@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 
-public class mongo2Ora implements Runnable {
+public class mongo2Ora {
 
     static Logger logger = LoggerFactory.getLogger(mongo2Ora.class);
 
@@ -32,22 +32,8 @@ public class mongo2Ora implements Runnable {
     static final MongoDatabase db = client.getDatabase("wechatdb");
 
 
-    @Override
-    public void run() {
-        while (true) {
-            move("sogou_weixin_paper_info", "weixin_data");
-
-            try {
-                logger.info("1min later...");
-                Thread.sleep(1000 * 60 * 1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void move(String collName, final String tableName) {
-        move(collName, tableName, null);
+    public static void move(weixinDataDb wdd, String collName, final String tableName) {
+        move(wdd, collName, tableName, null);
     }
 
     /**
@@ -56,24 +42,20 @@ public class mongo2Ora implements Runnable {
      * @param collName
      * @param tableName
      */
-    public static void move(String collName, final String tableName, String beginAndEnd) {
+    public static void move(final weixinDataDb wdb, String collName, final String tableName, String beginAndEnd) {
 
 
         MongoCollection coll = db.getCollection(collName);
 
         FindIterable<Document> iter = beginAndEnd == null ? coll.find() : coll.find(Filters.and(Filters.gt("pubtime", beginAndEnd.split("~")[0]), Filters.lt("pubtime", beginAndEnd.split("~")[1])));
 
-        logger.info("start moving items from mongodb to oracle...");
+        logger.info("{} start moving items from mongodb to oracle...", wdb.toString());
 
         final int[] updateCount = {0};
         final int[] insertCount = {0};
 
 
-        String URL = "jdbc:oracle:thin:@172.18.79.3:1521/ORCL";
-        String USERNAME = "jinrong";
-        String PASSWORD = "jinrong";
-        final mongo.db<WeixinData> wxDb = new weixinDataDb(URL, USERNAME, PASSWORD);
-        final List<String> crawledMd5s = wxDb.getCrawled(tableName);
+        final List<String> crawledMd5s = wdb.getCrawled(tableName);
         try {
             iter.forEach(new Block<Document>() {
                              @Override
@@ -97,7 +79,7 @@ public class mongo2Ora implements Runnable {
                                  }
 
 
-                                 int status = wxDb.saveOrUpdateData(wd, tableName);
+                                 int status = wdb.saveOrUpdateData(wd, tableName);
 
 
                                  if (status > 0) {
@@ -127,11 +109,15 @@ public class mongo2Ora implements Runnable {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-        logger.info("updated {}", updateCount[0] + " " + collName + " " + tableName + " " + beginAndEnd);
-        logger.info("insertd {}", insertCount[0] + " " + collName + " " + tableName + " " + beginAndEnd);
+        logger.info("[UDPATED] {}", updateCount[0] + ": " + collName + " [" + beginAndEnd + "] " + wdb + "/" + tableName);
+        logger.info("[INSERTED] {}", insertCount[0] + ": " + collName + " [" + beginAndEnd + "] " + wdb + "/" + tableName);
     }
 
-
+    /**
+     * orm
+     * @param jObjs
+     * @return
+     */
     private static WeixinData json2Weixin(JSONObject jObjs) {
         WeixinData wd = new WeixinData();
         Iterator<String> iter = jObjs.keys();

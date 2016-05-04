@@ -617,15 +617,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="slf4j-log4j12-1.5.0.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/slf4j-log4j12-1.5.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="spring-dao-2.0.8.jar">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/spring-dao-2.0.8.jar!/" />
@@ -743,17 +734,7 @@
       </library>
     </orderEntry>
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.ideaLibSources/mongo-java-driver-3.2.2-sources.jar!/" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="mongo-java-driver-3.2.2" level="project" />
+    <orderEntry type="library" name="slf4j-log4j12-1.7.4" level="project" />
   </component>
 </module>

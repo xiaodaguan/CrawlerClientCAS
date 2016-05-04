@@ -9,8 +9,8 @@ public class start {
 
     public static void main(String[] args) {
         //保存
-        mongo2Ora m2o = new mongo2Ora();
-        Thread tMove = new Thread(m2o,"move");
+        transferData m2o = new transferData();
+        Thread tMove = new Thread(m2o,"transfer");
         tMove.start();
 
         //更新

@@ -26,7 +26,7 @@ public class updateCollect implements Runnable {
             HashMap<Integer, String> tasks = wdd.getItemsToCollect("collect");
             for (int id : tasks.keySet()) {
                 String range = tasks.get(id);
-                mongo2Ora.move("sogou_weixin_wxpublic_info", "article", range);
+                mongo2Ora.move(wdd,"sogou_weixin_wxpublic_info", "article", range);
                 if (wdd.updateCollectStatus("collect", id)) logger.info("updated collect id:" + id);
 
                 try {
