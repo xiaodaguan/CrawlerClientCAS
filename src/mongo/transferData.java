@@ -1,5 +1,9 @@
 package mongo;
 
+import common.util.JsonUtil;
+import common.util.StringUtil;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,20 +14,38 @@ import org.slf4j.LoggerFactory;
 public class transferData implements Runnable {
     Logger logger = LoggerFactory.getLogger(transferData.class);
 
+    String ORACLE_URL = "";
+    String ORACLE_USERNAME = "";
+    String ORACLE_PASSWORD = "";
+
+
+    String ORACLE_TABLE = "weixin_data";
+    String MONGODB_COLLECTION = "sogou_weixin_paper_info";
+
+    private void readConf() {
+//        System.out.println(System.getProperty("user.dir"));
+        String text = StringUtil.getContent("./config/mongo2oracle.conf");
+
+        JSONObject jObj = JSONObject.fromObject(text);
+        JSONObject jOra = (JSONObject) jObj.get("oracle");
+        JSONObject jMon = (JSONObject) jObj.get("mongodb");
+        assert jOra != null && jMon != null;
+        ORACLE_URL = jOra.getString("url");
+        ORACLE_USERNAME = jOra.getString("user");
+        ORACLE_PASSWORD = jOra.getString("passwd");
+
+
+    }
 
     @Override
     public void run() {
 
-        String ORACLE_URL = "jdbc:oracle:thin:@172.18.79.3:1521/ORCL";
-        String ORACLE_USERNAME = "jinrong";
-        String ORACLE_PASSWORD = "jinrong";
-        String ORACLE_TABLE = "weixin_data";
+        readConf();
 
-        String MONGODB_COLLECTION = "sogou_weixin_paper_info";
 
         weixinDataDb wdb = new weixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
         while (true) {
-            mongo2Ora.move(wdb,MONGODB_COLLECTION, ORACLE_TABLE);
+            mongo2Ora.move(wdb, MONGODB_COLLECTION, ORACLE_TABLE);
 
             try {
                 logger.info("1min later...");

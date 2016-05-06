@@ -8,6 +8,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import common.bean.WeixinData;
+import common.util.StringUtil;
 import net.sf.json.JSONObject;
 import org.bson.Document;
 import org.slf4j.Logger;
@@ -29,13 +30,31 @@ import java.util.List;
 public class mongo2Ora {
 
     static Logger logger = LoggerFactory.getLogger(mongo2Ora.class);
-    static String MONGO_URL = "172.18.79.31:27017";
-    static String MONGO_DB = "wechatdb";
+    static String MONGO_URL = "";
+    static String MONGO_DB = "";
 
-    static final List<String> faikedIds = new ArrayList<String>();
-    static MongoClient client = new MongoClient(MONGO_URL);
-    static final MongoDatabase db = client.getDatabase(MONGO_DB);
+    static List<String> faikedIds = new ArrayList<String>();
+    static MongoClient client = null;
+    static MongoDatabase db = null;
 
+    static {
+        readConf();
+        client = new MongoClient(MONGO_URL);
+        db = client.getDatabase(MONGO_DB);
+    }
+
+    private static void readConf() {
+//        System.out.println(System.getProperty("user.dir"));
+        String text = StringUtil.getContent("./config/mongo2oracle.conf");
+
+        JSONObject jObj = JSONObject.fromObject(text);
+        JSONObject jOra = (JSONObject) jObj.get("oracle");
+        JSONObject jMon = (JSONObject) jObj.get("mongodb");
+        assert jOra != null && jMon != null;
+
+        MONGO_URL = jMon.getString("url");
+        MONGO_DB = jMon.getString("db");
+    }
 
     public static void move(weixinDataDb wdd, String collName, final String tableName) {
         move(wdd, collName, tableName, null);
@@ -44,6 +63,7 @@ public class mongo2Ora {
     /**
      * move
      * orm实现
+     *
      * @param collName
      * @param tableName
      */

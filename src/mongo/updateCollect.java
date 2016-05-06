@@ -1,5 +1,7 @@
 package mongo;
 
+import common.util.StringUtil;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,21 +14,35 @@ import java.util.HashMap;
 public class updateCollect implements Runnable {
     static Logger logger = LoggerFactory.getLogger(updateCollect.class);
 
-    public static void main(String[] args) {
+
+    String ORACLE_URL = "";
+    String ORACLE_USERNAME = "";
+    String ORACLE_PASSWORD = "";
+    String TASK_TABLE_NAME = "collect";
+    String ORACLE_TABLE = "article";
+
+    String MONGODB_COLLECTION = "sogou_weixin_wxpublic_info";
+
+
+    private void readConf() {
+//        System.out.println(System.getProperty("user.dir"));
+        String text = StringUtil.getContent("./config/mongo2oracle.conf");
+
+        JSONObject jObj = JSONObject.fromObject(text);
+        JSONObject jOra = (JSONObject) jObj.get("oracle");
+        JSONObject jMon = (JSONObject) jObj.get("mongodb");
+        assert jOra != null && jMon != null;
+        ORACLE_URL = jOra.getString("url");
+        ORACLE_USERNAME = jOra.getString("user");
+        ORACLE_PASSWORD = jOra.getString("passwd");
+
 
     }
 
     @Override
     public void run() {
 
-        String ORACLE_URL = "jdbc:oracle:thin:@172.18.79.3:1521/ORCL";
-        String ORACLE_USERNAME = "ashi";
-        String ORACLE_PASSWORD = "ashi";
-        String TASK_TABLE_NAME = "collect";
-        String ORACLE_TABLE = "article";
-
-        String MONGODB_COLLECTION = "sogou_weixin_wxpublic_info";
-
+        readConf();
 
         while (true) {
             weixinDataDb wdd = new weixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
