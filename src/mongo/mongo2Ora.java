@@ -1,35 +1,40 @@
 package mongo;
 
+import com.mongodb.Block;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import common.bean.WeixinData;
 import net.sf.json.JSONObject;
 import org.bson.Document;
-import com.mongodb.Block;
-import com.mongodb.client.FindIterable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.RunnableFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
-
+/**
+ * move 操作
+ * mongodb url在此配置
+ * from mongodb to oracle
+ */
 public class mongo2Ora {
 
     static Logger logger = LoggerFactory.getLogger(mongo2Ora.class);
+    static String MONGO_URL = "172.18.79.31:27017";
+    static String MONGO_DB = "wechatdb";
 
     static final List<String> faikedIds = new ArrayList<String>();
-    static MongoClient client = new MongoClient("172.18.79.31:27017");
-    static final MongoDatabase db = client.getDatabase("wechatdb");
+    static MongoClient client = new MongoClient(MONGO_URL);
+    static final MongoDatabase db = client.getDatabase(MONGO_DB);
 
 
     public static void move(weixinDataDb wdd, String collName, final String tableName) {
@@ -37,8 +42,8 @@ public class mongo2Ora {
     }
 
     /**
-     * ��mongodb��ȡָ��collectionȫ��items,ת��or���µ�oracle��
-     *
+     * move
+     * orm实现
      * @param collName
      * @param tableName
      */
@@ -115,6 +120,7 @@ public class mongo2Ora {
 
     /**
      * orm
+     *
      * @param jObjs
      * @return
      */

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Created by guanxiaoda on 16/5/4.
+ * 用于转移搜索得到的文章
  */
 public class transferData implements Runnable {
     Logger logger = LoggerFactory.getLogger(transferData.class);
@@ -13,12 +14,16 @@ public class transferData implements Runnable {
     @Override
     public void run() {
 
-        String URL = "jdbc:oracle:thin:@172.18.79.3:1521/ORCL";
-        String USERNAME = "jinrong";
-        String PASSWORD = "jinrong";
-        weixinDataDb wdb = new weixinDataDb(URL, USERNAME, PASSWORD);
+        String ORACLE_URL = "jdbc:oracle:thin:@172.18.79.3:1521/ORCL";
+        String ORACLE_USERNAME = "jinrong";
+        String ORACLE_PASSWORD = "jinrong";
+        String ORACLE_TABLE = "weixin_data";
+
+        String MONGODB_COLLECTION = "sogou_weixin_paper_info";
+
+        weixinDataDb wdb = new weixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
         while (true) {
-            mongo2Ora.move(wdb,"sogou_weixin_paper_info", "weixin_data");
+            mongo2Ora.move(wdb,MONGODB_COLLECTION, ORACLE_TABLE);
 
             try {
                 logger.info("1min later...");
