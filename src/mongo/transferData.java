@@ -19,8 +19,9 @@ public class transferData implements Runnable {
     String ORACLE_PASSWORD = "";
 
 
-    String ORACLE_TABLE = "weixin_data";
-    String MONGODB_COLLECTION = "sogou_weixin_paper_info";
+    String MONGODB_COLLECTION = "";
+    String ORACLE_TABLE = "";
+    String ORACLE_TASK_TABLE = "";
 
     private void readConf() {
 //        System.out.println(System.getProperty("user.dir"));
@@ -33,6 +34,10 @@ public class transferData implements Runnable {
         ORACLE_URL = jOra.getString("url");
         ORACLE_USERNAME = jOra.getString("user");
         ORACLE_PASSWORD = jOra.getString("passwd");
+        ORACLE_TABLE = jOra.getString("paper_table");
+        ORACLE_TASK_TABLE = jOra.getString("task_table");
+
+        MONGODB_COLLECTION = jMon.getString("collection");
 
 
     }
@@ -40,11 +45,11 @@ public class transferData implements Runnable {
     @Override
     public void run() {
 
-        readConf();
 
-
-        weixinDataDb wdb = new weixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
         while (true) {
+            readConf();
+            weixinDataDb wdb = new weixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
+
             mongo2Ora.move(wdb, MONGODB_COLLECTION, ORACLE_TABLE);
 
             try {

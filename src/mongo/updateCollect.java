@@ -18,10 +18,10 @@ public class updateCollect implements Runnable {
     String ORACLE_URL = "";
     String ORACLE_USERNAME = "";
     String ORACLE_PASSWORD = "";
-    String TASK_TABLE_NAME = "collect";
-    String ORACLE_TABLE = "article";
+    String ORACLE_TABLE = "";
+    String ORACLE_TASK_TABLE = "";
 
-    String MONGODB_COLLECTION = "sogou_weixin_wxpublic_info";
+    String MONGODB_COLLECTION = "";
 
 
     private void readConf() {
@@ -35,18 +35,21 @@ public class updateCollect implements Runnable {
         ORACLE_URL = jOra.getString("url");
         ORACLE_USERNAME = jOra.getString("user");
         ORACLE_PASSWORD = jOra.getString("passwd");
+        ORACLE_TABLE = jOra.getString("paper_table");
+        ORACLE_TASK_TABLE = jOra.getString("task_table");
 
+        MONGODB_COLLECTION = jMon.getString("collection");
 
     }
 
     @Override
     public void run() {
 
-        readConf();
 
         while (true) {
+            readConf();
             weixinDataDb wdd = new weixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
-            HashMap<Integer, String> tasks = wdd.getItemsToCollect(TASK_TABLE_NAME);
+            HashMap<Integer, String> tasks = wdd.getItemsToCollect(ORACLE_TASK_TABLE);
             for (int id : tasks.keySet()) {
                 String range = tasks.get(id);
                 mongo2Ora.move(wdd, MONGODB_COLLECTION, ORACLE_TABLE, range);

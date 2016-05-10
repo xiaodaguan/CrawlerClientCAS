@@ -32,6 +32,7 @@ public class mongo2Ora {
     static Logger logger = LoggerFactory.getLogger(mongo2Ora.class);
     static String MONGO_URL = "";
     static String MONGO_DB = "";
+    static String MONGO_COLLECTION = "";
 
     static List<String> faikedIds = new ArrayList<String>();
     static MongoClient client = null;
@@ -54,6 +55,7 @@ public class mongo2Ora {
 
         MONGO_URL = jMon.getString("url");
         MONGO_DB = jMon.getString("db");
+        MONGO_COLLECTION = jMon.getString("collection");
     }
 
     public static void move(weixinDataDb wdd, String collName, final String tableName) {

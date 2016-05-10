@@ -1,0 +1,726 @@
+[INFO ][05-04 14:38:38][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@3431b5d7: startup date [Wed May 04 14:38:38 CST 2016]; root of context hierarchy
+[INFO ][05-04 14:38:38][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 14:38:40][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 14:38:41][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 14:38:41][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@202e8c23: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 14:38:42][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 14:38:46][main][common.util.UrlReduplicationRemove][46]
+初始化数量7715109############800000 数据表中url数量:3559
+[INFO ][05-04 14:38:47][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 14:38:47][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 14:38:47][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 14:38:48][Thread-0][system][84]
+system : 0个关键词将采集:
+[INFO ][05-04 14:38:48][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 14:38:48][Thread-0][system][84]
+system : {}
+[INFO ][05-04 14:39:36][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@61beead9: startup date [Wed May 04 14:39:36 CST 2016]; root of context hierarchy
+[INFO ][05-04 14:39:36][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 14:39:37][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 14:39:37][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 14:39:37][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@31f61519: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 14:39:38][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 14:39:41][main][common.util.UrlReduplicationRemove][46]
+初始化数量7715109############800000 数据表中url数量:3559
+[INFO ][05-04 14:39:41][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 14:39:42][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 14:39:42][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 14:39:42][Thread-0][system][84]
+system : 3个关键词将采集:
+[INFO ][05-04 14:39:42][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 14:39:42][Thread-0][system][84]
+system : {}
+[INFO ][05-04 14:40:16][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%C8%CB%BB%FA%CE%A7%C6%E5&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 14:40:16][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%D2%FD%C1%A6%B2%A8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 14:40:34][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%D2%FD%C1%A6%B2%A8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 14:42:35][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%C8%CB%BB%FA%CE%A7%C6%E5&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 14:42:35][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%D2%FD%C1%A6%B2%A8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 14:42:36][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%D2%FD%C1%A6%B2%A8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 14:45:00][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@3d2c7eb1: startup date [Wed May 04 14:45:00 CST 2016]; root of context hierarchy
+[INFO ][05-04 14:45:00][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 14:45:01][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 14:45:02][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 14:45:02][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@66f3ce62: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 14:45:02][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 14:46:51][main][common.util.UrlReduplicationRemove][46]
+初始化数量20022926############2076230 数据表中url数量:207623
+[INFO ][05-04 14:46:52][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 14:46:53][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 14:46:53][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 14:46:53][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tianya.temp]
+[INFO ][05-04 14:46:53][Thread-0][system][84]
+system : 2个关键词将采集:
+[INFO ][05-04 14:46:53][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 14:46:53][Thread-0][system][84]
+system : {}
+[INFO ][05-04 14:46:54][Thread-0][system][84]
+system : url: http://search.tianya.cn/bbs?s=4&q=%E7%BD%91%E9%93%B6&pn=1
+[INFO ][05-04 14:46:54][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 14:46:54][Thread-0][system][84]
+system : http://search.tianya.cn/bbs?s=4&q=%E7%BD%91%E9%93%B6&pn=1元数据页面解析完成。
+[INFO ][05-04 14:46:54][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 14:46:57][Thread-0][system][84]
+system : url: http://search.tianya.cn/bbs?s=4&q=%E7%BD%91%E9%93%B6&pn=2
+[INFO ][05-04 14:46:57][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 14:46:58][Thread-0][system][84]
+system : http://search.tianya.cn/bbs?s=4&q=%E7%BD%91%E9%93%B6&pn=2元数据页面解析完成。
+[INFO ][05-04 14:46:58][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 14:48:27][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728
+[INFO ][05-04 14:48:27][Thread-0][system][84]
+system : url: http://bbs.tianya.cn/post-free-5454354-1.shtml
+[INFO ][05-04 14:48:27][Thread-0][system][84]
+system : http://bbs.tianya.cn/post-free-5454354-1.shtml下载完成。。。
+[INFO ][05-04 14:48:58][Thread-0][system][84]
+system : 莆田系背后金主曝光:涉刘永好家族和红杉资本解析完成。。。
+[INFO ][05-04 14:48:59][Thread-0][system][84]
+system : 莆田系背后金主曝光:涉刘永好家族和红杉资本保存完成。。。
+[INFO ][05-04 14:49:00][Thread-0][system][84]
+system : url: http://bbs.tianya.cn/post-471-996612-1.shtml
+[INFO ][05-04 14:49:01][Thread-0][system][84]
+system : http://bbs.tianya.cn/post-471-996612-1.shtml下载完成。。。
+[INFO ][05-04 14:49:16][Thread-0][system][84]
+system : 招标=云南曲靖株木山(150MW)风电项目办公家具采购招标招标公告解析完成。。。
+[INFO ][05-04 14:49:16][Thread-0][system][84]
+system : 招标=云南曲靖株木山(150MW)风电项目办公家具采购招标招标公告保存完成。。。
+[INFO ][05-04 14:49:24][Thread-0][system][84]
+system : url: http://bbs.tianya.cn/post-471-996608-1.shtml
+[INFO ][05-04 14:49:24][Thread-0][system][84]
+system : http://bbs.tianya.cn/post-471-996608-1.shtml下载完成。。。
+[INFO ][05-04 14:49:28][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728下载完成。。。
+[INFO ][05-04 14:49:28][Thread-0][system][84]
+system : 网银怎么买993游戏的欢乐豆解析完成。。。
+[ERROR][05-04 14:49:28][Thread-0][system][86]
+system : 采集出现异常http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728
+java.lang.NullPointerException
+	at common.service.oracle.BbsOracleService$2.createPreparedStatement(BbsOracleService.java:85)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:580)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:842)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:69)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:26)
+	at common.down.bbs.BBSDataCommonDownload.process(BBSDataCommonDownload.java:53)
+	at common.down.GenericDataCommonDownload.run(GenericDataCommonDownload.java:20)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO ][05-04 14:49:28][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612
+[INFO ][05-04 14:49:29][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612下载完成。。。
+[INFO ][05-04 14:49:29][Thread-0][system][84]
+system : 网银怎么买993游戏的银子解析完成。。。
+[ERROR][05-04 14:49:29][Thread-0][system][86]
+system : 采集出现异常http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612
+java.lang.NullPointerException
+	at common.service.oracle.BbsOracleService$2.createPreparedStatement(BbsOracleService.java:85)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:580)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:842)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:69)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:26)
+	at common.down.bbs.BBSDataCommonDownload.process(BBSDataCommonDownload.java:53)
+	at common.down.GenericDataCommonDownload.run(GenericDataCommonDownload.java:20)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO ][05-04 14:49:29][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520090958?pid=88825107366&cid=0#88825107366
+[INFO ][05-04 14:49:39][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520090958?pid=88825107366&cid=0#88825107366下载完成。。。
+[INFO ][05-04 14:53:06][Thread-0][system][84]
+system : 海拉尔热电厂火车厢冻煤清理装置改造招标公告解析完成。。。
+[INFO ][05-04 14:55:29][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@42b34bd3: startup date [Wed May 04 14:55:29 CST 2016]; root of context hierarchy
+[INFO ][05-04 14:55:29][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 14:55:30][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 14:55:30][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 14:55:30][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1072b8bc: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 14:55:31][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 14:57:54][main][common.util.UrlReduplicationRemove][46]
+初始化数量20023216############2076260 数据表中url数量:207626
+[INFO ][05-04 14:57:56][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 14:57:56][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 14:57:57][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 14:57:58][Thread-0][system][84]
+system : 2个关键词将采集:
+[INFO ][05-04 14:57:58][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 14:57:58][Thread-0][system][84]
+system : {}
+[INFO ][05-04 14:58:13][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 14:58:38][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 14:58:41][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 14:58:42][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 14:58:46][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728
+[INFO ][05-04 14:58:48][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728下载完成。。。
+[INFO ][05-04 14:59:36][Thread-0][system][84]
+system : 网银怎么买993游戏的欢乐豆解析完成。。。
+[ERROR][05-04 14:59:43][Thread-0][system][86]
+system : 采集出现异常http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728
+java.lang.NullPointerException
+	at common.service.oracle.BbsOracleService$2.createPreparedStatement(BbsOracleService.java:85)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:580)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:842)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:69)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:26)
+	at common.down.bbs.BBSDataCommonDownload.process(BBSDataCommonDownload.java:53)
+	at common.down.GenericDataCommonDownload.run(GenericDataCommonDownload.java:20)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO ][05-04 14:59:46][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612
+[INFO ][05-04 14:59:51][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612下载完成。。。
+[INFO ][05-04 15:04:42][Thread-0][system][84]
+system : 网银怎么买993游戏的银子解析完成。。。
+[INFO ][05-04 15:05:02][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@7283922: startup date [Wed May 04 15:05:02 CST 2016]; root of context hierarchy
+[INFO ][05-04 15:05:02][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 15:05:03][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 15:05:04][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 15:05:04][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@12e335ef: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 15:05:05][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 15:07:12][main][common.util.UrlReduplicationRemove][46]
+初始化数量20023216############2076260 数据表中url数量:207626
+[INFO ][05-04 15:07:14][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 15:07:14][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 15:07:15][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 15:07:16][Thread-0][system][84]
+system : 2个关键词将采集:
+[INFO ][05-04 15:07:16][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 15:07:16][Thread-0][system][84]
+system : {}
+[INFO ][05-04 15:07:17][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 15:07:17][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 15:07:20][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 15:07:21][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 15:07:27][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728
+[INFO ][05-04 15:10:02][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728下载完成。。。
+[INFO ][05-04 15:10:17][Thread-0][system][84]
+system : 网银怎么买993游戏的欢乐豆解析完成。。。
+[ERROR][05-04 15:10:17][Thread-0][system][86]
+system : 采集出现异常http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728
+java.lang.NullPointerException
+	at common.service.oracle.BbsOracleService$2.createPreparedStatement(BbsOracleService.java:85)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:580)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:842)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:69)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:26)
+	at common.down.bbs.BBSDataCommonDownload.process(BBSDataCommonDownload.java:53)
+	at common.down.GenericDataCommonDownload.run(GenericDataCommonDownload.java:20)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO ][05-04 15:10:19][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612
+[INFO ][05-04 15:10:19][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612下载完成。。。
+[INFO ][05-04 15:16:53][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@7283922: startup date [Wed May 04 15:16:53 CST 2016]; root of context hierarchy
+[INFO ][05-04 15:16:53][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 15:16:55][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 15:16:55][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 15:16:55][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@12e335ef: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 15:16:56][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 15:19:16][main][common.util.UrlReduplicationRemove][46]
+初始化数量20023216############2076260 数据表中url数量:207626
+[INFO ][05-04 15:19:18][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 15:19:18][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 15:19:19][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 15:19:19][Thread-0][system][84]
+system : 2个关键词将采集:
+[INFO ][05-04 15:19:19][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 15:19:19][Thread-0][system][84]
+system : {}
+[INFO ][05-04 15:19:19][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 15:19:20][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 15:19:23][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 15:19:28][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 15:19:53][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728
+[INFO ][05-04 15:20:53][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728下载完成。。。
+[INFO ][05-04 15:21:13][Thread-0][system][84]
+system : 网银怎么买993游戏的欢乐豆解析完成。。。
+[ERROR][05-04 15:21:15][Thread-0][system][86]
+system : 采集出现异常http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728
+java.lang.NullPointerException
+	at common.service.oracle.BbsOracleService$2.createPreparedStatement(BbsOracleService.java:85)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:580)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:842)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:69)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:26)
+	at common.down.bbs.BBSDataCommonDownload.process(BBSDataCommonDownload.java:53)
+	at common.down.GenericDataCommonDownload.run(GenericDataCommonDownload.java:20)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO ][05-04 15:21:15][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612
+[INFO ][05-04 15:21:16][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612下载完成。。。
+[INFO ][05-04 15:21:48][Thread-0][system][84]
+system : 网银怎么买993游戏的银子解析完成。。。
+[ERROR][05-04 15:21:48][Thread-0][system][86]
+system : 采集出现异常http://tieba.baidu.com/p/4520253355?pid=88830706612&cid=0#88830706612
+java.lang.NullPointerException
+	at common.service.oracle.BbsOracleService$2.createPreparedStatement(BbsOracleService.java:85)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:580)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:842)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:69)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:26)
+	at common.down.bbs.BBSDataCommonDownload.process(BBSDataCommonDownload.java:53)
+	at common.down.GenericDataCommonDownload.run(GenericDataCommonDownload.java:20)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO ][05-04 15:21:49][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520090958?pid=88825107366&cid=0#88825107366
+[INFO ][05-04 15:21:52][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520090958?pid=88825107366&cid=0#88825107366下载完成。。。
+[INFO ][05-04 15:26:38][Thread-0][system][84]
+system : 今天我16周岁生日 能不能办有网银的银行卡解析完成。。。
+[INFO ][05-04 15:35:55][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@61beead9: startup date [Wed May 04 15:35:55 CST 2016]; root of context hierarchy
+[INFO ][05-04 15:35:56][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 15:35:58][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 15:35:59][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 15:35:59][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1072b8bc: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 15:36:00][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 15:38:12][main][common.util.UrlReduplicationRemove][46]
+初始化数量20023216############2076260 数据表中url数量:207626
+[INFO ][05-04 15:38:14][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 15:38:14][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 15:38:15][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 15:38:15][Thread-0][system][84]
+system : 2个关键词将采集:
+[INFO ][05-04 15:38:15][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 15:38:15][Thread-0][system][84]
+system : {}
+[INFO ][05-04 15:38:15][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 15:38:16][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 15:38:19][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 15:38:20][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 15:38:24][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728
+[INFO ][05-04 15:39:25][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520253575?pid=88830713728&cid=0#88830713728下载完成。。。
+[INFO ][05-04 15:41:24][Thread-0][system][84]
+system : 网银怎么买993游戏的欢乐豆解析完成。。。
+[INFO ][05-04 15:42:05][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@3d2c7eb1: startup date [Wed May 04 15:42:05 CST 2016]; root of context hierarchy
+[INFO ][05-04 15:42:05][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 15:42:06][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 15:42:07][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 15:42:07][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2e9e799: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 15:42:07][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 15:46:05][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@61beead9: startup date [Wed May 04 15:46:05 CST 2016]; root of context hierarchy
+[INFO ][05-04 15:46:05][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 15:46:06][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 15:46:06][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 15:46:06][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@67e9f96b: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 15:46:07][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 15:46:07][main][common.util.UrlReduplicationRemove][48]
+初始化数量7715109############800000 数据表中url数量:0
+[INFO ][05-04 15:46:07][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 15:46:08][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 15:46:09][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 15:46:09][Thread-0][system][84]
+system : 2个关键词将采集:
+[INFO ][05-04 15:46:09][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 15:46:09][Thread-0][system][84]
+system : {}
+[INFO ][05-04 15:46:09][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 15:46:11][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 15:46:14][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 15:46:14][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 15:46:26][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520549145?pid=88840371474&cid=0#88840371474
+[INFO ][05-04 15:46:27][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520549145?pid=88840371474&cid=0#88840371474下载完成。。。
+[INFO ][05-04 15:49:37][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@61beead9: startup date [Wed May 04 15:49:37 CST 2016]; root of context hierarchy
+[INFO ][05-04 15:49:37][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 15:49:38][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 15:49:39][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 15:49:39][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@66f3ce62: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 15:49:39][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 15:49:39][main][common.util.UrlReduplicationRemove][48]
+初始化数量7715109############800000 数据表中url数量:0
+[INFO ][05-04 15:49:39][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 15:49:40][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 15:49:41][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 15:49:41][Thread-0][system][84]
+system : 2个关键词将采集:
+[INFO ][05-04 15:49:41][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 15:49:41][Thread-0][system][84]
+system : {}
+[INFO ][05-04 15:49:41][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 15:49:42][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 15:49:45][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 15:49:46][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 15:49:57][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520549145?pid=88840371474&cid=0#88840371474
+[INFO ][05-04 15:49:57][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520549145?pid=88840371474&cid=0#88840371474下载完成。。。
+[INFO ][05-04 15:50:23][Thread-0][system][84]
+system : 出 身分正 网银优盾解析完成。。。
+[INFO ][05-04 16:02:42][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@1950262b: startup date [Wed May 04 16:02:42 CST 2016]; root of context hierarchy
+[INFO ][05-04 16:02:42][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 16:02:43][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 16:02:43][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 16:02:43][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@42e30beb: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 16:02:44][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 16:02:44][main][common.util.UrlReduplicationRemove][48]
+初始化数量7715109############800000 数据表中url数量:0
+[INFO ][05-04 16:02:44][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 16:02:45][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 16:02:46][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 16:02:46][Thread-0][system][84]
+system : 2个关键词将采集:
+[INFO ][05-04 16:02:46][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 16:02:46][Thread-0][system][84]
+system : {}
+[INFO ][05-04 16:02:46][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 16:02:49][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 16:02:52][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 16:02:53][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%CD%F8%D2%F8&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 16:02:53][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520549145?pid=88840371474&cid=0#88840371474
+[INFO ][05-04 16:02:53][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520549145?pid=88840371474&cid=0#88840371474下载完成。。。
+[INFO ][05-04 16:02:54][Thread-0][system][84]
+system : 出 身分正 网银优盾解析完成。。。
+[INFO ][05-04 16:02:54][Thread-0][system][84]
+system : 出 身分正 网银优盾保存完成。。。
+[INFO ][05-04 16:02:54][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520501000?pid=88838857048&cid=0#88838857048
+[INFO ][05-04 16:02:55][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520501000?pid=88838857048&cid=0#88838857048下载完成。。。
+[INFO ][05-04 16:02:55][Thread-0][system][84]
+system : 网银流水制作,网银转账,余额截解析完成。。。
+[INFO ][05-04 16:02:55][Thread-0][system][84]
+system : 网银流水制作,网银转账,余额截保存完成。。。
+[INFO ][05-04 16:02:55][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520497788?pid=88838750647&cid=0#88838750647
+[INFO ][05-04 16:02:56][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4520497788?pid=88838750647&cid=0#88838750647下载完成。。。
+[INFO ][05-04 16:02:56][Thread-0][system][84]
+system : 网银流水制作,网银转账,余额截解析完成。。。
+[INFO ][05-04 16:02:56][Thread-0][system][84]
+system : 网银流水制作,网银转账,余额截保存完成。。。
+[INFO ][05-04 16:02:56][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4520497173?pid=88838730868&cid=0#88838730868
+[INFO ][05-04 16:03:12][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@18600ee8: startup date [Wed May 04 16:03:12 CST 2016]; root of context hierarchy
+[INFO ][05-04 16:03:12][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 16:03:13][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 16:03:14][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 16:03:14][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@e4b51b1: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 16:03:14][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 16:07:02][main][common.util.UrlReduplicationRemove][48]
+初始化数量7715109############800000 数据表中url数量:0
+[INFO ][05-04 16:07:04][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 16:07:04][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 16:07:05][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 16:07:07][Thread-0][system][84]
+system : 1260个关键词将采集:
+[INFO ][05-04 16:07:07][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 16:07:07][Thread-0][system][84]
+system : {}
+[INFO ][05-04 16:07:07][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 16:07:08][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 16:07:11][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 16:07:12][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 16:07:13][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4518114992?pid=88758052940&cid=0#88758052940
+[INFO ][05-04 16:07:14][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4518114992?pid=88758052940&cid=0#88758052940下载完成。。。
+[INFO ][05-04 16:07:14][Thread-0][system][84]
+system : 揭专家为互联网金融站台价 :郎咸平茅于轼出场一次赚多少?解析完成。。。
+[ERROR][05-04 16:07:14][Thread-0][system][86]
+system : 采集出现异常http://tieba.baidu.com/p/4518114992?pid=88758052940&cid=0#88758052940
+java.lang.NullPointerException
+	at common.service.oracle.BbsOracleService$2.createPreparedStatement(BbsOracleService.java:85)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:580)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:842)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:69)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:26)
+	at common.down.bbs.BBSDataCommonDownload.process(BBSDataCommonDownload.java:53)
+	at common.down.GenericDataCommonDownload.run(GenericDataCommonDownload.java:20)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO ][05-04 16:07:14][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4061829118?pid=76277834233&cid=0#76277834233
+[INFO ][05-04 16:07:16][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4061829118?pid=76277834233&cid=0#76277834233下载完成。。。
+[INFO ][05-04 16:07:16][Thread-0][system][84]
+system : 融途网:专家称互联网金融火爆背后需冷静思考解析完成。。。
+[INFO ][05-04 16:09:29][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@2ef36617: startup date [Wed May 04 16:09:29 CST 2016]; root of context hierarchy
+[INFO ][05-04 16:09:29][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 16:09:30][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 16:09:30][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 16:09:30][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@15fe4211: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 16:09:30][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 16:12:10][main][common.util.UrlReduplicationRemove][48]
+初始化数量7715109############800000 数据表中url数量:0
+[INFO ][05-04 16:12:11][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 16:12:12][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 16:12:12][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 16:12:13][Thread-0][system][84]
+system : 1260个关键词将采集:
+[INFO ][05-04 16:12:13][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 16:12:13][Thread-0][system][84]
+system : {}
+[INFO ][05-04 16:12:14][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 16:12:15][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 16:12:18][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 16:12:19][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 16:12:20][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4518114992?pid=88758052940&cid=0#88758052940
+[INFO ][05-04 16:12:21][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4518114992?pid=88758052940&cid=0#88758052940下载完成。。。
+[INFO ][05-04 16:12:21][Thread-0][system][84]
+system : 揭专家为互联网金融站台价 :郎咸平茅于轼出场一次赚多少?解析完成。。。
+[ERROR][05-04 16:12:21][Thread-0][system][86]
+system : 采集出现异常http://tieba.baidu.com/p/4518114992?pid=88758052940&cid=0#88758052940
+java.lang.NullPointerException
+	at common.service.oracle.BbsOracleService$2.createPreparedStatement(BbsOracleService.java:85)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:580)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:842)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:69)
+	at common.service.oracle.BbsOracleService.saveData(BbsOracleService.java:26)
+	at common.down.bbs.BBSDataCommonDownload.process(BBSDataCommonDownload.java:53)
+	at common.down.GenericDataCommonDownload.run(GenericDataCommonDownload.java:20)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+[INFO ][05-04 16:12:21][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4057943286?pid=76180482285&cid=0#76180482285
+[INFO ][05-04 16:12:23][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4057943286?pid=76180482285&cid=0#76180482285下载完成。。。
+[INFO ][05-04 16:12:23][Thread-0][system][84]
+system : 华人金融怎么样?互联网金融协会专家带你实地考察解析完成。。。
+[INFO ][05-04 16:12:23][Thread-0][system][84]
+system : 华人金融怎么样?互联网金融协会专家带你实地考察保存完成。。。
+[INFO ][05-04 16:12:23][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4047483051?pid=75921989332&cid=0#75921989332
+[INFO ][05-04 16:12:24][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4047483051?pid=75921989332&cid=0#75921989332下载完成。。。
+[INFO ][05-04 16:12:24][Thread-0][system][84]
+system : 信和大金融 专家: 人才成为制约互联网金融发展瓶颈。解析完成。。。
+[INFO ][05-04 16:12:24][Thread-0][system][84]
+system : 信和大金融 专家: 人才成为制约互联网金融发展瓶颈。保存完成。。。
+[INFO ][05-04 16:12:24][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4041569135?pid=75783507858&cid=0#75783507858
+[INFO ][05-04 16:14:00][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@61beead9: startup date [Wed May 04 16:14:00 CST 2016]; root of context hierarchy
+[INFO ][05-04 16:14:00][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-04 16:14:01][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-04 16:14:02][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-04 16:14:02][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1072b8bc: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-04 16:14:03][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-04 16:16:37][main][common.util.UrlReduplicationRemove][48]
+初始化数量7715109############800000 数据表中url数量:0
+[INFO ][05-04 16:16:38][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-04 16:16:39][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-04 16:16:39][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-04 16:16:40][Thread-0][system][84]
+system : 1260个关键词将采集:
+[INFO ][05-04 16:16:40][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-04 16:16:40][Thread-0][system][84]
+system : {}
+[INFO ][05-04 16:16:41][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-04 16:16:42][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-04 16:16:45][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-04 16:16:45][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-04 16:18:23][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4518114992?pid=88758052940&cid=0#88758052940
+[INFO ][05-04 16:18:23][Thread-0][system][84]
+system : http://tieba.baidu.com/p/4518114992?pid=88758052940&cid=0#88758052940下载完成。。。
+[INFO ][05-04 16:21:16][Thread-0][system][84]
+system : 揭专家为互联网金融站台价 :郎咸平茅于轼出场一次赚多少?解析完成。。。
