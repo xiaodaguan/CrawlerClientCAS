@@ -3,18 +3,13 @@ package common.down.bbs;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
-import oracle.net.aso.e;
 import common.bean.BBSData;
 import common.bean.HtmlInfo;
 import common.down.DataThreadControl;
 import common.down.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.system.UserAttr;
-import common.system.UserManager;
 import common.util.TimeUtil;
 
 /**

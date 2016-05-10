@@ -1,36 +1,25 @@
 package common.extractor.xpath.ebusiness.search.sub;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import oracle.net.aso.n;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import common.bean.CommentData;
 import common.bean.EbusinessData;
 import common.bean.HtmlInfo;
 import common.bean.OwnerData;
 import common.extractor.xpath.ebusiness.search.EbusinessSearchXpathExtractor;
+import common.http.SimpleHttpProcess;
 import common.siteinfo.CollectDataType;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.DOMUtil;
-import common.util.JsonUtil;
-import common.util.MD5Util;
-import common.util.StringUtil;
-import common.util.TimeUtil;
-import common.http.SimpleHttpProcess;
+import common.util.*;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.util.*;
 
 public class JDExtractor extends EbusinessSearchXpathExtractor {
 
