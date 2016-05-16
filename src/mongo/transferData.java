@@ -53,8 +53,9 @@ public class transferData implements Runnable {
             mongo2Ora.move(wdb, MONGODB_COLLECTION, ORACLE_TABLE);
 
             try {
-                logger.info("1min later...");
-                Thread.sleep(1000 * 60 * 1);
+                int SLEEP_BETWEEN_CYCLE = 1;
+                logger.info(SLEEP_BETWEEN_CYCLE + " min before NEXT RUN...");
+                Thread.sleep(1000 * 60 * SLEEP_BETWEEN_CYCLE);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

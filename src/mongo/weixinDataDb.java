@@ -7,10 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by guanxiaoda on 16/4/15.
@@ -52,8 +51,8 @@ public class weixinDataDb extends db<WeixinData> {
     public HashMap<Integer, String> getItemsToCollect(String collectTable) {
         Statement stmt = null;
         ResultSet rs = null;
-        String sql = "select id, begin_date, end_date from " + collectTable + " where status = 1 or status = 0";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String sql = "select id, begin_date, end_date from " + collectTable + " where status = 1 or status = 0 order by id desc";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         HashMap<Integer, String> tasks = new HashMap<Integer, String>();
 
         try {
@@ -64,6 +63,10 @@ public class weixinDataDb extends db<WeixinData> {
                 int id = rs.getInt(1);
                 Date begin = rs.getDate(2);
                 Date end = rs.getDate(3);
+                if (begin.getTime() == end.getTime()) {
+                    begin = dateIncreaseHours(begin, 0);
+                    end = dateIncreaseHours(end, 24);
+                }
                 tasks.put(id, sdf.format(begin) + "~" + sdf.format(end));
             }
         } catch (SQLException e) {
@@ -72,6 +75,19 @@ public class weixinDataDb extends db<WeixinData> {
 
 
         return tasks;
+    }
+
+    private Date dateIncreaseHours(Date begin, int hours) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(begin);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        cal.add(Calendar.HOUR, hours);
+        begin = new Date(cal.getTimeInMillis());
+        return begin;
     }
 
 

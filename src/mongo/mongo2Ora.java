@@ -139,7 +139,7 @@ public class mongo2Ora {
         }
         logger.info("[UDPATED] {}", updateCount[0] + ": " + collName + " [" + beginAndEnd + "] " + wdb + "/" + tableName);
         logger.info("[INSERTED] {}", insertCount[0] + ": " + collName + " [" + beginAndEnd + "] " + wdb + "/" + tableName);
-        return insertCount[0];
+        return insertCount[0]+updateCount[0];
     }
 
     /**

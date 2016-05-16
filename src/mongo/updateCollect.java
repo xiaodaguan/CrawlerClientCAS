@@ -57,14 +57,17 @@ public class updateCollect implements Runnable {
                     if (wdd.updateCollectStatus("collect", id)) logger.info("updated collect id:" + id);
                 }
                 try {
-                    Thread.sleep(5000);
+                    int SLEEP_BETWEEN_COLLECT = 1000;
+                    Thread.sleep(SLEEP_BETWEEN_COLLECT);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             try {
-                logger.info("wait 5 min...");
-                Thread.sleep(1000 * 60 * 5);
+
+                int SLEEP_BETWEEN_CYCLE = 5;
+                logger.info("wait " + SLEEP_BETWEEN_CYCLE + " min...");
+                Thread.sleep(1000 * 60 * SLEEP_BETWEEN_CYCLE);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
