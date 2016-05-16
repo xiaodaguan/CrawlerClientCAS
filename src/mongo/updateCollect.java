@@ -52,9 +52,10 @@ public class updateCollect implements Runnable {
             HashMap<Integer, String> tasks = wdd.getItemsToCollect(ORACLE_TASK_TABLE);
             for (int id : tasks.keySet()) {
                 String range = tasks.get(id);
-                mongo2Ora.move(wdd, MONGODB_COLLECTION, ORACLE_TABLE, range);
-                if (wdd.updateCollectStatus("collect", id)) logger.info("updated collect id:" + id);
-
+                int insertCount = mongo2Ora.move(wdd, MONGODB_COLLECTION, ORACLE_TABLE, range);
+                if (insertCount > 10) {//do not update collect status if count of new items < 10
+                    if (wdd.updateCollectStatus("collect", id)) logger.info("updated collect id:" + id);
+                }
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {

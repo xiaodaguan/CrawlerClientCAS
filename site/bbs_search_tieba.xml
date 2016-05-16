@@ -13,17 +13,18 @@
 	<prop name="downInterval" value="3" />
 	<prop name="page" value="2" />
 	<prop name="threadNum" value="1" />
-	
+
+
 	<prop name="accessUrl" value="http://tieba.baidu.com/f/search/res?isnew=1&amp;kw=&amp;qw=&lt;keyword&gt;&amp;rn=10&amp;un=&amp;only_thread=1&amp;sm=1&amp;sd=&amp;ed=&amp;pn=1" />
-<!-- 列表页 -->
+	<!-- 列表页 -->
 	<prop name="title" value="//DIV[@class='s_post']/SPAN[@class='p_title']/A" />
 	<prop name="url" value="//DIV[@class='s_post']/SPAN[@class='p_title']/A/@href" />
 	<prop name="url_prefix" value="http://tieba.baidu.com" />
 	<prop name="next" value="//A[contains(.,'下一页')]/@href" />
 	<prop name="next_prefix" value="http://tieba.baidu.com" />
-<!-- 内容页 -->
+	<!-- 内容页 -->
 	<prop name="author" value="//DIV[@class='p_postlist']/DIV[1]/DIV[@class='d_author']/UL/LI[@class='d_name']/A" />
-	<prop name="pubtime" value="//DIV[@class='p_postlist']/DIV[@data-field]/@data-field" />
+	<prop name="pubtime" value="(//UL[@class='p_tail']|//DIV[@class='post-tail-wrap'])[1]" />
 	<prop name="content" value="//DIV[@class='p_postlist']/DIV[1]/DIV/DIV[contains(@class,'p_content')]" />
 	<prop name="column" value="//A[@id='tab_forumname']/@title" />
 	<prop name="reply_count" value="//UL[@class='l_posts_num']/LI[@class='l_reply_num' and contains(.,'回复')]" />

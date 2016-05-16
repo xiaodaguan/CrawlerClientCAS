@@ -39,7 +39,7 @@ public class UrlReduplicationRemove {
         Map<String, List<String>> map = new HashMap<String, List<String>>();
         int size = 0;
         if (Systemconfig.mode.toLowerCase().equals("test")) ;
-        else getQueryList(map);// 获得相应的list列表
+        else size = getQueryList(map);// 获得相应的list列表
         int t = 800000;
         int k = 10;
         int n = size * k < t ? t : size * k;// 保证在8K万以上

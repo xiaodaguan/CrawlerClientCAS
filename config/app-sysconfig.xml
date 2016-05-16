@@ -20,7 +20,7 @@
 		<property name="rmiName" value="${rmiName}" />
 		<property name="rmiPort" value="${rmiPort}" />
 		<property name="serverAddress" value="${serverAddress}" />
-		<property name="crawlerType" value="${crawler_type}" />
+	<!--	<property name="crawlerType" value="${crawler_type}" /> -->
 		<property name="distribute" value="${distribute}" />
 		<property name="clientIndex" value="${client_index}" />
 		<property name="lifeCycle" value="${lifeCycle}" />

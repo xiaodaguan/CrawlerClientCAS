@@ -1,6 +1,7 @@
 package common.service.oracle;
 
 import common.bean.*;
+import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.service.AbstractDBService;
 import common.system.Systemconfig;
@@ -196,36 +197,24 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         String sql = null;
         String clause = " where status=2";
         switch (Systemconfig.crawlerType) {
-            case 1: {
-                //news
-                clause += " and type like '%;1;%' ";
-                break;
-            }
-            case 3: {
-                //forum
-                clause += " and type like '%;2;%' ";
-                break;
-            }
-            case 5: {
-                //blog
-                clause += " and type like '%;3;%' ";
-                break;
-
-            }
-            case 7: {
-                //weibo
-                clause += " and type like '%;4;%' ";
-                break;
-            }
-            case 15: {
-//                weixin
-                clause += " and type like '%;8;%' ";
-                break;
-            }
-
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 9:
+            case 11:
+            case 13:
+            case 15:
+            case 17:
+            case 19:
+            case 21:
+            case 23:
+            case 25:
+            case 27:
+            case 29:
             case 31: {
                 //person
-                clause += " and type like '%16%' ";
+                clause += " and type like '%;" + (Systemconfig.crawlerType + 1) / 2 + ";%' ";
                 break;
             }
             case 2:
@@ -236,6 +225,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             case 12:
             case 14:
             case 16:
+            case 18:
             case 20:
             case 28:
             case 30:

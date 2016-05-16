@@ -58,8 +58,8 @@ public class mongo2Ora {
         MONGO_COLLECTION = jMon.getString("collection");
     }
 
-    public static void move(weixinDataDb wdd, String collName, final String tableName) {
-        move(wdd, collName, tableName, null);
+    public static int move(weixinDataDb wdd, String collName, final String tableName) {
+        return move(wdd, collName, tableName, null);
     }
 
     /**
@@ -68,8 +68,9 @@ public class mongo2Ora {
      *
      * @param collName
      * @param tableName
+     * @return 新增的数量
      */
-    public static void move(final weixinDataDb wdb, String collName, final String tableName, String beginAndEnd) {
+    public static int move(final weixinDataDb wdb, String collName, final String tableName, String beginAndEnd) {
 
 
         MongoCollection coll = db.getCollection(collName);
@@ -138,6 +139,7 @@ public class mongo2Ora {
         }
         logger.info("[UDPATED] {}", updateCount[0] + ": " + collName + " [" + beginAndEnd + "] " + wdb + "/" + tableName);
         logger.info("[INSERTED] {}", insertCount[0] + ": " + collName + " [" + beginAndEnd + "] " + wdb + "/" + tableName);
+        return insertCount[0];
     }
 
     /**
