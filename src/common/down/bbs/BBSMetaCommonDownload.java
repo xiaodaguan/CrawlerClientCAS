@@ -67,20 +67,10 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				try {
-					Systemconfig.dbService.saveLog(siteFlag, key, 3, nexturl+"\r\n"+e.getMessage());
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
 				break;
 			}
 		}
 
-		try {
-			Systemconfig.dbService.saveLog(siteFlag, key, 2, totalCount + "", alllist.size() + "");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		dtc.process(alllist, siteinfo.getDownInterval(),null, key);
 
@@ -88,14 +78,4 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 
 	}
 
-	/**
-	 * 对不同站点需要的参数进行处理
-	 * 
-	 * @see common.down.GenericCommonDownload#specialHtmlInfo(common.bean.HtmlInfo)
-	 */
-	@Override
-	protected void specialHtmlInfo(HtmlInfo html) {
-		// if (html.getSite().contains("autohome"))
-		// html.setCookie("UniqueUserId=786678901341867825; Hm_lvt_531e1bdb569e3bc1bb90698b3cb7d37a=1417744152,1418086520; sessionfid=3772052024; __utma=1.427062411.1417744153.1418086380.1418093023.4; __utmz=1.1418018637.2.2.utmcsr=baidu|utmccn=(organic)|utmcmd=organic|utmctr=sagitar; sessionuid=B4C9184C-BF03-D8BA-6C25-978DBDDA4001||2014-12-05+09%3A49%3A11.904; sessionip=159.226.177.188; area=120199; sessionid=B4C9184C-BF03-D8BA-6C25-978DBDDA4001%7C%7C2014-12-05+09%3A49%3A11.904%7C%7C0; ref=alading%7Csagitar%7C1120%7C0%7C2014-12-08+14%3A03%3A58.857%7C2014-12-08+14%3A03%3A58.857; Hm_lvt_90ad5679753bd2b5dec95c4eb965145d=1418018638; AccurateDirectseque=4,3_4_5,103,797,-1; Hm_lpvt_531e1bdb569e3bc1bb90698b3cb7d37a=1418093111; __utmc=1; __utmb=1.0.10.1418093023; sessionvid=C763C6AE-157B-489C-31FA-992DD9F3A37F");
-	}
 }

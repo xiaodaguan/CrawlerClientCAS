@@ -96,11 +96,6 @@ public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<Wei
 			// }
 		} catch (Exception e) {
 			Systemconfig.sysLog.log("采集出现异常" + url, e);
-			try {
-				Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
 		} finally {
 			if (count != null)
 				count.countDown();

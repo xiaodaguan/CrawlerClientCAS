@@ -39,11 +39,6 @@ public class Systemconfig {
     }
 
     /**
-     * 爬虫状态
-     */
-    public static CrawlerStatus crawlerStatus;
-
-    /**
      * 检索达到无销量页面
      */
     public static boolean forceStop = false;

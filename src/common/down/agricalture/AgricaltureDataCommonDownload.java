@@ -53,31 +53,19 @@ public class AgricaltureDataCommonDownload extends GenericDataCommonDownload<Agr
 				Systemconfig.dbService.saveData(data);
 
 				/* 状态 */
-				Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setStatus("DOWNLOADING");
 				int curr = Integer.parseInt(StringUtil.regMatcher(data.getCompleteSize(), "current: ", "/"));
 				int rest = Integer.parseInt(StringUtil.regMatcher(data.getCompleteSize(), "rest: ", "]"));
 				double per = (double) curr / (curr + rest);
 				if (data.getCompleteSize().contains("rest: 0")) {
 					// 判断为结束
 					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
-					Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setIfCrawled(true);
-					Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setStatus("COMPLETE");
-					Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus,
-							Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()), key, 5);
 
-					if (Systemconfig.crawlerStatus.allCrawled()) {
-						Systemconfig.crawlerStatus.setStatus("COMPLETE");
-						Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus, null, key, 6);
-					}
 				}
 
 				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "保存完成。。。");
 				synchronized (key) {
 					key.savedCountIncrease();
 				}
-				/* 状态 */
-				Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setSavedCount(key.getSavedCount());
-				Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setDownCount(curr);
 
 			}
 			// if(data.getSameUrl()!=null && count != null && data.getId()>0) {
@@ -91,36 +79,14 @@ public class AgricaltureDataCommonDownload extends GenericDataCommonDownload<Agr
 			// }
 		} catch (Exception e) {
 			Systemconfig.sysLog.log("采集出现异常【" + key + "】" + url, e);
-			// synchronized (key) {
-			// key.savedCountDecrease();
-			// }
-			// Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setSavedCount(key.getSavedCount());
 			if (data.getCompleteSize().contains("rest: 0")) {
 				// 判断为结束
 				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
-				Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setIfCrawled(true);
-				Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setStatus("COMPLETE");
-				Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus,
-						Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()), key, 5);
 
-				if (Systemconfig.crawlerStatus.allCrawled()) {
-					Systemconfig.crawlerStatus.setStatus("COMPLETE");
-					Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus, null, key, 6);
-				}
-			}
-			Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus,
-					Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()), key, 4);
-			try {
-				Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
-			} catch (IOException e1) {
-				e1.printStackTrace();
 			}
 		} finally {
 			if (count != null)
 				count.countDown();
-			/* 状态 */
-			Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus,
-					Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()), key, 4);
 			Systemconfig.sysLog.log("当前collect进度: " + data.getCompleteSize());
 			TimeUtil.rest(1);
 		}

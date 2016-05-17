@@ -115,11 +115,6 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 
 				} catch (Exception e) {
 					e.printStackTrace();
-					try {
-						Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 					break;
 				}
 			}// end while
@@ -130,7 +125,6 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 			try {
 				if (alllist.size() != 0) {
 					Systemconfig.sysLog.log("正在保存 " + keyword + "所有新数据...[" + alllist.size() + "]");
-					Systemconfig.dbService.saveLog(siteFlag, key, 2, totalCount + "", alllist.size() + "");
 					Systemconfig.dbService.saveDatas(alllist);
 					Systemconfig.sysLog.log(keyword + "所有新数据已保存。" + alllist.size());
 				} else {
@@ -161,18 +155,8 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 					com.get();
 				} catch (InterruptedException e) {
 					com.cancel(true);
-					try {
-						Systemconfig.dbService.saveLog(siteFlag, key, 3, key.getKey() + "\r\n" + e.getMessage());
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 				} catch (ExecutionException e) {
 					com.cancel(true);
-					try {
-						Systemconfig.dbService.saveLog(siteFlag, key, 3, key.getKey() + "\r\n" + e.getMessage());
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 				}
 			}
 
@@ -182,18 +166,8 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 				try {
 					rtt.get();
 				} catch (InterruptedException e) {
-					try {
-						Systemconfig.dbService.saveLog(siteFlag, key, 3, key.getKey() + "\r\n" + e.getMessage());
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 					rtt.cancel(true);
 				} catch (ExecutionException e) {
-					try {
-						Systemconfig.dbService.saveLog(siteFlag, key, 3, key.getKey() + "\r\n" + e.getMessage());
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 					rtt.cancel(true);
 				}
 			}
@@ -220,11 +194,6 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 					urls.put(html.getOrignUrl(), wd.getAddress());
 				} catch (Exception e) {
 					e.printStackTrace();
-					try {
-						Systemconfig.dbService.saveLog(siteFlag, key, 3, html.getOrignUrl() + "\r\n" + e.getMessage());
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 				}
 				TimeUtil.rest(5);
 			}

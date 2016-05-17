@@ -102,18 +102,8 @@ public class EbusinessDataCommonDownload extends GenericDataCommonDownload<Ebusi
 				// System.out.println("tmall");
 			} catch (IOException e) {
 				e.printStackTrace();
-				try {
-					Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
 			} catch (SAXException e) {
 				e.printStackTrace();
-				try {
-					Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
 			}
 
 		}

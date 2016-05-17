@@ -75,11 +75,6 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
                     e.printStackTrace();
                     System.err.println("err while downloading: " + nexturl);
                     System.err.println("wb url " + wbUrl);
-                    try {
-                        Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
                     break;
                 }
             }

@@ -140,7 +140,6 @@ public class Job {
      *
      * @param si
      * @param sk
-     * @param set
      * @param vi
      */
     public static void runSearchKey(Siteinfo si, SearchKey sk, ViewInfo vi) {
@@ -148,7 +147,6 @@ public class Job {
         String taskId = sk.getKey() + " " + sk.getSite() + " " + new Date().toString();
         sk.setCrawlerStatusId(taskId);
         CrawlerTaskStatus cts = new CrawlerTaskStatus(taskId, new Date(), sk.getKey(), si.getDownInterval(), si.getThreadNum(), false, 0, 0, 0, "INIT");
-        Systemconfig.crawlerStatus.getTasks().put(taskId, cts);
 
         String site = si.getSiteName();
         sk.setSite(site);
@@ -218,7 +216,6 @@ public class Job {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        Systemconfig.crawlerStatus = new CrawlerStatus(name, Systemconfig.crawlerType, new Date(), ip, "INIT");
 
         while (true) {
             keys = Systemconfig.dbService.searchKeys();
@@ -262,7 +259,6 @@ public class Job {
                         String taskId = sk.getKey() + " " + sk.getSite() + " " + new Date().toString();
                         sk.setCrawlerStatusId(taskId);
                         CrawlerTaskStatus cts = new CrawlerTaskStatus(taskId, new Date(), sk.getKey(), si.getDownInterval(), si.getThreadNum(), false, 0, 0, 0, "INIT");
-                        Systemconfig.crawlerStatus.getTasks().put(taskId, cts);
 
                         Systemconfig.finish.put(ss, false);
                     }
@@ -274,9 +270,6 @@ public class Job {
             } else {
 //                System.out.println(listRunning);
             }
-			/* 状态 */
-            Systemconfig.crawlerStatus.setStartKeywordSet(Systemconfig.crawlerStatus.getAllKeywords());
-            Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus, null, null, 1);
 
             if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
                 TimeUtil.rest(30 * 24 * 60 * 60);
@@ -304,7 +297,6 @@ public class Job {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        Systemconfig.crawlerStatus = new CrawlerStatus(name, Systemconfig.crawlerType, new Date(), ip, "INIT");
 
 
         keys = Systemconfig.dbService.searchKeys();
@@ -343,15 +335,12 @@ public class Job {
                 String taskId = sk.getKey() + " " + sk.getSite() + " " + new Date().toString();
                 CrawlerTaskStatus cts = new CrawlerTaskStatus(taskId, new Date(), sk.getKey(), si.getDownInterval(), si.getThreadNum(), false, 0, 0, 0, "INIT");
                 sk.setCrawlerStatusId(taskId);
-                Systemconfig.crawlerStatus.getTasks().put(taskId, cts);
 
                 Systemconfig.finish.put(ss, false);
                 TimeUtil.rest(1);
             }
         }
 			/* 状态 */
-        Systemconfig.crawlerStatus.setStartKeywordSet(Systemconfig.crawlerStatus.getAllKeywords());
-        Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus, null, null, 1);
 
         if (listRunning.size() == 0) {
             System.out.println("nothing running.");

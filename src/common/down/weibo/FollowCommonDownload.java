@@ -64,11 +64,6 @@ public class FollowCommonDownload extends GenericMetaCommonDownload<UserData> {
 					
 				} catch (Exception e) {
 					e.printStackTrace();
-					try {
-						Systemconfig.dbService.saveLog(siteFlag, key, 3,  url+"\r\n"+e.getMessage());
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
 					break;
 				}
 			}

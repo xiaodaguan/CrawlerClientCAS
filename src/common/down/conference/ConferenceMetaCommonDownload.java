@@ -67,18 +67,8 @@ public class ConferenceMetaCommonDownload extends GenericMetaCommonDownload<Conf
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				try {
-					Systemconfig.dbService.saveLog(siteFlag, key, 3, nexturl+"\r\n"+e.getMessage());
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
 				break;
 			}
-		}
-		try {
-			Systemconfig.dbService.saveLog(siteFlag, key, 2, totalCount + "", alllist.size() + "");
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		dtc.process(alllist, siteinfo.getDownInterval(),null, key);
 	}

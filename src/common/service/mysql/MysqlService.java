@@ -29,11 +29,7 @@ public abstract class MysqlService<T> extends AbstractDBService<T> {
 
 	};
 	
-	@Override
-	public void updateStatus(CrawlerStatus cs, CrawlerTaskStatus cts, SearchKey key, int tpye){
-		
-	};
-	
+
 	@Override
 	public Proxy getProxy(int siteId){
 		return null;

@@ -42,10 +42,6 @@ public abstract class HbaseService<T> extends AbstractDBService<T> {
 
 	};
 
-	@Override
-	public void updateStatus(CrawlerStatus cs, CrawlerTaskStatus cts, SearchKey key, int tpye) {
-
-	};
 
 	@Override
 	public abstract void saveData(T data) throws IOException;

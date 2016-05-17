@@ -16,24 +16,7 @@ import java.util.Map;
  */
 public interface DBService<T> {
 
-    /**
-     * @param cs
-     * @param cts
-     * @param key
-     * @param tpye: 1job2meta3data
-     */
-    public void updateStatus(CrawlerStatus cs, CrawlerTaskStatus cts, SearchKey key, int tpye);
 
-    /**
-     * 将日志保存到数据库，共有4种类型: 1启动 2采集 3异常 4完成
-     *
-     * @param siteFlag
-     * @param sk
-     * @param logType
-     * @param info:    type 2, info0 检索数据条数 info1 新数据条数; type 3, info0 异常信息; type 4, info0 入库条数
-     * @throws IOException
-     */
-    public void saveLog(String siteFlag, SearchKey sk, int logType, String... info) throws IOException;
 
     /**
      * 保存数据

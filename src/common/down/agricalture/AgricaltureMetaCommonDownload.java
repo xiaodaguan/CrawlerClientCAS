@@ -29,14 +29,6 @@ public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<Agr
 
 		TimeUtil.rest(3);
 		/* 状态 */
-		Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setInterval(siteinfo.getDownInterval());
-		Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setThreadNum(siteinfo.getThreadNum());
-		Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setStartTime(new Date());
-		Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setStatus("FETCHING");
-		Systemconfig.crawlerStatus.setStatus("RUNNING");
-		Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setFetchCount(0);
-		Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus,
-				Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()), key, 2);
 
 		List<AgricaltureData> alllist = new ArrayList<AgricaltureData>();
 		List<AgricaltureData> list = new ArrayList<AgricaltureData>();
@@ -83,17 +75,8 @@ public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<Agr
 				if (nexturl != null)
 					TimeUtil.rest(siteinfo.getDownInterval());
 
-				/* 状态 */
-				Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setFetchCount(alllist.size());
-				Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus,
-						Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()), key, 3);
 			} catch (Exception e) {
 				e.printStackTrace();
-				try {
-					Systemconfig.dbService.saveLog(siteFlag, key, 3, url + "\r\n" + e.getMessage());
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
 				break;
 			}
 		}
@@ -106,31 +89,11 @@ public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<Agr
 		// } else {
 		// dtc.process(alllist, siteinfo.getDownInterval()-5);
 		// }
-		try {
-			Systemconfig.dbService.saveLog(siteFlag, key, 2, totalCount + "", alllist.size() + "");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		/* 状态 */
 		if(alllist.size()==0){
-			Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setFetchCount(alllist.size());
-			Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setIfCrawled(true);
-			Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setStatus("COMPLETE");
-			Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus,
-					Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()), key, 5);
-
-			if (Systemconfig.crawlerStatus.allCrawled()) {
-				Systemconfig.crawlerStatus.setStatus("COMPLETE");
-				Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus, null, key, 6);
-			}
 			return;
 		}
 		
-		Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setFetchCount(alllist.size());
-		Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setStatus("DOWNLOADING");
-		Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus,
-				Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()), key, 4);
 
 		Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 列表页检索完成，不重复数据：" + alllist.size() + "条。");
 		dtc.process(alllist, siteinfo.getDownInterval() - 5, null,key);

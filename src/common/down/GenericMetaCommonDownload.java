@@ -56,11 +56,6 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 			Thread.currentThread().interrupt();
 		}
 		Systemconfig.sysLog.log(siteFlag+"的"+key.getKey()+"数据采集完成！！");
-		try {
-			Systemconfig.dbService.saveLog(siteFlag, key, 4, key.getSavedCount() + "");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		if(Systemconfig.clientinfo != null) {
 			ViewInfo vi = Systemconfig.clientinfo.getViewinfos().get(Systemconfig.localAddress+"_"+siteFlag);
 			InnerInfo ii = vi.getCrawlers().get(key.getKey());

@@ -103,11 +103,6 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             }
         }
 
-        try {
-            Systemconfig.dbService.saveLog(siteFlag, key, 2, totalCount + "", alllist.size() + "");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 //		dtc.process(alllist, siteinfo.getDownInterval(), null, key);
         for (WeixinData wd : alllist) {
             try {
@@ -157,24 +152,4 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
         html.setCookie(cookies);
     }
 
-//	@Override
-//	protected void specialHtmlInfo(HtmlInfo html) {
-//
-//		cookies = StringUtil.getContent("config/weixin_search_meta.txt").replace("\r\n", "").replace("\n", "").trim();
-//		html.setUa("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36");
-//		// html.setHost("weixin.sogou.com");
-//		// html.setAccept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-//		// html.setAcceptEncoding("gzip, deflate");
-//		// html.setAcceptLanguage("zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
-//		// html.setConnection("keep-alive");
-//		// html.setCacheControl("max-age=0");
-//
-//		// if (cookies.equals(""))
-//		// testCookieAndGet(html);
-//		// else
-//		// cookies = Systemconfig.dbService.randomHeaderFromDB().getCookie();
-//		html.setReferUrl("http://weixin.sogou.com/");
-//		html.setCookie(cookies);
-//
-//	}
 }

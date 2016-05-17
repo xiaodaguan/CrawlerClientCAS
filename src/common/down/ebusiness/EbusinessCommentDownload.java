@@ -55,11 +55,6 @@ public class EbusinessCommentDownload extends GenericDataCommonDownload<Ebusines
 					+ " 所有评论采集完成。------------------------");
 		} catch (Exception e) {
 			e.printStackTrace();
-			try {
-				Systemconfig.dbService.saveLog(siteFlag, key, 3, url+"\r\n"+e.getMessage());
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 

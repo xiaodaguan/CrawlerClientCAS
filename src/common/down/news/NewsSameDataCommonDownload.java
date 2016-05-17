@@ -48,12 +48,7 @@ public class NewsSameDataCommonDownload extends GenericDataCommonDownload<NewsDa
 			}
 		} catch (Exception e) {
 			Systemconfig.sysLog.log("采集出现异常"+url, e);
-			try {
-				Systemconfig.dbService.saveLog(siteFlag, key, 3, url+"\r\n"+ e.getMessage());
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		} 
+		}
 	}
 	
 }

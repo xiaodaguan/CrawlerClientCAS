@@ -56,45 +56,7 @@ public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
 				}
 				Systemconfig.sysLog.log(data.getTitle() + "保存完成。。。");
 			}
-			/** 2015-1-27 评论单独程序采集 gxd */
-			// String lastUrl = "";
-			// int page = 2;
-			// while (url != null) {
-			// if (url.equals(lastUrl))
-			// break;
-			// lastUrl = url;
-			// data.getReplyList().clear();
-			// html.setType("REPLY" + File.separator + siteFlag);
-			// if (siteFlag.contains("xcar") || siteFlag.contains("autohome"))//
-			// 试试
-			// html.setType("DATA" + File.separator + siteFlag);
-			// html.setOrignUrl(url);
-			// http.getContent(html);
-			// url = xpath.templateContentPage(data, html, page);
-			// Systemconfig.dbService.getNorepeatData(data.getReplyList(), "");
-			// Systemconfig.sysLog.log("\t" + data.getTitle() + " 评论  第" + (page
-			// - 1) + "页 解析完成。。。");
-			// if (Systemconfig.dbService instanceof BbsOracleService) {
-			// ((BbsOracleService)
-			// (Systemconfig.dbService)).saveCommonData(data);
-			// synchronized (key) {
-			// key.savedCountIncrease();
-			// }
-			// }
-			//
-			// else if (Systemconfig.dbService instanceof BbsMysqlService)
-			// ((BbsMysqlService)
-			// (Systemconfig.dbService)).saveCommonData(data);
-			// Systemconfig.sysLog.log("\t" + data.getTitle() + " 评论  第" + (page
-			// - 1) + "页 保存完成。。。");
-			// page++;
-			// }
 		} catch (Exception e) {
-			try {
-				Systemconfig.dbService.saveLog(siteFlag, key, 3, data.getUrl() + "\r\n" + e);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
 			Systemconfig.sysLog.log("采集出现异常" + data.getUrl(), e);
 		} finally {
 			if (count != null)
