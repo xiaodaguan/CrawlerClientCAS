@@ -48,9 +48,6 @@ import sun.net.www.content.text.Generic;
 public class DownFactory {
 	/**
 	 * 元数据
-	 * 
-	 * @param siteFlag
-	 * @param type
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes") public static GenericMetaCommonDownload metaControl(SearchKey key) {
@@ -109,7 +106,6 @@ public class DownFactory {
 	 * 详细数据
 	 * 
 	 * @param siteFlag
-	 * @param type
 	 * @return
 	 */
 	public static <T> GenericDataCommonDownload<T> dataControl(String siteFlag, T data, CountDownLatch count, UserAttr user, SearchKey key) {

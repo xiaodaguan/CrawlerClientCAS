@@ -46,172 +46,11 @@ public class Job {
         return first;
     }
 
-    // 包含以下关键字的会采集，否则跳过
-    private static String[] filterWord = null;
-    // private static String[] filterWord = { "青岛 停车" };
-    // private static String[] filterWord = { "金宇", "回力", "双钱", "赛轮" };//
-    // 淘宝搜索关键词：金宇，回力，双钱，赛轮
-    // private static String[] filterWord = { "马牌", "邓禄普", "朝阳", "邓固特异©", "米其林",
-    // "三角", "普利司通" };// 京东关键词
-    // 包含以下关键字的不采集
-    private static String[] filterWordN = null;
-    // private static String[] filterWordN={"002355","普利司通","米其林","邓禄普"};//
-    // private static String[]
-    // filterWordN={"3A20842","3A46110","3A3227275","3A52914076"};//
-    // 单独关键词，仅测试
-    // 值为空时才从数据库读关键词
-    // private static String filterKw = "马牌（Continental）_jd";
-    private static String filterKw = "";
 
-    // private static String filterKw =
-    // "双钱 轮胎_taobao;赛轮 轮胎_taobao;金宇 轮胎_taobao";//
-    // 测试单独关键词，必须以下划线分割关键词和站点，如：195R15C轮胎
-    // // 8层
-    // private static String filterKw =
-    // "http://s.taobao.com/search?q=%B4%B8%D7%D3%CA%D6%BB%FA&tab=mall&pspuid=736302&app=detailproduct&fs=1&cat=&loc=%B1%B1%BE%A9&promoted_service2=2&isprepay=1&user_type=1,taobao";
-    // // TR645_tb
 
-    /**
-     * 带有运行状态采集
-     *
-     * @throws Exception
-     */
-    public static void statusRun() throws Exception {
-        if (Systemconfig.crawlerType % 2 == 1) statusSearchRun();
-        else statusMonitorRun();
-    }
 
-    private static void statusSearchRun() throws Exception {
 
-		/* 状态 */
-        String name = "distribute_search_" + CrawlerTypeName.map.get(Systemconfig.crawlerType);
-        String ip = "127.0.0.1";
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress().toString();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        Systemconfig.crawlerStatus = new CrawlerStatus(name, Systemconfig.crawlerType, new Date(), ip, "INIT");
 
-        // 初始化爬虫
-        while (true) {
-            keys = Systemconfig.dbService.searchKeys();
-            Systemconfig.seedFilter.filter(keys);
-            System.out.println(keys.size() + "个关键词将采集");
-            if (keys != null && keys.size() > 0) {
-                for (Siteinfo s : Systemconfig.allSiteinfos.values()) {
-                    // 每一个站点
-                    if (filter(s.getSiteName())) continue;
-                    runSite(s);
-                }
-            }
-            /* 状态 */
-            Systemconfig.crawlerStatus.setStartKeywordSet(Systemconfig.crawlerStatus.getAllKeywords());
-            Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus, null, null, 1);
-
-            if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
-                TimeUtil.rest(30 * 24 * 60 * 60);
-            else if (Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
-                TimeUtil.rest(2 * 60 * 60);
-            else TimeUtil.rest(6 * 60 * 60);
-
-            if (Systemconfig.readConfigType == 0) AppContext.readConfigFromFile();// 每一轮后重新加载一次配置
-            else AppContext.readConfigFromDB();
-        }
-    }
-
-    private static void statusMonitorRun() throws Exception {
-        // 初始化爬虫
-
-		/* 状态 */
-        String name = "distribute_monitor_" + CrawlerTypeName.map.get(Systemconfig.crawlerType);
-        String ip = "127.0.0.1";
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress().toString();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        Systemconfig.crawlerStatus = new CrawlerStatus(name, Systemconfig.crawlerType, new Date(), ip, "INIT");
-
-        while (true) {
-            keys = Systemconfig.dbService.searchKeys();
-            Systemconfig.seedFilter.filter(keys);
-            System.out.println(keys.size() + "个关键词将采集");
-            if (keys != null && keys.size() > 0) {
-                runSite();
-            }
-			/* 状态 */
-            Systemconfig.crawlerStatus.setStartKeywordSet(Systemconfig.crawlerStatus.getAllKeywords());
-            Systemconfig.dbService.updateStatus(Systemconfig.crawlerStatus, null, null, 1);
-
-            if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
-                TimeUtil.rest(30 * 24 * 60 * 60);
-            else if (Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
-                TimeUtil.rest(2 * 60 * 60);
-            else if (Systemconfig.crawlerType == CrawlerType.WEIBO_MONITOR.ordinal()) TimeUtil.rest(30 * 60);
-            else TimeUtil.rest(6 * 60 * 60);
-
-            if (Systemconfig.readConfigType == 0) AppContext.readConfigFromFile();// 每一轮后重新加载一次配置
-            else AppContext.readConfigFromDB();
-        }
-    }
-
-    public static void runSite() {
-        Iterator<SearchKey> iter = keys.iterator();
-        while (iter.hasNext()) {
-            SearchKey sk = iter.next();
-            String site = sk.getSite() + "_" + CrawlerType.getMap().get(Systemconfig.crawlerType).name().toLowerCase();
-            if (filter(site)) continue;
-            Siteinfo si = Systemconfig.allSiteinfos.get(site);
-            sk.setSite(site);
-            String key = Systemconfig.localAddress + "_" + site;
-
-            ViewInfo vi = first.get(key);
-            if (vi == null) {
-                vi = new ViewInfo();
-                runInit(si, vi);
-                first.put(key, vi);
-            }
-
-            sk.setType(Systemconfig.crawlerType);
-            if (sk.getIp() == null) sk.setIp(Systemconfig.localAddress);
-            // 只执行指定为当前IP的数据
-            if (!Systemconfig.localAddress.equals(sk.getIp())) {
-                synchronized (keys) {
-                    iter.remove();
-                }
-                continue;
-            }
-            // 每个站点属性值设置一次
-            vi.setName(site);
-
-            runSearchKey(si, sk, vi);
-            // File f = new File("site" + File.separator + site + ".xml");
-            // if (f.exists())
-            // vi.setFile(StringUtil.getContent(f));
-            // vi.setThreadNum(si.getThreadNum());
-            // vi.setInterval(si.getDownInterval());
-            // vi.setCrawlerCycle(si.getCycleTime());
-            //
-            // HashMap<String, InnerInfo> inner =
-            // Systemconfig.clientinfo.getViewinfos().get(key).getCrawlers();
-            // String searchKey = sk.getSite() + sk.getKey();
-            // // 该爬虫是初次运行和完成后才会再次执行
-            // if (Systemconfig.finish.get(searchKey) == null ||
-            // Systemconfig.finish.get(searchKey)) {
-            // // 爬虫名和爬虫地址
-            // InnerInfo ii = new ViewInfo().new InnerInfo();
-            // ii.setSearchKey(sk);
-            // ii.setAlive(0);
-            // inner.put(sk.getKey(), ii);
-            //
-            // job.listSearchKey(sk);
-            //
-            // Systemconfig.finish.put(searchKey, false);
-            // TimeUtil.rest(1);
-            // }
-        }
-    }
 
     /**
      * 运行某个站点的所有检索词或所属的垂直网址
@@ -393,43 +232,8 @@ public class Job {
             out:
             for (SearchKey sk : keys) {
 
-				/* 过滤 */
-                int flag = 0;
-                if (filterWord != null) {
-                    for (String filterKey : filterWord) {
-                        if (sk.getKey().contains(filterKey)) {
-                            flag = 1;
-                            break;
-                        }
-                    }
-//                    if (flag == 1) {
-//                        Systemconfig.sysLog.log("采集：" + sk.getKey() + ".");
-//
-//                    } else {
-//                        Systemconfig.sysLog.log("跳过：" + sk.getKey() + ".");
-//                        continue;
-//                    }
-                }
-                flag = 0;
-                if (filterWordN != null) {
-                    for (String filterKey : filterWordN) {
-                        if (sk.getKey().contains(filterKey)) {
-                            flag = 1;
-                            break;
-                        }
-                    }
-//                    if (flag == 0) {
-//                        Systemconfig.sysLog.log("采集：" + sk.getKey() + ".");
-//
-//                    } else {
-//                        Systemconfig.sysLog.log("跳过：" + sk.getKey() + ".");
-//                        continue;
-//                    }
-                }
-				/* /过滤 */
 
                 for (String site : Systemconfig.allSiteinfos.keySet()) {
-                    if (filter(site)) continue;
 
                     Siteinfo si = Systemconfig.allSiteinfos.get(site);
                     sk.setSite(site);
@@ -509,43 +313,8 @@ public class Job {
         out:
         for (SearchKey sk : keys) {
 
-				/* 过滤 */
-            int flag = 0;
-            if (filterWord != null) {
-                for (String filterKey : filterWord) {
-                    if (sk.getKey().contains(filterKey)) {
-                        flag = 1;
-                        break;
-                    }
-                }
-//                if (flag == 1) {
-//                    Systemconfig.sysLog.log("采集：" + sk.getKey() + ".");
-//
-//                } else {
-//                    Systemconfig.sysLog.log("跳过：" + sk.getKey() + ".");
-//                    continue;
-//                }
-            }
-            flag = 0;
-            if (filterWordN != null) {
-                for (String filterKey : filterWordN) {
-                    if (sk.getKey().contains(filterKey)) {
-                        flag = 1;// 包含
-                        break;
-                    }
-                }
-//                if (flag == 0) {
-//                    Systemconfig.sysLog.log("采集：" + sk.getKey() + ".");
-//
-//                } else {
-//                    Systemconfig.sysLog.log("跳过：" + sk.getKey() + ".");
-//                    continue;
-//                }
-            }
-				/* /过滤 */
 
             String site = sk.getSite() + "_" + CrawlerType.getMap().get(Systemconfig.crawlerType).name().toLowerCase();
-            if (filter(site)) continue;
 
             Siteinfo si = Systemconfig.allSiteinfos.get(site);
 
@@ -605,42 +374,15 @@ public class Job {
     public void listSearchKey(SearchKey sk) {
         Future<?> f = execMap.get(sk.getSite()).submit(DownFactory.metaControl(sk));
         Systemconfig.tasks.put(sk.getSite() + "_" + sk.getKey(), f);
-        // try {
-        // Systemconfig.dbService.saveLog(sk.getSite(), sk, 1);
-        // } catch (IOException e1) {
-        // e1.printStackTrace();
-        // }
-        // try {
-        // int deadLine = 0;
-        // if (Systemconfig.crawlerType ==
-        // CrawlerType.EBUSINESS_SEARCH.ordinal()
-        // || Systemconfig.crawlerType ==
-        // CrawlerType.EBUSINESS_MONITOR.ordinal())
-        // deadLine = 24;
-        // else
-        // deadLine = 12;
-        //
-        // f.get(deadLine, TimeUnit.HOURS);
-        // task.throwException();
-        // } catch (InterruptedException e) {
-        // e.printStackTrace();
-        // } catch (ExecutionException e) {
-        // e.printStackTrace();
-        // } catch (TimeoutException e) {
-        // e.printStackTrace();
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // } finally {
-        // f.cancel(true);
-        // try {
-        // Systemconfig.dbService.saveLog(sk.getSite(), sk, 4,
-        // sk.getSavedCount() + "");
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
-        // }
+
     }
 
+
+
+    public static void simpleRun() {
+        if (Systemconfig.crawlerType % 2 == 1) simpleSearchRun();
+        else simpleMonitorRun();
+    }
     public static Map<String, ExecutorService> getExecMap() {
         return execMap;
     }
@@ -648,10 +390,4 @@ public class Job {
     public static Job getJob() {
         return job;
     }
-
-    public static void simpleRun() {
-        if (Systemconfig.crawlerType % 2 == 1) simpleSearchRun();
-        else simpleMonitorRun();
-    }
-
 }

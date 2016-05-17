@@ -40,8 +40,7 @@ public class CrawlerStart {
 
         int life = Systemconfig.lifeCycle;
 
-        if (Systemconfig.getDistribute()) Job.statusRun();
-        else Job.simpleRun();
+         Job.simpleRun();
 
         // TimeUtil.rest(60 * life);
         // System.out.println(60 * life+"ok.");

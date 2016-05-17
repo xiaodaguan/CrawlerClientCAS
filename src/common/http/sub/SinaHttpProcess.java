@@ -70,10 +70,10 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		this.redirectURL = redirectURL;
 	}
 	@Override
-	public void getContent(HtmlInfo html, UserAttr ua) {
-		if(ua != null)
-			redirectURL = ua.getReferer();
-		super.getContent(html, ua);
+	public void getContent(HtmlInfo html, UserAttr userAttr) {
+		if(userAttr != null)
+			redirectURL = userAttr.getReferer();
+		super.getContent(html, userAttr);
 	}
 	
 	@Override

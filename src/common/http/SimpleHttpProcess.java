@@ -112,10 +112,10 @@ public class SimpleHttpProcess implements HttpProcess {
 		}
 	}
 
-	@Override public void getContent(HtmlInfo html, UserAttr user) {
+	@Override public void getContent(HtmlInfo html, UserAttr userAttr) {
 		byte[] fromURL = null;
 		try {
-			fromURL = user == null ? simpleGet(html) : simpleGet(html, user);
+			fromURL = userAttr == null ? simpleGet(html) : simpleGet(html, userAttr);
 			if (fromURL == null) {
 				Systemconfig.sysLog.log("没有抓取到内容，建议暂停采集！请检查网络链接或URL：" + html.getOrignUrl() + "是否正确。");
 				html.setContent(null);

@@ -34,17 +34,17 @@ import common.util.TimeUtil;
 public class RenrenHttpProcess extends NeedCookieHttpProcess {
 
 	@Override
-	public void getContent(HtmlInfo html, UserAttr user) {
-		if(user == null) {
+	public void getContent(HtmlInfo html, UserAttr userAttr) {
+		if(userAttr == null) {
 			Systemconfig.sysLog.log("没有可用采集登陆用户！");
 			return;
 		}
-		if(user.getCookie() != null && !user.getCookie().equals("")) 
-			cookie = user.getCookie();
+		if(userAttr.getCookie() != null && !userAttr.getCookie().equals(""))
+			cookie = userAttr.getCookie();
 		else
-			login(user);
+			login(userAttr);
 		
-		super.getContent(html, user);
+		super.getContent(html, userAttr);
 	}
 	@Override
 	public byte[] simpleGet(HtmlInfo html, UserAttr user) {

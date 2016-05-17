@@ -23,9 +23,9 @@ public interface HttpProcess {
 	/**
 	 * 需要登录用户的页面内容
 	 * @param html
-	 * @param user
+	 * @param userAttr
 	 */
-	public void getContent(HtmlInfo html, UserAttr user);
+	public void getContent(HtmlInfo html, UserAttr userAttr);
 	
 	/**
 	 * 登陆状态检测
