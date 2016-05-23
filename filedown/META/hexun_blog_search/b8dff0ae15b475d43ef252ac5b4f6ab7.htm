@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="keywords" content="和讯搜索|股票搜索|港股搜索|美股搜索|新三板搜索|指数搜索|全球股指搜索|基金搜索|期货搜索|现货搜索|外盘期货搜索|理财产品搜索|债券搜索|股指期货搜索|外汇搜索|保险搜索|信托搜索|黄金搜索|财经资讯搜索|财经博客搜索|财经视频搜索|股吧搜索|基金吧搜索"/>
+<meta name="description" content="和讯搜索集成了股票、基金、期货、债券、外汇、保险、信托、理财产品、指数、现货、黄金等各类投资理财产品的搜索工具，也集成括了财经新闻、财经博客、财经视频、股吧、基金吧等投资理财内容的搜索工具，提供最全面最精准最权威的搜索结果">
+<title>财经博客搜索—和讯搜索-最好用的投资理财搜索工具</title>
+<link rel="stylesheet" type="text/css" href="http://img.hexun.com/www/search2014/css/searchResult.css?v1" />
+<script type="text/javascript" src="http://img.hexun.com/2014/zk/js/jquery.js"></script>
+<script type="text/javascript" src="http://img.hexun.com/www/search2014/js/top.js"></script>
+</head>
+<body>
+<div class="t-float clearfix" id="t-float"> 
+  <div id="topFullWidthBanner"></div>
+  <!--==========================  header  ===========================-->
+  <link rel="stylesheet" type="text/css" href="http://img.hexun.com/css/2014/header2014.css">
+  <div class="topHeader" id="header-w960">
+   <div class="topHeaderCon clearfix">
+	<div class="topHeaderConL"><a href="http://www.hexun.com" target="blank" class="tohome">和讯首页</a>|<a href="http://3g.hexun.com/download_news/" target="_blank" class="mobileUpload">手机和讯</a>
+	</div>
+	<div class="topHeaderConR">
+	  <link href="http://login.tool.hexun.com/OtherInterFace/style/newbase.css" rel="stylesheet" type="text/css">
+	  <script src="http://login.tool.hexun.com/OtherInterFace/js/popup.js" type="text/javascript" charset="gb2312"></script>
+	  <script charset="gb2312" type="text/javascript" language="javascript">
+		var href=window.location.href;   
+		hexunMember_loginSetup_signOutURL=href;//登出地址
+		hexunMember_loginSetup_noLoginDisplayMsg=""; //没登陆的提示
+		hexunMember_loginSetup_noLoginDisplayFlag="";//登录和注册中间的分隔符号 或 用户名与登出中间的分隔符号，不需要分隔符可以为空
+		hexunMember_loginSetup_islogined_isDisplay=true;//如果是登陆状态，true=显示用户名和登出按钮等信息,flase=不显示任何信息
+		hexunMember_loginSetup_referrer=document.referrer;//请不要修改此项
+		hexunMember_loginSetup_MastLogin=0;//如果需要不登陆就一直弹窗，在此设置一下弹窗时间间隔(秒)。如果等于0本项无效
+	  </script>
+	  <!--登录前-->
+	  <div id="loginBef" class="loginBef" style="display: block;">
+	   <div id="hexunMember_liveDisplay"><div id="hexunMember_nologinSetup_div_display_nologin"><span id="hexunMember_nologinSetup_span_display_noLoginDisplayMsg"></span><span id="hexunMember_nologinSetup_span_display_loginBTN"><a style="cursor:pointer" onclick="javascript:popupLogin();">登录</a></span><span id="hexunMember_nologinSetup_span_display_flag"></span><span id="hexunMember_nologinSetup_span_display_userREG"><a style="cursor:pointer" onclick="javascript:popupReg();">注册</a></span></div></div>
+	  </div>
+	  <!--登录后-->
+	  <div id="loginAfter" class="loginAfter" style="display: none;"></div>
+	  <script src="http://login.tool.hexun.com/OtherInterFace/login_2014_drop.aspx" type="text/javascript" charset="gb2312"></script><style type="text/css">.droptit{background:url(http://login.tool.hexun.com/image/ico_lico.gif) no-repeat 0 -164px;padding-left:24px; }.droptit a{background:url(http://login.tool.hexun.com/image/ico_lico.gif) no-repeat  right -422px;width:62px;height:16px;padding-right:20px;color:#666; display:block;}.droptit a span.spb{display:block;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:100%;height:16px;line-height:16px;}.droptit a:hover{color:#900;}.droptit a.dropTit_on{background:url(http://login.tool.hexun.com/image/ico_lico.gif) no-repeat  right -455px;}.dropbox{position:absolute;top:21px;right:0;border:solid 1px #dfe1e9;width:118px;}.dropbox a{background:#fff;color:#585858;height:30px; line-height:30px;padding-left:30px;width:88px;display:inline-block;}.dropbox a:hover{background:#edeef0;color:#585858;text-decoration:none;}.dropbox a.exit{border-top:solid 1px #dfe1e9;width:88px;}</style>
+	</div>
+   </div>
+  </div>
+  <!--header e-->
+</div>
+	
+<div class="search-rs-cont mt30 clearfix">
+    <!--logo-->
+    <div class="search-rs-logo"><a href="http://so.hexun.com" class="lg_hx" target="_blank"></a><a class="lg_search" href="http://so.hexun.com" target="_blank"></a></div>
+    <!--search-->
+    <div class="search-rs-box">
+      <div class="search-rs-list clearfix">
+        <div class="search-rs-list-ty">
+			<a href="http://so.hexun.com/default.do?type=all&key=引力波">全部</a>
+			<a href="http://so.hexun.com/default.do?type=stock&key=引力波">股票</a>
+			<a href="http://so.hexun.com/default.do?type=fund&key=引力波">基金</a>
+			<a href="http://so.hexun.com/default.do?type=bond&key=引力波">债券</a>
+			<a href="http://so.hexun.com/default.do?type=future&key=引力波">期货</a>
+			<a href="http://so.hexun.com/default.do?type=forex&key=引力波">外汇</a>
+			<a href="http://so.hexun.com/default.do?type=finance&key=引力波">理财</a>
+			<a href="http://so.hexun.com/default.do?type=trust&key=引力波">信托</a>
+			<a href="http://so.hexun.com/default.do?type=insurance&key=引力波">保险</a>
+                        <a href="http://so.hexun.com/default.do?type=hong&key=引力波">宏观</a>
+			<a href="http://news.search.hexun.com/news?key=引力波">新闻</a>
+			<a href="http://blog.search.hexun.com/blog?key=引力波" class="on">博客</a>
+			<a href="http://video.search.hexun.com/tv?key=引力波" >视频</a>
+			<a href="http://guba.hexun.com/search/ResultAll.aspx?key=引力波" style="padding-right:0px">股吧</a>
+	  	</div>
+      </div>
+ 
+   <form method="get" id="frm" target="_self">
+
+      <div class="search-box clearfix">
+        <input type="text"  id="key" name="key" value= 引力波 class="search-txt w532" />
+        <input class="search-btn w60" type="submit" value="" onclick="onClickSubmit(event)" />
+        <input type=hidden name="s" value="1" id="s" />
+        <input type=hidden name="page" value="1" id="page" />
+        <input type=hidden name="t" value="0" id="t" />
+        <input type=hidden name="f" value="0" id="f" />
+      </div>
+  
+    </form>
+
+      <!--search Panel-->
+      <div id="searchInfPanel">
+        <div class="searchPanel">
+          <ul>
+            <li>
+              <span class="searc_code"><font style="color:#aa0000">6</font>03993</span>
+              <span class="searc_company">洛阳钼业</span>
+            </li>
+            <li>
+              <span class="searc_code">SGDCNY</span>
+              <span class="searc_company">新加坡元人民币</span>
+            </li>
+            <li>
+              <span class="searc_code">AACC</span>
+              <span class="searc_company">Asset Accep...</span>
+            </li>
+            <li>
+              <span class="searc_code">00477</span>
+              <span class="searc_company">奥普集团控股</span>
+            </li>
+            <li>
+              <span class="searc_code">100303</span>
+              <span class="searc_company">国债0303</span>
+            </li>
+            <li class="hov">
+              <span class="searc_code">300400</span>
+              <span class="searc_company">劲拓股份</span>
+            </li>
+            <li>
+              <span class="searc_code">430005</span>
+              <span class="searc_company">原子高科</span>
+            </li>
+            <li>
+              <span class="searc_code">招商银行</span>
+              <span class="searc_company">“<font style="color:#aa0000">月</font>月赢”债券型产品2014年第158期</span>
+            </li>
+            <li>
+              <span class="searc_code">中铁信托</span>
+              <span class="searc_company">优债1423期成都锦江优质债权投资二优债1423期成都锦江优质债权投资二期优债1423期成都锦江优质债权投资二期期</span>
+            </li>
+            <li>
+              <span class="searc_code">中国人保</span>
+              <span class="searc_company">人保健康肿防癌管家</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--search end-->
+</div>
+<!-- <li ><a href="#" id="t0_l" onclick="setT(event,0)">全部</a><B id="t0_c">全部</B></li> -->
+
+<!--searchResult-->
+
+<div class="tx-tit mt26"> <a id="f1_t" href="./blog?key=引力波&t=0&s=1&f=0" class="on" onclick="setF(event,'0')" >全文</a><a id="f0_t" style="display:none" href="./blog?key=引力波&t=0&s=1&f=0" onclick="setF(event,'0')" >全文</a>|<a href="./blog?key=引力波&t=0&s=1&f=1"  id="f0_r" style="display:none" onclick="setF(event,'0')" >标题</a><a id="f1_r"  href="./blog?key=引力波&t=0&s=1&f=1"  onclick="setF(event,'1')">标题</a>
+			<script type="text/javascript">
+						function setF(event,new_s)
+						{
+							var s=document.getElementById("f");
+							s.value=new_s;
+							//alert(s.value);
+							var pg=document.getElementById("page");
+							pg.value="1";
+							var form=document.getElementById("frm");
+							form.submit();
+							event.returnValue=false;
+							if(event.preventDefault){
+								event.preventDefault();
+								event.stopPropagation();
+							}
+						}
+				</script>
+				<script type="text/javascript">
+		        function Show_F()
+		        {
+		          var ssplit=document.getElementById("ssplit");
+							ssplit.style.visibility="visible";
+							var ss=document.getElementById("f");
+							var f1_t=document.getElementById("f1_t");
+							var f0_t=document.getElementById("f0_t");
+							var f0_r=document.getElementById("f0_r");
+							var f1_r=document.getElementById("f1_r");
+							if(ss.value=="0")
+							{
+								f0_t.style.display="inline";
+								f0_r.style.display="inline";
+								f1_t.style.display="none";
+								f1_t.style.position="absolute";
+								f1_r.style.display="none";
+								f1_r.style.position="absolute";
+							}
+							else
+							{
+						    f0_t.style.display="none";
+								f0_t.style.position="absolute";
+						    f0_r.style.display="none";
+								f0_r.style.position="absolute";
+						    f1_t.style.display="inline";
+						    f1_r.style.display="inline";
+							}
+						}
+					</script>
+	</div>
+<div class="tx-inf-w mt16">
+	<div class="tx-inf clearfix">
+		<div class="tx-inf-l"><span><strong>搜索结果</strong>&nbsp;&nbsp;时间筛选：</span><a href="./blog?key=引力波&t=0&s=1&f=0" id="t0_l" onclick="setT(event,0)"  style="padding-left:0;">全部</a>|<a id="t1_l" href="./blog?key=引力波&t=1&s=1&f=0" onclick="setT(event,1)">当天</a>|<a id="t7_l" href="./blog?key=引力波&t=7&s=1&f=0" onclick="setT(event,7)">过去一周</a>|<a id="t30_l" href="./blog?key=引力波&t=30&s=1&f=0" onclick="setT(event,30)">过去一个月</a>
+       <script type="text/javascript">
+					        function setT(event,new_t)
+					        {
+					                var t=document.getElementById("t");
+					                t.value=new_t;
+					                var pg=document.getElementById("page");
+					                pg.value="1";
+					                var form=document.getElementById("frm");
+					                form.submit();
+					                event.returnValue=false;
+					                if(event.preventDefault){
+					                    event.preventDefault();
+					                    event.stopPropagation();
+					                }
+					        }
+					</script>   
+				  <script type="text/javascript">
+					        var t=document.getElementById("t");
+					        var cur_t=parseInt(t.value);
+					        var t1_l=document.getElementById("t1_l");
+					        var t1_c=document.getElementById("t1_c");
+					        var t7_l=document.getElementById("t7_l");
+					        var t7_c=document.getElementById("t7_c");
+					        var t30_l=document.getElementById("t30_l");
+					        var t30_c=document.getElementById("t30_c");
+					        var t0_l=document.getElementById("t0_l");
+					        var t0_c=document.getElementById("t0_c");
+					        if(cur_t==1)
+					        {
+					                t1_l.style.display="none";
+					                t1_l.style.position="absolute";
+					                t1_c.style.display="inline";
+					        }
+					        else
+					        {
+					                t1_l.style.display="inline";
+					                t1_c.style.display="none";
+					                t1_c.style.position="absolute";
+					        }
+					        if(cur_t==7)
+					        {
+					                t7_l.style.display="none";
+					                t7_l.style.position="absolute";
+					                t7_c.style.display="inline";
+					        }
+					        else
+					        {
+					                t7_l.style.display="inline";
+					                t7_c.style.display="none";
+					                t7_c.style.position="absolute";
+					        }
+					        if(cur_t==30)
+					        {
+					                t30_l.style.display="none";
+					                t30_l.style.position="absolute";
+					                t30_c.style.display="inline";
+					        }
+					        else
+					        {
+					                t30_l.style.display="inline";
+					                t30_c.style.display="none";
+					                t30_c.style.position="absolute";
+					        }
+					        if(cur_t==0)
+					        {
+					                t0_l.style.display="none";
+					                t0_l.style.position="absolute";
+					                t0_c.style.display="inline";
+					        }
+					        else
+					        {
+					                t0_l.style.display="inline";
+					                t0_c.style.display="none";
+					                t0_c.style.position="absolute";
+					        }
+					</script>
+          </div>
+          
+          
+		<div class="tx-inf-r">
+			<a id="s1_t" href="./blog?key=引力波&t=0&s=1&f=0" >按时间排序</a><a id="s0_t" style="display:none" href="./blog?key=引力波&t=0&s=1&f=0" onclick="setS(event,'1')" >按时间排序</a>|<a href="./blog?key=引力波&t=0&s=0&f=0"  id="s0_r" style="display:none">按内容相关性排序</a><a id="s1_r"  href="./blog?key=引力波&t=0&s=0&f=0"  onclick="setS(event,'0')">按内容相关性排序</a>
+			<!--<li id="s1_t" class="str">最近上传时间排序</li>
+		  <li id="s0_t" style="display:none"><a href="#" onclick="setS(event,'1')">最近上传时间排序</a></li>
+      <li id="ssplit" class="line" style="visibility:hidden">&nbsp;</li>
+		  <li id="s0_r" class="str" style="display:none">按相关度排序</li>
+     <li id="s1_r" style="display:none"><a href="#" onclick="setS(event,'0')">按相关度排序</a></li>--> 
+			<script type="text/javascript">
+						function setS(event,new_s)
+						{
+							var s=document.getElementById("s");
+							s.value=new_s;
+							var pg=document.getElementById("page");
+							pg.value="1";
+							var form=document.getElementById("frm");
+							form.submit();
+							event.returnValue=false;
+							if(event.preventDefault){
+								 event.preventDefault();
+								 event.stopPropagation();
+							}
+						}
+					</script>
+					 <script type="text/javascript">
+		        function Show_s()
+		        {
+							var ssplit=document.getElementById("ssplit");
+							ssplit.style.visibility="visible";
+							var ss=document.getElementById("s");
+							var s1_t=document.getElementById("s1_t");
+							var s0_t=document.getElementById("s0_t");
+							var s0_r=document.getElementById("s0_r");
+							var s1_r=document.getElementById("s1_r");
+							if(ss.value=="0")
+							{
+								s0_t.style.display="inline";
+								s0_r.style.display="inline";
+								s1_t.style.display="none";
+								s1_t.style.position="absolute";
+								s1_r.style.display="none";
+								s1_r.style.position="absolute";
+							}
+							else
+							{
+						    s0_t.style.display="none";
+								s0_t.style.position="absolute";
+						    s0_r.style.display="none";
+								s0_r.style.position="absolute";
+						    s1_t.style.display="inline";
+						    s1_r.style.display="inline";
+							}
+						}
+					</script>
+     </div>
+		
+		<!--
+		<div class="tx-inf-r">
+	   	<li id="s1_t" class="str">最近上传时间排序</li>
+		  <li id="s0_t" style="display:none"><a href="#" onclick="setS(event,'1')">最近上传时间排序</a></li>
+          <li id="ssplit" class="line" style="visibility:hidden">&nbsp;</li>
+		  <li id="s0_r" class="str" style="display:none">按相关度排序</li>
+          <li id="s1_r" style="display:none"><a href="#" onclick="setS(event,'0')">按相关度排序</a></li> 
+          </div>
+          -->
+	</div>
+<!--
+<li id="s1_t" class="str">最近上传时间排序</li>
+		  <li id="s0_t" style="display:none"><a href="#" onclick="setS(event,'1')">最近上传时间排序</a></li>
+          <li id="ssplit" class="line" style="visibility:hidden">&nbsp;</li>
+		  <li id="s0_r" class="str" style="display:none">按相关度排序</li>
+          <li id="s1_r" style="display:none"><a href="#" onclick="setS(event,'0')">按相关度排序</a></li> 
+          -->
+</div>
+ 	<script type="text/javascript">
+            function onClickSubmit(event)
+            {
+                var s=document.getElementById("s");
+                s.value="1";
+                var pg=document.getElementById("page");
+                pg.value='1';
+                var t=document.getElementById("t");
+                t.value='0';
+                var key=document.getElementById("key");
+                key.value=key.value.replace(/(^\s*)|(\s*$)/g, "");
+
+                return true;
+            }
+            function onKeyPressed(event)
+            {
+                if(event.keyCode==13)
+                {
+                    onClickSubmit(event);
+                }
+            }
+            function onFClicked(event)
+            {
+              var f0=document.getElementById("f0");
+              var f1=document.getElementById("f1");
+              var bf0=document.getElementById("bottom_f0");
+              var bf1=document.getElementById("bottom_f1");
+              if(f0.checked)
+                {
+                    bf0.checked=true;
+                }
+                else
+                {
+                    bf1.checked=true;
+                }		
+                onClickSubmit(event);
+                var form=document.getElementById("frm");
+                form.submit();
+            }
+
+			function switchToPage(event,page)
+					{
+						var form=document.getElementById("frm");
+						if(page="blog")
+						    form.action="blog";
+						else
+							  form.action=page+"_search.cgi";
+				    var pg=document.getElementById("pg");
+				    pg.value='1';
+				    var key=document.getElementById("key");
+				    key.value='引力波';
+						form.submit();
+						event.returnValue=false;
+				    if(event.preventDefault)
+				    {
+				    	event.preventDefault();
+				      event.stopPropagation();
+				    }
+				    return false;
+					}
+					
+					function switchToExternalPage(lnk)
+					{
+						var k=document.getElementById("key");
+						window.location = lnk + k.value;
+					}
+      	</script>
+
+	<script type='text/javascript'>Show_s();</script>
+	<script type='text/javascript'>Show_F();</script> 
+
+<div class="searchResult">
+
+   <div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://3074210.blog.hexun.com/105057888_d.html" target="_blank">没有大师是因为不需要大师</a><span>2016年03月14日 10:06</span></div><div class="news-l-c">从<font color='red'>引力波</font>剧情大反转谈中国社会的科学现实作者：张双南摘要：中国的教育普遍只传授科学知识，而很少讲科学精神、几乎不教科学方法，甚至中国绝大部分的“科普<b> ... </b></div>
+</div>
+<div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://4034318.blog.hexun.com/105052425_d.html" target="_blank">这局棋后，我们走向全新纪元      作者：雷军    20</a><span>2016年03月13日 17:14</span></div><div class="news-l-c">协助。这是对人类思维创造能力的解放与增强。眼下，我们看来已跨入了一个新的伟大时代的门槛。近年来，证明希格斯玻色子存在、测量<font color='red'>引力波</font>、AlphaGo战胜人类顶尖棋手，无论是探索宇宙奥秘、世界本质、智能思维，人类科技都走上了全新的台阶。亲身经历这个伟大时代是我们的幸运。对于所有科技<b> ... </b></div>
+</div>
+<div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://1877867.blog.hexun.com/105039454_d.html" target="_blank">李世石必须输 </a><span>2016年03月12日 03:07</span></div><div class="news-l-c">李世石必须输前一阵，管理员石头发了一则科技新闻，说美国人终于探测到<font color='red'>引力波</font>。这个我看看相关的新闻知道，这个发现意义重大。后来一个搞科技的朋友到我住的地方来，跟我还议论到这个事情。昨天石头又发<b> ... </b></div>
+</div>
+<div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://4523652.blog.hexun.com/105027402_d.html" target="_blank">李世石输给AlphaGo的三点专业解释</a><span>2016年03月11日 12:19</span></div><div class="news-l-c">一定是AlphaGo胜利；恐慌派，对机器人为代表的新技术有莫名的恐慌，希望李世石能够以3:2之类的比分获胜；伪技术派，对AI一知半解，甚至连“<font color='red'>引力波</font>”这样的东东都拉扯上，希望AlphaGo能够以3:2之类的比分获胜……我这两年重点也在研究人工智能，加之发表了一些文章和观点，几个<b> ... </b></div>
+</div>
+<div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://4523652.blog.hexun.com/105027389_d.html" target="_blank">李世石输给AlphaGo的三点专业解释</a><span>2016年03月11日 12:10</span></div><div class="news-l-c">一定是AlphaGo胜利；恐慌派，对机器人为代表的新技术有莫名的恐慌，希望李世石能够以3:2之类的比分获胜；伪技术派，对AI一知半解，甚至连“<font color='red'>引力波</font>”这样的东东都拉扯上，希望AlphaGo能够以3:2之类的比分获胜……我这两年重点也在研究人工智能，加之发表了一些文章和观点，几个<b> ... </b></div>
+</div>
+<div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://2363308.blog.hexun.com/105018095_d.html" target="_blank">农村环境污染问题需亟待解决</a><span>2016年03月10日 20:45</span></div><div class="news-l-c">农村必须美、农民必须富”的时代课题，乡土中国正不可阻挡地迈向现代中国。站在“十三五”开局之年的新春，我们感受到了心系乡土的情感“<font color='red'>引力波</font>”，更感受到全面小康梦想的强劲脉搏。用决心和行动去改变，用智慧和汗水去浇灌，我们必将共同开拓更有希望的原野，建设更加美好的家园。<b> ... </b></div>
+</div>
+<div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://2947147.blog.hexun.com/105011272_d.html" target="_blank">贵人</a><span>2016年03月10日 15:17</span></div><div class="news-l-c">贵人千里马与伯乐，贵人相助，都是懂你的人，外力相助，促进了你的发展和进步。这个外力，就像“<font color='red'>引力波</font>”，它包含巨大的能量，瞬间爆发，推动你的前行。不过，在人生中很多是可遇而不可求，也许一生就能遇上三五次，少了就<b> ... </b></div>
+</div>
+<div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://9293249.blog.hexun.com/104976138_d.html" target="_blank">宇宙真相：能量三态，能量背后的神性</a><span>2016年03月08日 18:07</span></div><div class="news-l-c">压缩到黑洞。原先科学家认为黑洞只进不出。但现在科学家发现黑洞在一定状态会释放能量，变成新的物质。人类现在对黑洞缺乏了解。黑洞形成巨大的<font color='red'>引力</font>，也可能大量吸收暗能量。吸到一定程度，就形成大喷发。这在宇宙中形成自然循环。也有可能部分物质在这过程中也转化为暗能量。但整体上<b> ... </b></div>
+</div>
+<div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://6013564.blog.hexun.com/104935393_d.html" target="_blank">最新消息、多元理论、惊人发现！</a><span>2016年03月06日 11:49</span></div><div class="news-l-c">存在，每个宇宙就像是巨物中的一个个细胞！宇宙之外的宇宙和我们所处的宇宙构成了整个时空。这个发现和2014年南极BICEP2望远镜发现的宇宙原初<font color='red'>引力波</font>有些类似。当时美国科学家小组宣布，在宇宙微波背景辐射中发现了原初<font color='red'>引力波</font>的信号，这可是一个不同凡响的发现。原初<font color='red'>引力波</font>信号的发现意味着宇宙之外还有宇宙存在。多个宇宙碰撞<b> ... </b></div>
+</div>
+<div class="newslist-a mt30 ">
+<div class="news-l-t"><a href="http://2156751.blog.hexun.com/104906876_d.html" target="_blank">【3.4如果我是国家队就这样干】</a><span>2016年03月04日 09:23</span></div><div class="news-l-c">要追击，是当下最好的策略，现在确实是一阳改三观的好时候。朝鲜核弹在喊，任他喊，我们坚定采取向上突破的行动就好，啥逻辑？<font color='red'>引力波</font>逻辑。进攻就是最好的防守，趁两会期间，结合一些预期而且要真的落地好预期，排除谣言，激发人气板块，主题四射，创业板再起风云，供给侧<b> ... </b></div>
+</div>
+
+
+</div>
+
+<!--searchResult end-->
+  
+<!--翻页 s-->
+<div class="clear"></div>
+<link type="text/css" rel="stylesheet" href="http://img.hexun.com/www/search2014/css/pageSty.css" />
+<style>
+.new_paging table{width:1000px;margin:0 auto;padding-left:10px;}
+</style>
+<script language="javascript" src="http://data.bank.hexun.com/css2/js/hxpaging.js" charset="gb2312"></script>
+<script language="javascript" src="http://data.bank.hexun.com/css2/js/page.js" charset="gb2312"></script>
+<script language="javascript" src="http://data.bank.hexun.com/js/JsHelper.js" charset="utf-8"></script>
+<div id="ajax_page" class="new_paging"></div>
+<script>
+
+var page = 70;
+NewAllSetPage('./blog?key=引力波&t=0&s=1&f=0', page);
+
+if(document.getElementById("key"))
+    document.getElementById("key").value = '引力波';
+
+</script>
+
+<!--翻页 e-->
+
+
+<div class="clear"></div>
+<link rel="stylesheet" type="text/css" href="http://img.hexun.com/www/search2014/css/footer2014.css" />
+<div class="footer_2014  mt40">
+  <div class="footerBox_2014"><a href="http://cvs.hexun.com/feedback/support.htm?id=it?id=tech" target=_blank  id="hexunUserSuggest">和讯恭候您的意见</a> - <a href="http://corp.hexun.com/contact/index.html" target=_blank>联系我们</a> - <a href="http://corp.hexun.com/default/index.html" target=_blank>关于我们</a> - <a href="http://corp.hexun.com/adcenter/index.html" target=_blank>广告服务</a> 
+<p>本站郑重声明：和讯公司系政府批准的证券投资咨询机构[ZX0005]。所载文章、数据仅供参考，使用前请核实，风险自负。<br>Copyright 和讯网 和讯信息科技有限公司 All Rights Reserved 版权所有 复制必究</p></div>
+</div>
+<script src="http://utrack.hexun.com/track/track_hx.js"></script>
+</body>
+</html>

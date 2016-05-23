@@ -1,0 +1,32 @@
+[INFO ][02-24 09:24:12][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@22c5003c: startup date [Wed Feb 24 09:24:12 CST 2016]; root of context hierarchy
+[INFO ][02-24 09:24:13][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-24 09:24:14][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-24 09:24:14][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-24 09:24:14][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@157200ad: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-24 09:24:14][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-24 09:24:25][main][common.util.UrlReduplicationRemove][46]
+初始化数量7715109############800000 数据表中url数量:38342
+[INFO ][02-24 09:24:25][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-24 09:24:26][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/weibo_monitor_sina.temp]
+[INFO ][02-24 09:24:26][Thread-0][system][84]
+system : 2个关键词将采集:
+[INFO ][02-24 09:24:31][Thread-0][system][84]
+system : account:{isiteam321@sina.com} last used updated.
+[INFO ][02-24 09:24:36][Thread-0][system][84]
+system : downloading... http://weibo.com/p/1005051435160552/home. http://weibo.com/p/1005051435160552
+[INFO ][02-24 09:24:41][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home数据页面解析完成。2
+[INFO ][02-24 09:24:50][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home下拉加载解析完成。30
+[INFO ][02-24 09:25:23][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=2无新数据.
+[INFO ][02-24 10:08:25][Thread-0][system][84]
+system : 开始采集微博: http://weibo.com/1435160552/DjbW8zWYD?from=page_1005051435160552_profile&wvr=6&mod=weibotime 的评论...

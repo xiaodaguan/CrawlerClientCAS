@@ -1,0 +1,550 @@
+[INFO ][02-25 10:28:32][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@339274f9: startup date [Thu Feb 25 10:28:32 CST 2016]; root of context hierarchy
+[INFO ][02-25 10:28:32][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 10:28:33][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 10:28:33][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 10:28:33][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@465c16: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 10:28:34][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 10:29:00][main][common.util.UrlReduplicationRemove][46]
+初始化数量10176904############1055270 数据表中url数量:105527
+[INFO ][02-25 10:29:01][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 10:29:01][Thread-0][system][84]
+system : 没有可运行配置站点
+[INFO ][02-25 10:29:01][Thread-0][system][84]
+system : 337个关键词将采集:
+[INFO ][02-25 10:29:01][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][02-25 10:29:01][Thread-0][system][84]
+system : {}
+[INFO ][02-25 10:29:25][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@22c5003c: startup date [Thu Feb 25 10:29:25 CST 2016]; root of context hierarchy
+[INFO ][02-25 10:29:25][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 10:29:26][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 10:29:26][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 10:29:26][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2e9e799: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 10:29:27][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 10:30:27][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@1a4f27a3: startup date [Thu Feb 25 10:30:27 CST 2016]; root of context hierarchy
+[INFO ][02-25 10:30:27][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 10:30:28][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 10:30:29][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 10:30:29][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@6f8a68da: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 10:30:29][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 10:30:56][main][common.util.UrlReduplicationRemove][46]
+初始化数量10176904############1055270 数据表中url数量:105527
+[INFO ][02-25 10:30:57][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 10:30:57][Thread-0][system][84]
+system : 没有可运行配置站点
+[INFO ][02-25 10:30:57][Thread-0][system][84]
+system : 337个关键词将采集:
+[INFO ][02-25 10:30:57][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][02-25 10:30:57][Thread-0][system][84]
+system : {}
+[INFO ][02-25 10:31:38][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@339274f9: startup date [Thu Feb 25 10:31:38 CST 2016]; root of context hierarchy
+[INFO ][02-25 10:31:39][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 10:31:39][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 10:31:40][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 10:31:40][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@b47a87e: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 10:31:41][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 10:32:07][main][common.util.UrlReduplicationRemove][46]
+初始化数量10176904############1055270 数据表中url数量:105527
+[INFO ][02-25 10:32:08][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 10:32:08][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_baidu.xml.temp]
+[INFO ][02-25 10:32:09][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonews.xml.temp]
+[INFO ][02-25 10:32:09][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonizao.xml.temp]
+[INFO ][02-25 10:32:09][Thread-0][system][84]
+system : 337个关键词将采集:
+[INFO ][02-25 10:32:09][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][02-25 10:32:09][Thread-0][system][84]
+system : {}
+[INFO ][02-25 10:32:13][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:32:13][Thread-0][system][84]
+system : url: http://club.qingdaonews.com/queryResult_new.php?q=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6
+[INFO ][02-25 10:32:13][Thread-0][system][84]
+system : url: http://www.qingdaonizao.com/app/?app=search&controller=index&action=search&type=all&wd=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&page=1
+[INFO ][02-25 10:32:13][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] http://club.qingdaonews.com/queryResult_new.php?q=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6元数据页面解析为空！！
+[INFO ][02-25 10:33:06][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] http://www.qingdaonizao.com/app/?app=search&controller=index&action=search&type=all&wd=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&page=1元数据页面解析完成。
+[INFO ][02-25 10:33:06][Thread-0][system][84]
+system : qingdaonews_news_search的互联网金融 专家数据采集完成！！
+[INFO ][02-25 10:33:28][Thread-0][system][84]
+system : url: http://club.qingdaonews.com/queryResult_new.php?q=%E7%BD%91%E7%BB%9C%E5%80%9F%E8%B4%B7%20%E4%B8%93%E5%AE%B6
+[INFO ][02-25 10:34:03][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@339274f9: startup date [Thu Feb 25 10:34:03 CST 2016]; root of context hierarchy
+[INFO ][02-25 10:34:03][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 10:34:04][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 10:34:05][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 10:34:05][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@b47a87e: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 10:34:05][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 10:34:32][main][common.util.UrlReduplicationRemove][46]
+初始化数量10176904############1055270 数据表中url数量:105527
+[INFO ][02-25 10:34:33][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 10:34:33][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_baidu.xml.temp]
+[INFO ][02-25 10:34:33][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonews.xml.temp]
+[INFO ][02-25 10:34:33][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonizao.xml.temp]
+[INFO ][02-25 10:34:33][Thread-0][system][84]
+system : 337个关键词将采集:
+[INFO ][02-25 10:34:33][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][02-25 10:34:33][Thread-0][system][84]
+system : {}
+[INFO ][02-25 10:34:37][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:48:23][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@1a4f27a3: startup date [Thu Feb 25 10:48:23 CST 2016]; root of context hierarchy
+[INFO ][02-25 10:48:23][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 10:48:24][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 10:48:24][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 10:48:24][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2e9e799: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 10:48:24][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 10:48:50][main][common.util.UrlReduplicationRemove][46]
+初始化数量10176904############1055270 数据表中url数量:105527
+[INFO ][02-25 10:48:52][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 10:48:52][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_baidu.xml.temp]
+[INFO ][02-25 10:48:52][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonews.xml.temp]
+[INFO ][02-25 10:48:52][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonizao.xml.temp]
+[INFO ][02-25 10:48:52][Thread-0][system][84]
+system : 337个关键词将采集:
+[INFO ][02-25 10:48:52][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][02-25 10:48:52][Thread-0][system][84]
+system : {}
+[INFO ][02-25 10:48:56][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:48:57][Thread-0][system][84]
+system : baidu_news_search的互联网金融 专家数据采集完成！！
+[INFO ][02-25 10:49:01][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E7%BD%91%E7%BB%9C%E5%80%9F%E8%B4%B7%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:49:49][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@543da1e2: startup date [Thu Feb 25 10:49:49 CST 2016]; root of context hierarchy
+[INFO ][02-25 10:49:49][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 10:49:49][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 10:49:50][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 10:49:50][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@d86edfb: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 10:49:51][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 10:50:17][main][common.util.UrlReduplicationRemove][46]
+初始化数量10176904############1055270 数据表中url数量:105527
+[INFO ][02-25 10:50:18][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 10:50:18][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_baidu.xml.temp]
+[INFO ][02-25 10:50:18][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonews.xml.temp]
+[INFO ][02-25 10:50:18][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonizao.xml.temp]
+[INFO ][02-25 10:50:18][Thread-0][system][84]
+system : 337个关键词将采集:
+[INFO ][02-25 10:50:18][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][02-25 10:50:18][Thread-0][system][84]
+system : {}
+[INFO ][02-25 10:50:22][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:50:23][Thread-0][system][84]
+system : baidu_news_search的互联网金融 专家数据采集完成！！
+[INFO ][02-25 10:50:26][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E7%BD%91%E7%BB%9C%E5%80%9F%E8%B4%B7%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:50:27][Thread-0][system][84]
+system : baidu_news_search的网络借贷 专家数据采集完成！！
+[INFO ][02-25 10:50:30][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BC%97%E7%AD%B9%E8%9E%8D%E8%B5%84%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:50:32][Thread-0][system][84]
+system : baidu_news_search的众筹融资 专家数据采集完成！！
+[INFO ][02-25 10:50:35][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E6%94%AF%E4%BB%98%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:50:38][Thread-0][system][84]
+system : baidu_news_search的互联网支付 专家数据采集完成！！
+[INFO ][02-25 10:51:30][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@543da1e2: startup date [Thu Feb 25 10:51:30 CST 2016]; root of context hierarchy
+[INFO ][02-25 10:51:30][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 10:51:31][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 10:51:32][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 10:51:32][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@6f8a68da: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 10:51:32][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 10:51:59][main][common.util.UrlReduplicationRemove][46]
+初始化数量10177000############1055280 数据表中url数量:105528
+[INFO ][02-25 10:52:00][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 10:52:00][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_baidu.xml.temp]
+[INFO ][02-25 10:52:00][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonews.xml.temp]
+[INFO ][02-25 10:52:00][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonizao.xml.temp]
+[INFO ][02-25 10:52:00][Thread-0][system][84]
+system : 337个关键词将采集:
+[INFO ][02-25 10:52:00][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][02-25 10:52:00][Thread-0][system][84]
+system : {}
+[INFO ][02-25 10:52:04][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:52:33][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@339274f9: startup date [Thu Feb 25 10:52:33 CST 2016]; root of context hierarchy
+[INFO ][02-25 10:52:33][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 10:52:34][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 10:52:34][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 10:52:34][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@157200ad: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 10:52:35][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 10:53:01][main][common.util.UrlReduplicationRemove][46]
+初始化数量10177675############1055350 数据表中url数量:105535
+[INFO ][02-25 10:53:02][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 10:53:03][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_baidu.xml.temp]
+[INFO ][02-25 10:53:03][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonews.xml.temp]
+[INFO ][02-25 10:53:03][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonizao.xml.temp]
+[INFO ][02-25 10:53:03][Thread-0][system][84]
+system : 337个关键词将采集:
+[INFO ][02-25 10:53:03][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][02-25 10:53:03][Thread-0][system][84]
+system : {}
+[INFO ][02-25 10:53:06][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 10:54:19][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel元数据页面解析完成。
+[INFO ][02-25 10:54:21][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&pn=20&cl=2&ct=1&tn=news&rn=20&ie=utf-8&bt=0&et=0&rsv_page=1
+[INFO ][02-25 10:54:27][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&pn=20&cl=2&ct=1&tn=news&rn=20&ie=utf-8&bt=0&et=0&rsv_page=1元数据页面解析完成。
+[INFO ][02-25 10:54:27][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] 列表页检索完成，不重复数据：9条。
+[INFO ][02-25 10:54:27][Thread-0][system][84]
+system : downloading...：[互联网金融 专家] 迪蒙P2P网贷系统:北京重点推进P2P发展
+[INFO ][02-25 10:54:27][Thread-0][system][84]
+system : url: http://www.ccidnet.com/2016/0225/10100737.shtml
+[INFO ][02-25 10:54:27][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] 迪蒙P2P网贷系统:北京重点推进P2P发展解析完成。。。
+[INFO ][02-25 10:54:27][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] 迪蒙P2P网贷系统:北京重点推进P2P发展保存完成。。。
+[INFO ][02-25 10:54:27][Thread-0][system][84]
+system : 当前collect进度: [collect id: 0| current: 1/ rest: 8]
+[INFO ][02-25 10:54:28][Thread-0][system][84]
+system : downloading...：[互联网金融 专家] 互联网金融行业成今春重庆最热就业行业-新华网
+[INFO ][02-25 10:54:28][Thread-0][system][84]
+system : url: http://news.xinhuanet.com/politics/2016-02/25/c_128751056.htm
+[INFO ][02-25 10:54:28][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] 互联网金融行业成今春重庆最热就业行业-新华网解析完成。。。
+[INFO ][02-25 10:54:28][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] 互联网金融行业成今春重庆最热就业行业-新华网保存完成。。。
+[INFO ][02-25 10:54:28][Thread-0][system][84]
+system : 当前collect进度: [collect id: 0| current: 2/ rest: 7]
+[INFO ][02-25 10:54:29][Thread-0][system][84]
+system : downloading...：[互联网金融 专家] 评论:传统银行若跟不上新金融步伐 很可能被淘汰
+[INFO ][02-25 10:54:29][Thread-0][system][84]
+system : url: http://finance.sina.com.cn/money/bank/yhpl/2016-02-25/doc-ifxpvysx1627084.shtml
+[INFO ][02-25 11:07:20][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@1030b6a4: startup date [Thu Feb 25 11:07:20 CST 2016]; root of context hierarchy
+[INFO ][02-25 11:07:20][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 11:07:21][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 11:07:21][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 11:07:21][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@27c250e9: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 11:07:22][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 11:07:48][main][common.util.UrlReduplicationRemove][46]
+初始化数量10181051############1055700 数据表中url数量:105570
+[INFO ][02-25 11:07:49][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 11:07:49][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_baidu.xml.temp]
+[INFO ][02-25 11:07:49][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonews.xml.temp]
+[INFO ][02-25 11:07:50][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/news_search_qingdaonizao.xml.temp]
+[INFO ][02-25 11:07:50][Thread-0][system][84]
+system : 337个关键词将采集:
+[INFO ][02-25 11:07:50][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][02-25 11:07:50][Thread-0][system][84]
+system : {}
+[INFO ][02-25 11:07:53][Thread-0][system][84]
+system : url: http://www.qingdaonizao.com/app/?app=search&controller=index&action=search&type=all&wd=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&page=1
+[INFO ][02-25 11:07:53][Thread-0][system][84]
+system : url: http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel
+[INFO ][02-25 11:07:53][Thread-0][system][84]
+system : url: http://club.qingdaonews.com/queryResult_new.php?q=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6
+[INFO ][02-25 11:07:54][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] http://club.qingdaonews.com/queryResult_new.php?q=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6元数据页面解析为空！！
+[INFO ][02-25 11:07:55][Thread-0][system][84]
+system : 关键词：[互联网金融 专家] http://news.baidu.com/ns?word=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&ie=utf-8&sr=0&cl=2&rn=20&tn=news&ct=1&clk=sortbyrel元数据页面解析完成。
+[INFO ][02-25 15:55:19][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@42716598: startup date [Thu Feb 25 15:55:19 CST 2016]; root of context hierarchy
+[INFO ][02-25 15:55:20][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 15:55:21][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 15:55:21][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 15:55:21][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@465c16: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 15:55:22][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 15:55:32][main][common.util.UrlReduplicationRemove][46]
+初始化数量7715109############800000 数据表中url数量:38687
+[INFO ][02-25 15:55:33][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 15:55:33][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/weibo_monitor_sina.temp]
+[INFO ][02-25 15:55:34][Thread-0][system][84]
+system : 1个关键词将采集:
+[INFO ][02-25 15:57:50][Thread-0][system][84]
+system : account:{isiteam321@sina.com} last used updated.
+[INFO ][02-25 15:57:54][Thread-0][system][84]
+system : downloading... http://weibo.com/p/1005051435160552/home. http://weibo.com/p/1005051435160552
+[INFO ][02-25 15:57:57][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home数据页面解析完成。2
+[INFO ][02-25 15:58:00][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home下拉加载解析完成。26
+[INFO ][02-25 15:58:33][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=2数据页面解析完成。1
+[INFO ][02-25 15:58:36][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=2下拉加载解析完成。30
+[INFO ][02-25 15:59:07][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=3数据页面解析完成。2
+[INFO ][02-25 15:59:12][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=3下拉加载解析完成。27
+[INFO ][02-25 15:59:44][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=4无新数据.
+[INFO ][02-25 16:01:01][Thread-0][system][84]
+system : 开始采集微博: http://weibo.com/1435160552/DjbW8zWYD?from=page_1005051435160552_profile&wvr=6&mod=weibotime 的评论...
+[INFO ][02-25 16:01:34][Thread-0][system][84]
+system : 没有抓取到评论.http://m.weibo.cn/single/rcList?format=cards&id=3945741208568191&type=comment&hot=0&page=1
+[INFO ][02-25 16:01:34][Thread-0][system][84]
+system : http://m.weibo.cn/single/rcList?format=cards&id=3945741208568191&type=comment&hot=0&page=1数据页面解析为空！！
+[INFO ][02-25 16:01:34][Thread-0][system][84]
+system : 微博: http://m.weibo.cn/single/rcList?format=cards&id=3945741208568191&type=comment&hot=0&page=1 评论保存完成.
+[INFO ][02-25 16:01:34][Thread-0][system][84]
+system : 微博: http://weibo.com/1435160552/DjbW8zWYD?from=page_1005051435160552_profile&wvr=6&mod=weibotime 保存完成.
+[INFO ][02-25 16:01:34][Thread-0][system][84]
+system : 开始采集微博: http://weibo.com/1435160552/DjdXFdXsX?from=page_1005051435160552_profile&wvr=6&mod=weibotime 的评论...
+[INFO ][02-25 16:08:16][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@339274f9: startup date [Thu Feb 25 16:08:16 CST 2016]; root of context hierarchy
+[INFO ][02-25 16:08:16][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 16:08:17][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 16:08:18][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 16:08:18][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@d86edfb: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 16:08:18][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 16:08:29][main][common.util.UrlReduplicationRemove][46]
+初始化数量7715109############800000 数据表中url数量:38741
+[INFO ][02-25 16:08:30][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 16:08:30][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/weibo_monitor_sina.temp]
+[INFO ][02-25 16:08:30][Thread-0][system][84]
+system : 1个关键词将采集:
+[INFO ][02-25 16:09:55][Thread-0][system][84]
+system : account:{isiteam_9@sina.com} last used updated.
+[INFO ][02-25 16:10:00][Thread-0][system][84]
+system : downloading... http://weibo.com/p/1005051435160552/home. http://weibo.com/p/1005051435160552
+[INFO ][02-25 16:10:04][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home数据页面解析完成。1
+[INFO ][02-25 16:10:09][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home下拉加载解析完成。26
+[INFO ][02-25 16:10:42][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=2数据页面解析完成。1
+[INFO ][02-25 16:10:44][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=2下拉加载解析完成。30
+[INFO ][02-25 16:11:15][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=3数据页面解析完成。2
+[INFO ][02-25 16:11:20][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=3下拉加载解析完成。27
+[INFO ][02-25 16:11:53][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=4无新数据.
+[INFO ][02-25 16:11:53][Thread-0][system][84]
+system : 开始采集微博: http://weibo.com/1435160552/DjdXFdXsX?from=page_1005051435160552_profile&wvr=6&mod=weibotime 的评论...
+[INFO ][02-25 16:12:09][Thread-0][system][84]
+system : 没有抓取到评论.http://m.weibo.cn/single/rcList?format=cards&id=3945819033326855&type=comment&hot=0&page=1
+[INFO ][02-25 16:12:21][Thread-0][system][84]
+system : http://m.weibo.cn/single/rcList?format=cards&id=3945819033326855&type=comment&hot=0&page=1数据页面解析为空！！
+[INFO ][02-25 16:12:21][Thread-0][system][84]
+system : 微博: http://m.weibo.cn/single/rcList?format=cards&id=3945819033326855&type=comment&hot=0&page=1 评论保存完成.
+[INFO ][02-25 16:12:21][Thread-0][system][84]
+system : 微博: http://weibo.com/1435160552/DjdXFdXsX?from=page_1005051435160552_profile&wvr=6&mod=weibotime 保存完成.
+[INFO ][02-25 16:12:21][Thread-0][system][84]
+system : 开始采集微博: http://weibo.com/1435160552/DjkP9hUW4?from=page_1005051435160552_profile&wvr=6&mod=weibotime 的评论...
+[INFO ][02-25 16:19:34][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@1a4f27a3: startup date [Thu Feb 25 16:19:34 CST 2016]; root of context hierarchy
+[INFO ][02-25 16:19:34][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 16:19:35][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 16:19:35][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 16:19:35][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@6f8a68da: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 16:19:36][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 16:19:46][main][common.util.UrlReduplicationRemove][46]
+初始化数量7715109############800000 数据表中url数量:38956
+[INFO ][02-25 16:19:47][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 16:19:47][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/weibo_monitor_sina.temp]
+[INFO ][02-25 16:19:48][Thread-0][system][84]
+system : 1个关键词将采集:
+[INFO ][02-25 16:20:30][Thread-0][system][84]
+system : account:{isiteam123@sina.com} last used updated.
+[INFO ][02-25 16:20:33][Thread-0][system][84]
+system : downloading... http://weibo.com/p/1005051435160552/home. http://weibo.com/p/1005051435160552
+[INFO ][02-25 16:20:36][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home无新数据.
+[INFO ][02-25 16:20:37][Thread-0][system][84]
+system : saved.0
+[INFO ][02-25 16:26:57][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@339274f9: startup date [Thu Feb 25 16:26:57 CST 2016]; root of context hierarchy
+[INFO ][02-25 16:26:57][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 16:26:58][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 16:26:58][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 16:26:58][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@67e9f96b: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 16:26:59][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 16:27:10][main][common.util.UrlReduplicationRemove][46]
+初始化数量7715109############800000 数据表中url数量:38951
+[INFO ][02-25 16:27:10][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 16:27:11][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/weibo_monitor_sina.temp]
+[INFO ][02-25 16:27:11][Thread-0][system][84]
+system : 1个关键词将采集:
+[INFO ][02-25 16:27:27][Thread-0][system][84]
+system : account:{isiteam456@sina.com} last used updated.
+[INFO ][02-25 16:27:38][Thread-0][system][84]
+system : downloading... http://weibo.com/p/1005051435160552/home. http://weibo.com/p/1005051435160552
+[INFO ][02-25 16:27:40][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home数据页面解析完成。5
+[INFO ][02-25 16:27:55][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home下拉加载解析完成。1
+[INFO ][02-25 16:28:28][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=2数据页面解析完成。1
+[INFO ][02-25 16:28:34][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=2下拉加载解析完成。6
+[INFO ][02-25 16:29:05][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=3数据页面解析完成。2
+[INFO ][02-25 16:29:09][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=3下拉加载解析完成。6
+[INFO ][02-25 16:29:42][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home?page=4无新数据.
+[INFO ][02-25 16:30:06][Thread-0][system][84]
+system : 开始采集微博: http://weibo.com/1435160552/DgNOnsX0Y?from=page_1005051435160552_profile&wvr=6&mod=weibotime 的评论...
+[INFO ][02-25 16:31:32][Thread-0][system][84]
+system : 微博: http://m.weibo.cn/single/rcList?format=cards&id=3940047276900040&type=comment&hot=0&page=1 评论保存完成.
+[INFO ][02-25 16:31:32][Thread-0][system][84]
+system : 微博: http://weibo.com/1435160552/DgNOnsX0Y?from=page_1005051435160552_profile&wvr=6&mod=weibotime 保存完成.
+[INFO ][02-25 16:31:32][Thread-0][system][84]
+system : 开始采集微博: http://weibo.com/1435160552/DjbW8zWYD?from=page_1005051435160552_profile&wvr=6&mod=weibotime 的评论...
+[INFO ][02-25 16:32:23][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@9372bdb: startup date [Thu Feb 25 16:32:23 CST 2016]; root of context hierarchy
+[INFO ][02-25 16:32:23][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-database.xml]
+[INFO ][02-25 16:32:24][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/app-sysconfig.xml]
+[INFO ][02-25 16:32:24][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][02-25 16:32:24][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@66f3ce62: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][02-25 16:32:25][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][02-25 16:32:35][main][common.util.UrlReduplicationRemove][46]
+初始化数量7715109############800000 数据表中url数量:38952
+[INFO ][02-25 16:32:36][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][02-25 16:32:36][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/ideaspace/crawler_client_v0.95/config/site/weibo_monitor_sina.temp]
+[INFO ][02-25 16:32:36][Thread-0][system][84]
+system : 1个关键词将采集:
+[INFO ][02-25 16:32:53][Thread-0][system][84]
+system : account:{isiteam@sina.cn} last used updated.
+[INFO ][02-25 16:32:57][Thread-0][system][84]
+system : downloading... http://weibo.com/p/1005051435160552/home. http://weibo.com/p/1005051435160552
+[INFO ][02-25 16:33:00][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home数据页面解析完成。4
+[INFO ][02-25 16:33:04][Thread-0][system][84]
+system : http://weibo.com/p/1005051435160552/home下拉加载解析完成。1
+[INFO ][02-25 16:34:01][Thread-0][system][84]
+system : 开始采集微博: http://weibo.com/1435160552/DjbW8zWYD?from=page_1005051435160552_profile&wvr=6&mod=weibotime 的评论...
+[INFO ][02-25 16:34:50][Thread-0][system][84]
+system : 微博: http://m.weibo.cn/single/rcList?format=cards&id=3945741208568191&type=comment&hot=0&page=1 评论保存完成.
+[INFO ][02-25 16:34:50][Thread-0][system][84]
+system : 微博: http://weibo.com/1435160552/DjbW8zWYD?from=page_1005051435160552_profile&wvr=6&mod=weibotime 保存完成.
+[INFO ][02-25 16:34:50][Thread-0][system][84]
+system : 开始采集微博: http://weibo.com/1435160552/DhZ5Ab2R8?from=page_1005051435160552_profile&wvr=6&mod=weibotime 的评论...

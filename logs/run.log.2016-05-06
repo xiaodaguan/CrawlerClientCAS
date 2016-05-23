@@ -1,0 +1,48 @@
+[INFO ][05-06 15:45:57][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@5203b97: startup date [Fri May 06 15:45:57 CST 2016]; root of context hierarchy
+[INFO ][05-06 15:45:58][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-06 15:45:59][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-06 15:45:59][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-06 15:45:59][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@12e335ef: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-06 15:46:00][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-06 15:48:06][main][common.util.UrlReduplicationRemove][48]
+初始化数量7715109############800000 数据表中url数量:0
+[INFO ][05-06 15:48:08][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-06 15:48:08][Thread-0][system][84]
+system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 2
+[INFO ][05-06 15:48:08][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tieba.temp]
+[INFO ][05-06 15:48:08][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/bbs_search_tianya.temp]
+[INFO ][05-06 15:48:09][Thread-0][system][84]
+system : 1260个关键词将采集:
+[INFO ][05-06 15:48:09][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-06 15:48:09][Thread-0][system][84]
+system : {}
+[INFO ][05-06 15:48:10][Thread-0][system][84]
+system : url: http://search.tianya.cn/bbs?s=4&q=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&pn=1
+[INFO ][05-06 15:48:10][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1
+[INFO ][05-06 15:48:11][Thread-0][system][84]
+system : http://search.tianya.cn/bbs?s=4&q=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&pn=1元数据页面解析完成。
+[INFO ][05-06 15:48:11][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=1元数据页面解析完成。
+[INFO ][05-06 15:48:14][Thread-0][system][84]
+system : url: http://search.tianya.cn/bbs?s=4&q=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&pn=2
+[INFO ][05-06 15:48:14][Thread-0][system][84]
+system : http://search.tianya.cn/bbs?s=4&q=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&pn=2元数据页面解析完成。
+[INFO ][05-06 15:48:14][Thread-0][system][84]
+system : url: http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2
+[INFO ][05-06 15:48:15][Thread-0][system][84]
+system : http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=%BB%A5%C1%AA%CD%F8%BD%F0%C8%DA%20%D7%A8%BC%D2&rn=10&un=&only_thread=1&sm=1&sd=&ed=&pn=2元数据页面解析完成。
+[INFO ][05-06 15:48:25][Thread-0][system][84]
+system : url: http://tieba.baidu.com/p/4518114992?pid=88758052940&cid=0#88758052940
+[INFO ][05-06 15:48:25][Thread-0][system][84]
+system : url: http://bbs.tianya.cn/post-1151-12415-1.shtml

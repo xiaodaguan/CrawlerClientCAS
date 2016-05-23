@@ -1,0 +1,28 @@
+[INFO ][05-16 16:08:40][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
+Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@74632e77: startup date [Mon May 16 16:08:40 CST 2016]; root of context hierarchy
+[INFO ][05-16 16:08:40][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][05-16 16:08:42][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][05-16 16:08:43][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
+Loading properties file from URL [file:config/config.properties]
+[INFO ][05-16 16:08:43][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
+Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@751d30f6: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][05-16 16:08:45][main][common.util.UrlReduplicationRemove][29]
+初始化URL过滤容器…
+[INFO ][05-16 16:08:48][main][common.util.UrlReduplicationRemove][48]
+初始化数量7715109############800000 数据表中url数量:6238
+[INFO ][05-16 16:08:49][main][common.util.UrlReduplicationRemove][31]
+初始化URL过滤容器成功完成！
+[INFO ][05-16 16:08:49][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
+Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/company_report_search_cninfo.xml.temp]
+[INFO ][05-16 16:08:49][Thread-0][system][84]
+system : 23个关键词将采集:
+[INFO ][05-16 16:08:49][Thread-0][system][84]
+system : 当前execmap状态:
+[INFO ][05-16 16:08:49][Thread-0][system][84]
+system : {}
+[INFO ][05-16 16:08:50][Thread-0][system][84]
+system : url: http://www.cninfo.com.cn/disclosure/fulltext/stocks/fulltext1y/cninfo/600579.js
+[INFO ][05-16 16:08:52][Thread-0][system][84]
+system : http://www.cninfo.com.cn/disclosure/fulltext/stocks/fulltext1y/cninfo/600579.js元数据页面解析为空！！

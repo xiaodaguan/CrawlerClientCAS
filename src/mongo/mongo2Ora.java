@@ -14,13 +14,11 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * move 操作
@@ -74,7 +72,7 @@ public class mongo2Ora {
 
 
         MongoCollection coll = db.getCollection(collName);
-
+        final long count = coll.count();
         FindIterable<Document> iter = beginAndEnd == null ? coll.find() : coll.find(Filters.and(Filters.gt("pubtime", beginAndEnd.split("~")[0]), Filters.lt("pubtime", beginAndEnd.split("~")[1])));
 
         logger.info("{} start moving items from mongodb to oracle...", wdb.toString());
@@ -83,13 +81,12 @@ public class mongo2Ora {
         final int[] insertCount = {0};
 
 
-        final List<String> crawledMd5s = wdb.getCrawled(tableName);
+        final HashMap<String, Integer> crawledMd5s = wdb.getCrawled(tableName);
+
         try {
             iter.forEach(new Block<Document>() {
                              @Override
                              public void apply(Document document) {
-//                System.out.println(document);
-//                    logger.info("document: {}", document.get("_id"));
 
 
                                  JSONObject jObjs = JSONObject.fromObject(document.toJson());
@@ -107,29 +104,22 @@ public class mongo2Ora {
                                  }
 
 
-                                 int status = wdb.saveOrUpdateData(wd, tableName);
-
-
-                                 if (status > 0) {
-                                     if (status == 2) {
+                                 try {
+                                     if (crawledMd5s.containsKey(wd.getMd5())) {
+                                         wdb.updateData(wd, tableName, crawledMd5s.get(wd.getMd5()));
                                          logger.debug("updated {}", wd.getTitle());
                                          updateCount[0]++;
-                                     } else if (status == 1) {
+                                         if (updateCount[0] % 100 == 0) logger.info("updated...{}/{}", updateCount[0], count);
+                                     } else {
+                                         wdb.insertData(wd, tableName);
                                          logger.debug("inserted {}", wd.getTitle());
                                          insertCount[0]++;
-                                     } else ;
-
-
-                                     if (wd.getReadNum() > 0) {
-                                         JSONObject obj = (JSONObject) jObjs.get("_id");
-
+                                         if (insertCount[0] % 100 == 0) logger.info("inserted...{}/{}", insertCount[0], count);
                                      }
-
-                                 } else {
-                                     logger.error("not inserted.");
-                                     if (status == -2) ;
-
+                                 } catch (SQLException e) {
+                                     e.printStackTrace();
                                  }
+
 
                              }
                          }// iter
@@ -139,7 +129,7 @@ public class mongo2Ora {
         }
         logger.info("[UDPATED] {}", updateCount[0] + ": " + collName + " [" + beginAndEnd + "] " + wdb + "/" + tableName);
         logger.info("[INSERTED] {}", insertCount[0] + ": " + collName + " [" + beginAndEnd + "] " + wdb + "/" + tableName);
-        return insertCount[0]+updateCount[0];
+        return insertCount[0] + updateCount[0];
     }
 
     /**
