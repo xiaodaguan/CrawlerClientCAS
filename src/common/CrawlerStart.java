@@ -29,22 +29,15 @@ public class CrawlerStart {
             }
         }
 
-        if(Systemconfig.crawlerType == 0){
+        if (Systemconfig.crawlerType == 0) {
             System.out.println("类别参数没有定义('type=n')");
             return;
         }
 
-        AppContext.initAppCtx("");
+        AppContext.initAppCtx("");//初始化
 
+        Job.simpleRun();//任务运行
 
-
-        int life = Systemconfig.lifeCycle;
-
-         Job.simpleRun();
-
-        // TimeUtil.rest(60 * life);
-        // System.out.println(60 * life+"ok.");
-        // System.exit(0);
     }
 
 }

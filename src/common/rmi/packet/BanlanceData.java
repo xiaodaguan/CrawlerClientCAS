@@ -20,7 +20,7 @@ public class BanlanceData implements Serializable {
 	}
 	//获得client的爬虫类型
 	public CrawlerType getType() {
-		return CrawlerType.getMap().get((int)info[0]);
+		return CrawlerType.getCrawlerTypeMap().get((int)info[0]);
 	}
 	//client所属的类型
 	public int getTypeNum() {

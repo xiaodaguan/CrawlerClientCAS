@@ -40,7 +40,7 @@ public class AppContext {
     /**
      * 配置文件的加载及初始化方法
      *
-     * @param 配置文件路径
+     * @param path 配置文件路径
      */
     public static void initAppCtx(String path) {
 
@@ -61,8 +61,14 @@ public class AppContext {
         list.clear();
         files = null;
         arry = null;
+        readConfig();
 
-        // 读取配置
+
+        Systemconfig.createThreadPool();
+        System.out.println("init. ok. ");
+    }
+
+    public static void readConfig() {// 读取配置
         switch (Systemconfig.readConfigType) {
             case 0:
                 readConfigFromFile();
@@ -71,9 +77,6 @@ public class AppContext {
                 readConfigFromDB();
                 break;
         }
-
-        Systemconfig.createThreadPool();
-        System.out.println("init. ok. ");
     }
 
     private static String filepath = "config" + File.separator + "site";
@@ -101,7 +104,7 @@ public class AppContext {
      * @author grs
      */
     public static class MyFileFilter implements FileFilter {
-        String prefix = CrawlerType.getMap().get(Systemconfig.crawlerType).name().toLowerCase();
+        String prefix = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
 
         @Override
         public boolean accept(File f) {
@@ -174,7 +177,7 @@ public class AppContext {
         boolean first = true;
         for (String s : map.keySet()) {
             if (first) {
-                File f = new File(filepath + File.separator + CrawlerType.getMap().get(Systemconfig.crawlerType).name().toLowerCase() + ".xml");
+                File f = new File(filepath + File.separator + CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase() + ".xml");
                 if (!f.exists()) StringUtil.writeFile(f.getAbsolutePath(), typeConfig, "utf-8");
                 first = false;
             }

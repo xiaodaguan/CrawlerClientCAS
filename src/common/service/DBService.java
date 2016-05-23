@@ -91,10 +91,6 @@ public interface DBService<T> {
      */
     String getTypeConfig();
 
-    /**
-     * 随机返回一个header(inserttime 在7天内)
-     */
-    Header randomHeaderFromDB();
 
     void updateUserOrder(String userName);
 

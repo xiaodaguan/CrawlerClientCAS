@@ -37,13 +37,13 @@ public class Clientinfo implements Serializable {
 		if(info.length > 2)//暂不实现
 			return null;
 		else {
-			clientName = CrawlerType.getMap().get((int)info[0]).getCode() + info[1];
+			clientName = CrawlerType.getCrawlerTypeMap().get((int)info[0]).getCode() + info[1];
 			return clientName;
 		}
 	}
 	//获得client的爬虫类型
 	public CrawlerType getType() {
-		return CrawlerType.getMap().get((int)info[0]);
+		return CrawlerType.getCrawlerTypeMap().get((int)info[0]);
 	}
 	//client所属的类型
 	public int getTypeNum() {

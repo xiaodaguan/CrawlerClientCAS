@@ -55,26 +55,38 @@ public enum CrawlerType {
 		return NOTYPE;
 	}
 	
-	private static Map<Integer, CrawlerType> map = new HashMap<Integer, CrawlerType>();
+	private static Map<Integer, CrawlerType> crawlerTypeMap = new HashMap<Integer, CrawlerType>();
 	static {
-		map.put(0, NOTYPE);
-		map.put(1, NEWS_SEARCH);	map.put(2, NEWS_MONITOR);
-		map.put(3, BBS_SEARCH);map.put(4, BBS_MONITOR);
-		map.put(5, BLOG_SEARCH);map.put(6, BLOG_MONITOR);
-		map.put(7, WEIBO_SEARCH);map.put(8, WEIBO_MONITOR);
-		map.put(9, VIDEO_SEARCH);	map.put(10, VIDEO_MONITOR);
-		map.put(11, ACADEMIC_SEARCH);map.put(12, ACADEMIC_MONITOR);
-		map.put(13, EBUSINESS_SEARCH);map.put(14, EBUSINESS_MONITOR);
-		map.put(15, WEIXIN_SEARCH);map.put(16, WEIXIN_MONITOR);
-		map.put(17, NEWS_SAME);//相同新闻	
-		map.put(18, WEIBO_SINGLE);//单条微博采集
-		map.put(19, PATENT_SEARCH);map.put(20, EPAPER_MONITOR);
-		map.put(21, COMPANY_REPORT_SEARCH);map.put(22, COMPANY_REPORT_MONITOR);
-		map.put(23, FUND_SEARCH);
-		map.put(25, WXPUBLIC_SEARCH);
-		map.put(27, AGRICALTURE_SEARCH);map.put(28, AGRICALTURE_MONITOR);
-		map.put(29, CONFERENCE_SEARCH);map.put(30, CONFERENCE_MONITOR);
-		map.put(31, PERSON_SEARCH);map.put(32, PERSON_MONITOR);
-		map.put(33, COMPANY_SEARCH);map.put(34, COMPANY_MONITOR);
+		crawlerTypeMap.put(0, NOTYPE);
+		crawlerTypeMap.put(1, NEWS_SEARCH);	crawlerTypeMap.put(2, NEWS_MONITOR);
+		crawlerTypeMap.put(3, BBS_SEARCH);
+		crawlerTypeMap.put(4, BBS_MONITOR);
+		crawlerTypeMap.put(5, BLOG_SEARCH);
+		crawlerTypeMap.put(6, BLOG_MONITOR);
+		crawlerTypeMap.put(7, WEIBO_SEARCH);
+		crawlerTypeMap.put(8, WEIBO_MONITOR);
+		crawlerTypeMap.put(9, VIDEO_SEARCH);	crawlerTypeMap.put(10, VIDEO_MONITOR);
+		crawlerTypeMap.put(11, ACADEMIC_SEARCH);
+		crawlerTypeMap.put(12, ACADEMIC_MONITOR);
+		crawlerTypeMap.put(13, EBUSINESS_SEARCH);
+		crawlerTypeMap.put(14, EBUSINESS_MONITOR);
+		crawlerTypeMap.put(15, WEIXIN_SEARCH);
+		crawlerTypeMap.put(16, WEIXIN_MONITOR);
+		crawlerTypeMap.put(17, NEWS_SAME);//相同新闻
+		crawlerTypeMap.put(18, WEIBO_SINGLE);//单条微博采集
+		crawlerTypeMap.put(19, PATENT_SEARCH);
+		crawlerTypeMap.put(20, EPAPER_MONITOR);
+		crawlerTypeMap.put(21, COMPANY_REPORT_SEARCH);
+		crawlerTypeMap.put(22, COMPANY_REPORT_MONITOR);
+		crawlerTypeMap.put(23, FUND_SEARCH);
+		crawlerTypeMap.put(25, WXPUBLIC_SEARCH);
+		crawlerTypeMap.put(27, AGRICALTURE_SEARCH);
+		crawlerTypeMap.put(28, AGRICALTURE_MONITOR);
+		crawlerTypeMap.put(29, CONFERENCE_SEARCH);
+		crawlerTypeMap.put(30, CONFERENCE_MONITOR);
+		crawlerTypeMap.put(31, PERSON_SEARCH);
+		crawlerTypeMap.put(32, PERSON_MONITOR);
+		crawlerTypeMap.put(33, COMPANY_SEARCH);
+		crawlerTypeMap.put(34, COMPANY_MONITOR);
 	}
-	public static Map<Integer, CrawlerType> getMap() { return map; } }
+	public static Map<Integer, CrawlerType> getCrawlerTypeMap() { return crawlerTypeMap; } }

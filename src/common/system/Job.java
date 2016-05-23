@@ -1,9 +1,6 @@
 package common.system;
 
-import common.bean.CrawlerStatus;
-import common.bean.CrawlerTaskStatus;
-import common.bean.CrawlerTypeName;
-import common.down.DownFactory;
+import common.download.DownFactory;
 import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
@@ -13,7 +10,6 @@ import common.util.StringUtil;
 import common.util.TimeUtil;
 
 import java.io.File;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -24,33 +20,96 @@ public class Job {
     /**
      * 线程池管理
      */
-    private final static Map<String, ExecutorService> execMap = new HashMap<String, ExecutorService>();
+    private final static Map<String, ExecutorService> EXECUTOR_SERVICE_MAP = new HashMap<String, ExecutorService>();
 
     private static Job job = new Job();
     static Map<String, ViewInfo> first = new HashMap<String, ViewInfo>();
     public static List<SearchKey> keys = null;
 
+
+    public static void simpleRun() throws UnknownHostException {
+        if (Systemconfig.crawlerType % 2 == 1) runSearch();
+        else runMonitor();
+    }
+
     /**
-     * true 则跳过不采集
+     * 普通搜索采集
      *
-     * @param site
-     * @return
+     * @throws Exception
      */
-    private static boolean filter(String site) {
-        if (site.contains(""))// site
-            return false;
-        return true;
+    @SuppressWarnings("unchecked")
+    private static void runSearch() throws UnknownHostException {
+
+
+        while (true) {
+            keys = Systemconfig.dbService.searchKeys();
+            Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
+
+            out:
+            for (SearchKey sk : keys) {
+
+
+                for (String site : Systemconfig.allSiteinfos.keySet()) {
+
+                    Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
+                    sk.setSite(site);
+                    createThreadPool(site, siteinfo);
+
+                    String taskName = sk.getSite() + sk.getKey();
+                    if (Systemconfig.finish.get(taskName) == null || Systemconfig.finish.get(taskName)) {
+
+                        job.submitSearchKey(sk);
+                        Systemconfig.finish.put(taskName, false);
+                    }
+                }
+            }
+
+//            ifAllFinished();
+
+
+            TimeUtil.rest(calWaitTime());
+
+            AppContext.readConfig();
+        }
+
     }
 
-    public static Map<String, ViewInfo> getFirst() {
-        return first;
+    /**
+     * 普通垂直采集
+     */
+    @SuppressWarnings("unchecked")
+    private static void runMonitor() throws UnknownHostException {
+
+        while (true) {
+            keys = Systemconfig.dbService.searchKeys();
+            Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
+            out:
+            for (SearchKey sk : keys) {
+
+
+                String site = sk.getSite() + "_" + CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
+
+                Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
+
+                if (siteinfo == null) continue;
+
+                sk.setSite(site);
+                createThreadPool(site, siteinfo);
+                String taskName = sk.getSite() + sk.getKey();
+                if (Systemconfig.finish.get(taskName) == null || Systemconfig.finish.get(taskName)) {
+                    job.submitSearchKey(sk);
+
+                    Systemconfig.finish.put(taskName, false);
+                }
+            }
+
+
+            TimeUtil.rest(calWaitTime());
+
+            AppContext.readConfig();
+        }
+
     }
-
-
-
-
-
-
 
     /**
      * 运行某个站点的所有检索词或所属的垂直网址
@@ -128,12 +187,13 @@ public class Job {
                     Systemconfig.sysLog.log("没有可用账号！本轮采集退出");
                     return;
                 }
-                if (Job.getExecMap().get(site) == null) Job.getExecMap().put(site, Executors.newFixedThreadPool(list.size()));
+                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
             }
         } else {
-            if (Job.getExecMap().get(site) == null) Job.getExecMap().put(site, Executors.newFixedThreadPool(si.getThreadNum()));
+            if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(si.getThreadNum()));
         }
     }
+
 
     /**
      * 运行站点的某个搜索词或垂直网址
@@ -143,10 +203,9 @@ public class Job {
      * @param vi
      */
     public static void runSearchKey(Siteinfo si, SearchKey sk, ViewInfo vi) {
-		/* 状态 */
+        /* 状态 */
         String taskId = sk.getKey() + " " + sk.getSite() + " " + new Date().toString();
         sk.setCrawlerStatusId(taskId);
-        CrawlerTaskStatus cts = new CrawlerTaskStatus(taskId, new Date(), sk.getKey(), si.getDownInterval(), si.getThreadNum(), false, 0, 0, 0, "INIT");
 
         String site = si.getSiteName();
         sk.setSite(site);
@@ -172,208 +231,93 @@ public class Job {
             ii.setAlive(0);
             vi.getCrawlers().put(sk.getKey(), ii);
 
-            job.listSearchKey(sk);
+            job.submitSearchKey(sk);
 
             Systemconfig.finish.put(searchKey, false);
         }
     }
 
     /**
-     * 普通搜索采集
+     * 获取 每一轮(爬虫启动)之间等待时间
      *
-     * @throws Exception
+     * @return
      */
-    @SuppressWarnings("unchecked")
-    private static void simpleSearchRun() {
-        Job job = new Job();
-        // if (filterKw.contains("_")) {// 测试一个关键词
-        // keys = new ArrayList();
-        // if (filterKw.contains(";")) {
-        // System.out.println("测试n个关键词：" + filterKw);
-        // String[] kws = filterKw.split(";");
-        // for (String string : kws) {
-        // SearchKey sk1 = new SearchKey();
-        // sk1.setKey(string.split("_")[0]);
-        // sk1.setSite(string.split("_")[1]);
-        // keys.add(sk1);
-        // }
-        // } else {
-        // System.out.println("测试一个关键词：" + filterKw);
-        // SearchKey sk1 = new SearchKey();
-        // sk1.setKey(filterKw.split("_")[0]);
-        // sk1.setSite(filterKw.split("_")[1]);
-        // keys.add(sk1);
-        // }
-        // } else {
-        // keys = Systemconfig.dbService.searchKeys();
-        // }
-
-		/* 状态 */
-        String name = "standalone_search_" + CrawlerTypeName.map.get(Systemconfig.crawlerType);
-        String ip = "127.0.0.1";
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress().toString();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
-        while (true) {
-            keys = Systemconfig.dbService.searchKeys();
-            Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
-            Systemconfig.sysLog.log("当前execmap状态:");
-            Systemconfig.sysLog.log(execMap.toString());
-//            for (SearchKey sk : keys) {
-//                Systemconfig.sysLog.log(sk.getKey() + ", ");
-//            }
-            ArrayList<String> listRunning = new ArrayList<String>();
-            out:
-            for (SearchKey sk : keys) {
-
-
-                for (String site : Systemconfig.allSiteinfos.keySet()) {
-
-                    Siteinfo si = Systemconfig.allSiteinfos.get(site);
-                    sk.setSite(site);
-                    if (si.getLogin()) {
-                        // login
-                        if (Systemconfig.users == null) Systemconfig.users = new HashMap<String, List<UserAttr>>();
-                        if (Systemconfig.users.get(site) == null) {
-                            List<UserAttr> list = Systemconfig.dbService.getLoginUsers(site);
-                            Systemconfig.users.put(site, list);
-                            if (list.size() == 0) {
-                                Systemconfig.sysLog.log("没有可用账号！本轮采集退出");
-                                break out;
-                            }
-                            if (Job.getExecMap().get(site) == null) Job.getExecMap().put(site, Executors.newFixedThreadPool(list.size()));
-                        }
-                    } else {
-                        //
-                        if (Job.getExecMap().get(site) == null) Job.getExecMap().put(site, Executors.newFixedThreadPool(si.getThreadNum()));
-                    }
-                    String ss = sk.getSite() + sk.getKey();
-                    if (Systemconfig.finish.get(ss) == null || Systemconfig.finish.get(ss)) {
-                        job.listSearchKey(sk);
-                        listRunning.add(ss);
-
-						/* 状态 */
-                        String taskId = sk.getKey() + " " + sk.getSite() + " " + new Date().toString();
-                        sk.setCrawlerStatusId(taskId);
-                        CrawlerTaskStatus cts = new CrawlerTaskStatus(taskId, new Date(), sk.getKey(), si.getDownInterval(), si.getThreadNum(), false, 0, 0, 0, "INIT");
-
-                        Systemconfig.finish.put(ss, false);
-                    }
-                }
-            }
-            if (listRunning.size() == 0) {
-                System.out.println("nothing running.");
-
-            } else {
-//                System.out.println(listRunning);
-            }
-
-            if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
-                TimeUtil.rest(30 * 24 * 60 * 60);
-            else if (Systemconfig.crawlerType == CrawlerType.NEWS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
-                TimeUtil.rest(2 * 60 * 60);
-            else TimeUtil.rest(6 * 60 * 60);
-
-            if (Systemconfig.readConfigType == 0) AppContext.readConfigFromFile();// 每一轮后重新加载一次配置
-            else AppContext.readConfigFromDB();
-        }
-
+    private static int calWaitTime() {
+        int waitTime = 0;
+        if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
+            waitTime = 30 * 24 * 60 * 60;
+        else if (Systemconfig.crawlerType == CrawlerType.NEWS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
+            waitTime = 2 * 60 * 60;
+        else waitTime = 6 * 60 * 60;
+        return waitTime;
     }
 
     /**
-     * 普通垂直采集
+     * 判断systemconfi.tasks中的future是否全部完成
+     *
+     * @return
      */
-    @SuppressWarnings("unchecked")
-    private static void simpleMonitorRun() {
-        Job job = new Job();
-		/* 状态 */
-        String name = "standalone_monitor_" + CrawlerTypeName.map.get(Systemconfig.crawlerType);
-        String ip = "127.0.0.1";
-        try {
-            ip = InetAddress.getLocalHost().getHostAddress().toString();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
-
-        keys = Systemconfig.dbService.searchKeys();
-        Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
-        ArrayList<String> listRunning = new ArrayList<String>();
-        out:
-        for (SearchKey sk : keys) {
-
-
-            String site = sk.getSite() + "_" + CrawlerType.getMap().get(Systemconfig.crawlerType).name().toLowerCase();
-
-            Siteinfo si = Systemconfig.allSiteinfos.get(site);
-
-            if (si == null) continue;
-
-            sk.setSite(site);
-            if (si.getLogin()) {
-                if (Systemconfig.users == null) Systemconfig.users = new HashMap<String, List<UserAttr>>();
-                if (Systemconfig.users.get(site) == null) {
-                    List<UserAttr> list = Systemconfig.dbService.getLoginUsers(site);
-                    Systemconfig.users.put(site, list);
-                    if (list.size() == 0) {
-                        Systemconfig.sysLog.log("没有可用账号！本轮采集退出");
-                        break out;
-                    }
-                    if (Job.getExecMap().get(site) == null) Job.getExecMap().put(site, Executors.newFixedThreadPool(list.size()));
-                }
+    private static boolean ifAllFinished() {
+        boolean allFinished = true;
+        for (String taskName : Systemconfig.tasks.keySet()) {
+            if (Systemconfig.tasks.get(taskName).isDone()) {
+                Systemconfig.sysLog.log("task: " + taskName + " finished.");
             } else {
-                if (Job.getExecMap().get(site) == null) Job.getExecMap().put(site, Executors.newFixedThreadPool(si.getThreadNum()));
-            }
-            String ss = sk.getSite() + sk.getKey();
-            if (Systemconfig.finish.get(ss) == null || Systemconfig.finish.get(ss)) {
-                job.listSearchKey(sk);
-                listRunning.add(ss);
-					/* 状态 */
-                String taskId = sk.getKey() + " " + sk.getSite() + " " + new Date().toString();
-                CrawlerTaskStatus cts = new CrawlerTaskStatus(taskId, new Date(), sk.getKey(), si.getDownInterval(), si.getThreadNum(), false, 0, 0, 0, "INIT");
-                sk.setCrawlerStatusId(taskId);
-
-                Systemconfig.finish.put(ss, false);
-                TimeUtil.rest(1);
+                Systemconfig.sysLog.log("task: " + taskName + " running.");
+                allFinished = false;
             }
         }
-			/* 状态 */
-
-        if (listRunning.size() == 0) {
-            System.out.println("nothing running.");
-
-        } else {
-//            System.out.println(listRunning);
-        }
-
-
+        return allFinished;
     }
 
-    public void list(String site, String key) {
+
+    /**
+     * 如果需要登录,则根据可用的账号数创建线程池,否则按照siteinfo.getThreadNum创建线程池
+     *
+     * @param site
+     * @param siteinfo
+     * @return
+     */
+    private static boolean createThreadPool(String site, Siteinfo siteinfo) {
+        if (siteinfo.getLogin()) {
+
+            if (Systemconfig.users == null) Systemconfig.users = new HashMap<String, List<UserAttr>>();
+            if (Systemconfig.users.get(site) == null) {
+                List<UserAttr> list = Systemconfig.dbService.getLoginUsers(site);
+                Systemconfig.users.put(site, list);
+                if (list.size() == 0) {
+                    Systemconfig.sysLog.log("没有可用账号！本轮采集退出");
+                    return true;
+                }
+                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
+            }
+        } else {
+            if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
+        }
+        return false;
+    }
+
+    public void submitSearchKey(String site, String key) {
         SearchKey skey = new SearchKey();
         skey.setKey(key);
         skey.setSite(site);
-        Future<?> f = execMap.get(site).submit(DownFactory.metaControl(skey));
+        Future<?> f = EXECUTOR_SERVICE_MAP.get(site).submit(DownFactory.metaControl(skey));
         Systemconfig.tasks.put(site + "_" + key, f);
     }
 
-    public void listSearchKey(SearchKey sk) {
-        Future<?> f = execMap.get(sk.getSite()).submit(DownFactory.metaControl(sk));
+    public void submitSearchKey(SearchKey sk) {
+        Future<?> f = EXECUTOR_SERVICE_MAP.get(sk.getSite()).submit(DownFactory.metaControl(sk));
         Systemconfig.tasks.put(sk.getSite() + "_" + sk.getKey(), f);
 
     }
 
 
-
-    public static void simpleRun() {
-        if (Systemconfig.crawlerType % 2 == 1) simpleSearchRun();
-        else simpleMonitorRun();
+    public static Map<String, ExecutorService> getExecutorServiceMap() {
+        return EXECUTOR_SERVICE_MAP;
     }
-    public static Map<String, ExecutorService> getExecMap() {
-        return execMap;
+
+    public static Map<String, ViewInfo> getFirst() {
+        return first;
     }
 
     public static Job getJob() {

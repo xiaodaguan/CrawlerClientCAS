@@ -1,6 +1,5 @@
 package common.system;
 
-import common.bean.CrawlerStatus;
 import common.communicate.CopyConfig;
 import common.communicate.HeartBeat;
 import common.filter.SeedFilter;
@@ -32,17 +31,6 @@ import java.util.concurrent.*;
  */
 public class Systemconfig {
 
-    public static int lifeCycle;
-
-    public void setLifeCycle(int lifeCycle) {
-        Systemconfig.lifeCycle = lifeCycle;
-    }
-
-    /**
-     * 检索达到无销量页面
-     */
-    public static boolean forceStop = false;
-    public static int forceStopSales = 0;
 
     /**
      * 电商品牌代码
@@ -194,7 +182,7 @@ public class Systemconfig {
                 sysLog.log("注册不成功！", e);
                 System.exit(-1);
             }
-            Systemconfig.localAddress = CrawlerType.getMap().get(crawlerType).getCode() + clientinfo.getInfo()[1];
+            Systemconfig.localAddress = CrawlerType.getCrawlerTypeMap().get(crawlerType).getCode() + clientinfo.getInfo()[1];
             heatBeat = Executors.newScheduledThreadPool(1);
             copyConfig = Executors.newScheduledThreadPool(1);
             heatBeat.scheduleAtFixedRate(new HeartBeat(), 5, 5, TimeUnit.SECONDS);
@@ -220,7 +208,7 @@ public class Systemconfig {
     }
 
     private void value() {
-        CrawlerType ct = CrawlerType.getMap().get(crawlerType);
+        CrawlerType ct = CrawlerType.getCrawlerTypeMap().get(crawlerType);
         if (ct != null) {
             RUN_PREFIX = ct.name() + "_";
             table = table == null ? "" : table;

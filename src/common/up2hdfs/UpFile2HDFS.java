@@ -75,7 +75,7 @@ public class UpFile2HDFS implements Callable<String> {
 				String s = arr[1].replace(File.separator, ",").substring(1);
 				arr = s.split(",");
 			}
-			p = new Path(remote+File.separator+CrawlerType.getMap().get(Systemconfig.crawlerType)+
+			p = new Path(remote+File.separator+CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType)+
 					File.separator+arr[0]+File.separator+File.separator+arr[1]+
 					File.separator+Systemconfig.getClientIndex()+"_"+System.currentTimeMillis());
 			

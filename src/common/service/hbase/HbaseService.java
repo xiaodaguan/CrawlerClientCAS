@@ -3,31 +3,20 @@ package common.service.hbase;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.MasterNotRunningException;
 import org.apache.hadoop.hbase.ZooKeeperConnectionException;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
-import org.apache.hadoop.hbase.client.Result;
-import org.apache.hadoop.hbase.client.ResultScanner;
-import org.apache.hadoop.hbase.client.Scan;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.jdbc.core.RowMapper;
 
-import common.bean.CrawlerStatus;
-import common.bean.CrawlerTaskStatus;
 import common.bean.Proxy;
 import common.bean.WxpublicData;
 import common.rmi.packet.SearchKey;
 import common.service.AbstractDBService;
-import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 
 /**

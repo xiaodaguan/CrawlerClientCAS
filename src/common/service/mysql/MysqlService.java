@@ -34,46 +34,7 @@ public abstract class MysqlService<T> extends AbstractDBService<T> {
 	public Proxy getProxy(int siteId){
 		return null;
 	}
-	/**
-	 * 随机返回一个header
-	 */
-	@Override
-	public Header randomHeaderFromDB() {
-		String sql = "select id, cookie ,user_agent, host, accept, accept_language, accept_encoding, connection, cache_control, referer "
-				+ "from headers where site_name = 'sogou' and cookie not like '%-1%' and to_days(now())-to_days(insert_time)<7 and cookie is not null limit 200";
-		List<Header> headers = this.jdbcTemplate.query(sql, new RowMapper<Header>() {
 
-			@Override
-			public Header mapRow(ResultSet rs, int arg1) throws SQLException {
-
-				Header header = new Header();
-				header.setId(rs.getInt(1));
-				header.setCookie(rs.getString(2));
-				header.setUserAgent(rs.getString(3));
-				header.setHost(rs.getString(4));
-				header.setAccept(rs.getString(5));
-				header.setAcceptLanguage(rs.getString(6));
-				header.setAcceptEncoding(rs.getString(7));
-				header.setConnection(rs.getString(8));
-				header.setCacheControl(rs.getString(9));
-				header.setReferer(rs.getString(10));
-
-				return header;
-			}
-		});
-
-		if (headers.size() > 0) {
-			/* 随机返回一个 */
-			Random random = new Random();
-			int num = random.nextInt(headers.size());
-
-			return headers.get(num);
-		} else {
-			System.err.println("no availiable header in header pool.");
-			return null;
-		}
-	}
-	
 	@Override
 	public abstract void saveData(T data);
 	@Override

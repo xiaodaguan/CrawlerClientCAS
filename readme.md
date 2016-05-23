@@ -4,11 +4,19 @@
 
 config.properties：  
 
-	- 数据源  
-	- 采集类型  
-	- 配置读取方式  
-	- 运行方式  
-	
+	- 数据源    
+	- 配置读取方式 0:from xml file, 1: from database  
+	- 运行方式: run/test  
+
+### 需要登录的站点  
+
+将账号配置在crawler_account表中  
+site_id与site_template表中对应模板的id一致  
+
+### 垂直监控配置  
+
+将要监控的url配置在monitor_site中,注意site_name  
+
 ## 爬虫启动  
 - 参数  
 

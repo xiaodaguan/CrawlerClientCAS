@@ -6,17 +6,11 @@ import common.rmi.packet.SearchKey;
 import common.system.SiteTemplateAttr;
 import common.system.Systemconfig;
 import common.system.UserAttr;
-import common.util.StringUtil;
 import common.util.UserAgent;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.*;
 
@@ -153,7 +147,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
 		this.jdbcTemplate.query(sql, new RowMapper<SiteTemplateAttr>() {
 			public SiteTemplateAttr mapRow(ResultSet rs, int i) throws SQLException {
 				SiteTemplateAttr sta = new SiteTemplateAttr();
-				sta.setTemplateName(CrawlerType.getMap().get(Systemconfig.crawlerType).name().toLowerCase());
+				sta.setTemplateName(CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase());
 				sta.setSiteFlag(rs.getString("SITEFLAG"));
 				// sta.setType(rs.getString("TYPE"));
 				sta.setLastModified(rs.getTimestamp("TEMPLATE_LAST_MODIFIED"));
@@ -169,7 +163,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
 		// public SiteTemplateAttr mapRow(ResultSet rs, int i)
 		// throws SQLException {
 		// SiteTemplateAttr sta=new SiteTemplateAttr();
-		// sta.setTemplateName(CrawlerType.getMap().get(Systemconfig.crawlerType).name().toLowerCase());
+		// sta.setTemplateName(CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase());
 		// sta.setSiteFlag(rs.getString("SITEFLAG"));
 		// sta.setType(rs.getString("TYPE"));
 		// sta.setLastModified(rs.getTimestamp("TEMPLATE_LAST_MODIFIED"));
