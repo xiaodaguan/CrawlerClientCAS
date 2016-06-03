@@ -90,7 +90,7 @@ public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> 
 		} finally {
 			if (count != null)
 				count.countDown();
-			Systemconfig.sysLog.log("当前collect进度: " + data.getCompleteSize());
+//			Systemconfig.sysLog.log("当前collect进度: " + data.getCompleteSize());
 			TimeUtil.rest(1);
 		}
 	}

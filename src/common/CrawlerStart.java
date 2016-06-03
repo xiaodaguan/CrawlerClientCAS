@@ -3,10 +3,16 @@ package common;
 import common.system.AppContext;
 import common.system.Job;
 import common.system.Systemconfig;
-
-import java.util.ArrayList;
+import crawlerlog.log.CLog;
+import crawlerlog.log.CLogFactory;
 
 public class CrawlerStart {
+
+    static {
+        CLogFactory.configure("../config/crawlerlog.properties");
+    }
+
+    private static CLog cLogger = CLogFactory.getLogger("t000000");
 
     public static void main(String[] args) throws Exception {
 
@@ -35,6 +41,7 @@ public class CrawlerStart {
         }
 
         AppContext.initAppCtx("");//初始化
+
 
         Job.simpleRun();//任务运行
 

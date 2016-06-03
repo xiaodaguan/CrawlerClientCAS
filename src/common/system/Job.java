@@ -8,6 +8,8 @@ import common.rmi.packet.ViewInfo.InnerInfo;
 import common.siteinfo.Siteinfo;
 import common.util.StringUtil;
 import common.util.TimeUtil;
+import crawlerlog.log.CLog;
+import crawlerlog.log.CLogFactory;
 
 import java.io.File;
 import java.net.UnknownHostException;
@@ -17,6 +19,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Job {
+
+    private static CLog cLogger = CLogFactory.getLogger("t000000");
     /**
      * 线程池管理
      */
@@ -27,7 +31,7 @@ public class Job {
     public static List<SearchKey> keys = null;
 
 
-    public static void simpleRun() throws UnknownHostException {
+    public static void simpleRun() throws UnknownHostException, InterruptedException {
         if (Systemconfig.crawlerType % 2 == 1) runSearch();
         else runMonitor();
     }
@@ -38,8 +42,10 @@ public class Job {
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
-    private static void runSearch() throws UnknownHostException {
+    private static void runSearch() throws UnknownHostException, InterruptedException {
 
+        cLogger.start("TestCrawler", "teeeeeeeesttttt");
+        Systemconfig.sysLog.log("start");
 
         while (true) {
             keys = Systemconfig.dbService.searchKeys();
@@ -64,10 +70,17 @@ public class Job {
                 }
             }
 
-//            ifAllFinished();
+            while (!ifAllFinished()) {
+                cLogger.beat();
+                Systemconfig.sysLog.log("beat");
+                Thread.currentThread().sleep(10 * 1000);
+            }
+
+            cLogger.stop();
+            Systemconfig.sysLog.log("stop");
 
 
-            TimeUtil.rest(calWaitTime());
+            TimeUtil.rest(calCycleWaitTime());
 
             AppContext.readConfig();
         }
@@ -104,12 +117,33 @@ public class Job {
             }
 
 
-            TimeUtil.rest(calWaitTime());
+            TimeUtil.rest(calCycleWaitTime());
 
             AppContext.readConfig();
         }
 
     }
+
+    /**
+     * 判断systemconfi.tasks中的future是否全部完成
+     *
+     * @return
+     */
+    private static boolean ifAllFinished() {
+        boolean allFinished = true;
+        int runningTaskCount = 0;
+        for (String taskName : Systemconfig.tasks.keySet()) {
+            if (Systemconfig.tasks.get(taskName).isDone()) {
+            } else {
+                runningTaskCount++;
+            }
+        }
+        if (runningTaskCount > 0) allFinished = false;
+        Systemconfig.sysLog.log("running task count: " + runningTaskCount + " / total task count: " + Systemconfig.tasks.size());
+
+        return allFinished;
+    }
+
 
     /**
      * 运行某个站点的所有检索词或所属的垂直网址
@@ -242,7 +276,7 @@ public class Job {
      *
      * @return
      */
-    private static int calWaitTime() {
+    private static int calCycleWaitTime() {
         int waitTime = 0;
         if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
             waitTime = 30 * 24 * 60 * 60;
@@ -250,24 +284,6 @@ public class Job {
             waitTime = 2 * 60 * 60;
         else waitTime = 6 * 60 * 60;
         return waitTime;
-    }
-
-    /**
-     * 判断systemconfi.tasks中的future是否全部完成
-     *
-     * @return
-     */
-    private static boolean ifAllFinished() {
-        boolean allFinished = true;
-        for (String taskName : Systemconfig.tasks.keySet()) {
-            if (Systemconfig.tasks.get(taskName).isDone()) {
-                Systemconfig.sysLog.log("task: " + taskName + " finished.");
-            } else {
-                Systemconfig.sysLog.log("task: " + taskName + " running.");
-                allFinished = false;
-            }
-        }
-        return allFinished;
     }
 
 
