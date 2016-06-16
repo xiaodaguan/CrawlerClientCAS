@@ -88,7 +88,16 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 				try {
 					http.getContent(html, userAttr);
 					// html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
-
+					if (html.getContent().contains("抱歉，未找到")&&html.getContent().contains("您可以尝试更换关键词，再次搜索。")) {
+						Systemconfig.sysLog.log(keyword + ": " + url + "没有检索结果");
+						TimeUtil.rest(siteinfo.getDownInterval());
+						break;
+					}
+					if (html.getContent().contains("\\u62b1\\u6b49\\uff0c\\u672a\\u627e\\u5230")&&html.getContent().contains("\\u60a8\\u53ef\\u4ee5\\u5c1d\\u8bd5\\u66f4\\u6362\\u5173\\u952e\\u8bcd\\uff0c\\u518d\\u6b21\\u641c\\u7d22\\u3002")) {
+						Systemconfig.sysLog.log(keyword + ": " + url + "没有检索结果");
+						TimeUtil.rest(siteinfo.getDownInterval());
+						break;
+					}
 					nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
 
 					if (list.size() == 0) {

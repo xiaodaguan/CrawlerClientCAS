@@ -367,8 +367,13 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 			xpath = xpath.replace("[index]", "[" + (i + 1) + "]");
 			String xWeizhi = "(" + component.getXpath() + ")[index]/A[@class='W_btn_c6']/@href";
 			NodeList nl = commonList(xpath, dom);
-			if (nl.item(0) != null)
-				list.get(i).setContent(nl.item(0).getTextContent());
+			StringBuilder cont = new StringBuilder();
+			for(int j=0;j<nl.getLength();j++){
+				cont.append(nl.item(j).getTextContent()).append("\n");
+			}
+			if(nl.getLength()!=0){
+				list.get(i).setContent(cont.toString());
+			}
 			try {
 				Node node = XPathAPI.selectSingleNode(dom, xWeizhi.replace("index", (i + 1) + ""));
 				if (node != null) {
