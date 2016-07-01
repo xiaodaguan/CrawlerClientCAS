@@ -123,7 +123,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             }
 
         }
-        clause += " and (is_usable=0 or is_usable is null) ";
+        clause += " and (is_usable=0 or is_usable is null) order by priority desc ";
         if (Systemconfig.mode.equals("test")) {
             clause += " and debug ＝ 1 ";
         }

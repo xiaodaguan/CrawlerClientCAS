@@ -16,7 +16,7 @@ import common.util.StringUtil;
 public class NewsOracleService extends OracleService<NewsData> {
 
 
-    private static final String TABLE = "news_data_test";
+    private static final String TABLE = "news_data";
 
 
     private static final String jasql = "insert into " + TABLE + "(" +
