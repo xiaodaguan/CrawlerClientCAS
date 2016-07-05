@@ -26,9 +26,11 @@ public class testTime {
 //		calendar.setTime(date);
 //		calendar.add(Calendar.MONTH, -1);
 //		System.out.println(sdf.format(calendar.getTime()));
-		System.out.println(TimeUtil.timestamp2Str(1438766747000L, "yyyy-MM-dd hh:mm:ss"));
-		
-		
+//		System.out.println(TimeUtil.timestamp2Str(1438766747000L, "yyyy-MM-dd hh:mm:ss"));
+
+
+		System.out.println(System.currentTimeMillis());
+		System.out.println(new java.util.Date().getTime());
 	}
 
 }

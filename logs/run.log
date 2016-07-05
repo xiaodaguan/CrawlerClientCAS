@@ -1,10 +1,304 @@
-[INFO ][05-23 16:46:33][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]
-Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@2336f0c9: startup date [Mon May 23 16:46:33 CST 2016]; root of context hierarchy
-[INFO ][05-23 16:46:34][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
-Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
-[INFO ][05-23 16:46:36][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]
-Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
-[INFO ][05-23 16:46:36][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]
-Loading properties file from URL [file:config/config.properties]
-[INFO ][05-23 16:46:37][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]
-Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@69363f5a: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][07-05 13:03:26][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@6838a3ca: startup date [Tue Jul 05 13:03:26 CST 2016]; root of context hierarchy
+[INFO ][07-05 13:03:26][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][07-05 13:03:28][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][07-05 13:03:29][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]Loading properties file from URL [file:config/config.properties]
+[INFO ][07-05 13:03:29][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4af8d390: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][07-05 13:03:30][main][common.util.UrlReduplicationRemove][29]初始化URL过滤容器…
+[INFO ][07-05 13:11:02][main][common.util.UrlReduplicationRemove][48]初始化数量121555598############12604420 数据表中url数量:1260442
+[INFO ][07-05 13:11:12][main][common.util.UrlReduplicationRemove][31]初始化URL过滤容器成功完成！
+[INFO ][07-05 13:11:13][Thread-0][system][84]system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 4
+[INFO ][07-05 13:11:13][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/weibo_search_sina.temp]
+[INFO ][07-05 13:11:14][Thread-0][system][84]system : start
+[INFO ][07-05 13:11:14][Thread-0][system][84]system : 1261个关键词将采集:
+[INFO ][07-05 13:11:14][Thread-0][system][84]system : 用户isiteam321@sina.com使用中！
+[INFO ][07-05 13:11:14][Thread-0][system][84]system : 用户isiteam_9@sina.com使用中！
+[INFO ][07-05 13:11:14][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&nodup=1&page=1...
+[INFO ][07-05 13:11:14][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%E7%BD%91%E7%BB%9C%E5%80%9F%E8%B4%B7%20%E4%B8%93%E5%AE%B6&nodup=1&page=1...
+[INFO ][07-05 13:11:15][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:11:15][Thread-0][system][84]system : beat
+[INFO ][07-05 13:11:16][Thread-0][system][84]system : account:{isiteam_9@sina.com} last used updated.
+[INFO ][07-05 13:11:16][Thread-0][system][84]system : isiteam_9@sina.com	login success.
+
+[INFO ][07-05 13:11:16][Thread-0][system][84]system : account:{isiteam321@sina.com} last used updated.
+[INFO ][07-05 13:11:16][Thread-0][system][84]system : isiteam321@sina.com	login success.
+
+[WARN ][07-05 13:11:16][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.8a931f6f.577b4174.9f306e74", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:11:16 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:11:16][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.8aa51f6f.577b4174.a8f68290", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:11:19][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.6d6231e3.577b4174.c3d75f0e", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:11:16 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:11:19][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.6d9131e3.577b4174.92d113ff", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:11:20][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D%20%E4%B8%93%E5%AE%B6&nodup=1&page=1元数据页面解析完成。
+[INFO ][07-05 13:11:21][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%E7%BD%91%E7%BB%9C%E5%80%9F%E8%B4%B7%20%E4%B8%93%E5%AE%B6&nodup=1&page=1元数据页面解析完成。
+[INFO ][07-05 13:11:25][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:11:25][Thread-0][system][84]system : beat
+[INFO ][07-05 13:11:35][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:11:35][Thread-0][system][84]system : beat
+[INFO ][07-05 13:11:45][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:11:45][Thread-0][system][84]system : beat
+[INFO ][07-05 13:11:55][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:11:55][Thread-0][system][84]system : beat
+[INFO ][07-05 13:11:55][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%25E4%25BA%2592%25E8%2581%2594%25E7%25BD%2591%25E9%2587%2591%25E8%259E%258D%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=2...
+[WARN ][07-05 13:11:56][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.c45f1e2f.577b419c.00aebfc1", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:11:56 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:11:56][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.c4711e2f.577b419c.8fa03a0f", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:11:56][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=2...
+[WARN ][07-05 13:11:57][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.a4a91f01.577b419d.341db85a", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:11:57 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:11:57][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.a4bc1f01.577b419d.1ebcf897", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:11:57][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%25E4%25BA%2592%25E8%2581%2594%25E7%25BD%2591%25E9%2587%2591%25E8%259E%258D%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=2元数据页面解析完成。
+[INFO ][07-05 13:11:59][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=2元数据页面解析完成。
+[INFO ][07-05 13:11:59][Thread-0][system][84]system : 无新数据。
+[INFO ][07-05 13:12:05][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:12:05][Thread-0][system][84]system : beat
+[INFO ][07-05 13:12:15][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:12:15][Thread-0][system][84]system : beat
+[INFO ][07-05 13:12:25][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:12:25][Thread-0][system][84]system : beat
+[INFO ][07-05 13:12:32][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%25E4%25BA%2592%25E8%2581%2594%25E7%25BD%2591%25E9%2587%2591%25E8%259E%258D%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=3...
+[WARN ][07-05 13:12:33][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.76a51f31.577b41c1.8ececa5d", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:12:33 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:12:33][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.76b71f31.577b41c1.8b52ec22", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:12:35][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:12:35][Thread-0][system][84]system : beat
+[INFO ][07-05 13:12:35][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%25E4%25BA%2592%25E8%2581%2594%25E7%25BD%2591%25E9%2587%2591%25E8%259E%258D%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=3元数据页面解析完成。
+[INFO ][07-05 13:12:35][Thread-0][system][84]system : 无新数据。
+[INFO ][07-05 13:12:45][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:12:45][Thread-0][system][84]system : beat
+[INFO ][07-05 13:12:55][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:12:55][Thread-0][system][84]system : beat
+[INFO ][07-05 13:13:05][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:13:05][Thread-0][system][84]system : beat
+[INFO ][07-05 13:13:09][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=3...
+[WARN ][07-05 13:13:10][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.8fbbd2b.577b41e6.ac725d1d", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:13:10 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:13:10][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.8fced2b.577b41e6.8360cb2d", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:13:12][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=3元数据页面解析完成。
+[INFO ][07-05 13:13:12][Thread-0][system][84]system : 无新数据。
+[INFO ][07-05 13:13:15][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:13:15][Thread-0][system][84]system : beat
+[INFO ][07-05 13:13:25][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:13:25][Thread-0][system][84]system : beat
+[INFO ][07-05 13:13:35][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:13:35][Thread-0][system][84]system : beat
+[INFO ][07-05 13:13:45][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:13:45][Thread-0][system][84]system : beat
+[INFO ][07-05 13:13:45][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%25E4%25BA%2592%25E8%2581%2594%25E7%25BD%2591%25E9%2587%2591%25E8%259E%258D%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=4...
+[WARN ][07-05 13:13:46][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.a73b71db.577b420a.cde418fa", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:13:46 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:13:46][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.a77971db.577b420a.6e40f512", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:13:48][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%25E4%25BA%2592%25E8%2581%2594%25E7%25BD%2591%25E9%2587%2591%25E8%259E%258D%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=4元数据页面解析完成。
+[INFO ][07-05 13:13:48][Thread-0][system][84]system : 无新数据。
+[INFO ][07-05 13:13:55][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:13:55][Thread-0][system][84]system : beat
+[INFO ][07-05 13:14:05][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:14:05][Thread-0][system][84]system : beat
+[INFO ][07-05 13:14:15][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:14:15][Thread-0][system][84]system : beat
+[INFO ][07-05 13:14:22][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=4...
+[WARN ][07-05 13:14:23][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.2d051d3a.577b422f.936d8f76", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:14:23 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:14:23][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.2d151d3a.577b422f.6b7219cb", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:14:25][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=4元数据页面解析完成。
+[INFO ][07-05 13:14:25][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:14:25][Thread-0][system][84]system : beat
+[INFO ][07-05 13:14:35][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:14:35][Thread-0][system][84]system : beat
+[INFO ][07-05 13:14:45][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:14:45][Thread-0][system][84]system : beat
+[INFO ][07-05 13:14:55][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:14:55][Thread-0][system][84]system : beat
+[INFO ][07-05 13:14:58][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%25E4%25BA%2592%25E8%2581%2594%25E7%25BD%2591%25E9%2587%2591%25E8%259E%258D%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=5...
+[WARN ][07-05 13:14:59][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.2f3771db.577b4253.cd7294c4", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:14:59 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:14:59][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.2f4971db.577b4253.eba5a5c5", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:15:00][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=5...
+[WARN ][07-05 13:15:01][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.69aa23dd.577b4254.e52cc52d", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:15:00 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:15:01][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.69be23dd.577b4254.c4c92111", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:15:02][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=5元数据页面解析完成。
+[INFO ][07-05 13:15:03][Thread-0][system][84]system : --common.system.UserAttr@25512b6c --互联网金融 专家: http://s.weibo.com/weibo/%25E4%25BA%2592%25E8%2581%2594%25E7%25BD%2591%25E9%2587%2591%25E8%259E%258D%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=5元数据页面解析完成。
+[INFO ][07-05 13:15:03][Thread-0][system][84]system : 无新数据。
+[INFO ][07-05 13:15:05][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:15:05][Thread-0][system][84]system : beat
+[INFO ][07-05 13:15:15][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:15:15][Thread-0][system][84]system : beat
+[INFO ][07-05 13:15:25][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:15:25][Thread-0][system][84]system : beat
+[INFO ][07-05 13:15:35][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:15:35][Thread-0][system][84]system : beat
+[INFO ][07-05 13:15:37][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=6...
+[WARN ][07-05 13:15:39][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.244b7151.577b427a.c6c86193", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:15:38 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:15:39][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.245e7151.577b427a.49d25b5e", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:15:41][Thread-0][system][84]system : --common.system.UserAttr@73f9d297 --网络借贷 专家: http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BB%259C%25E5%2580%259F%25E8%25B4%25B7%2520%25E4%25B8%2593%25E5%25AE%25B6&nodup=1&page=6元数据页面解析完成。
+[INFO ][07-05 13:15:45][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:15:45][Thread-0][system][84]system : beat
+[INFO ][07-05 13:15:55][Thread-0][system][84]system : running task count: 1252 / total task count: 1252
+[INFO ][07-05 13:15:55][Thread-0][system][84]system : beat
+[INFO ][07-05 13:28:18][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@22d3d11f: startup date [Tue Jul 05 13:28:18 CST 2016]; root of context hierarchy
+[INFO ][07-05 13:28:18][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][07-05 13:28:19][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][07-05 13:28:20][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]Loading properties file from URL [file:config/config.properties]
+[INFO ][07-05 13:28:20][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3cf28f60: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][07-05 13:28:21][main][common.util.UrlReduplicationRemove][29]初始化URL过滤容器…
+[INFO ][07-05 13:30:54][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@763caf2d: startup date [Tue Jul 05 13:30:54 CST 2016]; root of context hierarchy
+[INFO ][07-05 13:30:54][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][07-05 13:30:55][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][07-05 13:30:56][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]Loading properties file from URL [file:config/config.properties]
+[INFO ][07-05 13:30:56][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@76789566: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][07-05 13:30:56][main][common.util.UrlReduplicationRemove][29]初始化URL过滤容器…
+[INFO ][07-05 13:30:56][main][common.util.UrlReduplicationRemove][48]初始化数量7715109############800000 数据表中url数量:0
+[INFO ][07-05 13:30:56][main][common.util.UrlReduplicationRemove][31]初始化URL过滤容器成功完成！
+[INFO ][07-05 13:30:57][Thread-0][system][84]system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 4
+[INFO ][07-05 13:30:59][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/weibo_search_sina.temp]
+[INFO ][07-05 13:30:59][Thread-0][system][84]system : start
+[INFO ][07-05 13:30:59][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+[INFO ][07-05 13:30:59][main][org.springframework.jdbc.support.SQLErrorCodesFactory][126]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+[INFO ][07-05 13:31:51][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@2c11008e: startup date [Tue Jul 05 13:31:51 CST 2016]; root of context hierarchy
+[INFO ][07-05 13:31:51][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][07-05 13:31:52][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][07-05 13:31:53][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]Loading properties file from URL [file:config/config.properties]
+[INFO ][07-05 13:31:53][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4babdb2c: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][07-05 13:31:54][main][common.util.UrlReduplicationRemove][29]初始化URL过滤容器…
+[INFO ][07-05 13:31:54][main][common.util.UrlReduplicationRemove][48]初始化数量7715109############800000 数据表中url数量:0
+[INFO ][07-05 13:31:54][main][common.util.UrlReduplicationRemove][31]初始化URL过滤容器成功完成！
+[INFO ][07-05 13:31:55][Thread-0][system][84]system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 4
+[INFO ][07-05 13:31:55][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/weibo_search_sina.temp]
+[INFO ][07-05 13:31:55][Thread-0][system][84]system : start
+[INFO ][07-05 13:31:55][Thread-0][system][84]system : 2个关键词将采集:
+[INFO ][07-05 13:31:55][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:31:55][Thread-0][system][84]system : beat
+[INFO ][07-05 13:31:55][Thread-0][system][84]system : 用户isiteam456@sina.com使用中！
+[INFO ][07-05 13:31:55][Thread-0][system][84]system : 用户isiteam@sina.cn使用中！
+[INFO ][07-05 13:31:56][Thread-0][system][84]system : --[name:isiteam456@sina.com last login:null] --网银: http://s.weibo.com/weibo/%E7%BD%91%E9%93%B6&nodup=1&page=1...
+[INFO ][07-05 13:32:29][Thread-0][system][84]system : --[name:isiteam@sina.cn last login:null] --马光远: http://s.weibo.com/weibo/%E9%A9%AC%E5%85%89%E8%BF%9C&nodup=1&page=1...
+[INFO ][07-05 13:32:29][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:32:29][Thread-0][system][84]system : beat
+[INFO ][07-05 13:32:36][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@656a08e5: startup date [Tue Jul 05 13:32:36 CST 2016]; root of context hierarchy
+[INFO ][07-05 13:32:36][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][07-05 13:32:38][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][07-05 13:32:38][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]Loading properties file from URL [file:config/config.properties]
+[INFO ][07-05 13:32:39][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@58aa5672: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][07-05 13:32:39][main][common.util.UrlReduplicationRemove][29]初始化URL过滤容器…
+[INFO ][07-05 13:32:39][main][common.util.UrlReduplicationRemove][48]初始化数量7715109############800000 数据表中url数量:0
+[INFO ][07-05 13:32:39][main][common.util.UrlReduplicationRemove][31]初始化URL过滤容器成功完成！
+[INFO ][07-05 13:32:40][Thread-0][system][84]system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 4
+[INFO ][07-05 13:32:41][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/weibo_search_sina.temp]
+[INFO ][07-05 13:32:41][Thread-0][system][84]system : start
+[INFO ][07-05 13:32:41][Thread-0][system][84]system : 2个关键词将采集:
+[INFO ][07-05 13:32:41][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:32:42][Thread-0][system][84]system : beat
+[INFO ][07-05 13:32:43][Thread-0][system][84]system : 用户isiteam456@sina.com使用中！
+[INFO ][07-05 13:32:44][Thread-0][system][84]system : --[name:isiteam456@sina.com last login:null] --网银: http://s.weibo.com/weibo/%E7%BD%91%E9%93%B6&nodup=1&page=1...
+[INFO ][07-05 13:33:05][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:33:12][Thread-0][system][84]system : beat
+[INFO ][07-05 13:33:23][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:33:23][Thread-0][system][84]system : 用户isiteam@sina.cn使用中！
+[INFO ][07-05 13:33:23][Thread-0][system][84]system : --[name:isiteam@sina.cn last login:null] --马光远: http://s.weibo.com/weibo/%E9%A9%AC%E5%85%89%E8%BF%9C&nodup=1&page=1...
+[INFO ][07-05 13:33:23][Thread-0][system][84]system : beat
+[INFO ][07-05 13:33:28][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@a10f000: startup date [Tue Jul 05 13:33:28 CST 2016]; root of context hierarchy
+[INFO ][07-05 13:33:28][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][07-05 13:33:29][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][07-05 13:33:29][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]Loading properties file from URL [file:config/config.properties]
+[INFO ][07-05 13:33:29][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@56059be3: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][07-05 13:33:30][main][common.util.UrlReduplicationRemove][29]初始化URL过滤容器…
+[INFO ][07-05 13:33:30][main][common.util.UrlReduplicationRemove][48]初始化数量7715109############800000 数据表中url数量:0
+[INFO ][07-05 13:33:30][main][common.util.UrlReduplicationRemove][31]初始化URL过滤容器成功完成！
+[INFO ][07-05 13:33:31][Thread-0][system][84]system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 4
+[INFO ][07-05 13:33:31][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/weibo_search_sina.temp]
+[INFO ][07-05 13:33:32][Thread-0][system][84]system : start
+[INFO ][07-05 13:33:32][Thread-0][system][84]system : 2个关键词将采集:
+[INFO ][07-05 13:33:32][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:33:33][Thread-0][system][84]system : 用户isiteam456@sina.com使用中！
+[INFO ][07-05 13:33:33][Thread-0][system][84]system : beat
+[INFO ][07-05 13:33:34][Thread-0][system][84]system : --[name:isiteam456@sina.com last login:null] --网银: http://s.weibo.com/weibo/%E7%BD%91%E9%93%B6&nodup=1&page=1...
+[INFO ][07-05 13:33:47][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:33:47][Thread-0][system][84]system : beat
+[INFO ][07-05 13:34:03][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:34:05][Thread-0][system][84]system : beat
+[INFO ][07-05 13:34:17][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:34:17][Thread-0][system][84]system : 用户isiteam@sina.cn使用中！
+[INFO ][07-05 13:34:17][Thread-0][system][84]system : beat
+[INFO ][07-05 13:34:22][Thread-0][system][84]system : --[name:isiteam@sina.cn last login:null] --马光远: http://s.weibo.com/weibo/%E9%A9%AC%E5%85%89%E8%BF%9C&nodup=1&page=1...
+[INFO ][07-05 13:34:27][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:34:28][Thread-0][system][84]system : beat
+[INFO ][07-05 13:34:41][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:34:41][Thread-0][system][84]system : beat
+[INFO ][07-05 13:34:52][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:34:52][Thread-0][system][84]system : beat
+[INFO ][07-05 13:34:57][Thread-0][system][84]system : account:{isiteam456@sina.com} last used updated.
+[INFO ][07-05 13:34:57][Thread-0][system][84]system : isiteam456@sina.com	login success.
+
+[INFO ][07-05 13:34:59][Thread-0][system][84]system : account:{isiteam@sina.cn} last used updated.
+[INFO ][07-05 13:35:00][Thread-0][system][84]system : isiteam@sina.cn	login success.
+
+[WARN ][07-05 13:35:01][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.6bf16862.577b4704.b3670704", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:35:00 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:35:01][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.6c026862.577b4704.24837836", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:35:02][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:35:02][Thread-0][system][84]system : beat
+[WARN ][07-05 13:35:09][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.c3ec4361.577b470d.1f561ce2", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:35:09 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:35:09][pool-3-thread-1][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.c3f94361.577b470d.42b495c2", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:35:11][Thread-0][system][84]system : --[name:isiteam456@sina.com last login:Tue Jul 05 13:34:59 CST 2016] --网银: http://s.weibo.com/weibo/%E7%BD%91%E9%93%B6&nodup=1&page=1元数据页面解析完成。
+[INFO ][07-05 13:35:12][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:35:12][Thread-0][system][84]system : beat
+[INFO ][07-05 13:35:15][Thread-0][system][84]system : --[name:isiteam456@sina.com last login:Tue Jul 05 13:34:59 CST 2016] --网银: http://s.weibo.com/weibo/%25E7%25BD%2591%25E9%2593%25B6&nodup=1&page=2...
+[WARN ][07-05 13:35:18][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS1="00000028.9f109b4.577b4714.12a39833", version:0, domain:sina.com.cn, path:/, expiry:Fri Jul 03 13:35:16 CST 2026] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[WARN ][07-05 13:35:18][pool-3-thread-2][org.apache.http.client.protocol.ResponseProcessCookies][122]Cookie rejected [U_TRS2="00000028.9f209b4.577b4714.c4a1c8fa", version:0, domain:sina.com.cn, path:/, expiry:null] Illegal 'domain' attribute "sina.com.cn". Domain of origin: "s.weibo.com"
+[INFO ][07-05 13:35:31][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 13:35:31][Thread-0][system][84]system : beat
+[INFO ][07-05 13:35:32][Thread-0][system][84]system : --[name:isiteam456@sina.com last login:Tue Jul 05 13:34:59 CST 2016] --网银: http://s.weibo.com/weibo/%25E7%25BD%2591%25E9%2593%25B6&nodup=1&page=2元数据页面解析完成。
+[INFO ][07-05 13:35:32][Thread-0][system][84]system : all[40] repeat[0] no repeat[40]
+[INFO ][07-05 13:35:32][Thread-0][system][84]system : all repeat md5:
+[]
+[INFO ][07-05 13:35:32][Thread-0][system][84]system : 正在保存 网银所有新数据...[40]
+[INFO ][07-05 13:35:35][Thread-0][system][84]system : 网银所有新数据已保存。40
+[INFO ][07-05 13:35:35][Thread-0][system][84]system : sina_weibo_search的网银数据采集完成！！
+[INFO ][07-05 13:35:41][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:35:41][Thread-0][system][84]system : beat
+[INFO ][07-05 13:35:51][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:35:51][Thread-0][system][84]system : beat
+[INFO ][07-05 13:36:01][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:36:01][Thread-0][system][84]system : beat
+[INFO ][07-05 13:36:11][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:36:11][Thread-0][system][84]system : beat
+[INFO ][07-05 13:36:21][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:36:21][Thread-0][system][84]system : beat
+[INFO ][07-05 13:36:31][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:36:31][Thread-0][system][84]system : beat
+[INFO ][07-05 13:36:41][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:36:41][Thread-0][system][84]system : beat
+[INFO ][07-05 13:36:51][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:36:51][Thread-0][system][84]system : beat
+[INFO ][07-05 13:37:01][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:37:01][Thread-0][system][84]system : beat
+[INFO ][07-05 13:37:11][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:37:11][Thread-0][system][84]system : beat
+[INFO ][07-05 13:37:21][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:37:21][Thread-0][system][84]system : beat
+[INFO ][07-05 13:37:31][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:37:31][Thread-0][system][84]system : beat
+[INFO ][07-05 13:37:41][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:37:41][Thread-0][system][84]system : beat
+[INFO ][07-05 13:38:30][Thread-0][system][84]system : running task count: 1 / total task count: 2
+[INFO ][07-05 13:38:30][Thread-0][system][84]system : beat
+[INFO ][07-05 13:38:30][Thread-0][system][84]system : --[name:isiteam@sina.cn last login:Tue Jul 05 13:35:02 CST 2016] --马光远: http://s.weibo.com/weibo/%E9%A9%AC%E5%85%89%E8%BF%9C&nodup=1&page=1元数据页面解析完成。
+[INFO ][07-05 16:18:55][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@46a3790d: startup date [Tue Jul 05 16:18:55 CST 2016]; root of context hierarchy
+[INFO ][07-05 16:18:55][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][07-05 16:18:56][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][07-05 16:18:57][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]Loading properties file from URL [file:config/config.properties]
+[INFO ][07-05 16:18:57][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@948ecbd: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][07-05 16:18:58][main][common.util.UrlReduplicationRemove][29]初始化URL过滤容器…
+[INFO ][07-05 16:18:58][main][common.util.UrlReduplicationRemove][48]初始化数量7715109############800000 数据表中url数量:0
+[INFO ][07-05 16:18:58][main][common.util.UrlReduplicationRemove][31]初始化URL过滤容器成功完成！
+[INFO ][07-05 16:18:59][Thread-0][system][84]system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 4
+[INFO ][07-05 16:18:59][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/weibo_search_sina.temp]
+[INFO ][07-05 16:18:59][Thread-0][system][84]system : start
+[INFO ][07-05 16:18:59][Thread-0][system][84]system : 2个关键词将采集:
+[INFO ][07-05 16:20:06][Thread-0][system][84]system : running task count: 2 / total task count: 2
+[INFO ][07-05 16:20:06][Thread-0][system][84]system : 用户isiteam123@sina.com使用中！
+[INFO ][07-05 16:20:06][Thread-0][system][84]system : 用户isiteam_9@sina.com使用中！
+[INFO ][07-05 16:20:06][Thread-0][system][84]system : --[name:isiteam_9@sina.com last login:null] --网银: http://s.weibo.com/weibo/%E7%BD%91%E9%93%B6&nodup=1&page=1...
+[INFO ][07-05 16:20:06][Thread-0][system][84]system : --[name:isiteam123@sina.com last login:null] --马光远: http://s.weibo.com/weibo/%E9%A9%AC%E5%85%89%E8%BF%9C&nodup=1&page=1...
+[INFO ][07-05 16:20:06][Thread-0][system][84]system : beat
+[INFO ][07-05 16:20:12][main][org.springframework.context.support.FileSystemXmlApplicationContext][456]Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@13e3bb25: startup date [Tue Jul 05 16:20:12 CST 2016]; root of context hierarchy
+[INFO ][07-05 16:20:12][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-database.xml]
+[INFO ][07-05 16:20:14][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/app-sysconfig.xml]
+[INFO ][07-05 16:20:14][main][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer][177]Loading properties file from URL [file:config/config.properties]
+[INFO ][07-05 16:20:14][main][org.springframework.beans.factory.support.DefaultListableBeanFactory][555]Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2d2d6dfc: defining beans [launchMode,propertyConfigurer,dataSource,jdbcTemplate,transactionManager,transactionInterceptor,txProxy,systemconfig,extractor,dbService,newsOracleService,weixinOracleService,bbsOracleService,blogOracleService,weiboOracleService,agricaltureOracleService,conferenceOracleService,personOracleService,reportOracleService,companyOracleService,seedFilter]; root of factory hierarchy
+[INFO ][07-05 16:20:15][main][common.util.UrlReduplicationRemove][29]初始化URL过滤容器…
+[INFO ][07-05 16:20:15][main][common.util.UrlReduplicationRemove][48]初始化数量7715109############800000 数据表中url数量:0
+[INFO ][07-05 16:20:15][main][common.util.UrlReduplicationRemove][31]初始化URL过滤容器成功完成！
+[INFO ][07-05 16:20:16][Thread-0][system][84]system : SELECT SEARCH_TEMPLATE from MEDIA_TYPE where id = 4
+[INFO ][07-05 16:20:17][main][org.springframework.beans.factory.xml.XmlBeanDefinitionReader][315]Loading XML bean definitions from file [/Users/guanxiaoda/Documents/workspace/crawler_client_v0.951/config/site/weibo_search_sina.temp]
+[INFO ][07-05 16:20:17][Thread-0][system][84]system : start
+[INFO ][07-05 16:20:17][Thread-0][system][84]system : 2个关键词将采集:

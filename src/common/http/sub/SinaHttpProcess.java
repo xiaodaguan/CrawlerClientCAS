@@ -220,17 +220,18 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		}
 		Systemconfig.dbService.updateUserOrder(loginEntity.getUsername());
 		if (entity != null && entity.indexOf("retcode=0") > -1) {
-			System.out.println(loginEntity.getUsername() + "\tlogin success.\r\n");
+            Systemconfig.sysLog.log(loginEntity.getUsername() + "\tlogin success.\r\n");
 			
 			String url = StringUtil.regMatcher(entity, "location.replace\\(['\"]", "['\"]").split("url=")[1].replace("%3A", ":").replace("%26", "&").replace("%3D", "=").replace("%2F", "/").replace("%3F", "?");
 			html.setOrignUrl(url);
 			html.setReferUrl(postLoginUrl);
 			cookie(html, user.getUserAgent());
-			System.out.println(cookie);
+//			System.out.println(cookie);
 			user.setCookie(cookie);
+            user.setLastLoginTime(new Date());
 			return true;
 		} else {
-			System.out.println(loginEntity.getUsername() + "\tlogin fail.");
+			Systemconfig.sysLog.log(loginEntity.getUsername() + "\tlogin fail.");
 			return false;
 		}
 	}
@@ -298,10 +299,24 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		html.setType("LOGIN");
 		getContent(html, user);
 		String str = html.getContent();
+		if(loginPast(user)>3600*24){
+			return false;
+		}
 		if(str.indexOf("我的首页") > -1 ||  str.indexOf("我的微博") > -1) {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 获取系统当前时间与上次登陆时间的差值(单位：秒)
+	 * @param user
+	 * @return
+     */
+	private long loginPast(UserAttr user){
+		long last = user.getLastLoginTime().getTime();
+		long curr = System.currentTimeMillis();
+		return (curr-last)/1000;
 	}
 	
 	private String rsaCrypt(String modeHex, String exponentHex, String messageg)
