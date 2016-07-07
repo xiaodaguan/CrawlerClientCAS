@@ -53,7 +53,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
 				repeatDatas.add(cd);
 			}
 		}
-		return list;
+		return repeatDatas;
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
 
 	private static final String user_sql = "select name, pass, siteflag, id from "
 			+ "(select u.name, u.pass, ss.siteflag, u.id, rownum from crawler_account u, site_template ss"
-			+ " where u.site_id=ss.id and u.valid=1 and ss.siteflag=? order by last_used) " + "where rownum<3";
+			+ " where u.site_id=ss.id and u.valid=1 and ss.siteflag=? order by last_used) ";
 
 	@Override
 	public void updateUserOrder(String userName) {

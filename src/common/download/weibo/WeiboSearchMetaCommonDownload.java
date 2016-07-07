@@ -87,7 +87,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                 list.clear();
 
                 html.setOrignUrl(nexturl);
-                Systemconfig.sysLog.log(keyword + ": " + url + "...");
+                Systemconfig.sysLog.log("--"+userAttr+" --"+keyword + ": " + url + "...");
                 try {
                     http.getContent(html, userAttr);
                     // html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
@@ -97,18 +97,18 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                         break;
                     }
                     if (html.getContent().contains("\\u62b1\\u6b49\\uff0c\\u672a\\u627e\\u5230") && html.getContent().contains("\\u60a8\\u53ef\\u4ee5\\u5c1d\\u8bd5\\u66f4\\u6362\\u5173\\u952e\\u8bcd\\uff0c\\u518d\\u6b21\\u641c\\u7d22\\u3002")) {
-                        Systemconfig.sysLog.log(keyword + ": " + url + "没有检索结果");
+                        Systemconfig.sysLog.log("--"+userAttr+" --"+keyword  + ": " + url + "没有检索结果");
                         TimeUtil.rest(siteinfo.getDownInterval());
                         break;
                     }
                     nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
 
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析为空！！");
+                        Systemconfig.sysLog.log("--"+userAttr+" --"+keyword  + ": " + url + "元数据页面解析为空！！");
                         TimeUtil.rest(siteinfo.getDownInterval());
                         break;
                     }
-                    Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析完成。");
+                    Systemconfig.sysLog.log("--"+userAttr+" --"+keyword  + ": " + url + "元数据页面解析完成。");
                     totalCount += list.size();
                     List<WeiboData> repeat = Systemconfig.dbService.getNorepeatData(list, "");
                     for (WeiboData wd : repeat) {
@@ -119,7 +119,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                         TimeUtil.rest(siteinfo.getDownInterval());
                         if (repeatPage < MAX_REPEAT_PAGE) repeatPage++;
                         else {
-                            Systemconfig.sysLog.log(keyword + ":连续" + MAX_REPEAT_PAGE + "页无新数据，停止扫描当前关键词");
+                            Systemconfig.sysLog.log("--"+userAttr+" --"+keyword  + ":连续" + MAX_REPEAT_PAGE + "页无新数据，停止扫描当前关键词");
                             break;
                         }
                     }

@@ -123,10 +123,11 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             }
 
         }
-        clause += " and (is_usable=0 or is_usable is null) order by priority desc ";
+        clause += " and (is_usable=0 or is_usable is null)";
         if (Systemconfig.mode.equals("test")) {
             clause += " and debug ＝ 1 ";
         }
+        clause += " order by priority desc ";
         if (Systemconfig.clientinfo != null) {
             sql = "select category_code, " + col + " from (select A." + col + ", A.category_code, rownum rn from (select distinct " + col + ", category_code " + "from " + table + clause + ") A where rownum <= " + Systemconfig.clientinfo.getDataEnd() + ") where rn >" + Systemconfig.clientinfo.getDataStart();
         } else {
