@@ -6,7 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -14,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -29,18 +27,12 @@ import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.sun.istack.internal.FinalArrayList;
-
-import sun.misc.OSEnvironment;
 import common.bean.CommentData;
 import common.bean.CommonData;
 import common.bean.EbusinessData;
-import common.bean.Header;
-import common.bean.NewsData;
 import common.bean.OwnerData;
 import common.system.Systemconfig;
 import common.util.StringUtil;
@@ -208,7 +200,7 @@ public class EbusinessHbaseService extends HbaseService<EbusinessData> {
 				return ps;
 			}
 		}, keyHolder);
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 
 	}
 
@@ -237,7 +229,7 @@ public class EbusinessHbaseService extends HbaseService<EbusinessData> {
 				return ps;
 			}
 		}, keyHolder);
-		od.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		od.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 
 	}
 
@@ -284,7 +276,7 @@ public class EbusinessHbaseService extends HbaseService<EbusinessData> {
 			}
 		}, keyHolder);
 
-		cd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		cd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 
 	/*

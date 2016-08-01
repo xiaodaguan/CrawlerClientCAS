@@ -76,9 +76,9 @@ public class SogouExtractor extends BlogSearchXpathExtractor {
 			String arr[] = nl.item(i).getTextContent().split("- ");
 			list.get(i).setSource(arr[0]);
 			if(arr.length>2) {
-				list.get(i).setPubtime(StringUtil.extrator(arr[2], "[12]\\d{1,3}-\\d{1,2}-\\d{1,2}"));
+				list.get(i).setPubtime(StringUtil.extractMulti(arr[2], "[12]\\d{1,3}-\\d{1,2}-\\d{1,2}"));
 			} else {
-				list.get(i).setPubtime(StringUtil.extrator(nl.item(i).getTextContent(), "[12]\\d{1,3}-\\d{1,2}-\\d{1,2}"));
+				list.get(i).setPubtime(StringUtil.extractMulti(nl.item(i).getTextContent(), "[12]\\d{1,3}-\\d{1,2}-\\d{1,2}"));
 			}
 			list.get(i).setPubdate(timeProcess(list.get(i).getPubtime()));
 		}

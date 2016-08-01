@@ -51,7 +51,7 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 		for(int i = 0;i < nl.getLength();i++) {
 			url = nl.item(i).getTextContent().replace("年", "-").replace("月", "-").replace("日", "");
 			
-			String time = StringUtil.extrator(url, "\\d{4}-\\d{1,2}-\\d{1,2}\\s*\\d{1,2}:\\d{1,2}");
+			String time = StringUtil.extractMulti(url, "\\d{4}-\\d{1,2}-\\d{1,2}\\s*\\d{1,2}:\\d{1,2}");
 			if(time.equals(""))
 				time=url.split("  ")[1];
 			list.get(i).setPubtime(time);
@@ -67,7 +67,7 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 	 */
 	private Date timeprocess(String s) {
 		Calendar c = Calendar.getInstance();
-		long num = Long.parseLong(StringUtil.extrator(s, "\\d"));
+		long num = Long.parseLong(StringUtil.extractMulti(s, "\\d"));
 		if(s.contains("minute")|| s.contains("分钟前")) {
 			c.set(Calendar.MINUTE, c.get(Calendar.MINUTE)-(int)num);
 		} else if(s.contains("hour") || s.contains("小时前")) {
@@ -150,7 +150,7 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 			String xpath=component.getXpath().replace("index",(i+1)+"");
 			NodeList nl = commonList(xpath, dom);
 			if(nl.item(0)!=null) {
-				String s = StringUtil.extrator(nl.item(0).getTextContent(), "\\d+");
+				String s = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d+");
 				list.get(i).setSamenum(Integer.parseInt(s==null?"0":s));
 			}
 		}

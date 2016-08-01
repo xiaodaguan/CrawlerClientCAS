@@ -41,7 +41,7 @@ public class ConferenceOracleService extends OracleService<ConferenceData> {
 				return ps;
 			}
 		}, keyHolder);
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 
 }

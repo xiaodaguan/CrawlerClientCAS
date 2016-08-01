@@ -70,7 +70,7 @@ public class CompanyOracleService extends OracleService<CompanyData> {
             }
         }, keyHolder);
 
-        vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+        vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
     }
 
 

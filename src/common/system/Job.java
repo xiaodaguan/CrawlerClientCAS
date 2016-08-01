@@ -70,6 +70,7 @@ public class Job {
                 }
             }
 
+
             while (!ifAllFinished()) {
                 cLogger.beat();
                 Systemconfig.sysLog.log("beat");
@@ -91,7 +92,7 @@ public class Job {
      * 普通垂直采集
      */
     @SuppressWarnings("unchecked")
-    private static void runMonitor() throws UnknownHostException {
+    private static void runMonitor() throws UnknownHostException, InterruptedException {
 
         while (true) {
             keys = Systemconfig.dbService.searchKeys();
@@ -116,8 +117,18 @@ public class Job {
                 }
             }
 
+            while (!ifAllFinished()) {
+                cLogger.beat();
+                Systemconfig.sysLog.log("beat");
+                Thread.currentThread().sleep(10 * 1000);
+            }
+
+            cLogger.stop();
+            Systemconfig.sysLog.log("stop");
+
 
             TimeUtil.rest(calCycleWaitTime());
+
 
             AppContext.readConfig();
         }
@@ -129,13 +140,16 @@ public class Job {
      *
      * @return
      */
-    private static boolean ifAllFinished() {
+    private synchronized static boolean ifAllFinished() {
         boolean allFinished = true;
         int runningTaskCount = 0;
-        for (String taskName : Systemconfig.tasks.keySet()) {
-            if (Systemconfig.tasks.get(taskName).isDone()) {
-            } else {
-                runningTaskCount++;
+        Set<String> taskNames = Systemconfig.tasks.keySet();
+        for (String taskName : taskNames) {
+            if(Systemconfig.tasks.containsKey(taskName)) {
+                if (Systemconfig.tasks.get(taskName).isDone()) {
+                } else {
+                    runningTaskCount++;
+                }
             }
         }
         if (runningTaskCount > 0) allFinished = false;
@@ -281,8 +295,12 @@ public class Job {
         if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
             waitTime = 30 * 24 * 60 * 60;
         else if (Systemconfig.crawlerType == CrawlerType.NEWS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
-            waitTime = 2 * 60 * 60;
-        else waitTime = 6 * 60 * 60;
+            waitTime = 30 * 60;
+        else if (Systemconfig.crawlerType == CrawlerType.BBS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.BBS_MONITOR.ordinal())
+            waitTime = 30 * 60;
+        else if (Systemconfig.crawlerType == CrawlerType.WEIBO_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.WEIBO_MONITOR.ordinal())
+            waitTime = 4 * 60 * 60;
+        else waitTime = 3 * 60 * 60;
         return waitTime;
     }
 

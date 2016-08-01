@@ -657,7 +657,7 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 			xpath = xpath.replace("[index]", "[" + (i + 1) + "]");
 			NodeList nl = commonList(xpath, dom);
 			if (nl.item(0) != null) {
-				String s = StringUtil.extrator(nl.item(0).getTextContent(), "\\d+");
+				String s = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d+");
 				if (s.equals(""))
 					list.get(i).setCommentNum(0);
 				else
@@ -674,7 +674,7 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 			NodeList nl = commonList(xpath, dom);
 			if (nl.item(0) != null) {
 
-				String s = StringUtil.extrator(nl.item(0).getTextContent(), "\\d+");
+				String s = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d+");
 				if (s.equals(""))
 					list.get(i).setRttNum(0);
 				else

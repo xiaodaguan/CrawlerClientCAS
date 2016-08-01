@@ -53,7 +53,7 @@ public class BlogOracleService extends OracleService<BlogData> {
 				return ps;
 			}
 		}, keyHolder);
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 	
 }

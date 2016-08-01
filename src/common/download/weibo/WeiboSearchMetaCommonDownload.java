@@ -35,8 +35,8 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 
     @Override
     public void prePorcess() {
-            InnerInfo ii = null;
-            if (Systemconfig.clientinfo != null) {
+        InnerInfo ii = null;
+        if (Systemconfig.clientinfo != null) {
             ViewInfo vi = Systemconfig.clientinfo.getViewinfos().get(Systemconfig.localAddress + "_" + siteFlag);
             ii = vi.getCrawlers().get(key.getKey());
             ii.setAlive(1);
@@ -44,6 +44,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
         if (!siteinfo.getLogin())// 不需要登陆
             return;
 
+        Systemconfig.sysLog.log("可用用户：" + UserManager.getAvailableUserNames(siteFlag) + " 全部用户：" + UserManager.getAllUserNames(siteFlag));
         // 每次保证只有有效用户个执行，某个任务完成后，等待的下一个任务开始执行
         UserAttr ua = UserManager.getUser(siteFlag);
         while (ua == null) {
@@ -108,8 +109,10 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                     if (list.size() == 0) {
                         Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ": " + url + "元数据页面解析为空！！");
 
-                        if(retry-->=0){
+                        if (retry-- >= 0) {
                             nexturl = html.getOrignUrl();
+                            UserManager.releaseUser(siteFlag, userAttr);
+
                             userAttr = UserManager.getUser(siteFlag);
                             Systemconfig.sysLog.log("账户切换至: " + userAttr.getName() + "");
                             continue;
@@ -140,6 +143,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                     if (nexturl != null) TimeUtil.rest(siteinfo.getDownInterval());
 
                 } catch (Exception e) {
+                    UserManager.releaseUser(siteFlag, userAttr);
                     e.printStackTrace();
                     break;
                 }

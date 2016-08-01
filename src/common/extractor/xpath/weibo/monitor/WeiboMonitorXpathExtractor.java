@@ -308,7 +308,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
         NodeList nl = head(component.getXpath(), domtree, list.size(), component.getName());
         if (nl == null) return;
         for (int i = 0; i < nl.getLength(); i++) {
-            String s = StringUtil.extrator(nl.item(i).getTextContent(), "\\d+");
+            String s = StringUtil.extractMulti(nl.item(i).getTextContent(), "\\d+");
             if (s.equals("")) list.get(i).setRttNum(0);
             else list.get(i).setRttNum(Integer.parseInt(s));
         }
@@ -330,7 +330,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
         NodeList nl = head(component.getXpath(), domtree, list.size(), component.getName());
         if (nl == null) return;
         for (int i = 0; i < nl.getLength(); i++) {
-            String s = StringUtil.extrator(nl.item(i).getTextContent(), "\\d+");
+            String s = StringUtil.extractMulti(nl.item(i).getTextContent(), "\\d+");
             if (s.equals("")) list.get(i).setCommentNum(0);
             else list.get(i).setCommentNum(Integer.parseInt(s));
         }

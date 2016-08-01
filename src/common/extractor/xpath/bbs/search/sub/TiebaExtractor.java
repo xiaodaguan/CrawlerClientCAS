@@ -66,7 +66,7 @@ public class TiebaExtractor extends BbsSearchXpathExtractor {
 		if (nl == null)
 			return;
 		if (nl.item(0) != null) {
-			String time = StringUtil.extrator(nl.item(0).getTextContent().split("回复")[0], "\\d");
+			String time = StringUtil.extractMulti(nl.item(0).getTextContent().split("回复")[0], "\\d");
 			if (time == null || time.equals(""))
 				data.setReplyCount(0);
 			else

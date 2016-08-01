@@ -10,8 +10,6 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.sun.crypto.provider.RSACipher;
-
 import common.bean.PersonData;
 import common.util.StringUtil;
 
@@ -46,7 +44,7 @@ public class PersonOracleService extends OracleService<PersonData> {
 					return ps;
 				}
 			}, keyHolder1);
-			category_code = Integer.parseInt(StringUtil.extrator(keyHolder1.getKeyList().get(0).toString(), "\\d"));
+			category_code = Integer.parseInt(StringUtil.extractMulti(keyHolder1.getKeyList().get(0).toString(), "\\d"));
 		}
 
 		vd.setCategoryCode(category_code);
@@ -82,7 +80,7 @@ public class PersonOracleService extends OracleService<PersonData> {
 				return ps;
 			}
 		}, keyHolder);
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 
 }

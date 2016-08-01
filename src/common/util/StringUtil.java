@@ -110,7 +110,7 @@ public class StringUtil {
 	 * @param pattern
 	 * @return
 	 */
-	public static String extrator(String str, String pattern) {
+	public static String extractMulti(String str, String pattern) {
 		Pattern p = Pattern.compile(pattern);
 		Matcher m = p.matcher(str);
 		StringBuffer sb = new StringBuffer();
@@ -119,7 +119,23 @@ public class StringUtil {
 		}
 		return sb.toString();
 	}
-
+	/**
+	 * 抽取匹配内容
+	 *
+	 * @param str
+	 * @param pattern
+	 * @return
+	 */
+	public static String extractOne(String str, String pattern) {
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(str);
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			sb.append(m.group().trim());
+			break;
+		}
+		return sb.toString();
+	}
 	/**
 	 * 匹配起始和结束位置之间的内容
 	 * 

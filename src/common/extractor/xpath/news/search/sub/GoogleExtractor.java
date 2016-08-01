@@ -46,7 +46,7 @@ public class GoogleExtractor extends NewsSearchXpathExtractor {
 	
 	private Date timeprocess(String s) {
 		Calendar c = Calendar.getInstance();
-		int num = Integer.parseInt(StringUtil.extrator(s, "\\d"));
+		int num = Integer.parseInt(StringUtil.extractMulti(s, "\\d"));
 		if(s.contains("minute")|| s.contains("分钟前")) {
 			c.set(Calendar.MINUTE, c.get(Calendar.MINUTE)-num);
 		} else if(s.contains("hour") || s.contains("小时前")) {

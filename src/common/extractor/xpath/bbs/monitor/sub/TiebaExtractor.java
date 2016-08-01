@@ -1,14 +1,11 @@
 package common.extractor.xpath.bbs.monitor.sub;
 
-import java.util.List;
-
 import net.sf.json.JSONObject;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import common.bean.BBSData;
-import common.bean.ReplyData;
 import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;
@@ -70,7 +67,7 @@ public class TiebaExtractor extends BbsMonitorXpathExtractor {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
-			String time = StringUtil.extrator(nl.item(0).getTextContent().split("回复")[0], "\\d");
+			String time = StringUtil.extractMulti(nl.item(0).getTextContent().split("回复")[0], "\\d");
 			if(time==null || time.equals(""))
 				data.setReplyCount(0);
 			else

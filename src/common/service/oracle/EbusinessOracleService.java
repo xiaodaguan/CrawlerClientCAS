@@ -14,7 +14,6 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import common.bean.CommentData;
 import common.bean.EbusinessData;
-import common.bean.NewsData;
 import common.bean.OwnerData;
 import common.util.StringUtil;
 
@@ -73,7 +72,7 @@ public class EbusinessOracleService extends OracleService<EbusinessData> {
 				return ps;
 			}
 		}, keyHolder);
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 
 	}/**
 	 * @param od
@@ -100,7 +99,7 @@ public class EbusinessOracleService extends OracleService<EbusinessData> {
 				return ps;
 			}
 		}, keyHolder);
-		od.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		od.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 
 	}
 
@@ -147,7 +146,7 @@ public class EbusinessOracleService extends OracleService<EbusinessData> {
 			}
 		}, keyHolder);
 
-		cd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		cd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 	
 }

@@ -91,7 +91,7 @@ public class BbsMysqlService extends MysqlService<BBSData> {
 			}
 		}, keyHolder);
 		
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 		
 		saveCommonData(vd);
 	}

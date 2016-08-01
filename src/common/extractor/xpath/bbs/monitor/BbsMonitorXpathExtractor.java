@@ -165,7 +165,7 @@ public class BbsMonitorXpathExtractor extends XpathExtractor<BBSData> implements
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
-			String time = StringUtil.extrator(nl.item(0).getTextContent(), "\\d");
+			String time = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d");
 			if(time==null || time.equals(""))
 				data.setClickCount(0);
 			else
@@ -188,7 +188,7 @@ public class BbsMonitorXpathExtractor extends XpathExtractor<BBSData> implements
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
-			String time = StringUtil.extrator(nl.item(0).getTextContent(), "\\d");
+			String time = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d");
 			if(time==null || time.equals(""))
 				data.setReplyCount(0);
 			else

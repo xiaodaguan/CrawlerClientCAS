@@ -1,26 +1,17 @@
 package common.service.oracle;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
-import org.apache.hadoop.mapred.job_005fauthorization_005ferror_jsp;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
-
 import common.bean.BBSData;
 import common.bean.ReplyData;
-import common.rmi.packet.CrawlerType;
-import common.rmi.packet.SearchKey;
-import common.system.Job;
-import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class BbsOracleService extends OracleService<BBSData> {
@@ -88,7 +79,7 @@ public class BbsOracleService extends OracleService<BBSData> {
 			}
 		}, keyHolder);
 
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 		
 		saveCommonData(vd);
 	}

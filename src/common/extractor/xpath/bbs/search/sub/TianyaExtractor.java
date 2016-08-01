@@ -66,7 +66,7 @@ public class TianyaExtractor extends BbsSearchXpathExtractor {
 	public void parseClickCount(BBSData vd, Node dom, Component component, String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if(nl!=null && nl.item(0)!=null) {
-			String time = StringUtil.extrator(nl.item(0).getTextContent(), "\\d");
+			String time = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d");
 			if(time==null || time.equals(""))
 				vd.setClickCount(0);
 			else
@@ -78,7 +78,7 @@ public class TianyaExtractor extends BbsSearchXpathExtractor {
 	public void parseReplyCount(BBSData vd, Node dom, Component component, String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if(nl!=null && nl.item(0)!=null) {
-			String time = StringUtil.extrator(nl.item(0).getTextContent(), "\\d");
+			String time = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d");
 			if(time==null || time.equals(""))
 				vd.setReplyCount(0);
 			else

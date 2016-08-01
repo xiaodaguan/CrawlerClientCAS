@@ -57,7 +57,7 @@ public class NewsMysqlService extends MysqlService<NewsData> {
 				return ps;
 			}
 		}, keyHolder);
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 	
 	private static final String SAME_TABLE = "news_data_same";

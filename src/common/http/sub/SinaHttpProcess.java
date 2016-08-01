@@ -288,6 +288,12 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		}
 		return null;
 	}
+
+	/**
+	 * 验证账号cookie是否可用，如果登录时间超过24h，直接判定失效
+	 * @param user
+	 * @return
+     */
 	@Override
 	public boolean verify(UserAttr user) {
 		String url = "http://weibo.com";
@@ -302,9 +308,14 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		if(loginPast(user)>3600*24){
 			return false;
 		}
+		if(str.indexOf("验证码") > -1){
+			return false;
+		}
+
 		if(str.indexOf("我的首页") > -1 ||  str.indexOf("我的微博") > -1) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -538,11 +549,12 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	private ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
 	@Override
 	public void monitorLogin(UserAttr user) {
-		ses.scheduleAtFixedRate(new VerifyCookie(user), 2, 2, TimeUnit.HOURS);
+		ses.scheduleAtFixedRate(new VerifyUserCookie(user), 2, 2, TimeUnit.HOURS);
 	}
-	class VerifyCookie implements Runnable {
+
+	class VerifyUserCookie implements Runnable {
 		private UserAttr user;
-		public VerifyCookie(UserAttr user) {
+		public VerifyUserCookie(UserAttr user) {
 			this.user = user;
 		}
 

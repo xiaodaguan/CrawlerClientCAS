@@ -56,7 +56,7 @@ public class AgricaltureOracleService extends OracleService<AgricaltureData> {
 			}
 		}, keyHolder);
 
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 
 	// private int findId(String md5, String table) {

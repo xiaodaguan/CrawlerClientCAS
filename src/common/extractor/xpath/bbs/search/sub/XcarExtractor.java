@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -122,7 +120,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 		if (nl == null)
 			return;
 		if (nl.item(0) != null) {
-			String time = StringUtil.extrator(nl.item(0).getTextContent().split("回复")[0], "\\d");
+			String time = StringUtil.extractMulti(nl.item(0).getTextContent().split("回复")[0], "\\d");
 			if (time == null || time.equals(""))
 				data.setReplyCount(0);
 			else

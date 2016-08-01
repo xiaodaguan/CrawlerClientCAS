@@ -49,7 +49,7 @@ public class WeixinOracleService extends OracleService<WeixinData> {
 			}
 		}, keyHolder);
 		Systemconfig.sysLog.log(vd.getName() + "[保存]完成。。。");
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 		return vd.getId();
 	}
 
@@ -90,7 +90,7 @@ public class WeixinOracleService extends OracleService<WeixinData> {
 				return ps;
 			}
 		}, keyHolder);
-		vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 
 	private static final String SAME_TABLE = "weixin_data_same";

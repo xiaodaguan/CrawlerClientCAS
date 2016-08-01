@@ -69,7 +69,7 @@ public class WeiboOracleService extends OracleService<WeiboData> {
                 return ps;
             }
         }, keyHolder);
-        vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+        vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
     }
 
     private static final String commentsql = "insert into " + COMMENT + "(" +
@@ -125,7 +125,7 @@ public class WeiboOracleService extends OracleService<WeiboData> {
                 return ps;
             }
         }, keyHolder);
-        vd.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+        vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
     }
 
     private static String PERSON = "weibo_person";
@@ -246,7 +246,7 @@ public class WeiboOracleService extends OracleService<WeiboData> {
                 return ps;
             }
         }, keyHolder);
-        data.setId(Integer.parseInt(StringUtil.extrator(keyHolder.getKeyList().get(0).toString(), "\\d")));
+        data.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
     }
 
     private static final String comm_sql = "insert into weibo_data_comm(" +
