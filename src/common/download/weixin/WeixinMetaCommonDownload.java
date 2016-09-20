@@ -51,7 +51,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
 
                 Systemconfig.sysLog.log(keyword + ": " + url + "downloading...");
                 Systemconfig.sysLog.log("downloading : " + nexturl);
-                http.getContent(html);// 下载同时将response cookie保存
+                http.getContent(html);//
 
                 if (checkBlock(html)) {// 验证是否被屏蔽
                     Systemconfig.sysLog.log("ip被屏蔽，请手动验证@列表页");
@@ -99,15 +99,15 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             }
         }
 
-//		dtc.process(alllist, siteinfo.getDownInterval(), null, key);
-        for (WeixinData wd : alllist) {
-            try {
-                Systemconfig.dbService.saveData(wd);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
+		dtc.process(alllist, siteinfo.getDownInterval(), null, key);
+//        for (WeixinData wd : alllist) {
+//            try {
+//                Systemconfig.dbService.saveData(wd);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
         TimeUtil.rest(3 * siteinfo.getDownInterval());
     }
 

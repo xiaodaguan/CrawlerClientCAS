@@ -13,7 +13,7 @@ public abstract class NeedCookieHttpProcess extends SimpleHttpProcess {
 	
 	public abstract boolean login(UserAttr user) ;
 	
-	public abstract boolean verify(UserAttr user);
+	public abstract boolean verify(UserAttr user) throws Exception;
 	
 	public void setCookie(String cookie) {
 		this.cookie = cookie;

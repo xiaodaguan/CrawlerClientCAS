@@ -79,6 +79,8 @@
 
 				<entry key="taobao_ebusiness_search" value="common.extractor.xpath.ebusiness.search.sub.TaobaoExtractor" />
 				<entry key="taobao_ebusiness_monitor" value="common.extractor.xpath.ebusiness.monitor.sub.TaobaoExtractor" />
+
+				<entry key="weixin_weixin_search" value="common.extractor.xpath.weixin.search.sub.QQWeixinExtractor" />
 			</map>
 		</property>
 

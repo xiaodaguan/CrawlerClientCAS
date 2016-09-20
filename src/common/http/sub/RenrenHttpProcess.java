@@ -283,7 +283,7 @@ public class RenrenHttpProcess extends NeedCookieHttpProcess {
 	}
 	
 	@Override
-	public boolean verify(UserAttr user) {
+	public boolean verify(UserAttr user) throws Exception {
 		HtmlInfo html = new HtmlInfo();
 		html.setOrignUrl("http://tieba.baidu.com");
 		html.setSite("baidu");
@@ -309,8 +309,12 @@ public class RenrenHttpProcess extends NeedCookieHttpProcess {
 
 		@Override
 		public void run() {
-			if(!verify(user))
-				login(user);
+			try {
+				if(!verify(user))
+                    login(user);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

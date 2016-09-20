@@ -127,6 +127,8 @@ public class SimpleHttpProcess implements HttpProcess {
 				pdf(html, fromURL);
 			}
 
+		}catch (Exception e){
+			e.printStackTrace();
 		} finally {
 			fromURL = null;
 		}
@@ -223,7 +225,7 @@ public class SimpleHttpProcess implements HttpProcess {
 
 	}
 
-	protected byte[] simpleGet(HtmlInfo html, UserAttr user) {
+	protected byte[] simpleGet(HtmlInfo html, UserAttr user) throws Exception {
 		return simpleGet(html);
 	}
 
@@ -237,7 +239,7 @@ public class SimpleHttpProcess implements HttpProcess {
 	 * @param url
 	 * @return
 	 */
-	protected byte[] simpleGet(HtmlInfo html) {
+	protected byte[] simpleGet(HtmlInfo html) throws Exception {
 
 		HttpClient hc = httpClient(html);
 		Systemconfig.sysLog.log("url: " + html.getOrignUrl());

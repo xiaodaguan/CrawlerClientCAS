@@ -28,7 +28,9 @@ import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -41,14 +43,12 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
 
 
     public void parseUrl1(List<WeixinData> list, Node dom, Component component, String... args) {
-        if (args[0] == null || args[0] == "") {
-            return;
-        }
+
         if (component == null) return;
         NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
         if (nl == null) return;
         for (int i = 0; i < nl.getLength(); i++) {
-            String url = "http://weixin.sogou.com" + urlProcess(component, nl.item(i));
+            String url = urlProcess(component, nl.item(i));
             list.get(i).setUrl(url);
         }
 
@@ -130,16 +130,29 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
          * keyword 6 domain id
          */
 
+
+        comp.get("title").setXpath("//A[contains(@id,'sogou_vr_')][not(@data-z)]");
         this.parseTitle(list, domtree, comp.get("title"));
+//        this.parseTitle(list, domtree, comp.get("title"));
 
         if (list.size() == 0) return;
 
 //        this.parseUrl(list, domtree, comp.get("url"), args[2], args[4], args[6]);
+        comp.get("url").setXpath("//DIV[contains(@id,'sogou_vr_')]/DIV/A[@data-z]/@href");
         this.parseUrl1(list, domtree, comp.get("url"), args[2], args[4], args[6]);
+//        this.parseUrl1(list, domtree, comp.get("url"), args[2], args[4], args[6]);
 
+
+        comp.get("brief").setXpath("//P[contains(@id,'sogou_vr_')]");
         this.parseBrief(list, domtree, comp.get("brief"));
-        this.parsePubtime(list, domtree, comp.get("pubtime_l"));
-        this.parseImg_brief(list, domtree, comp.get("img_brief"));
+
+        //div[contains(@id,'sogou_vr_')]/div/div[@class='s-p']/span
+//        this.parseBrief(list, domtree, comp.get("brief"));
+        comp.get("pubtime").setXpath("//*[contains(@id,'sogou_vr_')]/DIV[2]/DIV/SPAN/text()");
+        this.parsePubtime(list, domtree, comp.get("pubtime"));
+//        this.parsePubtime(list, domtree, comp.get("pubtime_l"));
+        this.parseImg_brief(list, domtree, comp.get("//*[contains(@id,'sogou_vr_')]/IMG"));
+//        this.parseImg_brief(list, domtree, comp.get("img_brief"));
 
     }
 
@@ -186,8 +199,33 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         this.parseAuthor(data, domtree, comp.get("author"));
         this.parseContent(data, domtree, comp.get("content"));
         this.parseImgUrl(data, domtree, comp.get("imgs_url"));
-        // this.parseNumber(data, domtree, comp.get(""));
+
+        comp.get("read_num").setXpath("//*[@id='sg_readNum3']/text()");
+        this.parseReadNumber(data, domtree, comp.get("read_num"));
+        comp.get("like_num").setXpath("//*[@id='sg_likeNum3']/text()");
+        this.parseLikeNumber(data, domtree, comp.get("like_num"));
+
         this.parseWeixinName(data, domtree, comp.get("account"));
+    }
+
+    public void parseReadNumber(WeixinData data, Node domtree, Component component) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), domtree);
+        if (nl == null) return;
+        if (nl.item(0) != null) {
+            String num = nl.item(0).getTextContent().trim();
+            data.setReadNum(Integer.parseInt(num));
+        }
+    }
+
+    public void parseLikeNumber(WeixinData data, Node domtree, Component component) {
+        if (component == null) return;
+        NodeList nl = commonList(component.getXpath(), domtree);
+        if (nl == null) return;
+        if (nl.item(0) != null) {
+            String num = nl.item(0).getTextContent().trim();
+            data.setPraiseNum(Integer.parseInt(num));
+        }
     }
 
     public void parseGongzhong(WeixinData data, HtmlInfo html, String content) throws SAXException {
@@ -320,7 +358,6 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
      * @param list
      * @param dom
      * @param component
-     * @param strings
      */
     public void parseImg_brief(List<WeixinData> list, Node dom, Component component, String... args) {
         if (component == null) return;
@@ -359,7 +396,6 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
      * @param list
      * @param dom
      * @param component
-     * @param strings
      */
     @Override
     public void parseBrief(List<WeixinData> list, Node dom, Component component, String... args) {
@@ -376,8 +412,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
         if (nl == null) return;
         for (int i = 0; i < nl.getLength(); i++) {
-            String timestamp = nl.item(i).getTextContent();
-            String time = TimeUtil.timestamp2Str(Long.parseLong(timestamp + "000"), "yyyy-MM-dd hh:mm:ss");
+            String time = nl.item(i).getTextContent();
             list.get(i).setPubtime(time);
             list.get(i).setPubdate(timeProcess(time));
 
@@ -463,7 +498,8 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
             wd.setSearchKey(key);
             wd.setCategoryCode(code);
             wd.setCustomizeId(code);
-            wd.setMd5(MD5Util.MD5(wd.getUrl()));
+            String urlWithoutTimestamp = wd.getUrl().replace(StringUtil.extractOne(wd.getUrl(), "timestamp=\\d+"), "");
+            wd.setMd5(MD5Util.MD5(urlWithoutTimestamp));
             wd.setSiteId(siteflag);
             wd.setCrawler_cookie(cookie);
         }

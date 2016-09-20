@@ -12,6 +12,7 @@ import crawlerlog.log.CLog;
 import crawlerlog.log.CLogFactory;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -20,7 +21,20 @@ import java.util.concurrent.Future;
 
 public class Job {
 
-    private static CLog cLogger = CLogFactory.getLogger("t000000");
+
+    /**
+     * crawler log config
+     **/
+    private static String host = "http://www.sklmccs.ia.ac.cn/crawlerlogserver";
+    private static String cid = "";// from crawler start
+    private static String ip = "";
+
+    private static String cType = "";// from crawler start
+    private static String project = "";// from crawler start
+
+    private static String crawlerNameOrCMD = "";// from crawler start
+    private static String note = "";
+    private static CLog cLogger = null;
     /**
      * 线程池管理
      */
@@ -32,6 +46,28 @@ public class Job {
 
 
     public static void simpleRun() throws UnknownHostException, InterruptedException {
+
+
+        ip = String.valueOf(InetAddress.getLocalHost());
+        cLogger = CLogFactory.getLogger(host, cid, ip, cType, project);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+
+                    cLogger.beat();
+                    Systemconfig.sysLog.log("beat...");
+                    try {
+                        Thread.sleep(10 * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+
         if (Systemconfig.crawlerType % 2 == 1) runSearch();
         else runMonitor();
     }
@@ -44,10 +80,12 @@ public class Job {
     @SuppressWarnings("unchecked")
     private static void runSearch() throws UnknownHostException, InterruptedException {
 
-        cLogger.start("TestCrawler", "teeeeeeeesttttt");
-        Systemconfig.sysLog.log("start");
 
         while (true) {
+
+            cLogger.start(crawlerNameOrCMD, crawlerNameOrCMD);//name, note
+            Systemconfig.sysLog.log("loop start...");
+
             keys = Systemconfig.dbService.searchKeys();
             Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
 
@@ -72,13 +110,11 @@ public class Job {
 
 
             while (!ifAllFinished()) {
-                cLogger.beat();
-                Systemconfig.sysLog.log("beat");
                 Thread.currentThread().sleep(10 * 1000);
             }
 
             cLogger.stop();
-            Systemconfig.sysLog.log("stop");
+            Systemconfig.sysLog.log("loop stop");
 
 
             TimeUtil.rest(calCycleWaitTime());
@@ -95,6 +131,10 @@ public class Job {
     private static void runMonitor() throws UnknownHostException, InterruptedException {
 
         while (true) {
+
+            cLogger.start(crawlerNameOrCMD, crawlerNameOrCMD);//name, note
+            Systemconfig.sysLog.log("loop start...");
+
             keys = Systemconfig.dbService.searchKeys();
             Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
             out:
@@ -118,13 +158,11 @@ public class Job {
             }
 
             while (!ifAllFinished()) {
-                cLogger.beat();
-                Systemconfig.sysLog.log("beat");
                 Thread.currentThread().sleep(10 * 1000);
             }
 
             cLogger.stop();
-            Systemconfig.sysLog.log("stop");
+            Systemconfig.sysLog.log("loop stop");
 
 
             TimeUtil.rest(calCycleWaitTime());
@@ -140,12 +178,12 @@ public class Job {
      *
      * @return
      */
-    private synchronized static boolean ifAllFinished() {
+    private static boolean ifAllFinished() {
         boolean allFinished = true;
         int runningTaskCount = 0;
         Set<String> taskNames = Systemconfig.tasks.keySet();
         for (String taskName : taskNames) {
-            if(Systemconfig.tasks.containsKey(taskName)) {
+            if (Systemconfig.tasks.containsKey(taskName)) {
                 if (Systemconfig.tasks.get(taskName).isDone()) {
                 } else {
                     runningTaskCount++;
@@ -355,6 +393,65 @@ public class Job {
     }
 
     public static Job getJob() {
+
         return job;
+    }
+
+
+    public static String getHost() {
+        return host;
+    }
+
+    public static void setHost(String host) {
+        Job.host = host;
+    }
+
+    public static String getCid() {
+        return cid;
+    }
+
+    public static void setCid(String cid) {
+        Job.cid = cid;
+    }
+
+    public static String getIp() {
+        return ip;
+    }
+
+    public static void setIp(String ip) {
+        Job.ip = ip;
+    }
+
+    public static String getcType() {
+        return cType;
+    }
+
+    public static void setcType(String cType) {
+        Job.cType = cType;
+    }
+
+    public static String getProject() {
+        return project;
+    }
+
+    public static void setProject(String project) {
+        Job.project = project;
+    }
+
+    public static String getCrawlerNameOrCMD() {
+        return crawlerNameOrCMD;
+    }
+
+    public static void setCrawlerNameOrCMD(String crawlerNameOrCMD) {
+        Job.crawlerNameOrCMD = crawlerNameOrCMD;
+    }
+
+
+    public static String getNote() {
+        return note;
+    }
+
+    public static void setNote(String note) {
+        Job.note = note;
     }
 }
