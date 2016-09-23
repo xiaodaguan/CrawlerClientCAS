@@ -1,8 +1,6 @@
 package mongo;
 
-import common.util.JsonUtil;
 import common.util.StringUtil;
-import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +46,7 @@ public class transferData implements Runnable {
 
         while (true) {
             readConf();
-            weixinDataDb wdb = new weixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
+            WeixinDataDb wdb = new WeixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
 
             mongo2Ora.move(wdb, MONGODB_COLLECTION, ORACLE_TABLE);
 

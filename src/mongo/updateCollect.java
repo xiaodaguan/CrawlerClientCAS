@@ -48,7 +48,7 @@ public class updateCollect implements Runnable {
 
         while (true) {
             readConf();
-            weixinDataDb wdd = new weixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
+            WeixinDataDb wdd = new WeixinDataDb(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
             HashMap<Integer, String> tasks = wdd.getItemsToCollect(ORACLE_TASK_TABLE);
             for (int id : tasks.keySet()) {
                 String range = tasks.get(id);

@@ -48,8 +48,8 @@ import org.apache.http.client.params.ClientPNames;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+//import com.sun.image.codec.jpeg.JPEGCodec;
+//import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 import common.bean.HtmlInfo;
 import common.http.NeedCookieHttpProcess;
@@ -449,8 +449,8 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 				AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(1, 1), null);
 				BufferedImage new_img = op.filter(img, null);
 				FileOutputStream out = new FileOutputStream(picFile);
-				JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-				encoder.encode(new_img);
+//				JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//				encoder.encode(new_img);
 				out.close();
 				return true;
 				
