@@ -26,8 +26,8 @@ public class SeleniumDriverManager {
         if (os.contains("mac")) System.setProperty("phantomjs.binary.path", "phantomjs/osx/phantomjs");
         else if (os.contains("windows")) System.setProperty("phantomjs.binary.path", "phantomjs/win/phantomjs.exe");
         else if (os.contains("linux")) {
-            String version = System.getProperty("os.version").toLowerCase();
-            if (version.contains("x86_64")) System.setProperty("phantomjs.binary.path", "phantomjs/linux/64/phantomjs");
+            String version = System.getProperty("os.arch").toLowerCase();
+            if (version.contains("64")) System.setProperty("phantomjs.binary.path", "phantomjs/linux/64/phantomjs");
             else System.setProperty("phantomjs.binary.path", "phantomjs/linux/32/phantomjs");
         }
 
