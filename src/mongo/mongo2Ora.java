@@ -2,7 +2,6 @@ package mongo;
 
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -56,7 +55,7 @@ public class mongo2Ora {
         MONGO_COLLECTION = jMon.getString("collection");
     }
 
-    public static int move(weixinDataDb wdd, String collName, final String tableName) {
+    public static int move(WeixinDataDb wdd, String collName, final String tableName) {
         return move(wdd, collName, tableName, null);
     }
 
@@ -68,7 +67,7 @@ public class mongo2Ora {
      * @param tableName
      * @return 新增的数量
      */
-    public static int move(final weixinDataDb wdb, String collName, final String tableName, String beginAndEnd) {
+    public static int move(final WeixinDataDb wdb, String collName, final String tableName, String beginAndEnd) {
 
 
         MongoCollection coll = db.getCollection(collName);

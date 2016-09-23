@@ -12,14 +12,14 @@ import java.util.*;
 /**
  * Created by guanxiaoda on 16/4/15.
  */
-public class weixinDataDb extends db<WeixinData> {
-    Logger logger = LoggerFactory.getLogger(weixinDataDb.class);
+public class WeixinDataDb extends db<WeixinData> {
+    Logger logger = LoggerFactory.getLogger(WeixinDataDb.class);
     private Connection conn = null;
     private String URL = null;
     private String USERNAME = null;
     private String PASSWORD = null;
 
-    public weixinDataDb(String url, String uname, String passwd) {
+    public WeixinDataDb(String url, String uname, String passwd) {
         URL = url;
         USERNAME = uname;
         PASSWORD = passwd;
@@ -223,7 +223,7 @@ public class weixinDataDb extends db<WeixinData> {
 
 //        WeixinData wd = new WeixinData();
 //        wd.setTitle("test");
-        weixinDataDb wdb = new weixinDataDb(URL, USERNAME, PASSWORD);
+        WeixinDataDb wdb = new WeixinDataDb(URL, USERNAME, PASSWORD);
         wdb.getItemsToCollect("collect");
     }
 
