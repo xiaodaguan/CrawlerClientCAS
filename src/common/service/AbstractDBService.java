@@ -99,7 +99,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
         this.jdbcTemplate.update(esql, new Object[]{md5});
     }
 
-    private static final String user_sql = "select name, pass, siteflag, id from " + "(select u.name, u.pass, ss.siteflag, u.id, rownum from crawler_account u, site_template ss" + " where u.site_id=ss.id and u.valid=1 and ss.siteflag=? order by last_used) ";
+    private static final String user_sql = "select name, pass, siteflag, id, cookie, ua from " + "(select u.name, u.pass, ss.siteflag, u.id, u.cookie, u.ua, rownum from crawler_account u, site_template ss" + " where u.site_id=ss.id and u.valid=1 and ss.siteflag=? order by last_used) ";
 
     @Override
     public void updateUserOrder(String userName) {
@@ -119,12 +119,15 @@ public abstract class AbstractDBService<T> implements DBService<T> {
                 UserAttr ua = new UserAttr();
                 ua.setName(rs.getString(1));
                 ua.setPass(rs.getString(2));
-                ua.setUsed(0);
-                ua.setAgentIndex(UserAgent.getUserAgentIndex());
-                ua.setUserAgent(UserAgent.getUserAgent(ua.getAgentIndex()));
                 ua.setSiteFlag(rs.getString(3));
                 ua.setId(rs.getInt(4));
+                ua.setCookie(rs.getString(5));
+                ua.setUserAgent(rs.getString(6));
 
+                ua.setUsed(0);
+                ua.setAgentIndex(UserAgent.getUserAgentIndex());
+                if (ua.getUserAgent() == null)
+                    ua.setUserAgent(UserAgent.getUserAgent(ua.getAgentIndex()));
                 list.add(ua);
 
                 return ua;

@@ -80,8 +80,9 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	protected byte[] simpleGet(HtmlInfo html, UserAttr user) {
 		HttpClient hc = httpClient(html);
 		HttpGet get = new HttpGet(EncoderUtil.encodeKeyWords(html.getOrignUrl(), "utf-8" ));
+//		get.addHeader("User-Agent",user==null?userAgent:user.getUserAgent());
 		get.addHeader("User-Agent",user==null?userAgent:user.getUserAgent());
-		
+
 		if(html.getType().startsWith("LOGIN"))
 			get.setHeader("Content-Type", "application/x-www-form-urlencoded");
 		if(redirectURL != null){
