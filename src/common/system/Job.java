@@ -25,7 +25,7 @@ public class Job {
     /**
      * crawler log config
      **/
-    private static String host = "http://www.sklmccs.ia.ac.cn/crawlerlogserver";
+    private static String host = "http://www.sklmccs.ia.ac.cn:8080/crawlerlogserver";
     private static String cid = "";// from crawler start
     private static String ip = "";
 
