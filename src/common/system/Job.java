@@ -65,7 +65,7 @@ public class Job {
                     }
                 }
             }
-        });
+        }).start();
 
 
         if (Systemconfig.crawlerType % 2 == 1) runSearch();

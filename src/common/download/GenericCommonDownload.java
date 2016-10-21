@@ -251,10 +251,9 @@ public abstract class GenericCommonDownload<T> {
     private void createHttpClient(String siteFlag) {
         try {
             http = (HttpProcess) Class.forName(Systemconfig.siteHttpClass.get(siteFlag)).newInstance();
-        } catch (InstantiationException e) {
-        } catch (IllegalAccessException e) {
-        } catch (ClassNotFoundException e) {
-        } catch (Exception e) {
+        }
+         catch (Exception e) {
+            e.printStackTrace();
         }
         if (http == null) {
             http = new SimpleHttpProcess();
