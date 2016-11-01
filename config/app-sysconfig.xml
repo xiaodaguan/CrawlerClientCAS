@@ -20,7 +20,7 @@
 		<property name="rmiName" value="${rmiName}" />
 		<property name="rmiPort" value="${rmiPort}" />
 		<property name="serverAddress" value="${serverAddress}" />
-	<!--	<property name="crawlerType" value="${crawler_type}" /> -->
+		
 		<property name="distribute" value="${distribute}" />
 		<property name="clientIndex" value="${client_index}" />
 		<property name="mode" value="${mode}" />
@@ -38,6 +38,9 @@
 				<entry key="sj99_agricalture_monitor" value="common.extractor.xpath.agricalture.monitor.sub.Sj99Extractor" />
 
 				<entry key="baidu_news_search" value="common.extractor.xpath.news.search.sub.BaiduExtractor" />
+				<entry key="soku_video_search" value="common.extractor.xpath.video.search.sub.SokuVideoSearchXpathExtractor" />
+				
+				
 				<entry key="qingdaonizao_news_search" value="common.extractor.xpath.news.search.sub.QingdaonizaoExtractor" />
 
 				<entry key="google_news_search" value="common.extractor.xpath.news.search.sub.GoogleExtractor" />
@@ -81,6 +84,8 @@
 				<entry key="taobao_ebusiness_monitor" value="common.extractor.xpath.ebusiness.monitor.sub.TaobaoExtractor" />
 
 				<entry key="weixin_weixin_search" value="common.extractor.xpath.weixin.search.sub.QQWeixinExtractor" />
+				
+				
 			</map>
 		</property>
 
@@ -114,20 +119,17 @@
 		<property name="invalidBeg" value="${invalid_beg}" />
 	</bean>
 
-	<!-- <bean id="dbService" class="common.service.mysql.UnitMysqlService"> <property name="newsMysqlService" ref="newsMysqlService" /> <property name="bbsMysqlService" ref="bbsMysqlService" 
-		/> <property name="blogMysqlService" ref="blogMysqlService" /> <property name="weiboMysqlService" ref="weiboMysqlService" /> </bean> <bean id="newsMysqlService" class="common.service.mysql.NewsMysqlService"> 
-		<property name="jdbcTemplate" ref="jdbcTemplate" /> </bean> <bean id="bbsMysqlService" class="common.service.mysql.BbsMysqlService"> <property name="jdbcTemplate" ref="jdbcTemplate" 
-		/> </bean> <bean id="blogMysqlService" class="common.service.mysql.BlogMysqlService"> <property name="jdbcTemplate" ref="jdbcTemplate" /> </bean> <bean id="weiboMysqlService" 
-		class="common.service.mysql.WeiboMysqlService"> <property name="jdbcTemplate" ref="jdbcTemplate" /> </bean> -->
 	<bean id="dbService" class="common.service.oracle.UnitOracleService">
+
+		<property name="videoOracleService" ref="videoOracleService" />
+		
 		<property name="newsOracleService" ref="newsOracleService" />
 		<property name="weixinOracleService" ref="weixinOracleService" />
 		<property name="bbsOracleService" ref="bbsOracleService" />
 		<property name="blogOracleService" ref="blogOracleService" />
 		<property name="weiboOracleService" ref="weiboOracleService" />
 		<property name="agricaltureOracleService" ref="agricaltureOracleService" />
-		<!-- -->
-		<!--<property name="ebusinessHbaseService" ref="ebusinessHbaseService" /> -->
+
 		<property name="reportOracleService" ref="reportOracleService" />
 		<property name="conferenceOracleService" ref="conferenceOracleService" />
 		<property name="personOracleService" ref="personOracleService" />
@@ -136,6 +138,9 @@
 	</bean>
 
 	<bean id="newsOracleService" class="common.service.oracle.NewsOracleService">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="videoOracleService" class="common.service.oracle.VideoOracleService">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="weixinOracleService" class="common.service.oracle.WeixinOracleService">
@@ -159,20 +164,13 @@
 	<bean id="personOracleService" class="common.service.oracle.PersonOracleService">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
-	<!-- -->
-	<!--<bean id="ebusinessHbaseService" class="common.service.hbase.EbusinessHbaseService"> -->
-	<!--<property name="jdbcTemplate" ref="jdbcTemplate" /> -->
-	<!--</bean> -->
+
 	<bean id="reportOracleService" class="common.service.oracle.ReportOracleService">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="companyOracleService" class="common.service.oracle.CompanyOracleService">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
-	<!-- <bean id="dbService" class="common.service.hbase.UnitHbaseService"> <property name="service" ref="service" /> </bean> -->
-	<!--<bean id="service" class="common.service.hbase.EbusinessHbaseService"> -->
-	<!--<property name="jdbcTemplate" ref="jdbcTemplate" /> -->
-	<!--</bean> -->
 
 	<bean id="seedFilter" class="common.filter.SimpleSeedFilter" />
 

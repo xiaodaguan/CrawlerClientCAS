@@ -21,10 +21,6 @@ public class WeiboData extends CommonData {
 	private String contentAddress;
 	private String contentAddressUrl;
 	
-	
-	
-	
-	
 	public String getContentAddressUrl() {
 		return contentAddressUrl;
 	}

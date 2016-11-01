@@ -44,6 +44,7 @@ public class AppContext {
      */
     public static void initAppCtx(String path) {
 
+    	//path = ""
         initEbusinessBrandCode();// 电商垂直商品编码，用于直接设置品牌
         PropertyConfigurator.configure(path + "./config/log4j.properties");
         File[] files = new File(path + "config").listFiles();
@@ -53,15 +54,17 @@ public class AppContext {
                 list.add(path + "config" + File.separator + file.getName());
             }
         }
+        
         String[] arry = new String[list.size()];
         list.toArray(arry);
+        
         appCtx = new FileSystemXmlApplicationContext(arry);
 
         list.clear();
         files = null;
         arry = null;
+        
         readConfig();
-
 
         Systemconfig.createThreadPool();
         System.out.println("init. ok. ");
@@ -103,8 +106,11 @@ public class AppContext {
      * @author grs
      */
     public static class MyFileFilter implements FileFilter {
-        String prefix = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
-
+    	
+        String prefix = CrawlerType.getCrawlerTypeMap().
+        		get(Systemconfig.crawlerType).name().toLowerCase();
+        
+        
         @Override
         public boolean accept(File f) {
             return f.getName().startsWith(prefix) && !f.getName().replace(xpath, "").replace(File.separator, "").startsWith(".") && f.getName().endsWith("xml");
@@ -115,6 +121,7 @@ public class AppContext {
      * 从文件读取站点配置
      */
     public static void readConfigFromFile() {
+    	// xpath = 'site'
         File[] xpathFs = new File(xpath).listFiles(new MyFileFilter());
         if (xpathFs == null) {
             Systemconfig.sysLog.log("没有可运行配置站点");
@@ -125,6 +132,11 @@ public class AppContext {
 
             // String name=f.getName();//ebusiness_search_taobao.xml
             // long modified=f.lastModified();//1409798260836
+            
+            //配置文件写到map   k=f.getName() value = 文件状态 
+            System.out.println("configSet(f.getName(), content, f.lastModified());");
+            System.out.println(f.getName());
+            System.out.println(content);
             configSet(f.getName(), content, f.lastModified());
         }
         loadSiteFromFile();
@@ -135,6 +147,8 @@ public class AppContext {
      */
     private static void loadSiteFromFile() {
         // 读取简单配置后，处理详细配置
+    	//filepath = "comfig/site"
+    	
         File[] fs = new File(filepath).listFiles(new MyFileFilter());
         if (fs == null || fs.length == 0) {
             Systemconfig.sysLog.log("没有采集的类型配置！");
@@ -146,7 +160,9 @@ public class AppContext {
         File f = fs[0];// 采集类型： config\site\news_monitor.xml
         // 根据map大小复制数据
         for (String s : map.keySet()) {
+        	//
             String name = f.getName().substring(0, f.getName().lastIndexOf(".")) + "_" + s.substring(s.lastIndexOf("_") + 1, s.length());// ebusiness_search_taobao.xml
+
             String content = StringUtil.getContent(f.getAbsolutePath());
             configProcess(name, content);
         }
@@ -187,7 +203,7 @@ public class AppContext {
     /**
      * 配置数据结构属性设置，公用
      *
-     * @param name      配置名称
+     * @param name      配置名称   video_search_soku
      * @param content   配置内容
      * @param timestamp 最新修改日期
      */
@@ -230,13 +246,14 @@ public class AppContext {
             NodeList nameList = null;
             NodeList valueList = null;
             try {
-                nameList = XPathAPI.selectNodeList(domtree, "/SITE/PROP/@name");
+                nameList  = XPathAPI.selectNodeList(domtree, "/SITE/PROP/@name");
                 valueList = XPathAPI.selectNodeList(domtree, "/SITE/PROP/@value");
             } catch (TransformerException e) {
                 e.printStackTrace();
             }
             for (int i = 0; i < nameList.getLength(); i++) {
-                content = content.replace("${" + nameList.item(i).getTextContent() + "}", filterCode(valueList.item(i).getTextContent()));
+                content = content.replace("${" + nameList.item(i).getTextContent() + "}", 
+                		filterCode(valueList.item(i).getTextContent()));
             }
             // 暂时需要特殊处理boolean型属性
             content = content.replace("${agent}", "false").replace("${login}", "false");
@@ -255,7 +272,8 @@ public class AppContext {
     private static synchronized void loadDynamicBean(String file) {
 
         System.out.println("ini:" + file);
-        XmlBeanDefinitionReader beanReader = new XmlBeanDefinitionReader(((BeanDefinitionRegistry) ((ConfigurableApplicationContext) appCtx).getBeanFactory()));
+        XmlBeanDefinitionReader beanReader = new XmlBeanDefinitionReader(((BeanDefinitionRegistry) 
+        		((ConfigurableApplicationContext) appCtx).getBeanFactory()));
         beanReader.setResourceLoader(appCtx);
         beanReader.setEntityResolver(new ResourceEntityResolver(appCtx));
         try {
@@ -270,15 +288,15 @@ public class AppContext {
                 si.setPage(2);
                 si.setThreadNum(1);
             }
-            // 验证站点信息数据是否完整,成功后添加站点
+            //验证站点信息数据是否完整,成功后添加站点
             Systemconfig.allSiteinfos.put(si.getSiteName(), si);
             if (siteConfigs != null && siteConfigs.get(si.getSiteName()) != null) {
                 si.setSiteFlag(siteConfigs.get(si.getSiteName()).getId());
             }
-            File f = new File(file);
-            if (!f.delete()) {
-                System.err.println(f + "没有被删除");
-            }
+//            File f = new File(file);
+//            if (!f.delete()) {
+//                System.err.println(f + "没有被删除");
+//            }
             System.out.println("系统初始化站点：" + si);
         } catch (BeansException e) {
             e.printStackTrace();

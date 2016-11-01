@@ -7,6 +7,7 @@ import common.system.Systemconfig;
 public class UnitOracleService implements DBFactory {
 
     private NewsOracleService newsOracleService;
+    private VideoOracleService videoOracleService;
     private BbsOracleService bbsOracleService;
     private BlogOracleService blogOracleService;
     private WeiboOracleService weiboOracleService;
@@ -27,6 +28,7 @@ public class UnitOracleService implements DBFactory {
             case 4:
                 return bbsOracleService;
             case 5:
+            	 
             case 6:
                 return blogOracleService;
             case 7:
@@ -34,7 +36,7 @@ public class UnitOracleService implements DBFactory {
                 return weiboOracleService;
             case 9:
             case 10:
-                return null;
+            	return videoOracleService;
             case 11:
             case 12:
                 return null;
@@ -108,4 +110,8 @@ public class UnitOracleService implements DBFactory {
     public void setCompanyOracleService(CompanyOracleService companyOracleService) {
         this.companyOracleService = companyOracleService;
     }
+
+	public void setVideoOracleService(VideoOracleService videoOracleService) {
+		this.videoOracleService = videoOracleService;
+	}   
 }

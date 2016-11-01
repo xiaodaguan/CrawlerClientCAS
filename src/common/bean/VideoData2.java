@@ -1,24 +1,24 @@
 package common.bean;
 
 @SuppressWarnings("serial")
-public class VideoData extends CommonData {
+public class VideoData2 extends CommonData {
 
-	private String authorUrl;//作者url
-	private int playCount;//播放次数
-	//http://comments.youku.com/comments/~ajax/vpcommentContent.html?__callback=vpcommentContent_html&__ap={"videoid":"400986325","showid":"0","isAjax":1,"sid":"","page":1,"chkpgc":0,"last_modify":""}
-	private String commentUrl;//评论url
-	private String tags;//标签
-	private String author;//作者
-	private String playtime;//播放时常
-	private String channel;//
+	private String imgUrl;
+	private int playCount;
+	private String commentUrl;
+	private String pubtime;
+	private String tags;
+	private String author;
+	private String playtime;
+	private String channel;
 	private int likeCount;
 	private int dislikeCount;
-	
-	public String getAuthorUrl() {
-		return authorUrl;
+
+	public String getImgUrl() {
+		return imgUrl;
 	}
-	public void setAuthorUrl(String authorUrl) {
-		this.authorUrl = authorUrl;
+	public void setImgUrl(String picUrl) {
+		this.imgUrl = picUrl;
 	}
 	public int getPlayCount() {
 		return playCount;
@@ -35,14 +35,20 @@ public class VideoData extends CommonData {
 	public String getTags() {
 		return tags;
 	}
-	public void setTags(String tags) {
-		this.tags = tags;
+	public void setTags(String keywords) {
+		this.tags = keywords;
 	}
 	public String getAuthor() {
 		return author;
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	public String getPubtime() {
+		return pubtime;
+	}
+	public void setPubtime(String pubtime) {
+		this.pubtime = pubtime;
 	}
 	public String getPlaytime() {
 		return playtime;
@@ -68,4 +74,5 @@ public class VideoData extends CommonData {
 	public void setDislikeCount(int dislikeCount) {
 		this.dislikeCount = dislikeCount;
 	}
+	
 }

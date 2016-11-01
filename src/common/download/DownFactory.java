@@ -44,9 +44,11 @@ import common.system.UserAttr;
 public class DownFactory {
 	/**
 	 * 元数据
+	 * 
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes") public static GenericMetaCommonDownload metaControl(SearchKey key) {
+	@SuppressWarnings("rawtypes")
+	public static GenericMetaCommonDownload metaControl(SearchKey key) {
 		switch (Systemconfig.crawlerType) {
 		case 1:
 			return new NewsMetaCommonDownload(key);
@@ -63,7 +65,7 @@ public class DownFactory {
 			return new WeiboSearchMetaCommonDownload(key);
 		case 8:
 			return new WeiboUserMonitorMetaCommonDownload(key);
-		case 9:
+		case 9:// return new SokuVideoMetaCommonDownload(key);
 		case 10:
 			return new VideoMetaCommonDownload(key);
 		// case 11 :
@@ -87,9 +89,9 @@ public class DownFactory {
 		case 31:
 		case 32:
 			return new PersonMetaCommonDownload(key);
-			case 33:
-			case 34:
-				return new CompanyMetaCommonDownload(key);
+		case 33:
+		case 34:
+			return new CompanyMetaCommonDownload(key);
 
 		default:
 			return new SimpleMetaCommonDownload(key);
@@ -102,7 +104,8 @@ public class DownFactory {
 	 * @param siteFlag
 	 * @return
 	 */
-	public static <T> GenericDataCommonDownload<T> dataControl(String siteFlag, T data, CountDownLatch count, UserAttr user, SearchKey key) {
+	public static <T> GenericDataCommonDownload<T> dataControl(String siteFlag, T data, CountDownLatch count,
+			UserAttr user, SearchKey key) {
 		switch (Systemconfig.crawlerType) {
 		case 1:
 		case 2:
@@ -115,9 +118,11 @@ public class DownFactory {
 		case 6:
 			return (GenericDataCommonDownload<T>) new BlogDataCommonDownload(siteFlag, (BlogData) data, count, key);
 		case 7:
-			return (GenericDataCommonDownload<T>) new WeiboSearchDataCommonDownload(siteFlag, (WeiboData) data, count, user, key);
+			return (GenericDataCommonDownload<T>) new WeiboSearchDataCommonDownload(siteFlag, (WeiboData) data, count,
+					user, key);
 		case 8:
-			return (GenericDataCommonDownload<T>) new WeiboDataCommonDownload(siteFlag, (WeiboData) data, count, user, key);
+			return (GenericDataCommonDownload<T>) new WeiboDataCommonDownload(siteFlag, (WeiboData) data, count, user,
+					key);
 		// return null;
 
 		case 9:
@@ -136,16 +141,20 @@ public class DownFactory {
 			return (GenericDataCommonDownload<T>) new ReportDataCommonDownload(siteFlag, (ReportData) data, count, key);
 		case 27:
 		case 28:
-			return (GenericDataCommonDownload<T>) new AgricaltureDataCommonDownload(siteFlag, (AgricaltureData) data, count, key);
+			return (GenericDataCommonDownload<T>) new AgricaltureDataCommonDownload(siteFlag, (AgricaltureData) data,
+					count, key);
 		case 29:
 		case 30:
-			return (GenericDataCommonDownload<T>) new ConferenceDataCommonDownload(siteFlag, (ConferenceData) data, count, key);
+			return (GenericDataCommonDownload<T>) new ConferenceDataCommonDownload(siteFlag, (ConferenceData) data,
+					count, key);
 		case 31:
 		case 32:
 			return (GenericDataCommonDownload<T>) new PersonDataCommonDownload(siteFlag, (PersonData) data, count, key);
-			case 33:
-			case 34:
-				return (GenericDataCommonDownload<T>) new CompanyDataCommonDownload(siteFlag,(CompanyData)data,count,key);
+		case 33:
+		case 34:
+			return (GenericDataCommonDownload<T>) new CompanyDataCommonDownload(siteFlag, (CompanyData) data, count,
+					key);
+
 		default:
 			return (GenericDataCommonDownload<T>) new SimpleDataCommonDownload(siteFlag, (CommonData) data, count, key);
 

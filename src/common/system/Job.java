@@ -47,7 +47,6 @@ public class Job {
 
     public static void simpleRun() throws UnknownHostException, InterruptedException {
 
-
         ip = String.valueOf(InetAddress.getLocalHost());
         cLogger = CLogFactory.getLogger(host, cid, ip, cType, project);
 
@@ -65,9 +64,7 @@ public class Job {
                     }
                 }
             }
-        }).start();
-
-
+        });
         if (Systemconfig.crawlerType % 2 == 1) runSearch();
         else runMonitor();
     }
@@ -76,38 +73,36 @@ public class Job {
      * 普通搜索采集
      *
      * @throws Exception
-     */
+     */   //  
     @SuppressWarnings("unchecked")
     private static void runSearch() throws UnknownHostException, InterruptedException {
 
-
         while (true) {
-
             cLogger.start(crawlerNameOrCMD, crawlerNameOrCMD);//name, note
             Systemconfig.sysLog.log("loop start...");
 
             keys = Systemconfig.dbService.searchKeys();
             Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
-
             out:
             for (SearchKey sk : keys) {
-
-
+            	
                 for (String site : Systemconfig.allSiteinfos.keySet()) {
 
                     Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
                     sk.setSite(site);
+                    
                     createThreadPool(site, siteinfo);
-
+                    
                     String taskName = sk.getSite() + sk.getKey();
-                    if (Systemconfig.finish.get(taskName) == null || Systemconfig.finish.get(taskName)) {
+                    if (Systemconfig.finish.get(taskName) == null 
+                    		|| Systemconfig.finish.get(taskName)) {
 
                         job.submitSearchKey(sk);
+                        
                         Systemconfig.finish.put(taskName, false);
                     }
                 }
             }
-
 
             while (!ifAllFinished()) {
                 Thread.currentThread().sleep(10 * 1000);
@@ -116,12 +111,10 @@ public class Job {
             cLogger.stop();
             Systemconfig.sysLog.log("loop stop");
 
-
             TimeUtil.rest(calCycleWaitTime());
 
             AppContext.readConfig();
         }
-
     }
 
     /**
@@ -380,7 +373,6 @@ public class Job {
     public void submitSearchKey(SearchKey sk) {
         Future<?> f = EXECUTOR_SERVICE_MAP.get(sk.getSite()).submit(DownFactory.metaControl(sk));
         Systemconfig.tasks.put(sk.getSite() + "_" + sk.getKey(), f);
-
     }
 
 
@@ -396,7 +388,6 @@ public class Job {
 
         return job;
     }
-
 
     public static String getHost() {
         return host;
