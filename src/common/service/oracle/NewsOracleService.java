@@ -47,18 +47,18 @@ public class NewsOracleService extends OracleService<NewsData> {
                         ps.setString(4, vd.getSource());
                         ps.setString(5, vd.getUrl());
                         ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
-                ps.setString(7, vd.getSearchKey());
-
-                ps.setInt(8, vd.getCategoryCode());//vd.getCategoryCode()
-                ps.setString(9, vd.getMd5());
-
-                ps.setString(10, vd.getContent() == null || vd.getContent().equals("") ? "no content." : vd.getContent());
-                ps.setString(11, vd.getBrief());
-                ps.setInt(12, vd.getSiteId());
-                ps.setString(13, vd.getImgUrl());
-                ps.setInt(14, vd.getSamenum());
-                ps.setString(15, vd.getSameUrl());
-                return ps;
+		                ps.setString(7, vd.getSearchKey());
+		
+		                ps.setInt(8, vd.getCategoryCode());//vd.getCategoryCode()
+		                ps.setString(9, vd.getMd5());
+		
+		                ps.setString(10, vd.getContent() == null || vd.getContent().equals("") ? "no content." : vd.getContent());
+		                ps.setString(11, vd.getBrief());
+		                ps.setInt(12, vd.getSiteId());
+		                ps.setString(13, vd.getImgUrl());
+		                ps.setInt(14, vd.getSamenum());
+		                ps.setString(15, vd.getSameUrl());
+		                return ps;
             }
         }, keyHolder);
 

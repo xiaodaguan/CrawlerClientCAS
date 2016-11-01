@@ -1,7 +1,7 @@
 package common.bean;
 
 @SuppressWarnings("serial")
-public class VideoData extends CommonData {
+public class SokuVideoData extends CommonData {
 
 	private String authorUrl;//作者url
 	private int playCount;//播放次数

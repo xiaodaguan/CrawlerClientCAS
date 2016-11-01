@@ -80,7 +80,8 @@ public class SimpleHttpProcess implements HttpProcess {
 
 	int count = 0;
 
-	@Override public HttpClient httpClient(HtmlInfo html) {
+	@Override
+	public HttpClient httpClient(HtmlInfo html) {
 		String key = html.getType();
 		if (clientMap.containsKey(key)) {
 			if (count++ > 100) {
@@ -112,7 +113,8 @@ public class SimpleHttpProcess implements HttpProcess {
 		}
 	}
 
-	@Override public void getContent(HtmlInfo html, UserAttr userAttr) {
+	@Override
+	public void getContent(HtmlInfo html, UserAttr userAttr) {
 		byte[] fromURL = null;
 		try {
 			fromURL = userAttr == null ? simpleGet(html) : simpleGet(html, userAttr);
@@ -127,7 +129,7 @@ public class SimpleHttpProcess implements HttpProcess {
 				pdf(html, fromURL);
 			}
 
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			fromURL = null;
@@ -187,7 +189,8 @@ public class SimpleHttpProcess implements HttpProcess {
 		}
 		html.setContent(con);
 		if (Systemconfig.createFile) {
-			String tmp = Systemconfig.filePath + File.separator + html.getType() + File.separator + MD5Util.MD5(html.getOrignUrl()) + html.getFileType();
+			String tmp = Systemconfig.filePath + File.separator + html.getType() + File.separator
+					+ MD5Util.MD5(html.getOrignUrl()) + html.getFileType();
 			if (html.getAddHead()) {
 				StringUtil.writeFile(tmp, html.getOrignUrl() + "\r\n" + html.getContent(), html.getEncode());
 			} else {
@@ -229,7 +232,8 @@ public class SimpleHttpProcess implements HttpProcess {
 		return simpleGet(html);
 	}
 
-	@Override public void getContent(HtmlInfo html) {
+	@Override
+	public void getContent(HtmlInfo html) {
 		getContent(html, null);
 	}
 
@@ -342,22 +346,31 @@ public class SimpleHttpProcess implements HttpProcess {
 			// TLS单项认证，SSL双向认证
 			SSLContext ctx = SSLContext.getInstance(SSLSocketFactory.TLS);
 			X509TrustManager tm = new X509TrustManager() {
-				public void checkClientTrusted(X509Certificate[] xcs, String string) throws CertificateException {}
+				public void checkClientTrusted(X509Certificate[] xcs, String string) throws CertificateException {
+				}
 
-				public void checkServerTrusted(X509Certificate[] xcs, String string) throws CertificateException {}
+				public void checkServerTrusted(X509Certificate[] xcs, String string) throws CertificateException {
+				}
 
 				public X509Certificate[] getAcceptedIssuers() {
 					return null;
 				}
 			};
 			X509HostnameVerifier verifier = new X509HostnameVerifier() {
-				@Override public void verify(String string, SSLSocket ssls) throws IOException {}
+				@Override
+				public void verify(String string, SSLSocket ssls) throws IOException {
+				}
 
-				@Override public void verify(String string, X509Certificate xc) throws SSLException {}
+				@Override
+				public void verify(String string, X509Certificate xc) throws SSLException {
+				}
 
-				@Override public void verify(String string, String[] strings, String[] strings1) throws SSLException {}
+				@Override
+				public void verify(String string, String[] strings, String[] strings1) throws SSLException {
+				}
 
-				@Override public boolean verify(String string, SSLSession ssls) {
+				@Override
+				public boolean verify(String string, SSLSession ssls) {
 					return true;
 				}
 			};
@@ -392,7 +405,8 @@ public class SimpleHttpProcess implements HttpProcess {
 			}
 			byteArray = baos.toByteArray();
 			return byteArray;
-		} catch (IOException e) {} finally {
+		} catch (IOException e) {
+		} finally {
 			buffer = null;
 			try {
 				baos.close();
@@ -404,7 +418,9 @@ public class SimpleHttpProcess implements HttpProcess {
 		return null;
 	}
 
-	@Override public void monitorLogin(UserAttr user) {}
+	@Override
+	public void monitorLogin(UserAttr user) {
+	}
 
 	public String getJsonContent(String url, String charSet) {
 		String code = StringUtil.regMatcher(url, "/p-", "-s-0-t-3-p-0");
@@ -435,7 +451,8 @@ public class SimpleHttpProcess implements HttpProcess {
 		// }
 		if (content == null || !content.contains("{"))
 			return null;
-		content = content.startsWith("{") ? content : content.substring(content.indexOf("{"), content.lastIndexOf("}") + 1);
+		content = content.startsWith("{") ? content
+				: content.substring(content.indexOf("{"), content.lastIndexOf("}") + 1);
 		return content;
 		// return content1.length() > content2.length() ? content1 : content2;
 	}
@@ -462,7 +479,8 @@ public class SimpleHttpProcess implements HttpProcess {
 		return html.getContent();
 	}
 
-	@Override public String getJsonContent(String ownerInitUrl) {
+	@Override
+	public String getJsonContent(String ownerInitUrl) {
 		// TODO Auto-generated method stub
 		return null;
 	}

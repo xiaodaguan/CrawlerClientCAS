@@ -75,19 +75,19 @@ public abstract class GenericCommonDownload<T> {
     }
 
     public GenericCommonDownload(SearchKey key) {
+    	
         this.siteFlag = key.getSite();
         this.key = key;
-
+                
         siteinfo = Systemconfig.allSiteinfos.get(siteFlag);
+       
         String url = siteinfo.getUrl();
         if (url != null && !url.startsWith("${") && url.contains("<keyword>")) {
             if (!url.contains("<begin>")) url = url.replace("<keyword>", EncoderUtil.encodeKeyWords(key.getKey(), siteinfo.getCharset()));
             else {
                 if (!url.contains("<end>")) {
                     System.err.println("请检查入口url参数");
-
                 }
-
                 url = url.replace("<keyword>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[0], siteinfo.getCharset()));
                 url = url.replace("<begin>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[1], siteinfo.getCharset()));
                 url = url.replace("<end>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[2], siteinfo.getCharset()));
@@ -97,7 +97,6 @@ public abstract class GenericCommonDownload<T> {
                 }
             }
         } else url = key.getKey();
-
 
         gloaburl = url;
         createHttpClient(siteFlag);
@@ -167,6 +166,7 @@ public abstract class GenericCommonDownload<T> {
     protected Extractor getXpath() {
         Extractor be = null;
         try {
+        	
             String cl = Systemconfig.siteExtractClass.get(siteFlag);
             if (cl != null) be = (Extractor) Class.forName(cl).newInstance();
             else {
@@ -241,6 +241,9 @@ public abstract class GenericCommonDownload<T> {
                 case 16:
                     be = new WeixinMonitorXpathExtractor();
                     break;
+//                case 37:
+//                    be = new SokuVideoSearchXpathExtractor();
+//                    break;
                 default:
                     be = new SimpleXpathExtractor();
             }
@@ -251,9 +254,10 @@ public abstract class GenericCommonDownload<T> {
     private void createHttpClient(String siteFlag) {
         try {
             http = (HttpProcess) Class.forName(Systemconfig.siteHttpClass.get(siteFlag)).newInstance();
-        }
-         catch (Exception e) {
-            e.printStackTrace();
+        } catch (InstantiationException e) {
+        } catch (IllegalAccessException e) {
+        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
         }
         if (http == null) {
             http = new SimpleHttpProcess();

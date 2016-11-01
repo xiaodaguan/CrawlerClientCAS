@@ -15,12 +15,12 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
     private static WebDriver driver = null;
 
     @Override
-    public synchronized byte[] simpleGet(HtmlInfo html) throws Exception {
-
+    public byte[] simpleGet(HtmlInfo html) throws Exception {
+        synchronized (WeixinHttpProcess.class) {
             if (driver == null) {
                 driver = SeleniumDriverManager.getInstance().getPhantomJSDriver();
             }
-
+        }
         /**
          * call js
          */

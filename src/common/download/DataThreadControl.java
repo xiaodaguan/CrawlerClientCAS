@@ -43,7 +43,6 @@ public class DataThreadControl {
             synchronized (list) {
                 iter.remove();
             }
-
             vd.setCompleteSize("[collect id: " + key.getId() + "| current: " + (++i) + "/ rest: " + list.size() + "]");
             Future f = Systemconfig.dataexec.get(siteFlag).submit(DownFactory.dataControl(siteFlag, vd, endCount, user, key));
             Systemconfig.tasks.put(siteFlag + "_" + key + "_" + vd.getTitle(), f);
