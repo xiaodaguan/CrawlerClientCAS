@@ -110,7 +110,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             }
             case 9:{
                 //person
-                clause += " and type like '%;" + 1 + ";%' ";
+                clause += " and type like '%;" + 16 + ";%' ";
                 break;
             }
             case 2:
