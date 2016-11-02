@@ -98,6 +98,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             case 27:
             case 29:
             case 31: {
+
                 //person
                 clause += " and type like '%;" + (Systemconfig.crawlerType + 1) / 2 + ";%' ";
                 break;

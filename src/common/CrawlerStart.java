@@ -36,7 +36,6 @@ public class CrawlerStart {
 
             if (arg.toLowerCase().contains("type=")) { //type
                 String value = arg.split("=")[1];
-
                 try {
                     Systemconfig.crawlerType = Integer.parseInt(value);
                     Job.setcType(value);
