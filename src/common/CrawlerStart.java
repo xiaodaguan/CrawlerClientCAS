@@ -79,7 +79,6 @@ public class CrawlerStart {
         Systemconfig.sysLog.log("\n\n\n");
         Thread.sleep(3 * 1000);
         Job.simpleRun();//任务运行
-
     }
 
 }
