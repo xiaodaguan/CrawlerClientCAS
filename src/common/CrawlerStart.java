@@ -32,12 +32,9 @@ public class CrawlerStart {
             stringBuilder.append(arg).append(" ");
 
             if (arg.toLowerCase().contains("type=")) { //type
-<<<<<<< HEAD
-                String value = arg.split("=")[1];//类型   
 
-=======
                 String value = arg.split("=")[1];
->>>>>>> gxd
+
                 try {
                     Systemconfig.crawlerType = Integer.parseInt(value);
                     Job.setcType(value);

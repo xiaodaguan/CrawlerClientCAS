@@ -58,13 +58,13 @@ public class Job {
                     cLogger.beat();
                     Systemconfig.sysLog.log("beat...");
                     try {
-                        Thread.sleep(10 * 1000);
+                        Thread.sleep(30 * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
-        });
+        }).start();
         if (Systemconfig.crawlerType % 2 == 1) runSearch();
         else runMonitor();
     }
@@ -104,8 +104,23 @@ public class Job {
                 }
             }
 
+
+            Long start = System.currentTimeMillis();
             while (!ifAllFinished()) {
                 Thread.currentThread().sleep(10 * 1000);
+                if(start+1000*3600*10 < System.currentTimeMillis()){
+                    //单循环最大5h
+                        Systemconfig.sysLog.log("single loop time out, stop...");
+                        Set<String> taskNames = Systemconfig.tasks.keySet();
+
+                        for (String taskName : taskNames) {
+                            if(Systemconfig.tasks.containsKey(taskName)){
+                                Systemconfig.tasks.get(taskName).cancel(true);
+                            }
+                    }
+                    Systemconfig.sysLog.log("all tasks stopped.");
+                    break;
+                }
             }
 
             cLogger.stop();
@@ -150,8 +165,22 @@ public class Job {
                 }
             }
 
+            Long start = System.currentTimeMillis();
             while (!ifAllFinished()) {
                 Thread.currentThread().sleep(10 * 1000);
+                if(start+1000*3600*10 < System.currentTimeMillis()){
+                    //单循环最大5h
+                    Systemconfig.sysLog.log("single loop time out, stop...");
+                    Set<String> taskNames = Systemconfig.tasks.keySet();
+
+                    for (String taskName : taskNames) {
+                        if(Systemconfig.tasks.containsKey(taskName)){
+                            Systemconfig.tasks.get(taskName).cancel(true);
+                        }
+                    }
+                    Systemconfig.sysLog.log("all tasks stopped.");
+                    break;
+                }
             }
 
             cLogger.stop();
@@ -175,6 +204,7 @@ public class Job {
         boolean allFinished = true;
         int runningTaskCount = 0;
         Set<String> taskNames = Systemconfig.tasks.keySet();
+
         for (String taskName : taskNames) {
             if (Systemconfig.tasks.containsKey(taskName)) {
                 if (Systemconfig.tasks.get(taskName).isDone()) {
@@ -184,7 +214,7 @@ public class Job {
             }
         }
         if (runningTaskCount > 0) allFinished = false;
-        Systemconfig.sysLog.log("running task count: " + runningTaskCount + " / total task count: " + Systemconfig.tasks.size());
+        Systemconfig.sysLog.log("remaining task count: " + runningTaskCount + " / total task count: " + Systemconfig.tasks.size());
 
         return allFinished;
     }
