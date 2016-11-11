@@ -352,16 +352,17 @@ public class Job {
      * @return
      */
     private static int calCycleWaitTime() {
-        int waitTime = 0;
-        if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
-            waitTime = 30 * 24 * 60 * 60;
-        else if (Systemconfig.crawlerType == CrawlerType.NEWS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
-            waitTime = 30 * 60;
-        else if (Systemconfig.crawlerType == CrawlerType.BBS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.BBS_MONITOR.ordinal())
-            waitTime = 30 * 60;
-        else if (Systemconfig.crawlerType == CrawlerType.WEIBO_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.WEIBO_MONITOR.ordinal())
-            waitTime = 4 * 60 * 60;
-        else waitTime = 3 * 60 * 60;
+        int waitTime = 60*10;
+//        if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
+//            waitTime = 30 * 24 * 60 * 60;
+//        else if (Systemconfig.crawlerType == CrawlerType.NEWS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
+//            waitTime = 30 * 60;
+//        else if (Systemconfig.crawlerType == CrawlerType.BBS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.BBS_MONITOR.ordinal())
+//            waitTime = 30 * 60;
+//        else if (Systemconfig.crawlerType == CrawlerType.WEIBO_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.WEIBO_MONITOR.ordinal())
+//            waitTime = 4 * 60 * 60;
+//        else waitTime = 3 * 60 * 60;
+
         return waitTime;
     }
 
@@ -384,12 +385,32 @@ public class Job {
                     Systemconfig.sysLog.log("没有可用账号！本轮采集退出");
                     return true;
                 }
-                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
+//                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
             }
-        } else {
-            if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
         }
+        if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
+        Systemconfig.sysLog.log("thread pool created, fixed size: "+siteinfo.getThreadNum());
         return false;
+
+        /**
+         *2016/11/08 16:14:00
+         */
+// if (siteinfo.getLogin()) {
+//
+//            if (Systemconfig.users == null) Systemconfig.users = new HashMap<String, List<UserAttr>>();
+//            if (Systemconfig.users.get(site) == null) {
+//                List<UserAttr> list = Systemconfig.dbService.getLoginUsers(site);
+//                Systemconfig.users.put(site, list);
+//                if (list.size() == 0) {
+//                    Systemconfig.sysLog.log("没有可用账号！本轮采集退出");
+//                    return true;
+//                }
+//                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
+//            }
+//        } else {
+//            if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
+//        }
+//        return false;
     }
 
     public void submitSearchKey(String site, String key) {

@@ -80,13 +80,25 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         String table = "search_keyword";
         String col = "keyword";
         String sql = null;
-        String clause = " where status=2";
+        String dataS = "";
+        try {
+            dataS = this.jdbcTemplate.getDataSource().getConnection().toString();
+
+            System.out.println(dataS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String clause = "";
+
+        if (dataS.contains("UserName=TOPSEARCH")) clause = " where status=2 and trunc(propose_time) >= trunc(sysdate)-7 ";
+        else clause = " where status=2";
         switch (Systemconfig.crawlerType) {
             case 1:
             case 3:
             case 5:
             case 7:
-            
+
             case 11:
             case 13:
             case 15:
@@ -98,14 +110,14 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             case 27:
             case 29:
 
-            case 31: 
-            case 37:{
+            case 31:
+            case 37: {
 
                 //person
                 clause += " and type like '%;" + (Systemconfig.crawlerType + 1) / 2 + ";%' ";
                 break;
             }
-            case 9:{
+            case 9: {
                 //person
                 clause += " and type like '%;" + 16 + ";%' ";
                 break;
@@ -124,7 +136,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             case 30:
             case 32:
             case 34:
-            case 38:{
+            case 38: {
                 col = "url, site_name";
                 table = "monitor_site";
                 clause += " and type= " + ((Systemconfig.crawlerType + 1) % 2) + " and media_type=" + ((Systemconfig.crawlerType + 1) / 2);
@@ -143,6 +155,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             sql = "select category_code, " + col + " from " + table + clause;
         }
         System.out.println(sql);
+
         return this.jdbcTemplate.query(sql, new RowMapper<SearchKey>() {
             @Override
             public SearchKey mapRow(ResultSet rs, int i) throws SQLException {

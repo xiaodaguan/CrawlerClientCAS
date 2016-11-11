@@ -260,8 +260,10 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 	public String parseReplyNext(Node domtree, Component component) {
 		if(component==null) return null;
 		NodeList nl = commonList(component.getXpath(), domtree);
-		if(nl.item(0)!=null) {
-			return urlProcess(component, nl.item(0));
+		if(nl!=null) {
+			if (nl.item(0) != null) {
+				return urlProcess(component, nl.item(0));
+			}
 		}
 		return null;
 	}
