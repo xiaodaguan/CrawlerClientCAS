@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.w3c.dom.Node;
 
-import common.bean.SokuVideoData;
 import common.bean.VideoData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;

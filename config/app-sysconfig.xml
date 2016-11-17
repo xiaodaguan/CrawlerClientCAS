@@ -71,7 +71,9 @@
 
 				<entry key="google_blog_search" value="common.extractor.xpath.blog.search.sub.GoogleExtractor" />
 				<entry key="sogou_blog_search" value="common.extractor.xpath.blog.search.sub.SogouExtractor" />
-
+				<entry key="sina_blog_search" value="common.extractor.xpath.blog.search.sub.SinaExtractor" />
+				<entry key="baidu_blog_search" value="common.extractor.xpath.blog.search.sub.BaiduExtractor" />
+				
 				<entry key="renren_weibo_search" value="common.extractor.xpath.weibo.search.sub.RenrenExtractor" />
 				<entry key="sina_weibo_search" value="common.extractor.xpath.weibo.search.sub.SinaExtractor" />
 

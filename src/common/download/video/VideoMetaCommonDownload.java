@@ -51,7 +51,7 @@ public class VideoMetaCommonDownload extends GenericMetaCommonDownload<VideoData
 
 				Systemconfig.sysLog.log(url + "元数据页面解析完成。");
 				
-				Systemconfig.dbService.getNorepeatData(list, "soku_video_data");
+				Systemconfig.dbService.getNorepeatData(list, "video_data");
 				if(list.size()==0) break;
 				alllist.addAll(list);
 				

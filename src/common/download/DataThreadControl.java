@@ -46,7 +46,7 @@ public class DataThreadControl {
             vd.setCompleteSize("[collect id: " + key.getId() + "| current: " + (++i) + "/ rest: " + list.size() + "]");
             Future f = Systemconfig.dataexec.get(siteFlag).submit(DownFactory.dataControl(siteFlag, vd, endCount, user, key));
             Systemconfig.tasks.put(siteFlag + "_" + key + "_" + vd.getTitle(), f);
-            TimeUtil.rest(1);
+            TimeUtil.rest(3);
         }
         try {
             endCount.await(2, TimeUnit.HOURS);

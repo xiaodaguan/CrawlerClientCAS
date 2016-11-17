@@ -35,29 +35,29 @@ public class BlogMetaCommonDownload extends GenericMetaCommonDownload<BlogData> 
 		int totalCount = 0;
 		while (nexturl != null && !nexturl.equals("")) {
 			list.clear();
-
 			html.setOrignUrl(nexturl);
-
 			try {
 				http.getContent(html);
 				// html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
 
 				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
-
+								
 				if (list.size() == 0) {
 					Systemconfig.sysLog.log(url + "元数据页面解析为空！！");
 					break;
 				}
 				Systemconfig.sysLog.log(url + "元数据页面解析完成。");
+							
 				totalCount += list.size();
-				Systemconfig.dbService.getNorepeatData(list, "news_data");
+				Systemconfig.dbService.getNorepeatData(list, "blog_data");
 				if (list.size() == 0)
 					break;
 				alllist.addAll(list);
 
 				map.put(keyword, map.get(keyword) + 1);
-				if (map.get(keyword) > page)
+				if (map.get(keyword) > page){
 					break;
+				}
 				url = nexturl;
 				if (nexturl != null)
 					TimeUtil.rest(siteinfo.getDownInterval());

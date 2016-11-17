@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- 博客搜索站点公有配置 -->
-	<bean id="blog_search_${site}" class="common.siteinfo.Siteinfo">
-		<property name="siteName" value="${siteName}"/>
-		<property name="siteFlag" value="${siteFlag}"/>
-		<property name="charset" value="${charset}"/>
-		<property name="downInterval" value="${downInterval}"/>
-		<property name="domainId" value="${domainId}"/>
-		<property name="page" value="${page}"/>
-		<property name="threadNum" value="${threadNum}"/>
-		<property name="agent" value="${agent}"/>
-		<property name="login" value="${login}"/>
+	<bean id="blog_search_sogou" class="common.siteinfo.Siteinfo">
+		<property name="siteName" value="sogou_blog_search"/>
+		<property name="siteFlag" value="5"/>
+		<property name="charset" value="utf-8"/>
+		<property name="downInterval" value="10"/>
+		<property name="domainId" value="3"/>
+		<property name="page" value="10"/>
+		<property name="threadNum" value="1"/>
+		<property name="agent" value="false"/>
+		<property name="login" value="false"/>
 		<!-- 站点入口url -->
-		<property name="url" value="${accessUrl}"/>
+		<property name="url" value="http://www.sogou.com/web?query=&lt;keyword&gt;&amp;ie=utf8&amp;_ast=1479195520&amp;_asf=null&amp;w=01029901&amp;cid=&amp;cid=&amp;interation=196647&amp;sut=1593&amp;sst0=1479195569820&amp;lkt=0%2C0%2C0"/>
 		<!-- 站点的抽取组件，分为元数据、详细数据等类型 -->
 		<property name="commonComponent">
 			<map>
-				<entry key="META" value-ref="meta_${site}_blog_search"/>
-				<entry key="DATA" value-ref="data_${site}_blog_search"/>
+				<entry key="META" value-ref="meta_sogou_blog_search"/>
+				<entry key="DATA" value-ref="data_sogou_blog_search"/>
 			</map>
 		</property>
 	</bean>
 
 	<!-- 元数据抽取组件 -->
-	<bean id="meta_${site}_blog_search" class="common.siteinfo.CommonComponent">
+	<bean id="meta_sogou_blog_search" class="common.siteinfo.CommonComponent">
 		<!-- 组件类型 -->
 		<property name="type" value="META"/>
 		<!-- 组件包含的属性 -->
@@ -35,7 +35,7 @@
 					<bean class="common.siteinfo.Component">
 						<property name="type" value="XPATH"/>
 						<property name="name" value="title"/>
-						<property name="xpath" value="${title}"/>
+						<property name="xpath" value="//H3[@class='vrTitle']/A"/>
 					</bean>
 				</entry>
 				<!-- URL -->
@@ -43,7 +43,7 @@
 					<bean class="common.siteinfo.Component">
 						<property name="type" value="XPATH"/>
 						<property name="name" value="url"/>
-						<property name="xpath" value="${url}"/>
+						<property name="xpath" value="//H3[@class='vrTitle']/A/@href"/>
 						<property name="prefix" value="${url_prefix}"/>
 					</bean>
 				</entry>
@@ -52,8 +52,8 @@
 					<bean class="common.siteinfo.Component">
 						<property name="type" value="NEXTPAGE"/>
 						<property name="name" value="next"/>
-						<property name="xpath" value="${next}"/>
-						<property name="prefix" value="${next_prefix}"/>
+						<property name="xpath" value="//A[@class='np']/@href"/>
+						<property name="prefix" value="http://www.sogou.com/web"/>
 					</bean>
 				</entry>
 
@@ -62,7 +62,7 @@
 					<bean class="common.siteinfo.Component">
 						<property name="type" value="TIME"/>
 						<property name="name" value="pubtime"/>
-						<property name="xpath" value="${pubtime}"/>
+						<property name="xpath" value="//UL[@class='str-list-v4']/LI[1]/SPAN"/>
 						<property name="reflect" value="0"/>
 					</bean>
 				</entry>
@@ -79,7 +79,7 @@
 					<bean class="common.siteinfo.Component">
 						<property name="type" value="XPATH"/>
 						<property name="name" value="brief"/>
-						<property name="xpath" value="${brief}"/>
+						<property name="xpath" value="//UL[@class='str-list-v4']/LI[@class='str-text-info']/SPAN"/>
 						<property name="format" value="true"/>
 					</bean>
 				</entry>
@@ -87,7 +87,7 @@
 			</map>
 		</property>
 	</bean>
-	<bean id="data_${site}_blog_search" class="common.siteinfo.CommonComponent">
+	<bean id="data_sogou_blog_search" class="common.siteinfo.CommonComponent">
 		<!-- 组件类型 -->
 		<property name="type" value="DATA"/>
 		<!-- 组件包含的属性 -->
@@ -97,7 +97,7 @@
 					<bean class="common.siteinfo.Component">
 						<property name="type" value="XPATH"/>
 						<property name="name" value="author"/>
-						<property name="xpath" value="${author}"/>
+						<property name="xpath" value="//UL[@class='str-list-v4']/LI[1]/A[1]"/>
 					</bean>
 				</entry>
 				<!-- imgs_url -->
@@ -105,7 +105,7 @@
 					<bean class="common.siteinfo.Component">
 						<property name="type" value="XPATH"/>
 						<property name="name" value="imgs_url"/>
-						<property name="xpath" value="${imgs_url}"/>
+						<property name="xpath" value="//P[@class='image']/IMG/@src"/>
 					</bean>
 				</entry>
 				<!-- 正文 -->
@@ -113,7 +113,7 @@
 					<bean class="common.siteinfo.Component">
 						<property name="type" value="XPATH"/>
 						<property name="name" value="content"/>
-						<property name="xpath" value="${content}"/>
+						<property name="xpath" value="//DIV[@class='article-detail']"/>
 					</bean>
 				</entry>
 			</map>

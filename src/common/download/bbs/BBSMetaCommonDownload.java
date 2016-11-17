@@ -33,15 +33,38 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 		HtmlInfo html = htmlInfo("META");
 		int totalCount = 0;
 		while (nexturl != null && !nexturl.equals("")) {
+			
+			page =4;
 			list.clear();
 
 			html.setOrignUrl(nexturl);
 
 			try {
+				
 				http.getContent(html);
 				// html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
 
 				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
+				
+				
+//				for (BBSData bbsData : list) {
+//					
+//	                System.out.println("searchKey: "+bbsData.getSearchKey());
+//	                System.out.println("title:     "+bbsData.getTitle());
+//	                System.out.println("url:       "+bbsData.getUrl());
+//	                System.out.println("pubtime:   "+bbsData.getPubtime());
+//	                System.out.println("content:   "+bbsData.getContent());
+//	                System.out.println("column:    "+bbsData.getColumn());
+//	                System.out.println("replyCount:"+bbsData.getReplyCount());
+//	                System.out.println("clickCount:"+bbsData.getClickCount());
+//	                System.out.println("imgUrl:    "+bbsData.getImgUrl());
+//	                System.out.println("replyList: "+bbsData.getReplyList());
+//	                System.out.println("replyCount:"+bbsData.getReplyCount());
+//	                System.out.println("\n\n");
+//				}
+				
+				
+				
 				totalCount += list.size();
 				if (list.size() == 0) {
 					Systemconfig.sysLog.log(url + "元数据页面解析为空！！");

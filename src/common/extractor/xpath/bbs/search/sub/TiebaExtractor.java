@@ -13,45 +13,26 @@ import java.util.List;
 
 public class TiebaExtractor extends BbsSearchXpathExtractor {
 
-//	@Override
-//	public void parsePubtime(BBSData videoData, Node dom, Component component, String... args) {
-//		// component.setXpath("//LI/SPAN[@class='j_reply_data']");
-//		NodeList nl = commonList(component.getXpath(), dom);
-//		if (nl == null)
-//			return;
-//
-//		if (nl.item(0) != null) {
-//			String text = nl.item(0).getTextContent();
-//			String time = "";
-//			try {
-//				JSONObject jo = JSONObject.fromObject(text);
-//				jo = jo.getJSONObject("content");
-//				time = jo.getString("date");
-//			} catch (Exception e) {
-//				System.out.println("time spec..");
-//				String oldXpath=component.getXpath();
-//				component.setXpath("//DIV[@class='post-tail-wrap']/SPAN[@class='tail-info'][3]");
-//
-//				nl = commonList(component.getXpath(), dom);
-//				if (nl == null)
-//					return;
-//
-//				if (nl.item(0) != null) {
-//					time=nl.item(0).getTextContent();
-//				}
-//				component.setXpath(oldXpath);
-//			}
-//			videoData.setPubtime(time);
-//			videoData.setPubdate(timeProcess(videoData.getPubtime()));
-//		}
-//	}
+	
+	
+	@Override
+	public void parseReplyname(List<ReplyData> list, Node domtree,
+			Component component, String... strings) {
+		NodeList nl = head(component.getXpath(), domtree);
 
+		for(int i = 0;i < nl.getLength();i++) {
+			ReplyData vd = new ReplyData();
+			vd.setName(nl.item(i).getTextContent());
+			list.add(vd);
+		}
+	}
+	
 	@Override
 	public void parseReplytime(List<ReplyData> list, Node dom, Component component, String... strings) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if (nl == null)
 			return;
-		judge(list.size(), nl.getLength(), "replytime");
+		//judge(list.size(), nl.getLength(), "replytime");
 		for (int i = 0; i < nl.getLength(); i++) {
 			JSONObject jo = JSONObject.fromObject(nl.item(i).getTextContent());
 			jo = jo.getJSONObject("content");

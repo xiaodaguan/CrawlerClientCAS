@@ -32,7 +32,6 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		this.parseTitle(list, domtree, components.get("title"));
 
 		if (list.size() == 0) return;
-		
 		this.parseUrl(list, domtree, components.get("url"));
 	}
 
@@ -79,8 +78,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到元数据的配置组件
 		if(page == 1) {
 			this.parseContent(data, domtree, comp.getComponents().get("content"), html.getContent());
-			this.parseSource(data, domtree, comp.getComponents().get("source"), html.getContent());
-			this.parseAuthor(data, domtree, comp.getComponents().get("author"), html.getContent());
+			this.parseSource(data, 	domtree, comp.getComponents().get("source"), html.getContent());
+			this.parseAuthor(data, 	domtree, comp.getComponents().get("author"), html.getContent());
 			this.parsePubtime(data, domtree, comp.getComponents().get("pubtime"), html.getContent());
 			this.parseClickCount(data, domtree, comp.getComponents().get("click_count"), new String[]{html.getContent()});
 			this.parseReplyCount(data, domtree, comp.getComponents().get("reply_count"), new String[]{html.getContent()});
@@ -101,12 +100,12 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		
 		//回复列表
 		List<ReplyData> list = new ArrayList<ReplyData>();
-//		this.parseReplyname(list, domtree, comp.getComponents().get("reply_name"), new String[]{html.getContent()});
-//		
-//		if(list.size()>0) {
-//			this.parseReplytime(list, domtree, comp.getComponents().get("reply_time"), new String[]{html.getContent()});
-//			this.parseReplycontent(list, domtree, comp.getComponents().get("reply_content"), new String[]{html.getContent()});
-//		}
+		this.parseReplyname(list, domtree, comp.getComponents().get("reply_name"), new String[]{html.getContent()});
+		
+		if(list.size()>0) {
+			this.parseReplytime(list, domtree, comp.getComponents().get("reply_time"), new String[]{html.getContent()});
+			this.parseReplycontent(list, domtree, comp.getComponents().get("reply_content"), new String[]{html.getContent()});
+		}
 		
 		data.setReplyList(list);
 		
@@ -156,8 +155,6 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 			data.setPubtime(time);
 			data.setPubdate(timeProcess(time));
 		}
-
-
 	}
 	@Override
 	public void parseClickCount(BBSData data, Node domtree,

@@ -86,7 +86,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             case 3:
             case 5:
             case 7:
-            
+            case 9:
             case 11:
             case 13:
             case 15:
@@ -97,20 +97,10 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             case 25:
             case 27:
             case 29:
-<<<<<<< HEAD
             case 31: 
             case 37:{
-=======
-            case 31: {
-
->>>>>>> gxd
                 //person
                 clause += " and type like '%;" + (Systemconfig.crawlerType + 1) / 2 + ";%' ";
-                break;
-            }
-            case 9:{
-                //person
-                clause += " and type like '%;" + 16 + ";%' ";
                 break;
             }
             case 2:

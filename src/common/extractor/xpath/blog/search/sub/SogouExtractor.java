@@ -12,12 +12,14 @@ import org.w3c.dom.NodeList;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 
 public class SogouExtractor extends BlogSearchXpathExtractor {
 
 	@Override
 	public String templateContentPage(BlogData data, HtmlInfo html, int page, String... keyword) {
+		
 		ExtractResult result = null;
 		try {
 			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
@@ -45,7 +47,7 @@ public class SogouExtractor extends BlogSearchXpathExtractor {
 		data.setTitle(title);
 		data.setContent(result.getContent());
 		data.setImgUrl(result.getImgs());
-		data.setInserttime(new Timestamp(System.currentTimeMillis()));
+		//data.setInserttime(new Timestamp(System.currentTimeMillis()));
 		return null;
 	}
 
@@ -53,18 +55,25 @@ public class SogouExtractor extends BlogSearchXpathExtractor {
 	public void parseAuthor(List<BlogData> list, Node dom,
 			Component component, String... content) {
 		if(component == null) return;
-		for(int i = 0;i < list.size();i++) {
-			NodeList nl = commonList("//DIV["+(i+1)+component.getXpath(), dom);
+		for(int i = 0;i < list.size();i++) {//DIV[@class='vrwrap']
+			NodeList nl = commonList("//DIV[@class='vrwrap']["+(i+1)+"]"+component.getXpath(), dom);
 			if(nl.item(0)!=null) {
-				String[] con = nl.item(0).getTextContent().split("　");
-				if(con.length>2) {
-					list.get(i).setBlogName(con[0].replace("博客名称：", ""));
-					list.get(i).setBlogAuthor(con[1].replace("作者：", ""));
-					if(list.get(i).getPubtime()==null || list.get(i).getPubtime().equals(""))
-						list.get(i).setPubtime(con[2]);
-				}
+				list.get(i).setBlogAuthor(nl.item(0).getTextContent());
 			}
 		}
+//		if(component == null) return;
+//		for(int i = 0;i < list.size();i++) {
+//			NodeList nl = commonList("//DIV["+(i+1)+component.getXpath(), dom);
+//			if(nl.item(0)!=null) {
+//				String[] con = nl.item(0).getTextContent().split("　");
+//				if(con.length>2) {
+//					list.get(i).setBlogName(con[0].replace("博客名称：", ""));
+//					list.get(i).setBlogAuthor(con[1].replace("作者：", ""));
+//					if(list.get(i).getPubtime()==null || list.get(i).getPubtime().equals(""))
+//						list.get(i).setPubtime(con[2]);
+//				}
+//			}
+//		}
 	}
 	@Override
 	public void parseSource(List<BlogData> list, Node dom,
@@ -83,15 +92,59 @@ public class SogouExtractor extends BlogSearchXpathExtractor {
 			list.get(i).setPubdate(timeProcess(list.get(i).getPubtime()));
 		}
 	}
-	
+	@Override
+	public void parseTitle(List<BlogData> list, Node dom, Component component, String... args) {
+		if (component == null)
+			return;
+		NodeList anl = head("//DIV[@class='vrwrap']", dom);
+		for (int i = 0; i < anl.getLength(); i++) {
+			list.add(new BlogData());
+		}
+		for(int i = 0;i < list.size();i++) {//DIV[@class='vrwrap']
+			NodeList nl = commonList("//DIV[@class='vrwrap']["+(i+1)+"]"+component.getXpath(), dom);
+			if(nl.item(0)!=null) {
+				list.get(i).setTitle(nl.item(0).getTextContent());
+			}
+		}
+	}
 	@Override
 	public void parseBrief(List<BlogData> list, Node dom, Component component,
 			String... args) {
 		if(component == null) return;
-		for(int i = 0;i < list.size();i++) {
-			NodeList nl = commonList("//DIV[@class='rb']["+(i+1)+component.getXpath(), dom);
+		for(int i = 0;i < list.size();i++) {//DIV[@class='vrwrap']
+			NodeList nl = commonList("//DIV[@class='vrwrap']["+(i+1)+"]"+component.getXpath(), dom);
 			if(nl.item(0)!=null) {
 				list.get(i).setBrief(nl.item(0).getTextContent());
+			}
+		}
+	}
+	@Override
+	public void parseUrl(List<BlogData> list, Node dom, Component component, String... args) {
+		if (component == null)	return;
+
+		for(int i = 0;i < list.size();i++) {
+			NodeList nl = head("//DIV[@class='vrwrap']["+(i+1)+"]"+component.getXpath(), dom);
+			if(nl.item(0)!=null) {
+				list.get(i).setUrl(nl.item(0).getTextContent());
+			}
+		}
+	}
+	
+	
+	@Override
+	public void parsePubtime(List<BlogData> list, Node dom, Component component, String... args) {
+	
+		if (component == null)	{
+			
+			System.out.println("pubtime component is null !!!"+component);
+			return;
+		}
+		for(int i = 0;i < list.size();i++) {
+			NodeList nl = head("//DIV[@class='vrwrap']["+(i+1)+"]"+component.getXpath(), dom);
+			if(nl.item(0)!=null) {
+				String time = (nl.item(0).getTextContent());
+				list.get(i).setPubtime(time);
+				list.get(i).setPubdate(timeProcess(time.trim()));
 			}
 		}
 	}

@@ -16,7 +16,7 @@ import common.util.StringUtil;
 
 public class VideoOracleService extends OracleService<VideoData> {
 
-	private static final String TABLE = "soku_video_data";
+	private static final String TABLE = "video_data";
 
 	private static final String jasql = "insert into " + TABLE + "(" + "AUTHOR, " + "AUTHOR_URL," + "CHANNEL,"
 			+ "COMMENT_URL," + "DISLIKE_COUNT," + "INSERT_TIME," + "LIKE_COUNT," + "MD5," + "PLAY_COUNT," + "PLAY_TIME,"

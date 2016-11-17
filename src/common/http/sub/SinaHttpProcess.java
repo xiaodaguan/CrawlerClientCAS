@@ -297,11 +297,6 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
      */
 	@Override
 	public boolean verify(UserAttr user) {
-
-		if(loginPast(user)>3600*23){
-			return false;
-		}
-
 		String url = "http://weibo.com";
 		HtmlInfo html = new HtmlInfo();
 		html.setCookie(user.getCookie());
@@ -311,7 +306,9 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		html.setType("LOGIN");
 		getContent(html, user);
 		String str = html.getContent();
-
+		if(loginPast(user)>3600*24){
+			return false;
+		}
 		if(str.indexOf("验证码") > -1){
 			return false;
 		}
@@ -565,11 +562,11 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		@Override
 		public void run() {
 			boolean valid = verify(user);
-				if(!valid) {
-				Systemconfig.sysLog.log(user.getName()+": cookie not available, login...");
+			if(!valid) {
+				Systemconfig.sysLog.log("cookie已失效，重新获取cookie！");
 				login(user);
 			} else {
-				Systemconfig.sysLog.log(user.getName()+": cookie still available.");
+				Systemconfig.sysLog.log("cookie仍有效！");
 			}
 		}
 	}
