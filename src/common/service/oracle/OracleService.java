@@ -6,12 +6,14 @@ import common.rmi.packet.SearchKey;
 import common.service.AbstractDBService;
 import common.system.Systemconfig;
 import org.apache.http.HttpHost;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -84,7 +86,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         try {
             dataS = this.jdbcTemplate.getDataSource().getConnection().toString();
 
-            System.out.println(dataS);
+//            System.out.println(dataS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -154,20 +156,27 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         } else {
             sql = "select category_code, " + col + " from " + table + clause;
         }
-        System.out.println(sql);
-
-        return this.jdbcTemplate.query(sql, new RowMapper<SearchKey>() {
-            @Override
-            public SearchKey mapRow(ResultSet rs, int i) throws SQLException {
-                SearchKey sk = new SearchKey();
-                sk.setKey(rs.getString(2));
-                sk.setRole(rs.getInt(1));
-                if ((Systemconfig.crawlerType + 1) % 2 == 1) {
-                    sk.setSite(rs.getString(3));
+        Systemconfig.sysLog.log("SQL>> "+sql);
+        List<SearchKey> searchKeys = new ArrayList<>();
+        try {
+            searchKeys = this.jdbcTemplate.query(sql, new RowMapper<SearchKey>() {
+                @Override
+                public SearchKey mapRow(ResultSet rs, int i) throws SQLException {
+                    SearchKey sk = new SearchKey();
+                    sk.setKey(rs.getString(2));
+                    sk.setRole(rs.getInt(1));
+                    if ((Systemconfig.crawlerType + 1) % 2 == 1) {
+                        sk.setSite(rs.getString(3));
+                    }
+                    return sk;
                 }
-                return sk;
-            }
-        });
+            });
+        }catch (DataAccessException e ){
+            e.printStackTrace();
+        }
+
+        Systemconfig.sysLog.log(""+searchKeys.size()+" keywords loaded.");
+        return searchKeys;
     }
 
     public int saveGongzhongData(WxpublicData wpd) {

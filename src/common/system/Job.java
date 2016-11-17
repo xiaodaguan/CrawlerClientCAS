@@ -85,20 +85,19 @@ public class Job {
             Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
             out:
             for (SearchKey sk : keys) {
-            	
+
                 for (String site : Systemconfig.allSiteinfos.keySet()) {
 
                     Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
                     sk.setSite(site);
-                    
+
                     createThreadPool(site, siteinfo);
-                    
+
                     String taskName = sk.getSite() + sk.getKey();
-                    if (Systemconfig.finish.get(taskName) == null 
-                    		|| Systemconfig.finish.get(taskName)) {
+                    if (Systemconfig.finish.get(taskName) == null || Systemconfig.finish.get(taskName)) {
 
                         job.submitSearchKey(sk);
-                        
+
                         Systemconfig.finish.put(taskName, false);
                     }
                 }
@@ -108,17 +107,24 @@ public class Job {
             Long start = System.currentTimeMillis();
             while (!ifAllFinished()) {
                 Thread.currentThread().sleep(10 * 1000);
-                if(start+1000*3600*10 < System.currentTimeMillis()){
-                    //单循环最大5h
-                        Systemconfig.sysLog.log("single loop time out, stop...");
-                        Set<String> taskNames = Systemconfig.tasks.keySet();
+                if (start + 1000 * 3600 * 10 < System.currentTimeMillis()) {
+                    //单循环最大10h
+                    Systemconfig.sysLog.log("single loop time out, stop...");
+                    Set<String> taskNames = Systemconfig.tasks.keySet();
+                    Set<String> execNames = Systemconfig.dataexec.keySet();
 
-                        for (String taskName : taskNames) {
-                            if(Systemconfig.tasks.containsKey(taskName)){
-                                Systemconfig.tasks.get(taskName).cancel(true);
-                            }
+                    for (String taskName : taskNames) {
+                        if (Systemconfig.tasks.containsKey(taskName)) {
+                            Systemconfig.tasks.get(taskName).cancel(true);
+                        }
                     }
-                    Systemconfig.sysLog.log("all tasks stopped.");
+                    for(String execName: execNames){
+                        if(Systemconfig.dataexec.containsKey(execName)){
+                            List<Runnable> unExecutedTasks = Systemconfig.dataexec.get(execName).shutdownNow();
+                            Systemconfig.sysLog.log("unexec task: ["+unExecutedTasks.size()+"].");
+                        }
+                    }
+                    Systemconfig.sysLog.log("all tasks stopped. ");
                     break;
                 }
             }
@@ -168,13 +174,13 @@ public class Job {
             Long start = System.currentTimeMillis();
             while (!ifAllFinished()) {
                 Thread.currentThread().sleep(10 * 1000);
-                if(start+1000*3600*10 < System.currentTimeMillis()){
+                if (start + 1000 * 3600 * 10 < System.currentTimeMillis()) {
                     //单循环最大5h
                     Systemconfig.sysLog.log("single loop time out, stop...");
                     Set<String> taskNames = Systemconfig.tasks.keySet();
 
                     for (String taskName : taskNames) {
-                        if(Systemconfig.tasks.containsKey(taskName)){
+                        if (Systemconfig.tasks.containsKey(taskName)) {
                             Systemconfig.tasks.get(taskName).cancel(true);
                         }
                     }
@@ -352,7 +358,7 @@ public class Job {
      * @return
      */
     private static int calCycleWaitTime() {
-        int waitTime = 60*10;
+        int waitTime = 60 * 10;
 //        if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
 //            waitTime = 30 * 24 * 60 * 60;
 //        else if (Systemconfig.crawlerType == CrawlerType.NEWS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
@@ -389,7 +395,7 @@ public class Job {
             }
         }
         if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
-        Systemconfig.sysLog.log("thread pool created, fixed size: "+siteinfo.getThreadNum());
+        Systemconfig.sysLog.log("thread pool created, fixed size: " + siteinfo.getThreadNum());
         return false;
 
         /**
