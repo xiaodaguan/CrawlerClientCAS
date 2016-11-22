@@ -395,7 +395,7 @@ public class Job {
             }
         }
         if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
-        Systemconfig.sysLog.log("thread pool created, fixed size: " + siteinfo.getThreadNum());
+//        Systemconfig.sysLog.log("thread pool created, fixed size: " + siteinfo.getThreadNum());
         return false;
 
         /**
