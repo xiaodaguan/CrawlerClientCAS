@@ -58,7 +58,7 @@ public class Job {
                     cLogger.beat();
                     Systemconfig.sysLog.log("beat...");
                     try {
-                        Thread.sleep(30 * 1000);
+                        Thread.sleep(60 * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -110,8 +110,15 @@ public class Job {
                 if (start + 1000 * 3600 * 10 < System.currentTimeMillis()) {
                     //单循环最大10h
                     Systemconfig.sysLog.log("single loop time out, stop...");
+                    Set<String> esNames = EXECUTOR_SERVICE_MAP.keySet();
                     Set<String> taskNames = Systemconfig.tasks.keySet();
                     Set<String> execNames = Systemconfig.dataexec.keySet();
+
+                    for(String esName: esNames){
+                        if(EXECUTOR_SERVICE_MAP.containsKey(esName)){
+                            EXECUTOR_SERVICE_MAP.get(esName).shutdownNow();
+                        }
+                    }
 
                     for (String taskName : taskNames) {
                         if (Systemconfig.tasks.containsKey(taskName)) {
@@ -178,10 +185,18 @@ public class Job {
                     //单循环最大5h
                     Systemconfig.sysLog.log("single loop time out, stop...");
                     Set<String> taskNames = Systemconfig.tasks.keySet();
+                    Set<String> execNames = Systemconfig.dataexec.keySet();
 
                     for (String taskName : taskNames) {
                         if (Systemconfig.tasks.containsKey(taskName)) {
                             Systemconfig.tasks.get(taskName).cancel(true);
+                        }
+                    }
+
+                    for(String execName: execNames){
+                        if(Systemconfig.dataexec.containsKey(execName)){
+                            List<Runnable> unExecutedTasks = Systemconfig.dataexec.get(execName).shutdownNow();
+                            Systemconfig.sysLog.log("unexec task: ["+unExecutedTasks.size()+"].");
                         }
                     }
                     Systemconfig.sysLog.log("all tasks stopped.");
@@ -210,8 +225,9 @@ public class Job {
         boolean allFinished = true;
         int runningTaskCount = 0;
         Set<String> taskNames = Systemconfig.tasks.keySet();
-
+        Set<String> execNames = Systemconfig.dataexec.keySet();
         for (String taskName : taskNames) {
+
             if (Systemconfig.tasks.containsKey(taskName)) {
                 if (Systemconfig.tasks.get(taskName).isDone()) {
                 } else {
@@ -219,6 +235,8 @@ public class Job {
                 }
             }
         }
+
+
         if (runningTaskCount > 0) allFinished = false;
         Systemconfig.sysLog.log("remaining task count: " + runningTaskCount + " / total task count: " + Systemconfig.tasks.size());
 
