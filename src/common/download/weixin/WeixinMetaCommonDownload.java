@@ -81,7 +81,11 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                     if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());
                     break;
                 }
+
+
                 alllist.addAll(list);
+
+                dtc.process(list, siteinfo.getDownInterval(), null, key);
 
                 map.put(keyword, map.get(keyword) + 1);
                 if (map.get(keyword) > page) {
@@ -95,11 +99,10 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             } catch (Exception e) {
                 Systemconfig.sysLog.log("列表页异常{" + keyword + "}   [" + url + "]");
                 e.printStackTrace();
-                break;
+//                break;
             }
         }
 
-		dtc.process(alllist, siteinfo.getDownInterval(), null, key);
 //        for (WeixinData wd : alllist) {
 //            try {
 //                Systemconfig.dbService.saveData(wd);

@@ -20,8 +20,8 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
         String htmlSource = driver.getPageSource();
         byte[] bytes = htmlSource.getBytes();
 
-        driver.quit();
 
+//        driver.close();
         return bytes;
 
     }
