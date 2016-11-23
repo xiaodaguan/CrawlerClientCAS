@@ -45,8 +45,7 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 				// html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
 
 				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
-				
-				
+								
 //				for (BBSData bbsData : list) {
 //					
 //	                System.out.println("searchKey: "+bbsData.getSearchKey());
@@ -62,8 +61,6 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 //	                System.out.println("replyCount:"+bbsData.getReplyCount());
 //	                System.out.println("\n\n");
 //				}
-				
-				
 				
 				totalCount += list.size();
 				if (list.size() == 0) {

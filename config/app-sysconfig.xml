@@ -38,12 +38,14 @@
 				<entry key="sj99_agricalture_monitor" value="common.extractor.xpath.agricalture.monitor.sub.Sj99Extractor" />
 
 				<entry key="baidu_news_search" value="common.extractor.xpath.news.search.sub.BaiduExtractor" />
+				<entry key="baidu_press_search" value="common.extractor.xpath.press.search.sub.BaiduExtractor" />
 				<entry key="soku_video_search" value="common.extractor.xpath.video.search.sub.SokuVideoSearchXpathExtractor" />
 				
 				
 				<entry key="qingdaonizao_news_search" value="common.extractor.xpath.news.search.sub.QingdaonizaoExtractor" />
 
-				<entry key="google_news_search" value="common.extractor.xpath.news.search.sub.GoogleExtractor" />
+				<entry key="google_news_search" 		value="common.extractor.xpath.news.search.sub.GoogleExtractor" />
+				<entry key="govweb_govaffair_search" 	value="common.extractor.xpath.govaffair.search.sub.GovwebExtractor" />
 
 
 				<entry key="21tire_news_monitor" value="common.extractor.xpath.news.monitor.sub.Tire21MonitorExtractor" />
@@ -57,7 +59,7 @@
 				<entry key="zgjtb_news_monitor" value="common.extractor.xpath.news.monitor.sub.ZgjtbMonitorExtractor" />
 				<entry key="qdznjt_news_monitor" value="common.extractor.xpath.news.monitor.sub.QdznjtMonitorExtractor" />
 
-
+				<entry key="sogou_bbs_search" value="common.extractor.xpath.bbs.search.sub.sogouExtractor" />
 				<entry key="tianya_bbs_search" value="common.extractor.xpath.bbs.search.sub.TianyaExtractor" />
 				<entry key="tieba_bbs_search" value="common.extractor.xpath.bbs.search.sub.TiebaExtractor" />
 				<entry key="xcar_bbs_search" value="common.extractor.xpath.bbs.search.sub.XcarExtractor" />
@@ -124,8 +126,9 @@
 	<bean id="dbService" class="common.service.oracle.UnitOracleService">
 
 		<property name="videoOracleService" ref="videoOracleService" />
-		
+		<property name="govaffairOracleService" ref="govaffairOracleService" />
 		<property name="newsOracleService" ref="newsOracleService" />
+		<property name="pressOracleService" ref="pressOracleService" />
 		<property name="weixinOracleService" ref="weixinOracleService" />
 		<property name="bbsOracleService" ref="bbsOracleService" />
 		<property name="blogOracleService" ref="blogOracleService" />
@@ -140,6 +143,12 @@
 	</bean>
 
 	<bean id="newsOracleService" class="common.service.oracle.NewsOracleService">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="pressOracleService" class="common.service.oracle.PressOracleService">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="govaffairOracleService" class="common.service.oracle.GovAffairOracleService">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="videoOracleService" class="common.service.oracle.VideoOracleService">

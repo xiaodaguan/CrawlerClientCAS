@@ -9,10 +9,10 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import common.bean.NewsData;
+import common.bean.p;
 import common.util.StringUtil;
 
-public class NewsOracleService extends OracleService<NewsData> {
+public class NewsOracleService extends OracleService<p> {
 
 
     private static final String TABLE = "news_data";
@@ -35,7 +35,7 @@ public class NewsOracleService extends OracleService<NewsData> {
             "same_num, " +
             "same_url) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-            public void saveData(final NewsData vd) {
+            public void saveData(final p vd) {
                 KeyHolder keyHolder = new GeneratedKeyHolder();
                 this.jdbcTemplate.update(new PreparedStatementCreator() {
                     @Override
@@ -77,7 +77,7 @@ public class NewsOracleService extends OracleService<NewsData> {
             "img_url," +
             "data_id) values(?,?,?,?,?,?,?,?,?)";
 
-    public void saveSameData(final NewsData data) {
+    public void saveSameData(final p data) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         this.jdbcTemplate.update(new PreparedStatementCreator() {
             @Override

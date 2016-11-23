@@ -123,7 +123,6 @@ public abstract class AbstractDBService<T> implements DBService<T> {
                 ua.setId(rs.getInt(4));
                 ua.setCookie(rs.getString(5));
                 ua.setUserAgent(rs.getString(6));
-
                 ua.setUsed(0);
                 ua.setAgentIndex(UserAgent.getUserAgentIndex());
                 if (ua.getUserAgent() == null)

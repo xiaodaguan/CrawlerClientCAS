@@ -141,7 +141,6 @@ public class BlogSearchXpathExtractor extends XpathExtractor<BlogData> implement
 	}
 
 	public void parseImgUrl(BlogData data, Node dom, Component component, String... args) {
-		System.out.println("component："+component);
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), dom);

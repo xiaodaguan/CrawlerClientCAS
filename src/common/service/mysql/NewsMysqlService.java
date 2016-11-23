@@ -9,10 +9,10 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import common.bean.NewsData;
+import common.bean.p;
 import common.util.StringUtil;
 
-public class NewsMysqlService extends MysqlService<NewsData> {
+public class NewsMysqlService extends MysqlService<p> {
 
 	private static final String TABLE = "news_data";
 
@@ -31,7 +31,7 @@ public class NewsMysqlService extends MysqlService<NewsData> {
 			"site_id," + 
 			"img_url,"
 			+ "same_num) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	public void saveData(final NewsData vd) {
+	public void saveData(final p vd) {
 //		if(findId(vd.getMd5(), TABLE)>0) return;
 		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -75,7 +75,7 @@ public class NewsMysqlService extends MysqlService<NewsData> {
 	 * 保存新闻中相同新闻数据
 	 * @param data
 	 */
-	public void saveSameData(final NewsData data) {
+	public void saveSameData(final p data) {
 //		if(findId(data.getMd5(), SAME_TABLE)>0) return;
 		
 		KeyHolder keyHolder = new GeneratedKeyHolder();

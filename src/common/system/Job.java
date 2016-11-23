@@ -80,8 +80,29 @@ public class Job {
         while (true) {
             cLogger.start(crawlerNameOrCMD, crawlerNameOrCMD);//name, note
             Systemconfig.sysLog.log("loop start...");
-
-            keys = Systemconfig.dbService.searchKeys();
+            
+            
+            if(Systemconfig.crawlerType==39){
+            	String []dailies = {"人民日报","人们日报海外版","新华每日电讯","解放军报","求是","光明日报",
+            			"经济日报","科技日报","工人日报","中国青年报","农民日报","人民日报","人民日报海外版",
+            			"光明日报","经济日报","解放军报","中国青年报","参考消息"};
+            	
+            	List<SearchKey> prekeys= Systemconfig.dbService.searchKeys();
+            	keys = new LinkedList<SearchKey>();
+            	for (String dialy : dailies) {
+            		for (SearchKey searchKey : prekeys) {
+            			SearchKey sk = new SearchKey();
+                        sk.setKey(searchKey.getKey()+" "+dialy);
+                        sk.setRole(searchKey.getRole());
+                        sk.setSite(searchKey.getSite());
+            			keys.add(sk);
+					}
+				}
+            }
+            else{
+            	keys = Systemconfig.dbService.searchKeys();
+            }  
+            
             Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
             out:
             for (SearchKey sk : keys) {

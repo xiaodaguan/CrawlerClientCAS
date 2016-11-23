@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.bean.HtmlInfo;
-import common.bean.NewsData;
+import common.bean.p;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
@@ -16,7 +16,7 @@ import common.util.TimeUtil;
  * 
  * @author grs
  */
-public class NewsMetaCommonDownload extends GenericMetaCommonDownload<NewsData> {
+public class NewsMetaCommonDownload extends GenericMetaCommonDownload<p> {
 
 	public NewsMetaCommonDownload(SearchKey key) {
 		super(key);
@@ -28,8 +28,8 @@ public class NewsMetaCommonDownload extends GenericMetaCommonDownload<NewsData> 
 		TimeUtil.rest(3);
 		/* 状态 */
 
-		List<NewsData> alllist = new ArrayList<NewsData>();
-		List<NewsData> list = new ArrayList<NewsData>();
+		List<p> alllist = new ArrayList<p>();
+		List<p> list = new ArrayList<p>();
 		String url = getRealUrl(siteinfo, key.getId() > 0 ? key.getKey() : gloaburl);
 		int page = getRealPage(siteinfo);
 		String keyword = key.getKey();

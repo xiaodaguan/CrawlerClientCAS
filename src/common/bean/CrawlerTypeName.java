@@ -29,6 +29,8 @@ public class CrawlerTypeName {
 		map.put(20, "EPAPER_MONITOR");
 		map.put(21, "COMPANY_REPORT_SEARCH");
 		map.put(22, "COMPANY_REPORT_MONITOR");
+		map.put(37, "GOVAFFAIR_SEARCH");
+		map.put(38, "GOVAFFAIR_MONITOR");
 		map.put(23, "FUND_SEARCH");
 	}
 }

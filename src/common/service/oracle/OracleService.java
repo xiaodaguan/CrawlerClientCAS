@@ -103,6 +103,11 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
                 clause += " and type like '%;" + (Systemconfig.crawlerType + 1) / 2 + ";%' ";
                 break;
             }
+            case 39:{
+                //person
+                clause += " and type like '%;" + 1 + ";%' ";
+                break;
+            }
             case 2:
             case 4:
             case 6:
@@ -121,6 +126,12 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
                 col = "url, site_name";
                 table = "monitor_site";
                 clause += " and type= " + ((Systemconfig.crawlerType + 1) % 2) + " and media_type=" + ((Systemconfig.crawlerType + 1) / 2);
+                break;
+            }	
+            case 40:{
+                col = "url, site_name";
+                table = "monitor_site";
+                clause += " and type= " + (1) + " and media_type=" + ((Systemconfig.crawlerType + 1) / 2);
                 break;
             }
 

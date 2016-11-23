@@ -1,6 +1,7 @@
 package common.extractor.xpath.bbs.search.sub;
 
 import common.bean.BBSData;
+import common.bean.BlogData;
 import common.bean.HtmlInfo;
 import common.bean.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
@@ -8,6 +9,7 @@ import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
+import common.util.ExtractResult;
 import common.util.MD5Util;
 import common.util.StringUtil;
 import net.sf.json.JSONObject;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class sogouExtractor extends BbsSearchXpathExtractor {
 
@@ -53,16 +56,23 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 	@Override
 	public void parsePubtime(BBSData data, Node dom, Component component,
 			String... args) {
-		NodeList nl = commonList(component.getXpath(), dom);
-		if(nl==null) return;
-		if(nl.item(0)!=null) {
-			String time = nl.item(0).getTextContent().replace("年", "-").replace("月", "").replace("日", "");
-			time = StringUtil.extractMulti(time,"\\d+-\\d+-\\d+.\\d*.\\d*.\\d*");
-			data.setPubtime(time);
-			data.setPubdate(timeProcess(time));
-		}else{
+//		NodeList nl = commonList(component.getXpath(), dom);
+//		if(nl==null) return;
+//		if(nl.item(0)!=null) {
+//			String time = nl.item(0).getTextContent().replace("年", "-").replace("月", "").replace("日", "");
+//			time = StringUtil.extractMulti(time,"\\d+-\\d+-\\d+.\\d*.\\d*.\\d*");
+//			data.setPubtime(time);
+//			data.setPubdate(timeProcess(time));
+//		}else
+		{
 			String dateRegex = "(\\d{1,4}[-|\\/|年|\\.]\\d{1,2}[-|\\/|月|\\.]\\d{1,2}([日|号])?(\\s)*(\\d{1,2}([点|时])?((:)?\\d{1,2}(分)?((:)?\\d{1,2}(秒)?)?))(\\s)*(PM|AM)?)";
 			String time = StringUtil.extractOne(args[0],dateRegex);
+			String []times = time.split("-"); 
+			if(times.length==3){
+				if(times[0].length()==2){
+					time="20"+time;
+				}
+			}
 			data.setPubtime(time);
 			data.setPubdate(timeProcess(time));
 		}
@@ -103,6 +113,8 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 			if(data.getTitle()==null) {
 				this.parsePageTitle(data, domtree, comp.getComponents().get("pageTitle"), html.getContent());
 			}
+			
+			templateContentPage1(data,html,page);
 		}
 
 		//回复列表
@@ -121,8 +133,93 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 		return next;
 	}
 
+	public String templateContentPage1(BBSData data, HtmlInfo html, int page, String... keyword) {
 		
+		ExtractResult result = null;
+		try {
+			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
+		} catch (Exception e) {
+			Systemconfig.sysLog.log("出错url：" + html.getOrignUrl());
+			e.printStackTrace();
+		}
+		String title = data.getTitle() == null ? result.getTitle() : data.getTitle();
+		// 标题需要处理
+		// 搜索词里面带有特殊符号的情况
+		boolean spe = false;
+		if (data.getSearchKey().indexOf("_") > -1 || data.getSearchKey().indexOf("-") > -1) {
+			spe = true;
+			title = title.replace(data.getSearchKey(), "{temp}");
+		}
+		// 其他情况
+		if (title.indexOf("_") > -1) {
+			title = title.split("_")[0].trim();
+		}
+		// if(title.indexOf("-") > -1) {
+		// title = title.split("-")[0].trim();
+		// }
+		if (spe)
+			title = title.replace("{temp}", data.getSearchKey());
+		data.setTitle(title);
+		data.setContent(result.getContent());
+		data.setImgUrl(result.getImgs());
+		//data.setInserttime(new Timestamp(System.currentTimeMillis()));
+		return null;
+	}
+
+	@Override
+	public void parseContent(BBSData data, Node dom, Component component,
+			String... args) {
+	}
+	
+	@Override
+	public void parseAuthor(BBSData data, Node dom, Component component,
+			String... args) {
 		
+	}
+	@Override
+	public void parseClickCount(BBSData data, Node domtree,
+			Component component, String... ags) {
+	
+	}
+	@Override
+	public void parseSource(BBSData data, Node domtree, Component component,
+			String... args) {
 		
+	}
+	@Override
+	public void parseColumn(BBSData data, Node domtree, Component component,
+			String... ags) {
 		
+	}
+	@Override
+	public void parseImgUrl(BBSData data, Node domtree, Component component,
+			String... args) {
+		
+	}
+	@Override
+	public void parsePageTitle(BBSData data, Node domtree, Component component,
+			String... args) {
+		
+	}
+	@Override
+	public void parseReplyname(List<ReplyData> list, Node domtree,
+			Component component, String... strings) {
+	
+	}
+	@Override
+	public void parseReplycontent(List<ReplyData> list, Node dom,
+			Component component, String... strings) {
+		
+	}
+	@Override
+	public String parseReplyNext(Node domtree, Component component) {
+	
+		return null;
+	}
+
+	@Override
+	public void processPage(BBSData data, Node domtree,
+			Map<String, Component> map, String... args) {
+	}	
+
 }

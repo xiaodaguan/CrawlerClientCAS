@@ -1,7 +1,7 @@
 package common.download.news;
 
 import common.bean.HtmlInfo;
-import common.bean.NewsData;
+import common.bean.p;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
@@ -16,7 +16,7 @@ import java.util.List;
  * 
  * @author grs
  */
-public class NewsMonitorMetaCommonDownload extends GenericMetaCommonDownload<NewsData> {
+public class NewsMonitorMetaCommonDownload extends GenericMetaCommonDownload<p> {
 
 	public NewsMonitorMetaCommonDownload(SearchKey key) {
 		super(key);
@@ -24,8 +24,8 @@ public class NewsMonitorMetaCommonDownload extends GenericMetaCommonDownload<New
 
 	@Override
 	public void process() {
-		List<NewsData> alllist = new ArrayList<NewsData>();
-		List<NewsData> list = new ArrayList<NewsData>();
+		List<p> alllist = new ArrayList<p>();
+		List<p> list = new ArrayList<p>();
 		String url = getRealUrl(siteinfo, key.getId() > 0 ? key.getKey() : gloaburl);
 		int page = getRealPage(siteinfo);
 		String keyword = key.getKey();
