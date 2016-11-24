@@ -8,7 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import common.bean.HtmlInfo;
-import common.bean.NewsData;
+import common.bean.p;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import common.system.Systemconfig;
@@ -21,10 +21,10 @@ import common.util.StringUtil;
  * 
  * @author grs
  */
-public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implements NewsSearchExtractorAttribute {
+public class NewsSearchXpathExtractor extends XpathExtractor<p> implements NewsSearchExtractorAttribute {
 
 	@Override
-	public String templateContentPage(NewsData data, HtmlInfo html, int page, String... keyword) {
+	public String templateContentPage(p data, HtmlInfo html, int page, String... keyword) {
 		ExtractResult result = null;
 		try {
 			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
@@ -57,12 +57,12 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	}
 
 	@Override
-	public void processPage(NewsData data, Node domtree, Map<String, Component> map, String... args) {
+	public void processPage(p data, Node domtree, Map<String, Component> map, String... args) {
 
 	}
 
 	@Override
-	public void processList(List<NewsData> list, Node domtree, Map<String, Component> comp, String... args) {
+	public void processList(List<p> list, Node domtree, Map<String, Component> comp, String... args) {
 		this.parseTitle(list, domtree, comp.get("title"));
 
 		if (list.size() == 0)
@@ -78,7 +78,7 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	}
 
 	@Override
-	public void parseUrl(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parseUrl(List<p> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -90,12 +90,12 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	}
 
 	@Override
-	public void parseTitle(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parseTitle(List<p> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom);
 		for (int i = 0; i < nl.getLength(); i++) {
-			NewsData vd = new NewsData();
+			p vd = new p();
 			vd.setTitle(StringUtil.format(nl.item(i).getTextContent()));
 			list.add(vd);
 		}
@@ -123,7 +123,7 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	 * @param strings
 	 */
 	@Override
-	public void parseBrief(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parseBrief(List<p> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -143,7 +143,7 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	 * @param strings
 	 */
 	@Override
-	public void parseSource(List<NewsData> list, Node dom, Component component, String... strings) {
+	public void parseSource(List<p> list, Node dom, Component component, String... strings) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -163,7 +163,7 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	 * @param strings
 	 */
 	@Override
-	public void parsePubtime(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parsePubtime(List<p> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -176,7 +176,7 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	}
 
 	@Override
-	public void parseSameurl(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parseSameurl(List<p> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -188,10 +188,10 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	}
 
 	@Override
-	public void parseSamenum(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parseSamenum(List<p> list, Node dom, Component component, String... args) {
 	}
 
-	public void parseSource(NewsData data, Node dom, Component component, String... strings) {
+	public void parseSource(p data, Node dom, Component component, String... strings) {
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), dom);
@@ -201,7 +201,7 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 			data.setSource(StringUtil.format(nl.item(0).getTextContent()));
 	}
 
-	public void parseContent(NewsData data, Node dom, Component component, String... strings) {
+	public void parseContent(p data, Node dom, Component component, String... strings) {
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), dom);

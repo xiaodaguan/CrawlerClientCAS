@@ -18,7 +18,8 @@ public class UnitOracleService implements DBFactory {
     private ConferenceOracleService conferenceOracleService;
     private PersonOracleService personOracleService;
     private CompanyOracleService companyOracleService;
-
+    private GovAffairOracleService govaffairOracleService;
+    private PressOracleService pressOracleService;
     public DBService dbService() {
         switch (Systemconfig.crawlerType) {
             case 1:
@@ -62,6 +63,12 @@ public class UnitOracleService implements DBFactory {
             case 33:
             case 34:
                 return companyOracleService;
+            case 37:
+            case 38:
+                return govaffairOracleService;
+            case 39:
+            case 40:
+                return pressOracleService;
         }
         return null;
     }
@@ -113,5 +120,14 @@ public class UnitOracleService implements DBFactory {
 
 	public void setVideoOracleService(VideoOracleService videoOracleService) {
 		this.videoOracleService = videoOracleService;
-	}   
+	}
+
+	public void setGovaffairOracleService(GovAffairOracleService govaffairOracleService) {
+		this.govaffairOracleService = govaffairOracleService;
+	}
+
+	public void setPressOracleService(PressOracleService pressOracleService) {
+		this.pressOracleService = pressOracleService;
+	} 
+		
 }

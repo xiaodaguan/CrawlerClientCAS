@@ -16,7 +16,7 @@
 	<prop name="threadNum" value="1" />
 	
 	<!-- <prop name="accessUrl" value="http://news.baidu.com/ns?ie=utf-8&amp;sr=0&amp;cl=2&amp;rn=20&amp;tn=news&amp;ct=0&amp;clk=sortbyrel&amp;word=&lt;keyword&gt;" />-->
-	<prop name="accessUrl" value='http://www.soku.com/search_video/q_&lt;keyword&gt;?page=1' ></prop>
+	<prop name="accessUrl" value='http://www.soku.com/search_video/q_&lt;keyword&gt;?page=1' >
 <!-- 列表页 -->
 
 	<!--	

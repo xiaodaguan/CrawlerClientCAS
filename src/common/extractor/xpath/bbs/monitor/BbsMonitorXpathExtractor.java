@@ -79,6 +79,7 @@ public class BbsMonitorXpathExtractor extends XpathExtractor<BBSData> implements
 //			this.parseBrief(data, domtree, comp.getComponents().get("brief"), html.getContent());
 			this.parseSource(data, domtree, comp.getComponents().get("source"), html.getContent());
 			this.parseAuthor(data, domtree, comp.getComponents().get("author"), html.getContent());
+
 			this.parsePubtime(data, domtree, comp.getComponents().get("pubtime"), html.getContent());
 			this.parseClickCount(data, domtree, comp.getComponents().get("click_count"), new String[]{html.getContent()});
 			this.parseReplyCount(data, domtree, comp.getComponents().get("reply_count"), new String[]{html.getContent()});

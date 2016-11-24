@@ -142,8 +142,8 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 			System.out.println("JSONObject updownUrl:"+content);
 			content = content.split("\\(")[1];
 			JSONObject obj = JSONObject.fromObject(content).getJSONObject("data").getJSONObject("updown");
-			String up = obj.getString("up");
-			String down = obj.getString("down");
+			String up = obj.getString("up").replace(",", "");
+			String down = obj.getString("down").replace(",", "");
 			data.setLikeCount(Integer.parseInt(up));
 			data.setDislikeCount(Integer.parseInt(down));
 			String commentUrl = "http://comments.youku.com/comments/~ajax/vpcommentContent.html?"

@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
 import common.bean.CommonData;
 import common.bean.HtmlInfo;
 import common.bean.AgricaltureData;
-import common.bean.NewsData;
+import common.bean.p;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

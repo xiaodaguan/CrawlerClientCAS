@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+	<prop name="site" value="govweb" />
+	<prop name="siteName" value="govweb_govaffair_search" />
+	<prop name="siteFlag" value="19" />
+	<prop name="charset" value="utf-8" />
+	<!-- test -->
+	<!--
+	<prop name="downInterval" value="15" />
+	<prop name="page" value="6" />
+	<prop name="threadNum" value="2" />
+	 -->
+	 <!-- run -->
+	<prop name="downInterval" value="3" />
+	<prop name="page" value="3" />
+	<prop name="threadNum" value="1" />
+	
+	<!-- <prop name="accessUrl" value="http://news.baidu.com/ns?ie=utf-8&amp;sr=0&amp;cl=2&amp;rn=20&amp;tn=news&amp;ct=0&amp;clk=sortbyrel&amp;word=&lt;keyword&gt;" />-->
+	<prop name="accessUrl" value="http://sousuo.gov.cn/s.htm?q=&amp;n=20&amp;p=0&amp;t=govall&amp;advance=true&amp;orpro=&lt;keyword&gt;&amp;andpro=&amp;notpro=&amp;inpro=&amp;pubmintimeYear=1960&amp;pubmintimeMonth=1&amp;pubmintimeDay=&amp;pubmaxtimeYear=2022&amp;pubmaxtimeMonth=&amp;pubmaxtimeDay=&amp;searchfield=title&amp;colid=&amp;timetype=timeqb&amp;mintime=&amp;maxtime=&amp;sort=&amp;sortType=1&amp;nocorrect=" />
+	
+<!-- 列表页 -->
+	<prop name="title"  		value="//LI[@class='res-list']/H3/A[1]" />
+	<prop name="url"    		value="//LI[@class='res-list']/H3/A[1]/@href" />
+	<prop name="next" 			value="//A[@id='snext']/@href" />
+	<prop name="next_prefix" 	value="" />
+	<prop name="pubtime" 		value="//LI[@class='res-list']//P[@class='res-other']/SPAN[@class='sp']" />
+	<prop name="brief" 			value="//LI[@class='res-list']//P[@class='res-sub']" />
+<!-- 内容页 -->
+	<prop name="source" 		value="//DIV[@class='pages-date']/SPAN[@class='font']" />
+	<prop name="content" 		value="//DIV//P" />
+	<prop name="imgUrl" 		value="//DIV//P/IMG/@src" />
+	
+</site>

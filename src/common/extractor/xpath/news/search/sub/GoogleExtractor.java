@@ -7,7 +7,7 @@ import java.util.List;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.NewsData;
+import common.bean.p;
 import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;
@@ -15,7 +15,7 @@ import common.util.StringUtil;
 public class GoogleExtractor extends NewsSearchXpathExtractor {
 
 	@Override
-	public void parseSource(List<NewsData> list, Node dom, Component component,
+	public void parseSource(List<p> list, Node dom, Component component,
 			String... strings) {
 		if(component==null) return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -33,7 +33,7 @@ public class GoogleExtractor extends NewsSearchXpathExtractor {
 	}
 
 	@Override
-	public void parsePubtime(List<NewsData> list, Node dom,
+	public void parsePubtime(List<p> list, Node dom,
 			Component component, String... args) {
 		if(component==null) return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());

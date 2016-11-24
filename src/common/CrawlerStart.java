@@ -14,9 +14,8 @@ public class CrawlerStart {
 
 
     public static void main(String[] args) throws Exception {
-    	
-        // common.util.TimeUtil.rest(8 * 60 * 60);
 
+        // common.util.TimeUtil.rest(8 * 60 * 60);
         // TaskMonitor tm=new TaskMonitor();
         // Thread tmonitor=new Thread(tm);
         // tmonitor.start();
@@ -71,7 +70,6 @@ public class CrawlerStart {
         if (Job.getProject().equals("")) {
             System.err.print("[warning]: project not defined!");
         }
-       
 
         AppContext.initAppCtx("");//初始化
         Systemconfig.sysLog.log("\n\n\n");
@@ -79,12 +77,7 @@ public class CrawlerStart {
         Systemconfig.sysLog.log("[crawler start] will start after 3 sec...");
         Systemconfig.sysLog.log("\n\n\n");
         Thread.sleep(3 * 1000);
-        Job.simpleRun();//任务运行
-
+        Job.simpleRun();
     }
 
 }
-
-
-
-

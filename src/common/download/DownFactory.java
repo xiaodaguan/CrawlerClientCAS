@@ -2,7 +2,20 @@ package common.download;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.*;
+import common.bean.AgricaltureData;
+import common.bean.BBSData;
+import common.bean.BlogData;
+import common.bean.CommonData;
+import common.bean.CompanyData;
+import common.bean.ConferenceData;
+import common.bean.GovAffairData;
+import common.bean.p;
+import common.bean.PersonData;
+import common.bean.PressData;
+import common.bean.ReportData;
+import common.bean.VideoData;
+import common.bean.WeiboData;
+import common.bean.WeixinData;
 import common.download.agricalture.AgricaltureDataCommonDownload;
 import common.download.agricalture.AgricaltureMetaCommonDownload;
 import common.download.agricalture.AgricaltureMonitorMetaCommonDownload;
@@ -16,11 +29,15 @@ import common.download.company.CompanyDataCommonDownload;
 import common.download.company.CompanyMetaCommonDownload;
 import common.download.conference.ConferenceDataCommonDownload;
 import common.download.conference.ConferenceMetaCommonDownload;
+import common.download.govaffair.GovAffairDataCommonDownload;
+import common.download.govaffair.GovAffairMetaCommonDownload;
 import common.download.news.NewsDataCommonDownload;
 import common.download.news.NewsMetaCommonDownload;
 import common.download.news.NewsMonitorMetaCommonDownload;
 import common.download.person.PersonDataCommonDownload;
 import common.download.person.PersonMetaCommonDownload;
+import common.download.press.PressDataCommonDownload;
+import common.download.press.PressMetaCommonDownload;
 import common.download.report.ReportDataCommonDownload;
 import common.download.report.ReportMetaCommonDownload;
 import common.download.video.VideoDataCommonDownload;
@@ -92,6 +109,12 @@ public class DownFactory {
 		case 33:
 		case 34:
 			return new CompanyMetaCommonDownload(key);
+		case 37://
+		case 38:
+			return new GovAffairMetaCommonDownload(key);
+		case 39://
+		case 40:
+			return new PressMetaCommonDownload(key);
 
 		default:
 			return new SimpleMetaCommonDownload(key);
@@ -109,7 +132,7 @@ public class DownFactory {
 		switch (Systemconfig.crawlerType) {
 		case 1:
 		case 2:
-			return (GenericDataCommonDownload<T>) new NewsDataCommonDownload(siteFlag, (NewsData) data, count, key);
+			return (GenericDataCommonDownload<T>) new NewsDataCommonDownload(siteFlag, (p) data, count, key);
 		case 3:
 			return (GenericDataCommonDownload<T>) new BBSDataCommonDownload(siteFlag, (BBSData) data, count, key);
 		case 4:
@@ -154,8 +177,15 @@ public class DownFactory {
 		case 34:
 			return (GenericDataCommonDownload<T>) new CompanyDataCommonDownload(siteFlag, (CompanyData) data, count,
 					key);
-
-		default:
+		case 37:
+		case 38:
+			return (GenericDataCommonDownload<T>) new GovAffairDataCommonDownload(siteFlag, (GovAffairData) data, count,
+					key);
+		case 39:
+		case 40:
+			return (GenericDataCommonDownload<T>) new PressDataCommonDownload(siteFlag, (PressData) data, count,
+					key);
+		default:	
 			return (GenericDataCommonDownload<T>) new SimpleDataCommonDownload(siteFlag, (CommonData) data, count, key);
 
 		}

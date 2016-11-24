@@ -10,7 +10,7 @@ import org.w3c.dom.NodeList;
 
 import common.bean.CommonData;
 import common.bean.HtmlInfo;
-import common.bean.NewsData;
+import common.bean.p;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -24,10 +24,10 @@ import common.util.StringUtil;
  * 
  * @author grs
  */
-public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implements NewsMonitorExtractorAttribute {
+public class NewsMonitorXpathExtractor extends XpathExtractor<p> implements NewsMonitorExtractorAttribute {
 
 	@Override
-	public void processPage(NewsData data, Node domtree, Map<String, Component> comp, String... args) {
+	public void processPage(p data, Node domtree, Map<String, Component> comp, String... args) {
 		if (data.getTitle() == null) {
 			this.parsePageTitle(data, domtree, comp.get("pageTitle"));
 		}
@@ -40,7 +40,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	}
 
 	@Override
-	public void processList(List<NewsData> list, Node domtree, Map<String, Component> comp, String... args) {
+	public void processList(List<p> list, Node domtree, Map<String, Component> comp, String... args) {
 		this.parseTitle(list, domtree, comp.get("title"));
 
 		if (list.size() == 0)
@@ -52,7 +52,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	}
 
 	@Override
-	public void parseUrl(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parseUrl(List<p> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -63,7 +63,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 		}
 	}
 
-	public void parsePubtime1(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parsePubtime1(List<p> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -84,7 +84,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	 * @param component
 	 * @param args
 	 */
-	public void parseBrief(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parseBrief(List<p> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -97,12 +97,12 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	}
 
 	@Override
-	public void parseTitle(List<NewsData> list, Node dom, Component component, String... args) {
+	public void parseTitle(List<p> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom);
 		for (int i = 0; i < nl.getLength(); i++) {
-			NewsData vd = new NewsData();
+			p vd = new p();
 			vd.setTitle(StringUtil.format(nl.item(i).getTextContent()));
 			list.add(vd);
 		}
@@ -130,7 +130,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	 * @param strings
 	 */
 	@Override
-	public void parseContent(NewsData data, Node dom, Component component, String... args) {
+	public void parseContent(p data, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), dom);
@@ -153,7 +153,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	 * @param strings
 	 */
 	@Override
-	public void parseSource(NewsData data, Node dom, Component component, String... args) {
+	public void parseSource(p data, Node dom, Component component, String... args) {
 		String str = "";
 		if (component == null)
 			return;
@@ -177,7 +177,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	 * @param strings
 	 */
 	@Override
-	public void parseAuthor(NewsData data, Node dom, Component component, String... args) {
+	public void parseAuthor(p data, Node dom, Component component, String... args) {
 		String str = "";
 		if (component == null)
 			return;
@@ -201,7 +201,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	 * @param strings
 	 */
 	@Override
-	public void parsePubtime(NewsData data, Node dom, Component component, String... args) {
+	public void parsePubtime(p data, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), dom);
@@ -214,7 +214,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	}
 
 	@Override
-	public void parseImgUrl(NewsData data, Node dom, Component component, String... args) {
+	public void parseImgUrl(p data, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), dom);
@@ -234,7 +234,7 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	}
 
 	@Override
-	public void parsePageTitle(NewsData data, Node dom, Component component, String... args) {
+	public void parsePageTitle(p data, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), dom);
@@ -245,8 +245,8 @@ public class NewsMonitorXpathExtractor extends XpathExtractor<NewsData> implemen
 	}
 
 	@Override
-	protected void attrSet(List<NewsData> list, int siteflag, String key, int code) {
-		for (NewsData cd : list) {
+	protected void attrSet(List<p> list, int siteflag, String key, int code) {
+		for (p cd : list) {
 			cd.setSearchKey(key);
 			cd.setCategoryCode(code);
 			cd.setMd5(MD5Util.MD5(cd.getUrl() + Systemconfig.crawlerType));

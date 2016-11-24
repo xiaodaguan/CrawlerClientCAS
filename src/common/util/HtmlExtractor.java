@@ -293,7 +293,7 @@ public class HtmlExtractor {
 	private boolean isRemoveTag(String tag) {
 		if (tag == null)
 			return false;
-		for (String remove_tag : REMOVE_TAGS) 
+		for (String remove_tag : REMOVE_TAGS)
 			if (tag.equalsIgnoreCase(remove_tag))
 				return true;
 		return false;

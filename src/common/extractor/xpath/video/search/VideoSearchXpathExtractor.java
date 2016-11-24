@@ -99,7 +99,6 @@ public class VideoSearchXpathExtractor extends XpathExtractor<VideoData> impleme
 		this.parsePlaytime(list, domtree, comp.getComponents().get("playtime"));
 		this.parseLikeCount(list, domtree, comp.getComponents().get("likeCount"));
 		this.parseDislikeCount(list, domtree, comp.getComponents().get("dislikeCount"));
-		this.parseDislikeCount(list, domtree, comp.getComponents().get("channel"));
 		this.parseChannel(list, domtree, comp.getComponents().get("Channel"));
 		for(VideoData vd : list) {
 			vd.setSearchKey(keyword[0]);

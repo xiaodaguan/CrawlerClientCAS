@@ -293,10 +293,10 @@ public class AppContext {
             if (siteConfigs != null && siteConfigs.get(si.getSiteName()) != null) {
                 si.setSiteFlag(siteConfigs.get(si.getSiteName()).getId());
             }
-//            File f = new File(file);
-//            if (!f.delete()) {
-//                System.err.println(f + "没有被删除");
-//            }
+            File f = new File(file);
+            if (!f.delete()) {
+                System.err.println(f + "没有被删除");
+            }
             System.out.println("系统初始化站点：" + si);
         } catch (BeansException e) {
             e.printStackTrace();

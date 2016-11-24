@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!-- BBS搜索站点公有配置 -->
+	<bean id="bbs_search_tieba" class="common.siteinfo.Siteinfo">
+		<property name="siteName" value="tieba_bbs_search" />
+		<property name="siteFlag" value="4" />
+		<property name="charset" value="gbk" />
+		<property name="downInterval" value="25" />
+		<property name="page" value="100" />
+		<property name="threadNum" value="1" />
+		<property name="agent" value="false" />
+		<property name="login" value="false" />
+		<!-- 站点入口url -->
+		<property name="url" value="http://tieba.baidu.com/f/search/res?isnew=1&amp;kw=&amp;qw=&lt;keyword&gt;&amp;rn=10&amp;un=&amp;only_thread=1&amp;sm=1&amp;sd=&amp;ed=&amp;pn=1" />
+		<!-- 站点的抽取组件，分为元数据、详细数据等类型 -->
+		<property name="commonComponent">
+			<map>
+				<entry key="META" value-ref="meta_tieba_bbs_search" />
+				<entry key="DATA" value-ref="data_tieba_bbs_search" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="meta_tieba_bbs_search" class="common.siteinfo.CommonComponent">
+		<property name="type" value="META" />
+		<property name="components">
+			<map>
+				<entry key="title">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="title" />
+						<property name="xpath" value="//DIV[@class='s_post']/SPAN[@class='p_title']/A" />
+						<property name="format" value="true" />
+						<property name="select" value="true" />
+					</bean>
+				</entry>
+				<entry key="url">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="url" />
+						<property name="xpath" value="//DIV[@class='s_post']/SPAN[@class='p_title']/A/@href" />
+						<property name="prefix" value="http://tieba.baidu.com" />
+						<property name="postfix" value="${url_postfix}" />
+					</bean>
+				</entry>
+				<entry key="next">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="NEXTPAGE" />
+						<property name="name" value="next" />
+						<property name="xpath" value="//A[contains(.,'下一页')]/@href" />
+						<property name="prefix" value="http://tieba.baidu.com" />
+						<property name="postfix" value="${next_postfix}" />
+					</bean>
+				</entry>
+				<entry key="author_lp">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="author_lp" />
+						<property name="xpath" value="${author_lp}" />
+					</bean>
+				</entry>
+				<entry key="pubtime_lp">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="pubtime_lp" />
+						<property name="xpath" value="${pubtime_lp}" />
+					</bean>
+				</entry>
+				<!-- 评论数 -->
+				<entry key="comment_count_lp">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="comment_count_lp" />
+						<property name="xpath" value="${comment_count_lp}" />
+					</bean>
+				</entry>
+				<!-- 点击数 -->
+				<entry key="click_count_lp">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="click_count_lp" />
+						<property name="xpath" value="${click_count_lp}" />
+					</bean>
+				</entry>
+				<!-- 摘要 -->
+				<entry key="brief_lp">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="brief_lp" />
+						<property name="xpath" value="${brief_lp}" />
+					</bean>
+				</entry>
+				<!-- 来源 -->
+				<entry key="source_lp">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="source_lp" />
+						<property name="xpath" value="${source_lp}" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="data_tieba_bbs_search" class="common.siteinfo.CommonComponent">
+		<property name="type" value="DATA" />
+		<property name="components">
+			<map>
+				<!-- 标题 -->
+				<entry key="pageTitle">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="FIXED" />
+						<property name="name" value="title" />
+						<property name="xpath" value="//H1" />
+					</bean>
+				</entry>
+				<!-- 作者 -->
+				<entry key="author">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="author" />
+						<property name="xpath" value="//DIV[@class='p_postlist']/DIV[1]/DIV[@class='d_author']/UL/LI[@class='d_name']/A" />
+					</bean>
+				</entry>
+				<!-- 发布时间 -->
+				<entry key="pubtime">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="pubtime" />
+						<property name="xpath" value="(//UL[@class='p_tail']|//DIV[@class='post-tail-wrap'])[1]" />
+					</bean>
+				</entry>
+				<!-- 内容 -->
+				<entry key="content">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="content" />
+						<property name="xpath" value="//DIV[@class='p_postlist']/DIV[1]/DIV/DIV[contains(@class,'p_content')]" />
+					</bean>
+				</entry>
+				<!-- 发布源 -->
+				<entry key="source">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="source" />
+						<property name="xpath" value="" />
+					</bean>
+				</entry>
+				<!-- 评论数 -->
+				<entry key="reply_count">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="reply_count" />
+						<property name="xpath" value="//UL[@class='l_posts_num']/LI[@class='l_reply_num' and contains(.,'回复')]" />
+					</bean>
+				</entry>
+				<!-- 点击数 -->
+				<entry key="click_count">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="click_count" />
+						<property name="xpath" value="" />
+					</bean>
+				</entry>
+				<!-- 板块 -->
+				<entry key="column">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="column" />
+						<property name="xpath" value="//A[@id='tab_forumname']/@title" />
+					</bean>
+				</entry>
+				<!-- 图片链接 -->
+				<entry key="img_url">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="img_url" />
+						<property name="xpath" value="//DIV[@class='p_postlist']//DIV/IMG/@src" />
+					</bean>
+				</entry>
+				<!-- 评论内容 -->
+				<entry key="reply_content">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="reply_content" />
+						<property name="xpath" value="//DIV[@class='p_postlist']/DIV[position()&gt;1]/DIV[contains(@class,'d_post_content_main')]/DIV[contains(@class, 'content')]" />
+					</bean>
+				</entry>
+				<!-- 评论时间 -->
+				<entry key="reply_time">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="reply_time" />
+						<property name="xpath" value="//DIV[@class='p_postlist']/DIV[position()&gt;1]/@data-field" />
+					</bean>
+				</entry>
+				<!-- 评论者 -->
+				<entry key="reply_name">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="reply_name" />
+						<property name="xpath" value="//DIV[@class='p_postlist']/DIV[position()&gt;1]/DIV[@class='d_author']/UL/LI[@class='d_name']/A" />
+					</bean>
+				</entry>
+				<!-- 下一页评论 -->
+				<entry key="reply_next">
+					<bean class="common.siteinfo.Component">
+						<property name="type" value="XPATH" />
+						<property name="name" value="reply_next" />
+						<property name="xpath" value="//A[contains(.,'下一页')]/@href" />
+						<property name="prefix" value="" />
+						<property name="postfix" value="${reply_next_postfix}" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+</beans>

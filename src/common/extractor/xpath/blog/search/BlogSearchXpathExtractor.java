@@ -17,30 +17,29 @@ import java.util.Map;
  */
 public class BlogSearchXpathExtractor extends XpathExtractor<BlogData> implements BlogSearchExtractorAttribute {
 
-
-	@Override public void processPage(BlogData data, Node domtree, Map<String, Component> comp, String... args) {
-
+	@Override
+	public void processPage(BlogData data, Node domtree, Map<String, Component> comp, String... args) {
+		
 		this.parseContent(data, domtree, comp.get("content"));
 		this.parseImgUrl(data, domtree, comp.get("imgs_url"));
 		this.parseAuthor(data, domtree, comp.get("author"));
-
 	}
 
-	@Override public void processList(List<BlogData> list, Node domtree, Map<String, Component> comp, String... args) {
+	@Override
+	public void processList(List<BlogData> list, Node domtree, Map<String, Component> comp, String... args) {
 		this.parseTitle(list, domtree, comp.get("title"));
-
+		
 		if (list.size() == 0)
 			return;
-
-		this.parseUrl(list, domtree, comp.get("url"));
-
-		this.parseBrief(list, domtree, comp.get("brief"));
-		this.parseSource(list, domtree, comp.get("source"));
+		
+		this.parseUrl(list, 	domtree, comp.get("url"));
+		this.parseBrief(list, 	domtree, comp.get("brief"));
+		this.parseSource(list, 	domtree, comp.get("source"));
 		this.parsePubtime(list, domtree, comp.get("pubtime"));
-		this.parseAuthor(list, domtree, comp.get("author"));
 	}
 
-	@Override public void parseUrl(List<BlogData> list, Node dom, Component component, String... args) {
+	@Override
+	public void parseUrl(List<BlogData> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -51,7 +50,8 @@ public class BlogSearchXpathExtractor extends XpathExtractor<BlogData> implement
 		}
 	}
 
-	@Override public void parseTitle(List<BlogData> list, Node dom, Component component, String... args) {
+	@Override
+	public void parseTitle(List<BlogData> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom);
@@ -62,7 +62,8 @@ public class BlogSearchXpathExtractor extends XpathExtractor<BlogData> implement
 		}
 	}
 
-	@Override public String parseNext(Node dom, Component component, String... args) {
+	@Override
+	public String parseNext(Node dom, Component component, String... args) {
 		if (component == null)
 			return null;
 		NodeList nl = commonList(component.getXpath(), dom);
@@ -82,7 +83,8 @@ public class BlogSearchXpathExtractor extends XpathExtractor<BlogData> implement
 	 * @param component
 	 * @param strings
 	 */
-	@Override public void parseBrief(List<BlogData> list, Node dom, Component component, String... args) {
+	@Override
+	public void parseBrief(List<BlogData> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -101,14 +103,15 @@ public class BlogSearchXpathExtractor extends XpathExtractor<BlogData> implement
 	 * @param component
 	 * @param strings
 	 */
-	@Override public void parsePubtime(List<BlogData> list, Node dom, Component component, String... args) {
+	@Override
+	public void parsePubtime(List<BlogData> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
 		for (int i = 0; i < nl.getLength(); i++) {
-			String time=nl.item(i).getTextContent().replace("年", "-").replace("月", "-").replace("日", "");
+			String time = nl.item(i).getTextContent().replace("年", "-").replace("月", "-").replace("日", "");
 			list.get(i).setPubtime(time);
 			list.get(i).setPubdate(timeProcess(list.get(i).getPubtime().trim()));
 		}
@@ -144,19 +147,30 @@ public class BlogSearchXpathExtractor extends XpathExtractor<BlogData> implement
 		if (nl == null)
 			return;
 		String imgs = "";
+		
 		for (int i = 0; i < nl.getLength(); i++) {
-			imgs += StringUtil.format(nl.item(i).getTextContent()) + ";";
+			String s = nl.item(i).getTextContent();
+			imgs += StringUtil.format(s) + ";";
 		}
 		data.setImgUrl(imgs);
 	}
 
-	@Override public void parseSource(List<BlogData> list, Node dom, Component component, String... args) {
+	@Override
+	public void parseSource(List<BlogData> list, Node dom, Component component, String... args) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override public void parseAuthor(List<BlogData> list, Node domtree, Component component, String... content) {
-		// TODO Auto-generated method stub
+	@Override
+	public void parseAuthor(List<BlogData> list, Node dom, Component component, String... content) {
+		if (component == null)
+			return;
+		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
+		if (nl == null)
+			return;
+		for (int i = 0; i < nl.getLength(); i++) {
+			list.get(i).setBrief(nl.item(i).getTextContent());
+		}
 
 	}
 

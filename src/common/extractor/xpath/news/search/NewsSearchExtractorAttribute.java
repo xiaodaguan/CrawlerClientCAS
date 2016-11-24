@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.w3c.dom.Node;
 
-import common.bean.NewsData;
+import common.bean.p;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 
-public interface NewsSearchExtractorAttribute extends ExtractorAttribute<NewsData> {
+public interface NewsSearchExtractorAttribute extends ExtractorAttribute<p> {
 
 	/**
 	 * 进入相同新闻的链接解析
@@ -17,7 +17,7 @@ public interface NewsSearchExtractorAttribute extends ExtractorAttribute<NewsDat
 	 * @param component
 	 * @param args
 	 */
-	public void parseSameurl(List<NewsData> list, Node dom,
+	public void parseSameurl(List<p> list, Node dom,
 			Component component, String... args);
 	/**
 	 * 相同新闻数量解析
@@ -26,7 +26,7 @@ public interface NewsSearchExtractorAttribute extends ExtractorAttribute<NewsDat
 	 * @param component
 	 * @param args
 	 */
-	public void parseSamenum(List<NewsData> list, Node dom,
+	public void parseSamenum(List<p> list, Node dom,
 			Component component, String... args);
 	/**
 	 * 摘要解析
@@ -35,7 +35,7 @@ public interface NewsSearchExtractorAttribute extends ExtractorAttribute<NewsDat
 	 * @param component
 	 * @param args
 	 */
-	public void parseBrief(List<NewsData> list, Node dom, Component component, String... args);
+	public void parseBrief(List<p> list, Node dom, Component component, String... args);
 
 	/**
 	 * 发布源解析
@@ -44,7 +44,7 @@ public interface NewsSearchExtractorAttribute extends ExtractorAttribute<NewsDat
 	 * @param component
 	 * @param args
 	 */
-	public void parseSource(List<NewsData> list, Node dom, Component component, String... args);
+	public void parseSource(List<p> list, Node dom, Component component, String... args);
 	/**
 	 * 发布时间解析
 	 * @param list
@@ -52,5 +52,5 @@ public interface NewsSearchExtractorAttribute extends ExtractorAttribute<NewsDat
 	 * @param component
 	 * @param args
 	 */
-	public void parsePubtime(List<NewsData> list, Node dom, Component component, String... args);
+	public void parsePubtime(List<p> list, Node dom, Component component, String... args);
 }
