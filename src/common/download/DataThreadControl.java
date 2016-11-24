@@ -44,15 +44,22 @@ public class DataThreadControl {
                 iter.remove();
             }
             vd.setCompleteSize("[collect id: " + key.getId() + "| current: " + (++i) + "/ rest: " + list.size() + "]");
+            // 详情页采集线程提交
             Future f = Systemconfig.dataexec.get(siteFlag).submit(DownFactory.dataControl(siteFlag, vd, endCount, user, key));
             Systemconfig.tasks.put(siteFlag + "_" + key + "_" + vd.getTitle(), f);
-            TimeUtil.rest(3);
-        }
-        try {
-            endCount.await(2, TimeUnit.HOURS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        Systemconfig.sysLog.log("submitted: " + siteFlag + "_" + key + "_" + vd.getTitle());
+        TimeUtil.rest(1);
+    }
+    try {
+
+        if (siteFlag.contains("weixin"))
+            endCount.await(10, TimeUnit.MINUTES);
+        else
+            endCount.await(2, TimeUnit.HOURS);//当前列表最大等待时间
+
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+    }
     }
 
 
