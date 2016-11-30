@@ -14,7 +14,7 @@ import common.util.TimeUtil;
 /**
  * 下载元数据
  * 
- * @author grs
+ * @author rzy
  */
 public class GovAffairMetaCommonDownload extends GenericMetaCommonDownload<GovAffairData> {
 

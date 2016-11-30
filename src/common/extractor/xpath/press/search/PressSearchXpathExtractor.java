@@ -9,7 +9,7 @@ import org.w3c.dom.NodeList;
 
 import common.bean.HtmlInfo;
 import common.bean.PressData;
-import common.bean.p;
+import common.bean.NewsData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import common.system.Systemconfig;
@@ -20,7 +20,7 @@ import common.util.StringUtil;
 /**
  * 抽取实现类
  * 
- * @author grs
+ * @author rzy
  */
 public class PressSearchXpathExtractor extends XpathExtractor<PressData> implements PressSearchExtractorAttribute {
 
@@ -192,7 +192,7 @@ public class PressSearchXpathExtractor extends XpathExtractor<PressData> impleme
 	public void parseSamenum(List<PressData> list, Node dom, Component component, String... args) {
 	}
 
-	public void parseSource(p data, Node dom, Component component, String... strings) {
+	public void parseSource(NewsData data, Node dom, Component component, String... strings) {
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), dom);

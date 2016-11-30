@@ -10,7 +10,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import common.bean.GovAffairData;
-import common.bean.p;
+import common.bean.NewsData;
 import common.util.StringUtil;
 
 public class GovAffairOracleService extends OracleService<GovAffairData> {

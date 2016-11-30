@@ -1,6 +1,6 @@
 package common.extractor.xpath.news.search.sub;
 
-import common.bean.p;
+import common.bean.NewsData;
 import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;
@@ -13,7 +13,7 @@ import java.util.Map;
 public class TirechinaExtractor extends NewsSearchXpathExtractor {
     
     @Override
-    public void processPage(p data, Node domtree,
+    public void processPage(NewsData data, Node domtree,
     		Map<String, Component> comp, String... args) {
     	this.parseSource(data,domtree,comp.get("originalSource"));
     	this.parseImgUrl(data,domtree,comp.get("imgUrl"));
@@ -21,7 +21,7 @@ public class TirechinaExtractor extends NewsSearchXpathExtractor {
     }
     
     @Override
-	public void parseSource(p data, Node dom, Component component, String... args) {
+	public void parseSource(NewsData data, Node dom, Component component, String... args) {
 		String str = "";
 		if (component == null)
 			return;
@@ -39,7 +39,7 @@ public class TirechinaExtractor extends NewsSearchXpathExtractor {
 		data.setSource(str);
 	}
     
-	public void parseImgUrl(p data, Node dom, Component component, String... args) {
+	public void parseImgUrl(NewsData data, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = commonList(component.getXpath(), dom);

@@ -36,11 +36,18 @@
 				<entry key="cncyms_agricalture_monitor" value="common.extractor.xpath.agricalture.monitor.sub.CncymsExtractor" />
 				<entry key="qdfp_agricalture_monitor" value="common.extractor.xpath.agricalture.monitor.sub.QdfpExtractor" />
 				<entry key="sj99_agricalture_monitor" value="common.extractor.xpath.agricalture.monitor.sub.Sj99Extractor" />
-
-				<entry key="baidu_news_search" value="common.extractor.xpath.news.search.sub.BaiduExtractor" />
-				<entry key="baidu_press_search" value="common.extractor.xpath.press.search.sub.BaiduExtractor" />
-				<entry key="soku_video_search" value="common.extractor.xpath.video.search.sub.SokuVideoSearchXpathExtractor" />
+				<entry key="zaobao_frgmedia_search" value="common.extractor.xpath.frgmedia.search.sub.ZaobaoExtractor" />
+				<entry key="sino_frgmedia_search" value="common.extractor.xpath.frgmedia.search.sub.SinoExtractor" />
+				<entry key="chinaru_frgmedia_search" value="common.extractor.xpath.frgmedia.search.sub.ChinaruExtractor" />
 				
+				
+			
+				<entry key="baidu_news_search" 		value="common.extractor.xpath.news.search.sub.BaiduExtractor" />
+				<entry key="baidu_press_search" 	value="common.extractor.xpath.press.search.sub.BaiduExtractor" />
+				<entry key="soku_video_search" 		value="common.extractor.xpath.video.search.sub.SokuVideoSearchXpathExtractor" />
+				<entry key="zaker_client_search" 	value="common.extractor.xpath.client.search.sub.ZakerExtractor" />
+				<entry key="yidian_client_search" 	value="common.extractor.xpath.client.search.sub.YidianExtractor" />
+				<entry key="toutiao_client_search" 	value="common.extractor.xpath.client.search.sub.ToutiaoExtractor" />
 				
 				<entry key="qingdaonizao_news_search" value="common.extractor.xpath.news.search.sub.QingdaonizaoExtractor" />
 
@@ -87,7 +94,7 @@
 				<entry key="taobao_ebusiness_search" value="common.extractor.xpath.ebusiness.search.sub.TaobaoExtractor" />
 				<entry key="taobao_ebusiness_monitor" value="common.extractor.xpath.ebusiness.monitor.sub.TaobaoExtractor" />
 
-				<entry key="weixin_weixin_search" value="common.extractor.xpath.weixin.search.sub.QQWeixinExtractor" />
+				<entry key="weixin_weixin_search" 	value="common.extractor.xpath.weixin.search.sub.QQWeixinExtractor" />
 				
 				
 			</map>
@@ -124,7 +131,8 @@
 	</bean>
 
 	<bean id="dbService" class="common.service.oracle.UnitOracleService">
-
+	
+		<property name="frgmediaOracleService" ref="frgmediaOracleService" />
 		<property name="videoOracleService" ref="videoOracleService" />
 		<property name="govaffairOracleService" ref="govaffairOracleService" />
 		<property name="newsOracleService" ref="newsOracleService" />
@@ -134,6 +142,7 @@
 		<property name="blogOracleService" ref="blogOracleService" />
 		<property name="weiboOracleService" ref="weiboOracleService" />
 		<property name="agricaltureOracleService" ref="agricaltureOracleService" />
+		<property name="clientOracleService" ref="clientOracleService" />
 
 		<property name="reportOracleService" ref="reportOracleService" />
 		<property name="conferenceOracleService" ref="conferenceOracleService" />
@@ -143,6 +152,12 @@
 	</bean>
 
 	<bean id="newsOracleService" class="common.service.oracle.NewsOracleService">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="clientOracleService" class="common.service.oracle.ClientOracleService">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="frgmediaOracleService" class="common.service.oracle.FrgmediaOracleService">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 	<bean id="pressOracleService" class="common.service.oracle.PressOracleService">
