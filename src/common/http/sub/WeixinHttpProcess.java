@@ -10,16 +10,14 @@ import org.openqa.selenium.WebDriver;
 
 public class WeixinHttpProcess extends SimpleHttpProcess {
 
-
-
+    JBrowserDriver driver = new JBrowserDriver(Settings.builder().timezone(Timezone.ASIA_SHANGHAI).build());
 
     @Override
     public byte[] simpleGet(HtmlInfo html) throws Exception {
-        JBrowserDriver driver = new JBrowserDriver(Settings.builder().timezone(Timezone.ASIA_SHANGHAI).build());
+
         driver.get(html.getOrignUrl());
         String htmlSource = driver.getPageSource();
         byte[] bytes = htmlSource.getBytes();
-
 
 //        driver.close();
         return bytes;
