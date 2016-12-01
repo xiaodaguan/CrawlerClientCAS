@@ -42,9 +42,31 @@ public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
                 // 解析数据
                 url = xpath.templateContentPage(data, html);
        
+                BBSData bbsData = data;
+                System.out.println("\n\n一条论坛信息：");
+                System.out.println("searchKey: "+bbsData.getSearchKey());
+                System.out.println("title:     "+bbsData.getTitle());
+                System.out.println("url:       "+bbsData.getUrl());
+                System.out.println("pubtime:   "+bbsData.getPubtime());
+                //System.out.println("pubdate:   "+bbsData.getPubdate().toLocaleString());
+                System.out.println("content:   "+bbsData.getContent());
+                System.out.println("column:    "+bbsData.getColumn());
+                System.out.println("replyCount:"+bbsData.getReplyCount());
+                System.out.println("clickCount:"+bbsData.getClickCount());
+                System.out.println("imgUrl:    "+bbsData.getImgUrl());
+                System.out.println("replyList: "+bbsData.getReplyList());
+                for ( ReplyData relay : bbsData.getReplyList()) {
+                	System.out.println("replyList name   : "+relay.getName());
+                	System.out.println("replyList time   : "+relay.getTime());
+                	System.out.println("replyList content: "+relay.getContent());
+                	System.out.println();
+                }
+                System.out.println("\n\n");
+                
+                
                 Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
                 if (dataCheck(data, html.getContent())) {
-                    Systemconfig.dbService.saveData(data);
+                    //Systemconfig.dbService.saveData(data);
                     Systemconfig.sysLog.log(data.getTitle() + "保存完成。。。");
                     synchronized (key) {
                         key.savedCountIncrease();

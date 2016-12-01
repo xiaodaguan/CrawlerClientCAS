@@ -231,7 +231,7 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 //		System.out.println(domtree.getTextContent());
 		for(int i = 0;i < nl.getLength();i++) {
 			ReplyData vd = new ReplyData();
-			vd.setName(nl.item(i).getTextContent());
+			vd.setName(StringUtil.format(nl.item(i).getTextContent()));
 			list.add(vd);
 		}
 	}

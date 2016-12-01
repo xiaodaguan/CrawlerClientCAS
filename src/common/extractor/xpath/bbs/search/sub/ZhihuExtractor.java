@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class sogouExtractor extends BbsSearchXpathExtractor {
+public class ZhihuExtractor extends BbsSearchXpathExtractor {
 
 	public  String delHTMLTag(String htmlStr) {
 		final String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
