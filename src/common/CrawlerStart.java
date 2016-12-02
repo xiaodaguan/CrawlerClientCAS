@@ -18,7 +18,7 @@ public class CrawlerStart {
         // common.util.TimeUtil.rest(8 * 60 * 60);
         // TaskMonitor tm=new TaskMonitor();
         // Thread tmonitor=new Thread(tm);
-        // tmonitor.start();
+        // tmonitor.start(); 
 
         if (args.length == 0) {
             return;
@@ -79,5 +79,4 @@ public class CrawlerStart {
         Thread.sleep(3 * 1000);
         Job.simpleRun();
     }
-
 }

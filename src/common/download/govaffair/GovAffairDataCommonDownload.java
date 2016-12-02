@@ -13,7 +13,7 @@ import common.util.TimeUtil;
 /**
  * 下载详细页面
  * 
- * @author grs
+ * @author rzy
  */
 public class GovAffairDataCommonDownload extends GenericDataCommonDownload<GovAffairData> implements Runnable {
 

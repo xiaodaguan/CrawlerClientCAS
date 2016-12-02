@@ -10,7 +10,7 @@ import common.system.Systemconfig;
 
 /**
  * 下载详细页面
- * @author grs
+ * @author rzy
  */
 public class VideoDataCommonDownload extends GenericDataCommonDownload<VideoData> {
 

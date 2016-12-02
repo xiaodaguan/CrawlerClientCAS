@@ -9,7 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import common.bean.HtmlInfo;
-import common.bean.p;
+import common.bean.NewsData;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.news.monitor.NewsMonitorExtractorAttribute;
 import common.extractor.xpath.news.monitor.NewsMonitorXpathExtractor;
@@ -29,7 +29,7 @@ import common.util.StringUtil;
 public class TyrefhMonitorExtractor extends NewsMonitorXpathExtractor implements NewsMonitorExtractorAttribute {
 
 	@Override
-	public void parsePubtime1(List<p> list, Node dom, Component component, String... args) {
+	public void parsePubtime1(List<NewsData> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -45,7 +45,7 @@ public class TyrefhMonitorExtractor extends NewsMonitorXpathExtractor implements
 	}
 
 	@Override
-	public void parseSource(p data, Node dom, Component component, String... args) {
+	public void parseSource(NewsData data, Node dom, Component component, String... args) {
 		String str = "";
 		if (component == null)
 			return;
@@ -72,7 +72,7 @@ public class TyrefhMonitorExtractor extends NewsMonitorXpathExtractor implements
 	}
 
 	@Override
-	public void parseAuthor(p data, Node dom, Component component, String... args) {
+	public void parseAuthor(NewsData data, Node dom, Component component, String... args) {
 		String str = "";
 		if (component == null) {
 			return;

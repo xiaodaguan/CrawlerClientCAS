@@ -20,7 +20,7 @@ import common.util.ExtractResult;
 
 /**
  * 政务搜索特殊属性抽取
- * @author grs
+ * @author rzy
  *
  */
 public class GovwebExtractor extends GovAffairSearchXpathExtractor {

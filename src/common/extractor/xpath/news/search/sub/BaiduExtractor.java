@@ -1,6 +1,6 @@
 package common.extractor.xpath.news.search.sub;
 
-import common.bean.p;
+import common.bean.NewsData;
 import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;
@@ -18,7 +18,7 @@ import java.util.List;
 public class BaiduExtractor extends NewsSearchXpathExtractor {
 
 	@Override
-	public void parseBrief(List<p> list, Node dom, Component component,
+	public void parseBrief(List<NewsData> list, Node dom, Component component,
 			String... args) {
 		if(component==null) return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -31,7 +31,7 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 	}
 	
 	@Override
-	public void parseSameurl(List<p> list, Node dom,
+	public void parseSameurl(List<NewsData> list, Node dom,
 			Component component, String... args) {
 		if(component == null) return;
 		for(int i = 0;i < list.size();i++) {
@@ -43,7 +43,7 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 		}
 	}
 	@Override
-	public void parsePubtime(List<p> list, Node dom, Component component, String... args) {
+	public void parsePubtime(List<NewsData> list, Node dom, Component component, String... args) {
 		if(component==null) return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if(nl==null) return;
@@ -128,7 +128,7 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 			return "1";
 		}
 	@Override
-	public void parseSource(List<p> list, Node dom, Component component, String... strings) {
+	public void parseSource(List<NewsData> list, Node dom, Component component, String... strings) {
 //		if(component==null) return;
 //		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 //		if(nl==null) return;
@@ -143,7 +143,7 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 	}
 	
 	@Override
-	public void parseSamenum(List<p> list, Node dom,
+	public void parseSamenum(List<NewsData> list, Node dom,
 		Component component, String... args) {
 		if(component == null) return;
 		for(int i = 0;i < list.size();i++) {

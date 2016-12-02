@@ -3,7 +3,7 @@ package common.download.press;
 import java.util.concurrent.CountDownLatch;
 
 import common.bean.HtmlInfo;
-import common.bean.p;
+import common.bean.NewsData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.service.mysql.NewsMysqlService;
@@ -13,11 +13,11 @@ import common.util.TimeUtil;
 
 /**
  * 下载详细页面
- * @author grs
+ * @author rzy
  */
-public class PressSameDataCommonDownload extends GenericDataCommonDownload<p> implements Runnable {
+public class PressSameDataCommonDownload extends GenericDataCommonDownload<NewsData> implements Runnable {
 
-	public PressSameDataCommonDownload(String siteFlag, p vd,
+	public PressSameDataCommonDownload(String siteFlag, NewsData vd,
 			CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, vd, endCount, key);
 	}

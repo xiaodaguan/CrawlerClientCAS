@@ -36,6 +36,8 @@ public enum CrawlerType {
     
     GOVAFFAIR_SEARCH("37,1,1"), GOVAFFAIR_MONITOR("38,1,1"),
     PRESS_SEARCH("39,1,1"), 	PRESS_MONITOR("40,1,1"),
+    FRGMEDIA_SEARCH("41,1,1"), 	FRGMEDIA_MONITOR("42,1,1"),
+    CLIENT_SEARCH("45,1,1"), 	CLIENT_MONITOR("46,1,1"),
     ;
 
     private CrawlerType() {
@@ -101,6 +103,11 @@ public enum CrawlerType {
         crawlerTypeMap.put(38, GOVAFFAIR_MONITOR);
         crawlerTypeMap.put(39, PRESS_SEARCH);
         crawlerTypeMap.put(40, PRESS_MONITOR);
+        crawlerTypeMap.put(41, FRGMEDIA_SEARCH);
+        crawlerTypeMap.put(42, FRGMEDIA_MONITOR);
+        
+        crawlerTypeMap.put(45, CLIENT_SEARCH);
+        crawlerTypeMap.put(46, CLIENT_MONITOR);
     }
 
     public static Map<Integer, CrawlerType> getCrawlerTypeMap() { return crawlerTypeMap; }

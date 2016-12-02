@@ -1,6 +1,6 @@
 package common.extractor.xpath.news.monitor.sub;
 
-import common.bean.p;
+import common.bean.NewsData;
 import common.bean.WeixinData;
 import common.extractor.xpath.news.monitor.NewsMonitorExtractorAttribute;
 import common.extractor.xpath.news.monitor.NewsMonitorXpathExtractor;
@@ -20,7 +20,7 @@ import java.util.Map;
 public class QdznjtMonitorExtractor extends NewsMonitorXpathExtractor implements NewsMonitorExtractorAttribute {
 
 	@Override
-	public void processList(List<p> list, Node domtree, Map<String, Component> comp, String... args) {
+	public void processList(List<NewsData> list, Node domtree, Map<String, Component> comp, String... args) {
 		this.parseTitle(list, domtree, comp.get("title"));
 
 		if (list.size() == 0)
@@ -30,7 +30,7 @@ public class QdznjtMonitorExtractor extends NewsMonitorXpathExtractor implements
 	}
 
 	@Override
-	public void processPage(p data, Node domtree, Map<String, Component> comp, String... args) {
+	public void processPage(NewsData data, Node domtree, Map<String, Component> comp, String... args) {
 		if (data.getTitle() == null) {
 			this.parsePageTitle(data, domtree, comp.get("pageTitle"));
 		}
@@ -58,7 +58,7 @@ public class QdznjtMonitorExtractor extends NewsMonitorXpathExtractor implements
 	}
 
 	@Override
-	public void parseUrl(List<p> list, Node dom, Component component, String... args) {
+	public void parseUrl(List<NewsData> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -73,7 +73,7 @@ public class QdznjtMonitorExtractor extends NewsMonitorXpathExtractor implements
 	}
 
     @Override
-    public void parseAuthor(p data, Node dom, Component component, String... args) {
+    public void parseAuthor(NewsData data, Node dom, Component component, String... args) {
         if (component == null)
             return;
         NodeList nl = commonList(component.getXpath(), dom);
@@ -86,7 +86,7 @@ public class QdznjtMonitorExtractor extends NewsMonitorXpathExtractor implements
 
 
     @Override
-    public void parsePubtime(p data, Node dom, Component component, String... args) {
+    public void parsePubtime(NewsData data, Node dom, Component component, String... args) {
         if (component == null)
             return;
         NodeList nl = commonList(component.getXpath(), dom);
@@ -99,7 +99,7 @@ public class QdznjtMonitorExtractor extends NewsMonitorXpathExtractor implements
     }
 
     @Override
-    public void parseSource(p data, Node dom, Component component, String... strings) {
+    public void parseSource(NewsData data, Node dom, Component component, String... strings) {
         if (component == null)
             return;
         NodeList nl = commonList(component.getXpath(), dom);
@@ -110,7 +110,7 @@ public class QdznjtMonitorExtractor extends NewsMonitorXpathExtractor implements
     }
 
     @Override
-    public void parseContent(p data, Node dom, Component component, String... strings) {
+    public void parseContent(NewsData data, Node dom, Component component, String... strings) {
         if (component == null)
             return;
         NodeList nl = commonList(component.getXpath(), dom);

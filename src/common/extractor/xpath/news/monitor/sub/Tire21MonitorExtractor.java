@@ -8,7 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import common.bean.HtmlInfo;
-import common.bean.p;
+import common.bean.NewsData;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.news.monitor.NewsMonitorExtractorAttribute;
 import common.extractor.xpath.news.monitor.NewsMonitorXpathExtractor;
@@ -59,7 +59,7 @@ public class Tire21MonitorExtractor extends NewsMonitorXpathExtractor implements
 	}
 
 	@Override
-	public void parseSource(p data, Node dom, Component component, String... args) {
+	public void parseSource(NewsData data, Node dom, Component component, String... args) {
 		data.setSource("中国轮胎网");
 	}
 }

@@ -5,11 +5,13 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.AgricaltureData;
 import common.bean.BBSData;
 import common.bean.BlogData;
+import common.bean.ClientData;
 import common.bean.CommonData;
 import common.bean.CompanyData;
 import common.bean.ConferenceData;
+import common.bean.FrgmediaData;
 import common.bean.GovAffairData;
-import common.bean.p;
+import common.bean.NewsData;
 import common.bean.PersonData;
 import common.bean.PressData;
 import common.bean.ReportData;
@@ -25,10 +27,14 @@ import common.download.bbs.BBSMetaCommonDownload;
 import common.download.bbs.BBSMetaMonitorDownload;
 import common.download.blog.BlogDataCommonDownload;
 import common.download.blog.BlogMetaCommonDownload;
+import common.download.client.ClientDataCommonDownload;
+import common.download.client.ClientMetaCommonDownload;
 import common.download.company.CompanyDataCommonDownload;
 import common.download.company.CompanyMetaCommonDownload;
 import common.download.conference.ConferenceDataCommonDownload;
 import common.download.conference.ConferenceMetaCommonDownload;
+import common.download.frgmedia.FrgmediaDataCommonDownload;
+import common.download.frgmedia.FrgmediaMetaCommonDownload;
 import common.download.govaffair.GovAffairDataCommonDownload;
 import common.download.govaffair.GovAffairMetaCommonDownload;
 import common.download.news.NewsDataCommonDownload;
@@ -115,7 +121,13 @@ public class DownFactory {
 		case 39://
 		case 40:
 			return new PressMetaCommonDownload(key);
+		case 41://
+		case 42:
+			return new FrgmediaMetaCommonDownload(key);
 
+		case 45://
+		case 46:
+			return new ClientMetaCommonDownload(key);
 		default:
 			return new SimpleMetaCommonDownload(key);
 		}
@@ -132,7 +144,7 @@ public class DownFactory {
 		switch (Systemconfig.crawlerType) {
 		case 1:
 		case 2:
-			return (GenericDataCommonDownload<T>) new NewsDataCommonDownload(siteFlag, (p) data, count, key);
+			return (GenericDataCommonDownload<T>) new NewsDataCommonDownload(siteFlag, (NewsData) data, count, key);
 		case 3:
 			return (GenericDataCommonDownload<T>) new BBSDataCommonDownload(siteFlag, (BBSData) data, count, key);
 		case 4:
@@ -184,6 +196,14 @@ public class DownFactory {
 		case 39:
 		case 40:
 			return (GenericDataCommonDownload<T>) new PressDataCommonDownload(siteFlag, (PressData) data, count,
+					key);
+		case 41:
+		case 42:
+			return (GenericDataCommonDownload<T>) new FrgmediaDataCommonDownload(siteFlag, (FrgmediaData) data, count,
+					key);
+		case 45:
+		case 46:
+			return (GenericDataCommonDownload<T>) new ClientDataCommonDownload(siteFlag, (ClientData) data, count,
 					key);
 		default:	
 			return (GenericDataCommonDownload<T>) new SimpleDataCommonDownload(siteFlag, (CommonData) data, count, key);

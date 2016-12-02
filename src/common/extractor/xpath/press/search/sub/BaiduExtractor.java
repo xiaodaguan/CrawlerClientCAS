@@ -11,8 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 /**
- * 百度新闻搜索特殊属性抽取
- * @author grs
+ * 百度新闻刊物搜索特殊属性抽取
+ * @author rzy
  *
  */
 public class BaiduExtractor extends PressSearchXpathExtractor {

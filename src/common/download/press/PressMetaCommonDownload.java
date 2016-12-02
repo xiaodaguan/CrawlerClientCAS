@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.bean.HtmlInfo;
-import common.bean.p;
+import common.bean.NewsData;
 import common.bean.PressData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
@@ -15,7 +15,7 @@ import common.util.TimeUtil;
 /**
  * 下载元数据
  * 
- * @author grs
+ * @author rzy
  */
 public class PressMetaCommonDownload extends GenericMetaCommonDownload<PressData> {
 
