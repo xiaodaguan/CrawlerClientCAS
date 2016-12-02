@@ -14,7 +14,7 @@ import common.util.TimeUtil;
 /**
  * 下载详细页面
  * 
- * @author grs
+ * @author rzy
  */
 public class PressDataCommonDownload extends GenericDataCommonDownload<PressData> implements Runnable {
 

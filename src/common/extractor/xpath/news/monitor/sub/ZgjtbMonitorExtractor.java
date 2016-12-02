@@ -9,7 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import common.bean.HtmlInfo;
-import common.bean.p;
+import common.bean.NewsData;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.news.monitor.NewsMonitorExtractorAttribute;
 import common.extractor.xpath.news.monitor.NewsMonitorXpathExtractor;
@@ -29,7 +29,7 @@ import common.util.StringUtil;
 public class ZgjtbMonitorExtractor extends NewsMonitorXpathExtractor implements NewsMonitorExtractorAttribute {
 
 	@Override
-	public void processList(List<p> list, Node domtree, Map<String, Component> comp, String... args) {
+	public void processList(List<NewsData> list, Node domtree, Map<String, Component> comp, String... args) {
 		this.parseTitle(list, domtree, comp.get("title"));
 
 		if (list.size() == 0)
@@ -39,7 +39,7 @@ public class ZgjtbMonitorExtractor extends NewsMonitorXpathExtractor implements 
 	}
 
 	@Override
-	public void processPage(p data, Node domtree, Map<String, Component> comp, String... args) {
+	public void processPage(NewsData data, Node domtree, Map<String, Component> comp, String... args) {
 		if (data.getTitle() == null) {
 			this.parsePageTitle(data, domtree, comp.get("pageTitle"));
 		}
@@ -70,7 +70,7 @@ public class ZgjtbMonitorExtractor extends NewsMonitorXpathExtractor implements 
 	}
 
 	@Override
-	public void parseUrl(List<p> list, Node dom, Component component, String... args) {
+	public void parseUrl(List<NewsData> list, Node dom, Component component, String... args) {
 		if (component == null)
 			return;
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
@@ -88,7 +88,7 @@ public class ZgjtbMonitorExtractor extends NewsMonitorXpathExtractor implements 
 	}
 
 	@Override
-	public void parsePubtime(p data, Node dom, Component component, String... args) {
+	public void parsePubtime(NewsData data, Node dom, Component component, String... args) {
 		String str = "";
 		if (component == null)
 			return;
@@ -111,7 +111,7 @@ public class ZgjtbMonitorExtractor extends NewsMonitorXpathExtractor implements 
 	}
 
 	@Override
-	public void parseSource(p data, Node dom, Component component, String... args) {
+	public void parseSource(NewsData data, Node dom, Component component, String... args) {
 		String str = "";
 		if (component == null)
 			return;
@@ -131,7 +131,7 @@ public class ZgjtbMonitorExtractor extends NewsMonitorXpathExtractor implements 
 	}
 
 	@Override
-	public void parseAuthor(p data, Node dom, Component component, String... args) {
+	public void parseAuthor(NewsData data, Node dom, Component component, String... args) {
 		String str = "";
 		if (component == null)
 			return;

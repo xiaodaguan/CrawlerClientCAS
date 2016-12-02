@@ -13,7 +13,7 @@ import common.util.TimeUtil;
 
 /**
  * 下载元数据
- * @author grs
+ * @author rzy
  */
 public class VideoMetaCommonDownload extends GenericMetaCommonDownload<VideoData> {
 	

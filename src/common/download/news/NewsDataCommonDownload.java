@@ -3,7 +3,7 @@ package common.download.news;
 import java.util.concurrent.CountDownLatch;
 
 import common.bean.HtmlInfo;
-import common.bean.p;
+import common.bean.NewsData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
@@ -15,9 +15,9 @@ import common.util.TimeUtil;
  * 
  * @author grs
  */
-public class NewsDataCommonDownload extends GenericDataCommonDownload<p> implements Runnable {
+public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> implements Runnable {
 
-	public NewsDataCommonDownload(String siteFlag, p vd, CountDownLatch endCount, SearchKey key) {
+	public NewsDataCommonDownload(String siteFlag, NewsData vd, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, vd, endCount, key);
 	}
 

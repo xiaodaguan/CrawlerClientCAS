@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+	<prop name="site" value="toutiao"/>
+	<prop name="siteName" value="toutiao_client_search"/>
+	<prop name="siteFlag" value="23"/>
+	<prop name="charset" value="utf-8"/>
+	<!-- 
+	<prop name="downInterval" value="25" />
+	<prop name="page" value="100" />
+	<prop name="threadNum" value="3" />
+	-->
+	
+	<prop name="downInterval" value="11"/>
+	<prop name="page" value="1"/>
+	<prop name="threadNum" value="1"/>
+	
+	<!--  url 入口-->
+	<prop name="accessUrl" value="http://www.toutiao.com/search_content/?offset=0&amp;format=json&amp;keyword=&lt;keyword&gt;&amp;autoload=true&amp;count=20"/>
+
+<!-- 列表页 -->
+							
+<!-- 内容页 -->
+	<prop name="content" 		value="//DIV[@class='article-content']//P|//DIV[@class='content']"/>
+	<prop name="img_url" 		value="//DIV[@class='article-content']//IMG/@src"/>
+	<prop name="column" 		value="//A[@ga_event='click_channel']|//A[@ga_event='click_gallery']"/>
+	
+	<prop name="reply_name" 	value="//DIV[@id='pagelet-ncomment']//DIV[@class='cuser']" />	
+	<prop name="replay_img" 	value="//DIV[@id='pagelet-ncomment']//DIV[@class='cuser']/A/@href" />	
+	<prop name="reply_content" 	value="//DIV[@id='pagelet-ncomment']//DIV[@class='ctxt']"/>
+	<prop name="reply_time" 	value="//DIV[@id='pagelet-ncomment']//SPAN[@class='ctime']"/>
+
+	
+</site>

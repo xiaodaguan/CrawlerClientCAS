@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+	<prop name="site" value="zaker"/>
+	<prop name="siteName" value="zaker_client_search"/>
+	<prop name="siteFlag" value="23"/>
+	<prop name="charset" value="utf-8"/>
+	<!-- 
+	<prop name="downInterval" value="25" />
+	<prop name="page" value="100" />
+	<prop name="threadNum" value="3" />
+	-->
+	
+	<prop name="downInterval" value="11"/>
+	<prop name="page" value="1"/>
+	<prop name="threadNum" value="1"/>
+	
+	<prop name="accessUrl" value="http://www.myzaker.com/news/search_new.php?f=zakercn&amp;keyword=&lt;keyword&gt;"/>
+
+
+<!-- 列表页 -->
+	<prop name="title" 			value="//DIV[@class='figure flex-block']/DIV[@class='article flex-1']/H2[@class='figcaption']/A/@title" />
+	<prop name="url" 			value="//DIV[@class='figure flex-block']/DIV[@class='article flex-1']/H2[@class='figcaption']/A/@href"/>
+	<prop name="url_prefix" 	value="http:"/>
+	<prop name="source_lp" 		value="//DIV[@class='figure flex-block']/DIV[@class='article flex-1']/DIV/SPAN[1]"/>
+	<prop name="pubtime_lp" 	value="//DIV[@class='figure flex-block']/DIV[@class='article flex-1']/DIV/SPAN[2]"/>
+	
+<!-- 内容页 -->
+	
+	<prop name="content" 		value="//DIV[@class='article_content']/DIV[@id='content']/P"/>
+	<prop name="img_url" 		value="//DIV[@class='article_content']/DIV[@id='content']//IMG/@data-original"/>
+	<prop name="source_url" 	value="//DIV[@class='article_detail']/A/@href"/>
+	<prop name="column" 		value="//DIV[@id='article']/OL/LI[2]"/>
+	<prop name="reply_name" 	value="//DIV[@class='comment_info flex-1']/DIV[@class='comment_title author']"/>
+	<prop name="reply_img"      value="//DIV[@class='comment_avatar_container ']/DIV[@class='comment_avatar']/@*" />
+	<prop name="reply_count" 	value="//DIV[@class='comment_avatar_container ']"/>			
+	<prop name="reply_content" 	value="//DIV[@class='comment_info flex-1']/DIV[@class='comment_desc con']"/>
+	<prop name="reply_time" 	value="//DIV[@class='comment_info flex-1']/DIV[@class='comment_time']"/>
+ 
+</site>

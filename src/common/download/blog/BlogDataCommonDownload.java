@@ -35,7 +35,7 @@ public class BlogDataCommonDownload extends GenericDataCommonDownload<BlogData> 
 				}
 				// 解析数据
 				xpath.templateContentPage(data, html);
-				
+								
 				Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
 				Systemconfig.dbService.saveData(data);
 				synchronized (key) {

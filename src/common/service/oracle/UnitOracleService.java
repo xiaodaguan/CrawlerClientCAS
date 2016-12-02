@@ -6,117 +6,126 @@ import common.system.Systemconfig;
 
 public class UnitOracleService implements DBFactory {
 
-    private NewsOracleService newsOracleService;
-    private VideoOracleService videoOracleService;
-    private BbsOracleService bbsOracleService;
-    private BlogOracleService blogOracleService;
-    private WeiboOracleService weiboOracleService;
-    private EbusinessOracleService ebusinessOracleService;
-    private WeixinOracleService weixinOracleService;
-    private ReportOracleService reportOracleService;
-    private AgricaltureOracleService agricaltureOracleService;
-    private ConferenceOracleService conferenceOracleService;
-    private PersonOracleService personOracleService;
-    private CompanyOracleService companyOracleService;
-    private GovAffairOracleService govaffairOracleService;
-    private PressOracleService pressOracleService;
-    public DBService dbService() {
-        switch (Systemconfig.crawlerType) {
-            case 1:
-            case 2:
-                return newsOracleService;
-            case 3:
-            case 4:
-                return bbsOracleService;
-            case 5:
-            	 
-            case 6:
-                return blogOracleService;
-            case 7:
-            case 8:
-                return weiboOracleService;
-            case 9:
-            case 10:
-            	return videoOracleService;
-            case 11:
-            case 12:
-                return null;
-            case 13:
-            case 14:
-                return ebusinessOracleService;
-            case 15:
-            case 16:
-                return weixinOracleService;
-            case 21:
-            case 22:
-                return reportOracleService;
+	private NewsOracleService newsOracleService;
+	private VideoOracleService videoOracleService;
+	private BbsOracleService bbsOracleService;
+	private BlogOracleService blogOracleService;
+	private WeiboOracleService weiboOracleService;
+	private EbusinessOracleService ebusinessOracleService;
+	private WeixinOracleService weixinOracleService;
+	private ReportOracleService reportOracleService;
+	private AgricaltureOracleService agricaltureOracleService;
+	private ConferenceOracleService conferenceOracleService;
+	private PersonOracleService personOracleService;
+	private CompanyOracleService companyOracleService;
+	private GovAffairOracleService govaffairOracleService;
+	private PressOracleService pressOracleService;
+	private FrgmediaOracleService frgmediaOracleService;
+	private ClientOracleService clientOracleService;
+	public DBService dbService() {
+		switch (Systemconfig.crawlerType) {
+		case 1:
+		case 2:
+			return newsOracleService;
+		case 3:
+		case 4:
+			return bbsOracleService;
+		case 5:
 
-            case 27:
-            case 28:
-                return agricaltureOracleService;
-            case 29:
-            case 30:
-                return conferenceOracleService;
-            case 31:
-            case 32:
-                return personOracleService;
-            case 33:
-            case 34:
-                return companyOracleService;
-            case 37:
-            case 38:
-                return govaffairOracleService;
-            case 39:
-            case 40:
-                return pressOracleService;
-        }
-        return null;
-    }
+		case 6:
+			return blogOracleService;
+		case 7:
+		case 8:
+			return weiboOracleService;
+		case 9:
+		case 10:
+			return videoOracleService;
+		case 11:
+		case 12:
+			return null;
+		case 13:
+		case 14:
+			return ebusinessOracleService;
+		case 15:
+		case 16:
+			return weixinOracleService;
+		case 21:
+		case 22:
+			return reportOracleService;
 
-    public void setPersonOracleService(PersonOracleService personOracleService) {
+		case 27:
+		case 28:
+			return agricaltureOracleService;
+		case 29:
+		case 30:
+			return conferenceOracleService;
+		case 31:
+		case 32:
+			return personOracleService;
+		case 33:
+		case 34:
+			return companyOracleService;
+		case 37:
+		case 38:
+			return govaffairOracleService;
+		case 39:
+		case 40:
+			return pressOracleService;
+		case 41:
+		case 42:
+			return frgmediaOracleService;
+			
+		case 45:
+		case 46:
+			return clientOracleService;
+		}
+		return null;
+	}
 
-        this.personOracleService = personOracleService;
-    }
+	public void setPersonOracleService(PersonOracleService personOracleService) {
 
-    public void setAgricaltureOracleService(AgricaltureOracleService agricaltureOracleService) {
-        this.agricaltureOracleService = agricaltureOracleService;
-    }
+		this.personOracleService = personOracleService;
+	}
 
-    public void setNewsOracleService(NewsOracleService newsOracleService) {
-        this.newsOracleService = newsOracleService;
-    }
+	public void setAgricaltureOracleService(AgricaltureOracleService agricaltureOracleService) {
+		this.agricaltureOracleService = agricaltureOracleService;
+	}
 
-    public void setWeixinOracleService(WeixinOracleService weixinOracleService) {
-        this.weixinOracleService = weixinOracleService;
-    }
+	public void setNewsOracleService(NewsOracleService newsOracleService) {
+		this.newsOracleService = newsOracleService;
+	}
 
-    public void setBbsOracleService(BbsOracleService bbsOracleService) {
-        this.bbsOracleService = bbsOracleService;
-    }
+	public void setWeixinOracleService(WeixinOracleService weixinOracleService) {
+		this.weixinOracleService = weixinOracleService;
+	}
 
-    public void setWeiboOracleService(WeiboOracleService weiboOracleService) {
-        this.weiboOracleService = weiboOracleService;
-    }
+	public void setBbsOracleService(BbsOracleService bbsOracleService) {
+		this.bbsOracleService = bbsOracleService;
+	}
 
-    public void setBlogOracleService(BlogOracleService blogOracleService) {
-        this.blogOracleService = blogOracleService;
-    }
+	public void setWeiboOracleService(WeiboOracleService weiboOracleService) {
+		this.weiboOracleService = weiboOracleService;
+	}
 
-    public void setEbusinessOracleService(EbusinessOracleService ebusinessOracleService) {
-        this.ebusinessOracleService = ebusinessOracleService;
-    }
+	public void setBlogOracleService(BlogOracleService blogOracleService) {
+		this.blogOracleService = blogOracleService;
+	}
 
-    public void setReportOracleService(ReportOracleService reportOracleService) {
-        this.reportOracleService = reportOracleService;
-    }
+	public void setEbusinessOracleService(EbusinessOracleService ebusinessOracleService) {
+		this.ebusinessOracleService = ebusinessOracleService;
+	}
 
-    public void setConferenceOracleService(ConferenceOracleService conferenceOracleService) {
-        this.conferenceOracleService = conferenceOracleService;
-    }
+	public void setReportOracleService(ReportOracleService reportOracleService) {
+		this.reportOracleService = reportOracleService;
+	}
 
-    public void setCompanyOracleService(CompanyOracleService companyOracleService) {
-        this.companyOracleService = companyOracleService;
-    }
+	public void setConferenceOracleService(ConferenceOracleService conferenceOracleService) {
+		this.conferenceOracleService = conferenceOracleService;
+	}
+
+	public void setCompanyOracleService(CompanyOracleService companyOracleService) {
+		this.companyOracleService = companyOracleService;
+	}
 
 	public void setVideoOracleService(VideoOracleService videoOracleService) {
 		this.videoOracleService = videoOracleService;
@@ -128,6 +137,14 @@ public class UnitOracleService implements DBFactory {
 
 	public void setPressOracleService(PressOracleService pressOracleService) {
 		this.pressOracleService = pressOracleService;
-	} 
-		
+	}
+
+	public void setFrgmediaOracleService(FrgmediaOracleService frgmediaOracleService) {
+		this.frgmediaOracleService = frgmediaOracleService;
+	}
+
+	public void setClientOracleService(ClientOracleService clientOracleService) {
+		this.clientOracleService = clientOracleService;
+	}
+
 }

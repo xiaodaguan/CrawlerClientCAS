@@ -11,19 +11,17 @@ import org.xml.sax.SAXException;
 
 import common.bean.GovAffairData;
 import common.bean.HtmlInfo;
-import common.bean.p;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.ExtractResult;
 import common.util.StringUtil;
 
 /**
  * 抽取实现类
  * 
- * @author grs
+ * @author rzy
  */
 public class GovAffairSearchXpathExtractor extends XpathExtractor<GovAffairData>
 		implements GovAffairSearchExtractorAttribute {
@@ -212,15 +210,6 @@ public class GovAffairSearchXpathExtractor extends XpathExtractor<GovAffairData>
 	public void parseSamenum(List<GovAffairData> list, Node dom, Component component, String... args) {
 	}
 
-	public void parseSource(p data, Node dom, Component component, String... strings) {
-		if (component == null)
-			return;
-		NodeList nl = commonList(component.getXpath(), dom);
-		if (nl == null)
-			return;
-		if (nl.item(0) != null)
-			data.setSource(StringUtil.format(nl.item(0).getTextContent()));
-	}
 
 	@Override
 	public void parseSameurl(List<GovAffairData> list, Node dom, Component component, String... args) {

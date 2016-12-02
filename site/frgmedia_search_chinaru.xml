@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+	<prop name="site" value="chinaru" />
+	<prop name="siteName" value="chinaru_frgmedia_search" />
+	<prop name="siteFlag" value="21" />
+	<prop name="charset" value="gbk" />
+	<!-- test -->
+	<!--
+	<prop name="downInterval" value="15" />
+	<prop name="page" value="6" />
+	<prop name="threadNum" value="2" />
+	 -->
+	 <!-- run -->
+	<prop name="downInterval" value="5" />
+	<prop name="page" value="3" />
+	<prop name="threadNum" value="1" />
+	
+	<!-- <prop name="accessUrl" value="http://news.baidu.com/ns?ie=utf-8&amp;sr=0&amp;cl=2&amp;rn=20&amp;tn=news&amp;ct=0&amp;clk=sortbyrel&amp;word=&lt;keyword&gt;" />-->
+	<prop name="accessUrl" value="http://www.chinaru.info/Search/index.asp?word=&lt;keyword&gt;&amp;Classid=3&amp;keytype=0" />
+	
+<!-- 列表页 -->
+	<prop name="title" 		value="//DIV[@class='searlist']//LI/H1/A/@title" />
+	<prop name="url" 		value="//DIV[@class='searlist']//LI/H1/A/@href" />
+	<prop name="url_prefix" value="http://www.chinaru.info" />	
+	<prop name="pubtime" 	value="//DIV[@class='searlist']//LI/H3" />
+	<prop name="brief" 		value="//DIV[@class='searlist']//LI/H2" />
+	
+	<prop name="next" 			value="//SPAN[@class='pagebox_next'][1]/A/@href" />
+	<prop name="next_prefix" 	value="http://www.chinaru.info/Search/"/>
+	<prop name="same_num" 		value="" />
+	<prop name="same_url" 		value="" />
+<!-- 内容页-->
+	<prop name="source"  value="//LI[@class='newssource']" />
+	<prop name="author"  value="//LI[@class='newssource']" />
+	<prop name="content" value="//LI[@class='newscontent']/P" />
+	<prop name="imgUrl"  value="//LI[@class='newscontent']//IMG/@src" />
+	
+</site>
