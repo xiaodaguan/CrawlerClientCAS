@@ -151,6 +151,10 @@ public class Job {
 
             keys = Systemconfig.dbService.searchKeys();
             Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
+
+            Systemconfig.sysLog.log(">>keys: \n"+keys);
+            Systemconfig.sysLog.log(">>crawler map: \n"+CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType));
+
             out:
             for (SearchKey sk : keys) {
 
@@ -159,7 +163,10 @@ public class Job {
 
                 Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
 
-                if (siteinfo == null) continue;
+                if (siteinfo == null){
+                    Systemconfig.sysLog.log("siteinfo is null");
+                    continue;
+                }
 
                 sk.setSite(site);
                 createThreadPool(site, siteinfo);
@@ -171,16 +178,32 @@ public class Job {
                 }
             }
 
+            long start = System.currentTimeMillis();
+
             while (!ifAllFinished()) {
-                Thread.currentThread().sleep(10 * 1000);
+
+                Thread.currentThread().sleep(60 * 1000);
+                if (start + 1000 * 3600 * 10 < System.currentTimeMillis()) {
+                    //单循环最大10h
+                    Systemconfig.sysLog.log("single loop time out, stop...");
+                    Set<String> taskNames = Systemconfig.tasks.keySet();
+
+                    for (String taskName : taskNames) {
+                        if (Systemconfig.tasks.containsKey(taskName)) {
+                            Systemconfig.tasks.get(taskName).cancel(true);
+                        }
+                    }
+
+                    Systemconfig.sysLog.log("all tasks stopped. ");
+                    break;
+                }
+
             }
 
             cLogger.stop();
             Systemconfig.sysLog.log("loop stop");
 
-
             TimeUtil.rest(calCycleWaitTime());
-
 
             AppContext.readConfig();
         }
@@ -392,6 +415,7 @@ public class Job {
     }
 
     public void submitSearchKey(SearchKey sk) {
+        Systemconfig.sysLog.log("submit searchkey: "+sk.getSite()+"+"+sk.getKey());
         Future<?> f = EXECUTOR_SERVICE_MAP.get(sk.getSite()).submit(DownFactory.metaControl(sk));
         Systemconfig.tasks.put(sk.getSite() + "_" + sk.getKey(), f);
     }

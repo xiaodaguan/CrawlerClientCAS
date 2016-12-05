@@ -45,6 +45,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
+import org.apache.http.client.utils.DateUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
@@ -167,6 +168,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	
 	@Override
 	public synchronized boolean login(UserAttr user) {
+		Systemconfig.sysLog.log("logging in: "+user.getName());
 		if(user == null) {
 			Systemconfig.sysLog.log("用户不存在，数据无法采集！");
 			return false;
@@ -306,10 +308,14 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		html.setType("LOGIN");
 		getContent(html, user);
 		String str = html.getContent();
-		if(loginPast(user)>3600*24){
+		long signedIn = loginPast(user);
+		Systemconfig.sysLog.log("time: "+signedIn+" s.");
+		if(signedIn>3600*24-60){
+			Systemconfig.sysLog.log("[login status]: cookie time out.");
 			return false;
 		}
 		if(str.indexOf("验证码") > -1){
+			Systemconfig.sysLog.log("[login status]: QRcode.");
 			return false;
 		}
 
@@ -317,6 +323,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 			return true;
 		}
 
+		Systemconfig.sysLog.log("[login status]: unknown exception.");
 		return false;
 	}
 
@@ -328,6 +335,10 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	private long loginPast(UserAttr user){
 		long last = user.getLastLoginTime().getTime();
 		long curr = System.currentTimeMillis();
+
+		Systemconfig.sysLog.log("last login: "+user.getLastLoginTime());
+		Systemconfig.sysLog.log("now: "+new Date());
+
 		return (curr-last)/1000;
 	}
 	
@@ -550,7 +561,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	private ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
 	@Override
 	public void monitorLogin(UserAttr user) {
-		ses.scheduleAtFixedRate(new VerifyUserCookie(user), 2, 2, TimeUnit.HOURS);
+		ses.scheduleAtFixedRate(new VerifyUserCookie(user), 1, 30, TimeUnit.MINUTES);
 	}
 
 	class VerifyUserCookie implements Runnable {
@@ -563,10 +574,10 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		public void run() {
 			boolean valid = verify(user);
 			if(!valid) {
-				Systemconfig.sysLog.log("cookie已失效，重新获取cookie！");
+				Systemconfig.sysLog.log("verify cookie: unavailable");
 				login(user);
 			} else {
-				Systemconfig.sysLog.log("cookie仍有效！");
+				Systemconfig.sysLog.log("verify cookie: available.");
 			}
 		}
 	}
