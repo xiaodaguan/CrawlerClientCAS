@@ -46,23 +46,9 @@ public class FrgmediaDataCommonDownload extends GenericDataCommonDownload<Frgmed
 				// 解析数据
 				xpath.templateContentPage(data, html, key.getKey());
 				
-				FrgmediaData fData = data;
-				System.out.println("\n\n一条外媒信息：");	
-				System.out.println("searchKey: "+fData.getSearchKey());
-				System.out.println("title:     "+fData.getTitle());
-				System.out.println("author:    "+fData.getAuthor());
-				System.out.println("url:       "+fData.getUrl());
-				System.out.println("pubtime:   "+fData.getPubtime());
-				System.out.println("pubdate:   "+fData.getPubdate().toLocaleString());
-				System.out.println("content:   "+fData.getContent());
-				System.out.println("imgUrl:    "+fData.getImgUrl());
-				System.out.println("source:    "+fData.getSource());
-				System.out.println("\n\n");
-				
-				
-				
+
 				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "解析完成。。。");
-				//Systemconfig.dbService.saveData(data);
+				Systemconfig.dbService.saveData(data);
 
 				/* 状态 */
 				int curr = Integer.parseInt(StringUtil.regMatcher(data.getCompleteSize(), "current: ", "/"));

@@ -59,14 +59,11 @@ public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> 
 				if (data.getCompleteSize().contains("rest: 0")) {
 					// 判断为结束
 					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
-
 				}
-
 				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "保存完成。。。");
 				synchronized (key) {
 					key.savedCountIncrease();
 				}
-
 			}
 			// if(data.getSameUrl()!=null && count != null && data.getId()>0) {
 			// //采集链接

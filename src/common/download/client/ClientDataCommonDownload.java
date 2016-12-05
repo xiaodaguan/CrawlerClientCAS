@@ -23,9 +23,6 @@ public class ClientDataCommonDownload extends GenericDataCommonDownload<ClientDa
     @Override
     public void process() {
         String url = getRealUrl(data);
-        if (siteFlag.startsWith("tieba")) {
-            // if(!url.contains("pid")) return;
-        }
         if (url == null) return;
         HtmlInfo html = htmlInfo("DATA");
         try {
@@ -39,10 +36,8 @@ public class ClientDataCommonDownload extends GenericDataCommonDownload<ClientDa
                 if (html.getContent() == null ) {
                     return;
                 }
-                // 解析数据       
-                
+                // 解析数据                       
                 url = xpath.templateContentPage(data, html);
-                
                 Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
                 
                 Systemconfig.dbService.saveData(data);

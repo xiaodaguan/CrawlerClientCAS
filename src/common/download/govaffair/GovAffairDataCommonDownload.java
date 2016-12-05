@@ -56,24 +56,12 @@ public class GovAffairDataCommonDownload extends GenericDataCommonDownload<GovAf
 				if (data.getCompleteSize().contains("rest: 0")) {
 					// 判断为结束
 					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
-
 				}
-
 				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "保存完成。。。");
 				synchronized (key) {
 					key.savedCountIncrease();
 				}
-
 			}
-			// if(data.getSameUrl()!=null && count != null && data.getId()>0) {
-			// //采集链接
-			// SearchKey searchKey = new SearchKey();
-			// searchKey.setKey(data.getSameUrl());
-			// searchKey.setId(data.getId());
-			// searchKey.setSite(siteFlag);
-			// TimeUtil.rest(siteinfo.getDownInterval()-10);
-			// new NewsMetaCommonDownload(searchKey).process();
-			// }
 		} catch (Exception e) {
 			Systemconfig.sysLog.log("采集出现异常【" + key + "】" + url, e);
 			// synchronized (key) {

@@ -78,24 +78,42 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 			return null;
 		}
 		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到元数据的配置组件
-		if(page == 1) {
+		
 			
+		if(html.getOrignUrl().contains("http://toutiao.com")){
 			this.parseContent(data, domtree, comp.getComponents().get("content"), html.getContent());
-			if(data.getContent()==null){
-				this.parseContent(data, domtree, "//P", html.getContent());
-			}
 			this.parseImgUrl(data, domtree, comp.getComponents().get("img_url"), new String[]{html.getContent()});
-			this.parseImgUrl(data, domtree, comp.getComponents().get("column"), new String[]{html.getContent()});
-			
-			data.setInserttime(new Date());
-			data.setSiteId(siteinfo.getSiteFlag());
-			if(data.getMd5()==null)
-				data.setMd5(MD5Util.MD5(data.getUrl()));
-			
-			if(data.getTitle()==null) {
-				this.parsePageTitle(data, domtree, comp.getComponents().get("pageTitle"), html.getContent());
+			this.parseColumn(data, domtree, comp.getComponents().get("column"), new String[]{html.getContent()});
+		}else{
+			if(html.getOrignUrl().contains("m.yfcnn.com")){
+//				SimpleHttpProcess http = new SimpleHttpProcess();
+//				String encode = html.getEncode();
+//				html.setEncode("gbk");
+//	            http.getContent(html);
+//	            html.setEncode("encode");
+//	            domtree = getRealDOM(html);
+				String xpathContent = "//DIV[@class='art_co sau']//P";
+				this.parseContent(data, domtree, xpathContent, html.getContent());
+				String xpathImg = "//DIV[@class='art_co sau']//P/IMG/@src";
+				this.parseImgUrl(data, domtree, xpathImg, html.getContent());
+				String xpathColumn = ("//DIV[@class='look_alltext']/A[2]");
+				this.parseColumn(data, domtree, xpathColumn, html.getContent());
+			}else{
+				
+				String xpathContent = "DIV[contains(@class,'content')]//P|"
+						+ "//ARTICLE//P|//DIV[contains(@id,'ext')]//P|"
+						+ "//FIGURE/FIGCAPTION";
+				String xpathImg = "DIV[contains(@class,'content')]//P//IMG/@*|"
+						+ "//ARTICLE//P//IMG/@*|//DIV[contains(@id,'ext')]//P//IMG/@*|"
+						+ "//FIGURE//IMG/@*";
+				this.parseContent(data, domtree, xpathContent, html.getContent());
+				this.parseImgUrl(data, domtree, xpathImg, html.getContent());
 			}
 		}
+		data.setInserttime(new Date());
+		data.setSiteId(siteinfo.getSiteFlag());
+		if(data.getMd5()==null)
+			data.setMd5(MD5Util.MD5(data.getUrl()));
 		
 		//回复列表
 		List<ReplyData> list = new ArrayList<ReplyData>();
@@ -104,7 +122,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 //			this.parseReplytime(list, domtree, comp.getComponents().get("reply_time"), new String[]{html.getContent()});
 //			this.parseReplycontent(list, domtree, comp.getComponents().get("reply_content"), new String[]{html.getContent()});
 //			this.parseReplyimg(list, domtree, comp.getComponents().get("reply_img"), new String[]{html.getContent()});
-//		}
+//		}http://toutiao.com/group/6351172750366818562/
 		if(data.getReplyCount()>0&&html.getOrignUrl().contains("http://toutiao.com"))
 			parseRelaylist(data,html,list);//http://toutiao.com/group/6353814625155023105/
 		data.setReplyList(list);
@@ -118,10 +136,29 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 		String content = "";
 		for(int i = 0;i < nl.getLength();i++) {
 			String line = nl.item(i).getTextContent();
-			if(line.length()<1)continue;
+			if(line.length()<2)continue;
 			content += line+"\n";
 		}
-		data.setContent(StringUtil.format(content)!=""?StringUtil.format(content):"  \n");
+		data.setContent(content);
+	}
+	public void parseImgUrl(ClientData data, Node dom, String xpath,
+			String... args) {
+		NodeList nl = commonList(xpath, dom);
+		if(nl==null) return;
+		String url = "";
+		for(int i = 0;i < nl.getLength();i++) {
+			String line = nl.item(i).getTextContent();
+			if(line.contains("http")&&line.indexOf("http")>-1);
+				url += line+";";
+		}
+		data.setImgUrl(url);
+	}
+	public void parseColumn(ClientData data, Node dom, String xpath,
+			String... args) {
+		NodeList nl = commonList(xpath, dom);
+		if(nl==null) return;
+		if(nl.getLength()==0)return ;
+		data.setColumn(nl.item(0).getTextContent().trim());;
 	}
 	@Override
 	public void parseReplyimg(List<ReplyData> list, Node dom,
@@ -141,7 +178,8 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 		//String commentUrl = "http://www.toutiao.com/api/comment/list/?group_id=<group_id>&item_id=<item_id>&offset=0&count=<count>"; 
 		String commentUrl = "http://www.toutiao.com/group/<group_id>/comments/?count=<count>&page=<page>&offset=<offset>&item_id=0&format=json";
 		
-		int commentCount = data.getReplyCount();
+		int commentCount = data.getReplyCount()>500?500: data.getReplyCount();
+		commentCount = data.getReplyCount()<100?100: data.getReplyCount();
 		int count = 100;
 		commentUrl = commentUrl.replace("<group_id>", group_id).replace("<count>", count+"");
 				//replace("<item_id>", item_id).replace("<count>",commentCount+"");
@@ -151,10 +189,13 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 			int page=i+2;
 			int offset=i*count;
 			String  churl = commentUrl.replace("<page>", page+"").replace("<offset>",offset+"");
-			System.out.println("churl:"+churl);
+			System.out.println("commentUrl:"+churl);
 			html.setOrignUrl(churl);
 			http.getContent(html);
 			content = html.getContent();
+			if(!content.contains("comments")){
+				break;
+			}
 			JSONArray jarray = JSONObject.fromObject(content).getJSONObject("data")
 					.getJSONArray("comments");
 			for (Object obj : jarray) {
