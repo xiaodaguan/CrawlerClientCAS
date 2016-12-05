@@ -5,10 +5,15 @@ import com.machinepublishers.jbrowserdriver.Settings;
 import com.machinepublishers.jbrowserdriver.Timezone;
 import common.bean.HtmlInfo;
 import common.http.SimpleHttpProcess;
+import common.util.SeleniumDriverManager;
+import common.util.SeleniumRequest;
 import common.util.TimeUtil;
+import org.apache.hadoop.hbase.util.Bytes;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 public class WeixinHttpProcess extends SimpleHttpProcess {
+
 
     JBrowserDriver driver = new JBrowserDriver(Settings.builder().timezone(Timezone.ASIA_SHANGHAI).build());
 
@@ -17,11 +22,12 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
 
         driver.get(html.getOrignUrl());
         String htmlSource = driver.getPageSource();
-        byte[] bytes = htmlSource.getBytes();
 
-//        driver.close();
-        return bytes;
 
+
+        driver.get(html.getOrignUrl());
+        TimeUtil.rest(5);//wait for num loading
+        return driver.getPageSource().getBytes();
     }
 
 

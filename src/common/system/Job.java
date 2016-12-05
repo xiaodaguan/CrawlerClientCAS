@@ -58,13 +58,13 @@ public class Job {
                     cLogger.beat();
                     Systemconfig.sysLog.log("beat...");
                     try {
-                        Thread.sleep(60 * 1000);
+                        Thread.sleep(10 * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
-        }).start();
+        });
         if (Systemconfig.crawlerType % 2 == 1) runSearch();
         else runMonitor();
     }
@@ -106,43 +106,27 @@ public class Job {
             Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
             out:
             for (SearchKey sk : keys) {
-
+            	
                 for (String site : Systemconfig.allSiteinfos.keySet()) {
 
                     Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
                     sk.setSite(site);
-
+                    
                     createThreadPool(site, siteinfo);
-
+                    
                     String taskName = sk.getSite() + sk.getKey();
-                    if (Systemconfig.finish.get(taskName) == null || Systemconfig.finish.get(taskName)) {
+                    if (Systemconfig.finish.get(taskName) == null 
+                    		|| Systemconfig.finish.get(taskName)) {
 
                         job.submitSearchKey(sk);
-
+                        
                         Systemconfig.finish.put(taskName, false);
                     }
                 }
             }
 
-
-            Long start = System.currentTimeMillis();
             while (!ifAllFinished()) {
-                Thread.currentThread().sleep(60 * 1000);
-                if (start + 1000 * 3600 * 10 < System.currentTimeMillis()) {
-                    //单循环最大10h
-                    Systemconfig.sysLog.log("single loop time out, stop...");
-                    Set<String> taskNames = Systemconfig.tasks.keySet();
-
-
-                    for (String taskName : taskNames) {
-                        if (Systemconfig.tasks.containsKey(taskName)) {
-                            Systemconfig.tasks.get(taskName).cancel(true);
-                        }
-                    }
-
-                    Systemconfig.sysLog.log("all tasks stopped. ");
-                    break;
-                }
+                Thread.currentThread().sleep(10 * 1000);
             }
 
             cLogger.stop();
@@ -194,8 +178,10 @@ public class Job {
                 }
             }
 
-            Long start = System.currentTimeMillis();
+            long start = System.currentTimeMillis();
+
             while (!ifAllFinished()) {
+
                 Thread.currentThread().sleep(60 * 1000);
                 if (start + 1000 * 3600 * 10 < System.currentTimeMillis()) {
                     //单循环最大10h
@@ -211,6 +197,7 @@ public class Job {
                     Systemconfig.sysLog.log("all tasks stopped. ");
                     break;
                 }
+
             }
 
             cLogger.stop();
@@ -233,7 +220,6 @@ public class Job {
         int runningTaskCount = 0;
         Set<String> taskNames = Systemconfig.tasks.keySet();
         for (String taskName : taskNames) {
-
             if (Systemconfig.tasks.containsKey(taskName)) {
                 if (Systemconfig.tasks.get(taskName).isDone()) {
                 } else {
@@ -241,10 +227,8 @@ public class Job {
                 }
             }
         }
-
-
         if (runningTaskCount > 0) allFinished = false;
-        Systemconfig.sysLog.log("remaining task count: " + runningTaskCount + " / total task count: " + Systemconfig.tasks.size());
+        Systemconfig.sysLog.log("running task count: " + runningTaskCount + " / total task count: " + Systemconfig.tasks.size());
 
         return allFinished;
     }
@@ -382,17 +366,16 @@ public class Job {
      * @return
      */
     private static int calCycleWaitTime() {
-        int waitTime = 60 * 10;
-//        if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
-//            waitTime = 30 * 24 * 60 * 60;
-//        else if (Systemconfig.crawlerType == CrawlerType.NEWS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
-//            waitTime = 30 * 60;
-//        else if (Systemconfig.crawlerType == CrawlerType.BBS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.BBS_MONITOR.ordinal())
-//            waitTime = 30 * 60;
-//        else if (Systemconfig.crawlerType == CrawlerType.WEIBO_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.WEIBO_MONITOR.ordinal())
-//            waitTime = 4 * 60 * 60;
-//        else waitTime = 3 * 60 * 60;
-
+        int waitTime = 0;
+        if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
+            waitTime = 30 * 24 * 60 * 60;
+        else if (Systemconfig.crawlerType == CrawlerType.NEWS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
+            waitTime = 30 * 60;
+        else if (Systemconfig.crawlerType == CrawlerType.BBS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.BBS_MONITOR.ordinal())
+            waitTime = 30 * 60;
+        else if (Systemconfig.crawlerType == CrawlerType.WEIBO_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.WEIBO_MONITOR.ordinal())
+            waitTime = 4 * 60 * 60;
+        else waitTime = 3 * 60 * 60;
         return waitTime;
     }
 
@@ -415,32 +398,12 @@ public class Job {
                     Systemconfig.sysLog.log("没有可用账号！本轮采集退出");
                     return true;
                 }
-//                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
+                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
             }
+        } else {
+            if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
         }
-        if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
-//        Systemconfig.sysLog.log("thread pool created, fixed size: " + siteinfo.getThreadNum());
         return false;
-
-        /**
-         *2016/11/08 16:14:00
-         */
-// if (siteinfo.getLogin()) {
-//
-//            if (Systemconfig.users == null) Systemconfig.users = new HashMap<String, List<UserAttr>>();
-//            if (Systemconfig.users.get(site) == null) {
-//                List<UserAttr> list = Systemconfig.dbService.getLoginUsers(site);
-//                Systemconfig.users.put(site, list);
-//                if (list.size() == 0) {
-//                    Systemconfig.sysLog.log("没有可用账号！本轮采集退出");
-//                    return true;
-//                }
-//                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
-//            }
-//        } else {
-//            if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
-//        }
-//        return false;
     }
 
     public void submitSearchKey(String site, String key) {
