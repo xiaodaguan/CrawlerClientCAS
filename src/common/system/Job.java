@@ -64,7 +64,7 @@ public class Job {
                     }
                 }
             }
-        });
+        }).start();
         if (Systemconfig.crawlerType % 2 == 1) runSearch();
         else runMonitor();
     }
@@ -366,16 +366,7 @@ public class Job {
      * @return
      */
     private static int calCycleWaitTime() {
-        int waitTime = 0;
-        if (Systemconfig.crawlerType == CrawlerType.EBUSINESS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.EBUSINESS_MONITOR.ordinal())
-            waitTime = 30 * 24 * 60 * 60;
-        else if (Systemconfig.crawlerType == CrawlerType.NEWS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.NEWS_MONITOR.ordinal())
-            waitTime = 30 * 60;
-        else if (Systemconfig.crawlerType == CrawlerType.BBS_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.BBS_MONITOR.ordinal())
-            waitTime = 30 * 60;
-        else if (Systemconfig.crawlerType == CrawlerType.WEIBO_SEARCH.ordinal() || Systemconfig.crawlerType == CrawlerType.WEIBO_MONITOR.ordinal())
-            waitTime = 4 * 60 * 60;
-        else waitTime = 3 * 60 * 60;
+        int waitTime = 20 * 60;
         return waitTime;
     }
 
