@@ -50,10 +50,6 @@ public class PressDataCommonDownload extends GenericDataCommonDownload<PressData
 				// 解析数据
 				xpath.templateContentPage(data, html, key.getKey());
 
-			
-				
-				
-				
 				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "解析完成。。。");
 				Systemconfig.dbService.saveData(data);
 
@@ -64,14 +60,11 @@ public class PressDataCommonDownload extends GenericDataCommonDownload<PressData
 				if (data.getCompleteSize().contains("rest: 0")) {
 					// 判断为结束
 					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
-
 				}
-
 				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "保存完成。。。");
 				synchronized (key) {
 					key.savedCountIncrease();
 				}
-
 			}
 			// if(data.getSameUrl()!=null && count != null && data.getId()>0) {
 			// //采集链接

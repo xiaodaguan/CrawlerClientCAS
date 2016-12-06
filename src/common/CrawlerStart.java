@@ -14,7 +14,7 @@ public class CrawlerStart {
 
 
     public static void main(String[] args) throws Exception {
-
+    	
         // common.util.TimeUtil.rest(8 * 60 * 60);
         // TaskMonitor tm=new TaskMonitor();
         // Thread tmonitor=new Thread(tm);
@@ -31,8 +31,7 @@ public class CrawlerStart {
             stringBuilder.append(arg).append(" ");
 
             if (arg.toLowerCase().contains("type=")) { //type
-
-                String value = arg.split("=")[1];
+                String value = arg.split("=")[1];//类型   
 
                 try {
                     Systemconfig.crawlerType = Integer.parseInt(value);
@@ -70,7 +69,7 @@ public class CrawlerStart {
         if (Job.getProject().equals("")) {
             System.err.print("[warning]: project not defined!");
         }
-
+       
         AppContext.initAppCtx("");//初始化
         Systemconfig.sysLog.log("\n\n\n");
         Systemconfig.sysLog.log("[crawler start] current cmd: " + stringBuilder.toString());
@@ -80,3 +79,7 @@ public class CrawlerStart {
         Job.simpleRun();
     }
 }
+
+
+
+

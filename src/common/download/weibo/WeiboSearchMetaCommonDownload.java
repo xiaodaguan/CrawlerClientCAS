@@ -10,7 +10,6 @@ import common.rmi.packet.ViewInfo.InnerInfo;
 import common.system.Systemconfig;
 import common.system.UserAttr;
 import common.system.UserManager;
-import common.util.SinaWeiboEx;
 import common.util.TimeUtil;
 
 import java.io.File;
@@ -105,41 +104,21 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                         TimeUtil.rest(siteinfo.getDownInterval());
                         break;
                     }
-                    String currUrl = nexturl;// snapshot
                     nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
                     String processedHtmlSource = html.getContent();
-
-
-//                    list.clear();// test use.
-
-
-
                     if (list.size() == 0) {
                         Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ": " + url + "元数据页面解析为空！！");
 
-
-
-                        if (SinaWeiboEx.ifKeywordHasNoResult(processedHtmlSource)) {
-                            Systemconfig.sysLog.log("keyword: " + keyword + " has no result via search engine.");
-                            break;// skip current keyword if no search result.
-                        }else{
-                            Systemconfig.sysLog.log("keyword may has relate records but parse failed.");
-                        }
-
-
                         if (retry-- >= 0) {
-                            nexturl = currUrl;
-                            UserAttr badUser = userAttr;
+                            nexturl = html.getOrignUrl();
+                            UserManager.releaseUser(siteFlag, userAttr);
+
                             userAttr = UserManager.getUser(siteFlag);
-
-                            UserManager.releaseUser(siteFlag, badUser);
-                            Systemconfig.sysLog.log("account switch : ["+badUser +"->" + userAttr.getName() + "], retry" + retry + "...");
-
-                            TimeUtil.rest(siteinfo.getDownInterval());
-                            continue;// retry
+                            Systemconfig.sysLog.log("账户切换至: " + userAttr.getName() + "");
+                            continue;
                         }
                         TimeUtil.rest(siteinfo.getDownInterval());
-                        break;// reach max retry time.
+                        break;
                     }
                     Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ": " + url + "元数据页面解析完成。");
                     totalCount += list.size();
