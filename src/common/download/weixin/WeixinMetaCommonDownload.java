@@ -95,7 +95,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             } catch (Exception e) {
                 Systemconfig.sysLog.log("列表页异常{" + keyword + "}   [" + url + "]");
                 e.printStackTrace();
-                break;
+//                break;
             }
         }
 

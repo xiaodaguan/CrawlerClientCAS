@@ -36,6 +36,7 @@ public class WeixinDataCommonDownload extends GenericDataCommonDownload<WeixinDa
                 http.getContent(html);
                 // html.setContent();
                 if (html.getContent() == null) {
+                    Systemconfig.sysLog.log("get html content failed.");
                     return;
                 }
                 // 解析数据

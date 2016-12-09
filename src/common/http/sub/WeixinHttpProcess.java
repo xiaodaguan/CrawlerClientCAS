@@ -20,12 +20,12 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
     @Override
     public byte[] simpleGet(HtmlInfo html) throws Exception {
 
+//        driver.reset();
         driver.get(html.getOrignUrl());
         String htmlSource = driver.getPageSource();
 
 
 
-        driver.get(html.getOrignUrl());
         TimeUtil.rest(5);//wait for num loading
         return driver.getPageSource().getBytes();
     }

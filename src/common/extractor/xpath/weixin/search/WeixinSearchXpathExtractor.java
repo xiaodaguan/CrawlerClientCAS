@@ -131,24 +131,24 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
          */
 
 
-        comp.get("title").setXpath("//A[contains(@id,'sogou_vr_')][not(@data-z)]");
+//        comp.get("title").setXpath("//DIV[@class='txt-box']/H3/A[contains(@id,'title_')]");
         this.parseTitle(list, domtree, comp.get("title"));
 //        this.parseTitle(list, domtree, comp.get("title"));
 
         if (list.size() == 0) return;
 
 //        this.parseUrl(list, domtree, comp.get("url"), args[2], args[4], args[6]);
-        comp.get("url").setXpath("//DIV[contains(@id,'sogou_vr_')]/DIV/A[@data-z]/@href");
+//        comp.get("url").setXpath("//DIV[@class='txt-box']/H3/A[contains(@id,'title_')]/@href");
         this.parseUrl1(list, domtree, comp.get("url"), args[2], args[4], args[6]);
 //        this.parseUrl1(list, domtree, comp.get("url"), args[2], args[4], args[6]);
 
 
-        comp.get("brief").setXpath("//P[contains(@id,'sogou_vr_')]");
+//        comp.get("brief").setXpath("//DIV[@class='txt-box']/P[contains(@id,'summary_index')]");
         this.parseBrief(list, domtree, comp.get("brief"));
 
         //div[contains(@id,'sogou_vr_')]/div/div[@class='s-p']/span
 //        this.parseBrief(list, domtree, comp.get("brief"));
-        comp.get("pubtime").setXpath("//*[contains(@id,'sogou_vr_')]/DIV[2]/DIV/SPAN/text()");
+//        comp.get("pubtime").setXpath("//LI[contains(@id,'box_')]/DIV[@class='txt-box']/DIV[@class='s-p']/SPAN[@class='s2']");
         this.parsePubtime(list, domtree, comp.get("pubtime"));
 //        this.parsePubtime(list, domtree, comp.get("pubtime_l"));
         this.parseImg_brief(list, domtree, comp.get("//*[contains(@id,'sogou_vr_')]/IMG"));
@@ -159,6 +159,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
     @Override
     public String templateListPage(List<WeixinData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
         list.clear();
+        Systemconfig.sysLog.log("parsing list page: " + html.getOrignUrl());
         /**
          * keyword 0: search_keyword 1: search_url(list) 2: ... 3: cookies
          */
@@ -194,6 +195,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
 
     @Override
     public void processPage(WeixinData data, Node domtree, Map<String, Component> comp, String... args) {
+        Systemconfig.sysLog.log("parsing detail page: " + data.getTitle());
         this.parseSource(data, domtree, comp.get("source"));
         this.parsePubtime(data, domtree, comp.get("pubtime"), args[0]);
         this.parseAuthor(data, domtree, comp.get("author"));
@@ -400,10 +402,12 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
     @Override
     public void parseBrief(List<WeixinData> list, Node dom, Component component, String... args) {
         if (component == null) return;
-        NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
-        if (nl == null) return;
-        for (int i = 0; i < nl.getLength(); i++) {
-            list.get(i).setBrief(nl.item(i).getTextContent());
+
+        for (int i = 0; i < list.size(); i++) {
+            NodeList nl = head(component.getXpath().replace("index",i+""), dom, list.size(), component.getName());
+            if (nl == null) return;
+            if(nl.getLength()!=0)
+            list.get(i).setBrief(nl.item(0).getTextContent());
         }
     }
 
@@ -413,8 +417,12 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         if (nl == null) return;
         for (int i = 0; i < nl.getLength(); i++) {
             String time = nl.item(i).getTextContent();
-            list.get(i).setPubtime(time);
-            list.get(i).setPubdate(timeProcess(time));
+
+            String timeStamp = StringUtil.extractOne(time,"\\'\\d+\\'");
+            if(timeStamp.length()>0) {
+                list.get(i).setPubtime(time);
+                list.get(i).setPubdate(new Date(Long.parseLong(timeStamp.replace("'",""))));
+            }
 
 //            list.get(i).setBrief(nl.item(i).getTextContent());
         }
