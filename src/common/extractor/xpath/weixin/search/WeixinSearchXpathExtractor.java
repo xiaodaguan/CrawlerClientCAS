@@ -215,7 +215,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         NodeList nl = commonList(component.getXpath(), domtree);
         if (nl == null) return;
         if (nl.item(0) != null) {
-            String num = nl.item(0).getTextContent().trim();
+            String num = nl.item(0).getTextContent().replace("+","").trim();
             data.setReadNum(Integer.parseInt(num));
         }
     }
@@ -225,7 +225,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         NodeList nl = commonList(component.getXpath(), domtree);
         if (nl == null) return;
         if (nl.item(0) != null) {
-            String num = nl.item(0).getTextContent().trim();
+            String num = nl.item(0).getTextContent().replace("+","").trim();
             data.setPraiseNum(Integer.parseInt(num));
         }
     }

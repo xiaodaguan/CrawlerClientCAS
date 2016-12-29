@@ -17,16 +17,12 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 public class WeixinHttpProcess extends SimpleHttpProcess {
 
 
-    JBrowserDriver driver = null;
+    private static JBrowserDriver driver = new JBrowserDriver(Settings.builder().timezone(Timezone.AMERICA_NEWYORK).build());
 
     @Override
     public synchronized byte[] simpleGet(HtmlInfo html) throws Exception {
 
-//        driver.reset();
-        Systemconfig.sysLog.log("initializing selenium driver...");
-            driver=new JBrowserDriver(Settings.builder().timezone(Timezone.AMERICA_NEWYORK).build());
-        Systemconfig.sysLog.log("selenium driver ok.");
-//        try {
+
 
         Systemconfig.sysLog.log("selenium driver requesting ... "+ html.getOrignUrl());
         try {
@@ -41,26 +37,12 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
             Systemconfig.sysLog.log("selenium driver request failed. ");
             System.err.println("selenium driver request failed. ");
         }finally {
-            driver.quit();
-            Systemconfig.sysLog.log("selenium driver quited.");
-            driver=null;
+
         }
 
         return null;
 
-//        }catch(Exception e){
-////            e.printStackTrace();
-//            driver=null;
-//            driver = new JBrowserDriver(Settings.builder().saveMedia(false).timezone(Timezone.ASIA_SHANGHAI).build());
-//            driver.get(html.getOrignUrl());
-//        }
 
-
-
-//        TimeUtil.rest(5);//wait for num loading
-
-
-//        driver.close();// no not use!
 
     }
 
