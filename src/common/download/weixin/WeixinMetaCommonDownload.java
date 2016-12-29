@@ -70,7 +70,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 if (list.size() == 0) {
                     Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析为空！！");
                     TimeUtil.rest(siteinfo.getDownInterval());
-                    break;
+//                    break;
                 }
                 Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析完成。第[" + map.get(keyword) + "/" + page + "]页");
                 last = html.getContent();
@@ -79,7 +79,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 if (list.size() == 0) {
                     Systemconfig.sysLog.log("无新数据。");
                     if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());
-                    break;
+//                    break;
                 }
                 alllist.addAll(list);
 

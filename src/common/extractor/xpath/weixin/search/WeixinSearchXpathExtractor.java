@@ -407,7 +407,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
             NodeList nl = head(component.getXpath().replace("index",i+""), dom, list.size(), component.getName());
             if (nl == null) return;
             if(nl.getLength()!=0)
-            list.get(i).setBrief(nl.item(0).getTextContent());
+                list.get(i).setBrief(nl.item(0).getTextContent());
         }
     }
 

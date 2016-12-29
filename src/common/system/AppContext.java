@@ -285,7 +285,7 @@ public class AppContext {
             Siteinfo si = (Siteinfo) (appCtx.getBean(substring));
             if (Systemconfig.mode.equals("test") || Systemconfig.mode.equals("debug")) {
                 si.setDownInterval(3);
-                si.setPage(2);
+                si.setPage(3);
                 si.setThreadNum(1);
             }
             //验证站点信息数据是否完整,成功后添加站点
