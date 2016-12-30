@@ -80,6 +80,9 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                     Systemconfig.sysLog.log("无新数据。");
                     if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());
 //                    break;
+                }else{
+
+                    dtc.process(list, siteinfo.getDownInterval(), null, key);
                 }
                 alllist.addAll(list);
 
@@ -99,7 +102,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             }
         }
 
-		dtc.process(alllist, siteinfo.getDownInterval(), null, key);
+//		dtc.process(alllist, siteinfo.getDownInterval(), null, key);
 //        for (WeixinData wd : alllist) {
 //            try {
 //                Systemconfig.dbService.saveData(wd);

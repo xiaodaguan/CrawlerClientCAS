@@ -19,6 +19,9 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
 
     private static JBrowserDriver driver = new JBrowserDriver(Settings.builder().connectTimeout(1000*120).timezone(Timezone.AMERICA_NEWYORK).build());
 
+
+    private static int count = 0;
+    private static int MAX_COUNT=10;
     @Override
     public synchronized byte[] simpleGet(HtmlInfo html) throws Exception {
 
@@ -38,6 +41,17 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
             System.err.println("selenium driver request failed. ");
         }finally {
 //            driver.reset();
+            System.out.println(count);
+            if(count++ >= MAX_COUNT){
+                Systemconfig.sysLog.log("selenium driver reboot... ");
+                driver.quit();
+                count = 0;
+                Thread.sleep(1000*5);
+                driver = new JBrowserDriver(Settings.builder().connectTimeout(1000*120).timezone(Timezone.AMERICA_NEWYORK).build());
+
+                Systemconfig.sysLog.log("selenium driver reboot ok. ");
+
+            }
         }
 
         return null;
