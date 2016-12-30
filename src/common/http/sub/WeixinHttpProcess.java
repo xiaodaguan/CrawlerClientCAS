@@ -14,6 +14,11 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+
 public class WeixinHttpProcess extends SimpleHttpProcess {
 
 
@@ -29,6 +34,20 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
 
         Systemconfig.sysLog.log("selenium driver requesting ... "+ html.getOrignUrl());
         try {
+//            Callable<String> downTask = new Callable<String>() {
+//                @Override
+//                public String call() throws Exception {
+//                    driver.get(html.getOrignUrl());
+//                    String htmlSource = driver.getPageSource();
+//                    return htmlSource;
+//                }
+//            };
+//            FutureTask<String> f = new FutureTask<String>(downTask);
+//            new Thread(f).start();
+//            f.get(2, TimeUnit.MINUTES);
+            //上一段没有测试
+
+
             driver.get(html.getOrignUrl());
 
             Systemconfig.sysLog.log("selenium driver request ok. "+ html.getOrignUrl());
