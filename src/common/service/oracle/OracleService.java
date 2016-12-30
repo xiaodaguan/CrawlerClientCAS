@@ -142,6 +142,15 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             sql = "select category_code, " + col + " from " + table + clause;
         }
         System.out.println(sql);
+        try {
+            String connInfo =  this.jdbcTemplate.getDataSource().getConnection().toString();
+            if(connInfo.toLowerCase().contains("topsearch"))
+                sql = sql.replace("where","where trunc(propose_time) >= trunc(sysdate) - 7 and ");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
         return this.jdbcTemplate.query(sql, new RowMapper<SearchKey>() {
             @Override
             public SearchKey mapRow(ResultSet rs, int i) throws SQLException {

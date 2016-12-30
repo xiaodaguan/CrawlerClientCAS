@@ -17,7 +17,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 public class WeixinHttpProcess extends SimpleHttpProcess {
 
 
-    private static JBrowserDriver driver = new JBrowserDriver(Settings.builder().timezone(Timezone.AMERICA_NEWYORK).build());
+    private static JBrowserDriver driver = new JBrowserDriver(Settings.builder().connectTimeout(1000*120).timezone(Timezone.AMERICA_NEWYORK).build());
 
     @Override
     public synchronized byte[] simpleGet(HtmlInfo html) throws Exception {
@@ -37,7 +37,7 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
             Systemconfig.sysLog.log("selenium driver request failed. ");
             System.err.println("selenium driver request failed. ");
         }finally {
-
+//            driver.reset();
         }
 
         return null;
