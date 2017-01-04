@@ -115,6 +115,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 
                             userAttr = UserManager.getUser(siteFlag);
                             Systemconfig.sysLog.log("账户切换至: " + userAttr.getName() + "");
+                            TimeUtil.rest(siteinfo.getDownInterval());
                             continue;
                         }
                         TimeUtil.rest(siteinfo.getDownInterval());
