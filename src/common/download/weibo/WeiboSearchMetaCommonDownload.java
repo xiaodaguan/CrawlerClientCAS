@@ -141,7 +141,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                     map.put(keyword, map.get(keyword) + 1);
                     if (map.get(keyword) > page) break;
                     url = nexturl;
-                    if (nexturl != null) TimeUtil.rest(siteinfo.getDownInterval());
+                    TimeUtil.rest(siteinfo.getDownInterval());
 
                 } catch (Exception e) {
                     UserManager.releaseUser(siteFlag, userAttr);
