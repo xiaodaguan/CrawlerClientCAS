@@ -71,20 +71,22 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                     Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析为空！！");
                     TimeUtil.rest(siteinfo.getDownInterval());
 //                    break;
-                }
-                Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析完成。第[" + map.get(keyword) + "/" + page + "]页");
-                last = html.getContent();
-                totalCount += list.size();
-                Systemconfig.dbService.getNorepeatData(list, "");
-                if (list.size() == 0) {
-                    Systemconfig.sysLog.log("无新数据。");
-                    if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());
-//                    break;
-                }else{
+                }else {
+                    Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析完成。第[" + map.get(keyword) + "/" + page + "]页");
 
-                    dtc.process(list, siteinfo.getDownInterval(), null, key);
+                    last = html.getContent();
+                    totalCount += list.size();
+                    Systemconfig.dbService.getNorepeatData(list, "");
+                    if (list.size() == 0) {
+                        Systemconfig.sysLog.log("无新数据。");
+                        if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());
+//                    break;
+                    } else {
+
+                        dtc.process(list, siteinfo.getDownInterval(), null, key);
+                    }
+                    alllist.addAll(list);
                 }
-                alllist.addAll(list);
 
                 map.put(keyword, map.get(keyword) + 1);
                 if (map.get(keyword) > page) {

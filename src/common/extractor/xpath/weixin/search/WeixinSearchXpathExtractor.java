@@ -151,8 +151,8 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
 //        comp.get("pubtime").setXpath("//LI[contains(@id,'box_')]/DIV[@class='txt-box']/DIV[@class='s-p']/SPAN[@class='s2']");
         this.parsePubtime(list, domtree, comp.get("pubtime"));
 //        this.parsePubtime(list, domtree, comp.get("pubtime_l"));
-        this.parseImg_brief(list, domtree, comp.get("//*[contains(@id,'sogou_vr_')]/IMG"));
-//        this.parseImg_brief(list, domtree, comp.get("img_brief"));
+//        this.parseImg_brief(list, domtree, comp.get("//*[contains(@id,'sogou_vr_')]/IMG"));
+        this.parseImg_brief(list, domtree, comp.get("img_brief"));
 
     }
 
@@ -202,9 +202,9 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         this.parseContent(data, domtree, comp.get("content"));
         this.parseImgUrl(data, domtree, comp.get("imgs_url"));
 
-        comp.get("read_num").setXpath("//*[@id='sg_readNum3']/text()");
+//        comp.get("read_num").setXpath("//*[@id='sg_readNum3']/text()");
         this.parseReadNumber(data, domtree, comp.get("read_num"));
-        comp.get("like_num").setXpath("//*[@id='sg_likeNum3']/text()");
+//        comp.get("like_num").setXpath("//*[@id='sg_likeNum3']/text()");
         this.parseLikeNumber(data, domtree, comp.get("like_num"));
 
         this.parseWeixinName(data, domtree, comp.get("account"));
