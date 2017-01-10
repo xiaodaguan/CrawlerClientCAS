@@ -216,6 +216,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         if (nl == null) return;
         if (nl.item(0) != null) {
             String num = nl.item(0).getTextContent().replace("+","").trim();
+            if(num!=null&&!num.equals(""))
             data.setReadNum(Integer.parseInt(num));
         }
     }
@@ -226,6 +227,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         if (nl == null) return;
         if (nl.item(0) != null) {
             String num = nl.item(0).getTextContent().replace("+","").trim();
+            if(num!=null&&!num.equals(""))
             data.setPraiseNum(Integer.parseInt(num));
         }
     }
