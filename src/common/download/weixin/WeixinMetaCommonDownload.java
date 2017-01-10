@@ -12,6 +12,7 @@ import common.util.TimeUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * 下载元数据
@@ -54,8 +55,10 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 http.getContent(html);//
 
                 if (checkBlock(html)) {// 验证是否被屏蔽
-                    Systemconfig.sysLog.log("ip被屏蔽，请手动验证@列表页");
-                    System.in.read();
+                    Systemconfig.sysLog.log("ip被屏蔽，请手动验证@列表页，获取cookie后输入控制台回车继续。。。");
+                    Scanner sc = new Scanner(System.in);
+                    String cookie = sc.nextLine();
+                    html.setCookie(cookie);
                     continue;
                 }
 
@@ -95,12 +98,15 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                     break;
                 }
                 url = nexturl;
-                if (nexturl != null) TimeUtil.rest(siteinfo.getDownInterval());
 
             } catch (Exception e) {
                 Systemconfig.sysLog.log("列表页异常{" + keyword + "}   [" + url + "]");
                 e.printStackTrace();
 //                break;
+            }finally{
+                int wait = siteinfo.getDownInterval() + (int) Math.random() * 30;
+                Systemconfig.sysLog.log("wait " + wait + " secs to download next...");
+                TimeUtil.rest(wait);
             }
         }
 
