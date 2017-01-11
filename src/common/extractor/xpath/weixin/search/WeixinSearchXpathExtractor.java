@@ -423,7 +423,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
             String timeStamp = StringUtil.extractOne(time,"\\'\\d+\\'");
             if(timeStamp.length()>0) {
                 list.get(i).setPubtime(time);
-                list.get(i).setPubdate(new Date(Long.parseLong(timeStamp.replace("'",""))));
+                list.get(i).setPubdate(new Date(Long.parseLong(timeStamp.replace("'","")+"000")));
             }
 
 //            list.get(i).setBrief(nl.item(i).getTextContent());
