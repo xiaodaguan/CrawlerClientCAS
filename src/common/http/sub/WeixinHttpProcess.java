@@ -13,7 +13,7 @@ import java.net.URL;
 
 public class WeixinHttpProcess extends SimpleHttpProcess {
 
-    private static WebClient client = new WebClient(BrowserVersion.INTERNET_EXPLORER);
+    private static WebClient client = new WebClient(BrowserVersion.FIREFOX_38);
 
 
     @Override
