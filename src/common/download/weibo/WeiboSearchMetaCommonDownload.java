@@ -92,7 +92,19 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                 Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ": " + url + "...");
                 try {
                     http.getContent(html, userAttr);
-                    String originalHtmlSource = html.getContent();
+
+                    String content = html.getContent();
+
+                    if(content.contains("请输入验证码")||
+                            content.contains("\u8bf7\u8f93\u5165\u9a8c\u8bc1")
+                            ||content.contains("\\u8bf7\\u8f93\\u5165\\u9a8c\\u8bc1")){
+                        Systemconfig.sysLog.log("你的行为有些异常，请输入验证码：");
+                        //搜索过程中的验证码问题，数据库回写
+                        Systemconfig.dbService.updateUserValid(userAttr.getName(), 5);
+                        TimeUtil.rest(siteinfo.getDownInterval());
+                        break;
+                    }
+
                     // html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
                     if (html.getContent().contains("抱歉，未找到") && html.getContent().contains("您可以尝试更换关键词，再次搜索。")) {
                         Systemconfig.sysLog.log(keyword + ": " + url + "没有检索结果");

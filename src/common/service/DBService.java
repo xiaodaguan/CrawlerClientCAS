@@ -91,6 +91,12 @@ public interface DBService<T> {
      */
     String getTypeConfig();
 
+    /**
+     * 更新微博账号valid有效字段，
+     * @param userName 微博账号名称
+     * @param mark     字段标识
+     */
+    void updateUserValid(String userName,int mark);
 
     void updateUserOrder(String userName);
 
