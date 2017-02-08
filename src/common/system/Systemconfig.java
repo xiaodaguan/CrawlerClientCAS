@@ -53,7 +53,7 @@ public class Systemconfig {
     /**
      * 初始化站点线程
      */
-    public static Map<String, ExecutorService> metaexec = new HashMap<String, ExecutorService>();
+    public static Map<String, ExecutorService> metaexec = new HashMap<String, ExecutorService>();//没有用
     public static Map<String, ExecutorService> dataexec = new HashMap<String, ExecutorService>();
     /**
      * 任务是否完成

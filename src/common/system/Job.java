@@ -389,10 +389,20 @@ public class Job {
                     Systemconfig.sysLog.log("没有可用账号！本轮采集退出");
                     return true;
                 }
-                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
+                if (Job.getExecutorServiceMap().get(site) == null){
+                    if(!siteinfo.getSiteName().contains("sina")) {
+                        Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
+                    }
+                    else{
+                        Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
+                    }
+                }
             }
-        } else {
+        }
+        else
+         {
             if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
+
         }
         return false;
     }

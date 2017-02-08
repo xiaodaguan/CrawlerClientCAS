@@ -141,7 +141,6 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         } else {
             sql = "select category_code, " + col + " from " + table + clause;
         }
-        System.out.println(sql);
         try {
             String connInfo =  this.jdbcTemplate.getDataSource().getConnection().toString();
             if(connInfo.toLowerCase().contains("topsearch"))
@@ -150,6 +149,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             e.printStackTrace();
         }
 
+        Systemconfig.sysLog.log("read searchkeys:\n"+sql);
 
         return this.jdbcTemplate.query(sql, new RowMapper<SearchKey>() {
             @Override

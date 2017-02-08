@@ -174,6 +174,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 
         } finally {
             UserManager.releaseUser(siteFlag, userAttr);
+            TimeUtil.rest(siteinfo.getDownInterval());
         }
     }
 
