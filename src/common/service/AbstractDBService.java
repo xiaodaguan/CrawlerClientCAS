@@ -100,12 +100,26 @@ public abstract class AbstractDBService<T> implements DBService<T> {
     }
 
     private static final String user_sql = "select name, pass, siteflag, id, cookie, ua from " + "(select u.name, u.pass, ss.siteflag, u.id, u.cookie, u.ua, rownum from crawler_account u, site_template ss" + " where u.site_id=ss.id and u.valid=1 and ss.siteflag=? order by last_used) ";
+    
 
     @Override
     public void updateUserOrder(String userName) {
         String sql = "update crawler_account set last_used = ? where name = ?";
         this.jdbcTemplate.update(sql, new Timestamp(System.currentTimeMillis()), userName);
         Systemconfig.sysLog.log("account:{" + userName + "} last used updated.");
+    }
+
+
+    @Override
+    public void updateUserValid(String userName,int mark) {
+        String sql = "update crawler_account set valid = ? where name = ?";
+        this.jdbcTemplate.update(sql, mark, userName);
+        if(mark==5){
+            Systemconfig.sysLog.log("account:{" + userName + "} Search verification code problem");
+        }else if(mark==6){
+            Systemconfig.sysLog.log("account:{" + userName + "} Login verification code problem");
+        }
+        Systemconfig.sysLog.log("account:{" + userName + "} valid updated.");
     }
 
     @Override

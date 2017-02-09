@@ -1,14 +1,32 @@
 package common.http.sub;
 
+import common.bean.HtmlInfo;
+import common.http.NeedCookieHttpProcess;
+import common.system.Systemconfig;
+import common.system.UserAttr;
+import common.util.EncoderUtil;
+import common.util.StringUtil;
+import net.sf.json.JSONObject;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.*;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.params.ClientPNames;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.imageio.ImageIO;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -25,39 +43,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.imageio.ImageIO;
-
-import net.sf.json.JSONObject;
-
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.ClientPNames;
-import org.apache.http.client.utils.DateUtils;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
 //import com.sun.image.codec.jpeg.JPEGCodec;
 //import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
-import common.bean.HtmlInfo;
-import common.http.NeedCookieHttpProcess;
-import common.system.Systemconfig;
-import common.system.UserAttr;
-import common.util.EncoderUtil;
-import common.util.StringUtil;
 
 /**
  * 新浪微博
@@ -310,7 +297,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		String str = html.getContent();
 		long signedIn = loginPast(user);
 		Systemconfig.sysLog.log("time: "+signedIn+" s.");
-		if(signedIn>3600*24-60){
+		if(signedIn>3600*24-30*60-60){
 			Systemconfig.sysLog.log("[login status]: cookie time out.");
 			return false;
 		}
@@ -392,8 +379,11 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		entity.setRsakv(jsonInfo.getString("rsakv"));
 		entity.setServertime(jsonInfo.getString("servertime"));
 		if((entity.getShowpin() != null && entity.getShowpin().equals("1"))){
-			System.err.println("新浪微博登陆需要验证码，从validateImg文件夹查看验证码，将验证码写入相同名字的文本文件并复制到validateImg文件夹！");
-			addPicDoor(entity);
+
+			Systemconfig.dbService.updateUserValid(user.getName(), 6);
+			return null;
+			//System.err.println("新浪微博登陆需要验证码，从validateImg文件夹查看验证码，将验证码写入相同名字的文本文件并复制到validateImg文件夹！");
+			//addPicDoor(entity);
 		}
 		return entity;
 	}
