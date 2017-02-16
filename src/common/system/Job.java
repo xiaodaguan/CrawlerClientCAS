@@ -15,6 +15,7 @@ import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -58,7 +59,7 @@ public class Job {
                     cLogger.beat();
                     Systemconfig.sysLog.log("beat...");
                     try {
-                        Thread.sleep(10 * 1000);
+                        Thread.sleep(60 * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -101,7 +102,7 @@ public class Job {
             }
             else{
             	keys = Systemconfig.dbService.searchKeys();
-            }  
+            }
             
             Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
             out:
@@ -125,8 +126,44 @@ public class Job {
                 }
             }
 
+
+
+            long start = System.currentTimeMillis();
+
+
             while (!ifAllFinished()) {
-                Thread.currentThread().sleep(10 * 1000);
+
+                Thread.currentThread().sleep(60 * 1000);
+                if (start + 1000 * 3600 * 24 < System.currentTimeMillis()) {
+                    //单循环最大24h
+                    Systemconfig.sysLog.log("single loop time out, stopping...");
+                    Set<String> taskNames = Systemconfig.tasks.keySet();
+
+
+                    //接收的任务
+                    for (String taskName : taskNames) {
+                        if (Systemconfig.tasks.containsKey(taskName)) {
+                            Systemconfig.tasks.get(taskName).cancel(true);
+                        }
+                    }
+
+                    //线程池
+                    Set<String> dataExecNames = Systemconfig.dataexec.keySet();
+                    for(String dataExecName: dataExecNames){
+                        if(Systemconfig.dataexec.containsKey(dataExecName)){
+                            Systemconfig.dataexec.get(dataExecName).shutdownNow();
+                        }
+                    }
+
+                    Systemconfig.sysLog.log("all tasks stopped. ");
+
+                    Systemconfig.finish = new HashMap<>();
+                    Systemconfig.tasks = new ConcurrentHashMap<>();
+                    Systemconfig.dataexec = new ConcurrentHashMap<>();
+
+                    break;
+                }
+
             }
 
             cLogger.stop();
@@ -145,6 +182,10 @@ public class Job {
     private static void runMonitor() throws UnknownHostException, InterruptedException {
 
         while (true) {
+
+
+
+
 
             cLogger.start(crawlerNameOrCMD, crawlerNameOrCMD);//name, note
             Systemconfig.sysLog.log("loop start...");
@@ -183,18 +224,33 @@ public class Job {
             while (!ifAllFinished()) {
 
                 Thread.currentThread().sleep(60 * 1000);
-                if (start + 1000 * 3600 * 10 < System.currentTimeMillis()) {
-                    //单循环最大10h
-                    Systemconfig.sysLog.log("single loop time out, stop...");
+                if (start + 1000 * 3600 * 24 < System.currentTimeMillis()) {
+                    //单循环最大24h
+                    Systemconfig.sysLog.log("single loop time out, stopping...");
                     Set<String> taskNames = Systemconfig.tasks.keySet();
 
+
+                    //接收的任务
                     for (String taskName : taskNames) {
                         if (Systemconfig.tasks.containsKey(taskName)) {
                             Systemconfig.tasks.get(taskName).cancel(true);
                         }
                     }
 
+                    //线程池
+                    Set<String> dataExecNames = Systemconfig.dataexec.keySet();
+                    for(String dataExecName: dataExecNames){
+                        if(Systemconfig.dataexec.containsKey(dataExecName)){
+                            Systemconfig.dataexec.get(dataExecName).shutdownNow();
+                        }
+                    }
+
                     Systemconfig.sysLog.log("all tasks stopped. ");
+
+                    Systemconfig.finish = new HashMap<>();
+                    Systemconfig.tasks = new ConcurrentHashMap<>();
+                    Systemconfig.dataexec = new ConcurrentHashMap<>();
+
                     break;
                 }
 
@@ -219,6 +275,7 @@ public class Job {
         boolean allFinished = true;
         int runningTaskCount = 0;
         Set<String> taskNames = Systemconfig.tasks.keySet();
+
         for (String taskName : taskNames) {
             if (Systemconfig.tasks.containsKey(taskName)) {
                 if (Systemconfig.tasks.get(taskName).isDone()) {
@@ -228,7 +285,10 @@ public class Job {
             }
         }
         if (runningTaskCount > 0) allFinished = false;
+        Systemconfig.sysLog.log("Systemconfi.task stat: ");
         Systemconfig.sysLog.log("running task count: " + runningTaskCount + " / total task count: " + Systemconfig.tasks.size());
+
+
 
         return allFinished;
     }

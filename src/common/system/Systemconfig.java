@@ -97,7 +97,7 @@ public class Systemconfig {
     /**
      * 运行的任务
      */
-    public static final ConcurrentHashMap<String, Future<?>> tasks = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, Future<?>> tasks = new ConcurrentHashMap<>();
     /**
      * 任务状态
      */
