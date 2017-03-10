@@ -46,6 +46,9 @@ public class DataThreadControl {
             vd.setCompleteSize("[collect id: " + key.getId() + "| current: " + (++i) + "/ rest: " + list.size() + "]");
             Future f = Systemconfig.dataexec.get(siteFlag).submit(DownFactory.dataControl(siteFlag, vd, endCount, user, key));
             Systemconfig.tasks.put(siteFlag + "_" + key + "_" + vd.getTitle(), f);
+            
+            Systemconfig.sysLog.log(siteFlag + "_" + key + "_" + vd.getTitle()+"\tdataexec 任务添加");
+            
             TimeUtil.rest(3);
         }
         try {

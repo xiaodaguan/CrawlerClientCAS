@@ -60,6 +60,10 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 			InnerInfo ii = vi.getCrawlers().get(key.getKey());
 			ii.setAlive(2);
 		}
+		
+		String taskName =   siteFlag+key.getKey();
+		Systemconfig.sysLog.log( taskName + "   任务已完成        postProcess  ");
+		
 		Systemconfig.finish.put(siteFlag+key.getKey(), true);
 	}
 	

@@ -6,11 +6,18 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 public class test {
 
-
-    public static void main(String[] args) throws IOException {
+	
+	public static void main(String[] args) {
+		Calendar calendar = Calendar.getInstance();
+		
+		System.out.println(calendar.getTime().toLocaleString());
+		System.out.println(Calendar.getInstance().get(Calendar.YEAR));
+	}
+    public static void main1(String[] args) throws IOException {
 
         HttpClient client = new HttpClient();
         HttpMethod method = new GetMethod("http://s.weibo.com/weibo/%25E7%25BD%2591%25E7%25BA%25A2%25E5%2588%25B6%25E9%2580%25A0%25E6%25B5%2581%25E6%25B0%25B4%25E7%25BA%25BF?topnav=1&wvr=6&Refer=top_button");

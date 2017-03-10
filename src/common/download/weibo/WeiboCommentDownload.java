@@ -50,6 +50,7 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
                     http.getContent(html, user);
                     if(html.getContent()==null||html.getContent().equals(""))
                     {
+                    	break;
 //                        nexturl="http://m.weibo.cn/"+1435160552/3945741208568191/rcMod?format=cards&type=comment&hot=1
                     }
 
@@ -78,6 +79,25 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
                     break;
                 }
             }
+            
+            for (WeiboData videoData:alllist) {
+            	System.out.println("\n\nWeibo：");	
+                System.out.println("getAuthor:      \t"+videoData.getAuthor());
+                System.out.println("getCategoryCode:\t"+videoData.getCategoryCode());
+                System.out.println("getCommentUrl：     \t"+videoData.getCommentUrl());
+                System.out.println("getCompleteSize:\t"+videoData.getCompleteSize());
+                System.out.println("getContent:     \t"+videoData.getContent());
+                System.out.println("getId:          \t"+videoData.getId());
+                System.out.println("getMd5:         \t"+videoData.getMd5());
+                System.out.println("getSearchKey:   \t"+videoData.getSearchKey());
+                System.out.println("getSiteId:      \t"+videoData.getSiteId());
+                System.out.println("getTitle:       \t"+videoData.getTitle());
+                System.out.println("getUrl:         \t"+videoData.getUrl());
+                System.out.println("getInserttime:  \t"+videoData.getInserttime());
+                System.out.println("getPubdate:     \t"+videoData.getPubdate().toLocaleString());	
+                System.out.println("\n\n");	
+			}
+            
             Systemconfig.dbService.saveCommentDatas(alllist);
             Systemconfig.sysLog.log("微博: " + wbUrl + " 评论保存完成.");
         } catch (IOException e) {

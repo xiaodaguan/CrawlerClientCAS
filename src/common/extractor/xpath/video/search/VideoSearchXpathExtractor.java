@@ -84,7 +84,7 @@ public class VideoSearchXpathExtractor extends XpathExtractor<VideoData> impleme
 			Systemconfig.sysLog.log("DOM解析为NULL！！");
 			return null;
 		}
-		System.out.println("class : "+this.getClass());
+		//System.out.println("class : "+this.getClass());
 		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到元数据的配置组件
 		this.parseTitle(list, domtree, comp.getComponents().get("title"));
 		if (list.size() == 0) return null;

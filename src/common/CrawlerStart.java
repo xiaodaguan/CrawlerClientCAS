@@ -27,7 +27,8 @@ public class CrawlerStart {
         StringBuilder stringBuilder = new StringBuilder();
         String crawlerName = null;
 
-        for (String arg : args) {
+        for (String arg : args) {      
+
             stringBuilder.append(arg).append(" ");
 
             if (arg.toLowerCase().contains("type=")) { //type
@@ -45,10 +46,19 @@ public class CrawlerStart {
                 crawlerName = arg.split("=")[1];
             } else if (arg.toLowerCase().contains("project=")) {//project
                 Job.setProject(arg.split("=")[1]);
-            } else if (arg.toLowerCase().contains("note=")) {//note
+            }else if (arg.toLowerCase().contains("crawlercount=")) {//需要分布式部署多少个爬虫
+            	Systemconfig.crawlerCount = Integer.parseInt(arg.split("=")[1]);
+            }else if (arg.toLowerCase().contains("clientindex=")) {//当前是几号爬虫
+            	Systemconfig.crawlerNum = Integer.parseInt(arg.split("=")[1]);
+            } 
+            else if (arg.toLowerCase().contains("note=")) {//note
 
             }
         }
+        
+        Systemconfig.sysLog.log(stringBuilder.toString());
+
+       
         Job.setCrawlerNameOrCMD(stringBuilder.toString());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");

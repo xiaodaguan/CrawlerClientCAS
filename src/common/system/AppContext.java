@@ -54,7 +54,6 @@ public class AppContext {
                 list.add(path + "config" + File.separator + file.getName());
             }
         }
-        
         String[] arry = new String[list.size()];
         list.toArray(arry);
         
@@ -294,7 +293,8 @@ public class AppContext {
                 si.setSiteFlag(siteConfigs.get(si.getSiteName()).getId());
             }
             File f = new File(file);
-            if (!f.delete()) {
+            if (!f.delete()) 
+            {
                 System.err.println(f + "没有被删除");
             }
             System.out.println("系统初始化站点：" + si);

@@ -13,8 +13,9 @@ import java.net.URL;
 
 public class WeixinHttpProcess extends SimpleHttpProcess {
 
-    private static WebClient client = new WebClient(BrowserVersion.FIREFOX_38);
+    //private static WebClient client = new WebClient(BrowserVersion.FIREFOX_38);
 
+    private static WebClient client = new WebClient(BrowserVersion.FIREFOX_45);
 
     @Override
     public synchronized byte[] simpleGet(HtmlInfo html) throws Exception {
@@ -26,7 +27,7 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
             client.setIncorrectnessListener(new IncorrectnessListener() {
                 @Override
                 public void notify(String s, Object o) {
-
+                	
                 }
             });
             client.setJavaScriptErrorListener(new JavaScriptErrorListener() {

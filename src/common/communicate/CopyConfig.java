@@ -159,6 +159,8 @@ public final class CopyConfig implements Runnable {
 					}
 				} else if(move.getKeyObj().size()==1) {
 					SearchKey sk = move.getKeyObj().get(0);
+					String taskName = sk.getSite()+sk.getKey();
+					Systemconfig.sysLog.log( taskName + "   任务已完成      CopyConfig");
 					Systemconfig.finish.put(sk.getSite()+sk.getKey(), true);
 					if(Systemconfig.tasks.get(sk.getSite()+"_"+sk.getKey())!=null) {
 						synchronized (Systemconfig.tasks) {

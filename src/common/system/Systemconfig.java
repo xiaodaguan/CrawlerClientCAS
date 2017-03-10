@@ -132,6 +132,14 @@ public class Systemconfig {
      */
     public static int crawlerType;
     /**
+     * 一共需要部署多少台爬虫
+     */
+    public static int crawlerCount=0;
+    /**
+     * 当前爬虫的编号
+     */
+    public static int crawlerNum=0;
+    /**
      * 爬虫索引(第几个爬虫)
      */
     private static int clientIndex;

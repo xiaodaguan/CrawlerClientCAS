@@ -34,7 +34,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 	public String templateListPage(List<ClientData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		
-		System.out.println("html.getContent():"+html.getContent());
+
 		JSONArray jarray = JSONObject.fromObject(html.getContent()).getJSONArray("data");
 		for (Object obj : jarray) {
 			JSONObject  jobj = (JSONObject)obj;
@@ -189,7 +189,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 			int page=i+2;
 			int offset=i*count;
 			String  churl = commentUrl.replace("<page>", page+"").replace("<offset>",offset+"");
-			System.out.println("commentUrl:"+churl);
+			//System.out.println("commentUrl:"+churl);
 			html.setOrignUrl(churl);
 			http.getContent(html);
 			content = html.getContent();
