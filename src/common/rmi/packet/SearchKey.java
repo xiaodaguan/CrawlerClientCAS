@@ -2,8 +2,8 @@ package common.rmi.packet;
 
 import java.io.Serializable;
 
-public class SearchKey implements Serializable {
 
+public class SearchKey implements Serializable {
 	/**
 	 * 
 	 */

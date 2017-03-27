@@ -107,7 +107,16 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
                 JSONObject comment = cardGroup.getJSONObject(i);
                 String commentId = comment.getLong("id") + "";
 //            wd.setMid(commentId);
-                String commentPubtime = comment.getString("created_at");
+                String commentPubtime = comment.getString("created_at").trim();
+                
+                //"03-01 17:32"
+                if(commentPubtime.contains("-")){
+	                if(commentPubtime.split("-")[0].length()!=4){
+	                	commentPubtime = Calendar.getInstance().get(Calendar.YEAR)+"-"+commentPubtime;
+	                }
+                }
+                
+                
                 wd.setPubtime(commentPubtime);
                 wd.setPubdate(timeprocess(commentPubtime));
                 String commentSource = comment.getString("source");

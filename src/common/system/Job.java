@@ -82,13 +82,17 @@ public class Job {
             cLogger.start(crawlerNameOrCMD, crawlerNameOrCMD);//name, note
             Systemconfig.sysLog.log("loop start...");
             
-            
             if(Systemconfig.crawlerType==39){
             	String []dailies = {"人民日报","人们日报海外版","新华每日电讯","解放军报","求是","光明日报",
             			"经济日报","科技日报","工人日报","中国青年报","农民日报","人民日报","人民日报海外版",
             			"光明日报","经济日报","解放军报","中国青年报","参考消息"};
             	
-            	List<SearchKey> prekeys= Systemconfig.dbService.searchKeys();
+            	List<SearchKey> prekeys  = null;
+            	try{
+            		prekeys= Systemconfig.dbService.searchKeys();
+            	}catch(Exception e){
+            		e.printStackTrace();
+            	}
             	keys = new LinkedList<SearchKey>();
             	for (String dialy : dailies) {
             		for (SearchKey searchKey : prekeys) {
@@ -101,7 +105,11 @@ public class Job {
 				}
             }
             else{
-            	keys = Systemconfig.dbService.searchKeys();
+            	try{
+            		keys = Systemconfig.dbService.searchKeys();
+            	}catch(Exception e){
+            		e.printStackTrace();
+            	}
             }
             
             Systemconfig.sysLog.log(keys.size() + "个关键词将采集:");
@@ -122,14 +130,15 @@ public class Job {
                         job.submitSearchKey(sk);
                         
                         Systemconfig.finish.put(taskName, false);
+                        Systemconfig.sysLog.log(taskName + "     任务提交");
+                        
+                    }else{
+                    	Systemconfig.sysLog.log(taskName + "     任务未提交，或已完成！！！");
                     }
                 }
             }
 
-
-
             long start = System.currentTimeMillis();
-
 
             while (!ifAllFinished()) {
 
@@ -137,35 +146,27 @@ public class Job {
                 if (start + 1000 * 3600 * 24 < System.currentTimeMillis()) {
                     //单循环最大24h
                     Systemconfig.sysLog.log("single loop time out, stopping...");
+                    
                     Set<String> taskNames = Systemconfig.tasks.keySet();
-
-
                     //接收的任务
                     for (String taskName : taskNames) {
                         if (Systemconfig.tasks.containsKey(taskName)) {
+                        	System.out.println(taskName+"任务被强制停止");
                             Systemconfig.tasks.get(taskName).cancel(true);
+                            if(!Systemconfig.tasks.get(taskName).isDone()){
+                            	Systemconfig.tasks.get(taskName).cancel(true);
+                            	System.out.println(taskName+"任务第一次强制停止失败，再次被强制停止");
+                            }
+                            
                         }
                     }
-
-                    //线程池
-                    Set<String> dataExecNames = Systemconfig.dataexec.keySet();
-                    for(String dataExecName: dataExecNames){
-                        if(Systemconfig.dataexec.containsKey(dataExecName)){
-                            Systemconfig.dataexec.get(dataExecName).shutdownNow();
-                        }
-                    }
-
+                    Systemconfig.finish.clear();
+                    Systemconfig.tasks.clear();
                     Systemconfig.sysLog.log("all tasks stopped. ");
-
-                    Systemconfig.finish = new HashMap<>();
-                    Systemconfig.tasks = new ConcurrentHashMap<>();
-                    Systemconfig.dataexec = new ConcurrentHashMap<>();
 
                     break;
                 }
-
             }
-
             cLogger.stop();
             Systemconfig.sysLog.log("loop stop");
 
@@ -182,11 +183,6 @@ public class Job {
     private static void runMonitor() throws UnknownHostException, InterruptedException {
 
         while (true) {
-
-
-
-
-
             cLogger.start(crawlerNameOrCMD, crawlerNameOrCMD);//name, note
             Systemconfig.sysLog.log("loop start...");
 
@@ -195,40 +191,29 @@ public class Job {
 
             Systemconfig.sysLog.log(">>keys: \n"+keys);
             Systemconfig.sysLog.log(">>crawler map: \n"+CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType));
-
             out:
             for (SearchKey sk : keys) {
-
-
                 String site = sk.getSite() + "_" + CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
-
                 Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
-
                 if (siteinfo == null){
                     Systemconfig.sysLog.log("siteinfo is null");
                     continue;
                 }
-
                 sk.setSite(site);
                 createThreadPool(site, siteinfo);
                 String taskName = sk.getSite() + sk.getKey();
                 if (Systemconfig.finish.get(taskName) == null || Systemconfig.finish.get(taskName)) {
                     job.submitSearchKey(sk);
-
                     Systemconfig.finish.put(taskName, false);
                 }
             }
-
             long start = System.currentTimeMillis();
-
             while (!ifAllFinished()) {
-
                 Thread.currentThread().sleep(60 * 1000);
                 if (start + 1000 * 3600 * 24 < System.currentTimeMillis()) {
                     //单循环最大24h
                     Systemconfig.sysLog.log("single loop time out, stopping...");
                     Set<String> taskNames = Systemconfig.tasks.keySet();
-
 
                     //接收的任务
                     for (String taskName : taskNames) {
@@ -236,26 +221,13 @@ public class Job {
                             Systemconfig.tasks.get(taskName).cancel(true);
                         }
                     }
-
-                    //线程池
-                    Set<String> dataExecNames = Systemconfig.dataexec.keySet();
-                    for(String dataExecName: dataExecNames){
-                        if(Systemconfig.dataexec.containsKey(dataExecName)){
-                            Systemconfig.dataexec.get(dataExecName).shutdownNow();
-                        }
-                    }
-
                     Systemconfig.sysLog.log("all tasks stopped. ");
-
                     Systemconfig.finish = new HashMap<>();
                     Systemconfig.tasks = new ConcurrentHashMap<>();
-                    Systemconfig.dataexec = new ConcurrentHashMap<>();
-
+                    //Systemconfig.dataexec = new ConcurrentHashMap<>();
                     break;
                 }
-
             }
-
             cLogger.stop();
             Systemconfig.sysLog.log("loop stop");
 
@@ -279,16 +251,19 @@ public class Job {
         for (String taskName : taskNames) {
             if (Systemconfig.tasks.containsKey(taskName)) {
                 if (Systemconfig.tasks.get(taskName).isDone()) {
+                	Systemconfig.finish.put(taskName,true);
                 } else {
                     runningTaskCount++;
                 }
             }
         }
         if (runningTaskCount > 0) allFinished = false;
+        else{
+        	Systemconfig.finish.clear();
+        	Systemconfig.tasks.clear();
+        }
         Systemconfig.sysLog.log("Systemconfi.task stat: ");
         Systemconfig.sysLog.log("running task count: " + runningTaskCount + " / total task count: " + Systemconfig.tasks.size());
-
-
 
         return allFinished;
     }
@@ -461,7 +436,9 @@ public class Job {
         }
         else
          {
-            if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
+            if (Job.getExecutorServiceMap().get(site) == null) {
+            	Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
+            }
 
         }
         return false;

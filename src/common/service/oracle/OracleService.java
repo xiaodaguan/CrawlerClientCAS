@@ -5,10 +5,13 @@ import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.service.AbstractDBService;
 import common.system.Systemconfig;
+
+
 import org.apache.http.HttpHost;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -141,10 +144,21 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         } else {
             sql = "select category_code, " + col + " from " + table + clause;
         }
+        
+        if(Systemconfig.crawlerCount!=0&&Systemconfig.crawlerNum!=0){
+        	
+        	String choiceKeyword = " mod(id,"+Systemconfig.crawlerCount+") = "+ (Systemconfig.crawlerNum-1);
+            sql = sql.replace("where","where "+choiceKeyword+" and ");
+        }
+        
         try {
-            String connInfo =  this.jdbcTemplate.getDataSource().getConnection().toString();
-            if(connInfo.toLowerCase().contains("topsearch"))
+        	Connection con = this.jdbcTemplate.getDataSource().getConnection();
+            String connInfo =  con.toString();
+            if(connInfo.toLowerCase().contains("topsearch")){
                 sql = sql.replace("where","where trunc(propose_time) >= trunc(sysdate) - 7 and ");
+                sql = sql + " , propose_time  desc ";
+            }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

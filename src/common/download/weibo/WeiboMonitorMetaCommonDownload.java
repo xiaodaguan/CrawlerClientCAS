@@ -53,7 +53,7 @@ public class WeiboMonitorMetaCommonDownload extends GenericMetaCommonDownload<We
 		UserAttr ua = UserManager.getUser(siteFlag);
 		while (ua == null) {
 			Systemconfig.sysLog.log("暂时没有可用账号用于采集，等待账号中……");
-			TimeUtil.rest(10);
+			TimeUtil.rest(20);
 			ua = UserManager.getUser(siteFlag);
 		}
 		userAttr = ua;

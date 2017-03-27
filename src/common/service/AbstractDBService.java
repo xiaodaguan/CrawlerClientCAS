@@ -82,8 +82,11 @@ public abstract class AbstractDBService<T> implements DBService<T> {
         String[] tabs = table.split(",");
         try {
             for (String t : tabs) {
-                String SQL_WEB = "select md5 from " + t.replace("ebusiness", "eb").replace("person_data", "leaders");
+                String SQL_WEB = "select md5 from " + t.replace("ebusiness", "eb").replace("person_data", "leaders") 
+                		;//+" where rownum<10 ";
+                Systemconfig.sysLog.log("md5 SQL_WEB: "+SQL_WEB);
                 List<String> list = this.jdbcTemplate.queryForList(SQL_WEB, String.class);
+                Systemconfig.sysLog.log("md5 获取成功！！！ ");
                 num += list.size();
                 map.put(t, list);
             }
@@ -99,9 +102,12 @@ public abstract class AbstractDBService<T> implements DBService<T> {
         this.jdbcTemplate.update(esql, new Object[]{md5});
     }
 
-    private static final String user_sql = "select name, pass, siteflag, id, cookie, ua from " + "(select u.name, u.pass, ss.siteflag, u.id, u.cookie, u.ua, rownum from crawler_account u, site_template ss" + " where u.site_id=ss.id and u.valid=1 and ss.siteflag=? order by last_used) ";
+    private static String user_sql = "select name, pass, siteflag, id, cookie, ua from " + "(select u.name, u.pass, ss.siteflag, u.id, u.cookie, u.ua, rownum from crawler_account u, site_template ss" + " where u.site_id=ss.id and u.valid=1 and ss.siteflag=? order by last_used) ";
     
-
+    
+    
+    
+    
     @Override
     public void updateUserOrder(String userName) {
         String sql = "update crawler_account set last_used = ? where name = ?";
@@ -112,20 +118,38 @@ public abstract class AbstractDBService<T> implements DBService<T> {
 
     @Override
     public void updateUserValid(String userName,int mark) {
-        String sql = "update crawler_account set valid = ? where name = ?";
-        this.jdbcTemplate.update(sql, mark, userName);
-        if(mark==5){
-            Systemconfig.sysLog.log("account:{" + userName + "} Search verification code problem");
-        }else if(mark==6){
-            Systemconfig.sysLog.log("account:{" + userName + "} Login verification code problem");
-        }
-        Systemconfig.sysLog.log("account:{" + userName + "} valid updated.");
+//        String sql = "update crawler_account set valid = ? where name = ?";
+//        this.jdbcTemplate.update(sql, mark, userName);
+//        if(mark==5){
+//            Systemconfig.sysLog.log("account:{" + userName + "} Search verification code problem");
+//        }else if(mark==6){
+//            Systemconfig.sysLog.log("account:{" + userName + "} Login verification code problem");
+//        }
+//        Systemconfig.sysLog.log("account:{" + userName + "} valid updated.");
     }
 
     @Override
     public List<UserAttr> getLoginUsers(String site) {
         site = site.substring(0, site.indexOf("_"));
         final List<UserAttr> list = new ArrayList<UserAttr>();
+        
+        if(Systemconfig.crawlerType==8&&user_sql.contains("u.valid=1")){
+        	//搜索	crawlerType = 7  u.valid=1
+        	//垂直监控  crawlerType = 8  u.valid=2
+        	user_sql = user_sql.replace("u.valid=1","u.valid=2");
+        }
+        if(Systemconfig.crawlerType==8&&user_sql.contains("u.valid=1")){
+        	//搜索	crawlerType = 7  u.valid=1
+        	//垂直监控  crawlerType = 8  u.valid=2
+        	user_sql = user_sql.replace("u.valid=1","u.valid=2");
+        }
+        
+        if(Systemconfig.crawlerNum!=0&&user_sql.contains("u.valid=1")){
+        	//搜索	crawlerType = 7  u.valid=1
+        	//垂直监控  crawlerType = 8  u.valid=2
+        	user_sql = user_sql.replace("u.valid=1","u.valid="+(Systemconfig.crawlerNum*2-1));
+        }
+        
         Systemconfig.sysLog.log("loading accounts...: " + user_sql);
         this.jdbcTemplate.query(user_sql, new Object[]{site}, new RowMapper<UserAttr>() {
             @Override

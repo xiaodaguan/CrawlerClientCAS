@@ -102,7 +102,7 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(sb.toString());
+			//System.out.println(sb.toString());
 		}
 		return sb.toString();
 	}
@@ -113,7 +113,7 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 		for (VideoData data : list) {
 			
 			String url = data.getUrl();
-			System.out.println(url);
+			//System.out.println(url);
 			String content = this.getHtmlContent(url,null);
 			//System.out.println("content1："+content);
 			try {
@@ -139,7 +139,7 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 			String realUpdownUrl = updownUrl.replace("<timestamp>", timestamp+"").
 					replace("<vid>", vid).replace("<showid>", showid);
 			content = this.getHtmlContent(realUpdownUrl,null);
-			System.out.println("JSONObject updownUrl:"+content);
+			//System.out.println("JSONObject updownUrl:"+content);
 			content = content.split("\\(")[1];
 			JSONObject obj = JSONObject.fromObject(content).getJSONObject("data").getJSONObject("updown");
 			String up = obj.getString("up").replace(",", "");
@@ -153,7 +153,7 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 			String realCommentUrl = commentUrl.replace("<vid>", vid).replace("<showid>", showid);;
 			try {
 				//realCommentUrl = URLEncoder.encode(realCommentUrl, "UTF-8");
-				System.out.println("URLEncoder : "+realCommentUrl);
+				//System.out.println("URLEncoder : "+realCommentUrl);
 				data.setCommentUrl(realCommentUrl);
 			} catch (Exception e1){
 				e1.printStackTrace();
