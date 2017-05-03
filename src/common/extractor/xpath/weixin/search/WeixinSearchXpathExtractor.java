@@ -484,7 +484,8 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
             // html
             html += DOMUtil.dom2Html(nl.item(i)) + "\r\n";
             // 文本
-            str += nl.item(i).getTextContent() + "\r\n";
+            if(!str.contains(nl.item(i).getTextContent()))
+                str += nl.item(i).getTextContent() + "\r\n";
         }
         data.setContent(str);
 

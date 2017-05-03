@@ -12,3 +12,4 @@ readme.txt
 result.txt
 tmpDom.htm
 CrawlerClientCAS.iml
+config/site/*.temp
