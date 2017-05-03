@@ -46,5 +46,4 @@ public class VideoDataCommonDownload extends GenericDataCommonDownload<VideoData
 				count.countDown();
 		}
 	}
-	
 }

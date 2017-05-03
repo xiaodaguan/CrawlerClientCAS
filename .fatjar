@@ -1,9 +1,9 @@
 #Fat Jar Configuration File
-#Fri Feb 24 17:12:11 GMT+08:00 2017
-onejar.license.required=true
+#Wed Apr 26 09:25:58 GMT+08:00 2017
+onejar.license.required=false
 manifest.classpath=
-manifest.removesigners=false
-onejar.checkbox=false
+manifest.removesigners=true
+onejar.checkbox=true
 jarname=CrawlerClientCAS.jar
 manifest.mergeall=true
 manifest.mainclass=common.CrawlerStart

@@ -82,8 +82,43 @@ public abstract class AbstractDBService<T> implements DBService<T> {
         String[] tabs = table.split(",");
         try {
             for (String t : tabs) {
-                String SQL_WEB = "select md5 from " + t.replace("ebusiness", "eb").replace("person_data", "leaders") 
-                		;//+" where rownum<10 ";
+            	
+            	String tt = t.replace("ebusiness", "eb").replace("person_data", "leaders") ;
+            	String SQL_WEB = "select md5 from " + tt;
+            	//		+" where rownum<10 ";
+            	//select md5 from weixin_data
+            	 try {
+                 	Connection con = this.jdbcTemplate.getDataSource().getConnection();
+                     String connInfo =  con.toString();
+                     if(connInfo.toLowerCase().contains("topsearch")&&Systemconfig.md5NearbyDay>0){
+//                         sql = sql.replace("where","where trunc(propose_time) >= trunc(sysdate) - 7 and ");
+//                         sql = sql + " , propose_time  desc ";
+                    	 
+                    	 
+                    	 String getInsertTime = "select column_name from user_tab_columns where table_name='"+tt.toUpperCase()+"'";
+                    	 List<String> listInsertTime = this.jdbcTemplate.queryForList(getInsertTime, String.class);
+                    	 String  inseartTime = null;
+                    	 if(listInsertTime.contains("INSERTTIME")){
+                    		 inseartTime = "INSERTTIME";
+                    	 }else  if(listInsertTime.contains("INSERT_TIME")){
+                    		 inseartTime = "INSERT_TIME";
+                    	 }else {
+                    		 
+                    	 }
+                       	 if(inseartTime!=null&&SQL_WEB.contains("where")){
+                    		 SQL_WEB = SQL_WEB.replace("where", 
+                    				 "where trunc("+inseartTime+") >= trunc(sysdate) - "+Systemconfig.md5NearbyDay+" and ");
+                    	 }else if(inseartTime!=null){
+                    		 SQL_WEB =SQL_WEB+(" where trunc("+inseartTime+") >= trunc(sysdate) - "+Systemconfig.md5NearbyDay+" ");
+                    	 }
+                     }
+                     con.close();
+                 } catch (SQLException e) {
+                     e.printStackTrace();
+                 }
+            	
+                
+                		
                 Systemconfig.sysLog.log("md5 SQL_WEB: "+SQL_WEB);
                 List<String> list = this.jdbcTemplate.queryForList(SQL_WEB, String.class);
                 Systemconfig.sysLog.log("md5 获取成功！！！ ");
@@ -198,21 +233,6 @@ public abstract class AbstractDBService<T> implements DBService<T> {
                 return sta;
             }
         });
-        // @Override
-        // public SiteTemplateAttr mapRow(ResultSet rs, int i)
-        // throws SQLException {
-        // SiteTemplateAttr sta=new SiteTemplateAttr();
-        // sta.setTemplateName(CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase());
-        // sta.setSiteFlag(rs.getString("SITEFLAG"));
-        // sta.setType(rs.getString("TYPE"));
-        // sta.setLastModified(rs.getTimestamp("TEMPLATE_LAST_MODIFIED"));
-        // sta.setMedia(rs.getString("MEDIA"));
-        // sta.setContent(rs.getString("TEMPLATE_CONTENT_SITE"));
-        //
-        // return null;
-        // }
-        //
-
         return list;
     }
 

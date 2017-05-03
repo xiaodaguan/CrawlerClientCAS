@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import common.bean.AgricaltureData;
+import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class AgricaltureOracleService extends OracleService<AgricaltureData> {
@@ -31,31 +32,37 @@ public class AgricaltureOracleService extends OracleService<AgricaltureData> {
 
 	public void saveData(final AgricaltureData vd) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		this.jdbcTemplate.update(new PreparedStatementCreator() {
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement ps = con.prepareStatement(jasql, new String[] { "id" });
-				ps.setString(1, vd.getName());
-				ps.setString(2, vd.getProvince());
-				ps.setString(3, vd.getCity());
-				ps.setString(4, vd.getDistrict());
-				ps.setString(5, vd.getStreet());
-//				
-				ps.setTimestamp(6, new Timestamp(vd.getPubdate().getTime()));
-				ps.setString(7, vd.getSource());
-				ps.setInt(8, vd.getCategoryId());
-				ps.setString(9, vd.getHighPrice());
-				ps.setString(10, vd.getLowPrice());
-//				
-				ps.setString(11, vd.getAveragePrice());
-				ps.setString(12, vd.getUnit());
-				ps.setString(13, vd.getSpec());
-				ps.setString(14, vd.getMd5());
-				ps.setString(15, vd.getSearchKey());
-				return ps;
+		try{
+			this.jdbcTemplate.update(new PreparedStatementCreator() {
+					@Override
+					public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+						PreparedStatement ps = con.prepareStatement(jasql, new String[] { "id" });
+						ps.setString(1, vd.getName());
+						ps.setString(2, vd.getProvince());
+						ps.setString(3, vd.getCity());
+						ps.setString(4, vd.getDistrict());
+						ps.setString(5, vd.getStreet());
+		//				
+						ps.setTimestamp(6, new Timestamp(vd.getPubdate().getTime()));
+						ps.setString(7, vd.getSource());
+						ps.setInt(8, vd.getCategoryId());
+						ps.setString(9, vd.getHighPrice());
+						ps.setString(10, vd.getLowPrice());
+		//				
+						ps.setString(11, vd.getAveragePrice());
+						ps.setString(12, vd.getUnit());
+						ps.setString(13, vd.getSpec());
+						ps.setString(14, vd.getMd5());
+						ps.setString(15, vd.getSearchKey());
+						return ps;
+					}
+				}, keyHolder);
+			
 			}
-		}, keyHolder);
-
+		catch(Exception e){
+			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			return;
+		}
 		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 

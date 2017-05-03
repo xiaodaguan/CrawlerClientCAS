@@ -11,6 +11,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import common.bean.PersonData;
+import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class PersonOracleService extends OracleService<PersonData> {
@@ -46,40 +47,44 @@ public class PersonOracleService extends OracleService<PersonData> {
 			}, keyHolder1);
 			category_code = Integer.parseInt(StringUtil.extractMulti(keyHolder1.getKeyList().get(0).toString(), "\\d"));
 		}
-
 		vd.setCategoryCode(category_code);
-
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		this.jdbcTemplate.update(new PreparedStatementCreator() {
-			@Override public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement ps = con.prepareStatement(jasql, new String[] { "id" });
-				ps.setString(1, vd.getName());
-				ps.setString(2, vd.getCompany());
-				ps.setString(3, vd.getPosition());
-				ps.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-				ps.setString(5, vd.getImgUrl());
-				ps.setInt(6, vd.getSex().contains("男") ? 1 : 2);
-				ps.setString(7, vd.getBrief());
-				ps.setString(8, vd.getNation());
-				ps.setString(9, vd.getNativePlace());
-				ps.setTimestamp(10, vd.getBirthday() == null ? null : new Timestamp(vd.getBirthday().getTime()));
-				// ps.setTimestamp(10, new
-				// Timestamp(System.currentTimeMillis()));
-				ps.setString(11, vd.getPoliticalStatus());
-				ps.setString(12, vd.getSchool());
-				ps.setString(13, vd.getEducationBackground());
-				ps.setString(14, vd.getProfession());
-				ps.setString(15, vd.getInterest());
-				ps.setString(16, vd.getEducationHistory());
-				ps.setString(17, vd.getWorkExperience());
-				ps.setString(18, vd.getSearchKey());
-				ps.setString(19, vd.getMajor());
-				ps.setString(20, vd.getUrl());
-				ps.setString(21, vd.getMd5());
-				ps.setInt(22, vd.getCategoryCode());
-				return ps;
-			}
-		}, keyHolder);
+		try{
+			this.jdbcTemplate.update(new PreparedStatementCreator() {
+				@Override public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+					PreparedStatement ps = con.prepareStatement(jasql, new String[] { "id" });
+					ps.setString(1, vd.getName());
+					ps.setString(2, vd.getCompany());
+					ps.setString(3, vd.getPosition());
+					ps.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+					ps.setString(5, vd.getImgUrl());
+					ps.setInt(6, vd.getSex().contains("男") ? 1 : 2);
+					ps.setString(7, vd.getBrief());
+					ps.setString(8, vd.getNation());
+					ps.setString(9, vd.getNativePlace());
+					ps.setTimestamp(10, vd.getBirthday() == null ? null : new Timestamp(vd.getBirthday().getTime()));
+					// ps.setTimestamp(10, new
+					// Timestamp(System.currentTimeMillis()));
+					ps.setString(11, vd.getPoliticalStatus());
+					ps.setString(12, vd.getSchool());
+					ps.setString(13, vd.getEducationBackground());
+					ps.setString(14, vd.getProfession());
+					ps.setString(15, vd.getInterest());
+					ps.setString(16, vd.getEducationHistory());
+					ps.setString(17, vd.getWorkExperience());
+					ps.setString(18, vd.getSearchKey());
+					ps.setString(19, vd.getMajor());
+					ps.setString(20, vd.getUrl());
+					ps.setString(21, vd.getMd5());
+					ps.setInt(22, vd.getCategoryCode());
+					return ps;
+				}
+			}, keyHolder);
+		 }
+		catch(Exception e){
+			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			return;
+		}
 		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 	}
 

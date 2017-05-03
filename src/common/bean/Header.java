@@ -1,6 +1,6 @@
 package common.bean;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
+
 
 /**
  * 网页信息

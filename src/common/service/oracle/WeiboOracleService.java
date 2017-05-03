@@ -2,6 +2,7 @@ package common.service.oracle;
 
 import common.bean.UserData;
 import common.bean.WeiboData;
+import common.system.Systemconfig;
 import common.util.StringUtil;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -17,7 +18,8 @@ import java.util.List;
 public class WeiboOracleService extends OracleService<WeiboData> {
 
     private static final String DATA = "weibo_data";
-    private static final String COMMENT = "weibo_comment_data";
+    //private static final String COMMENT = "weibo_comment_data";
+    private static final String COMMENT = "weibo_data_comment";
     private static final String jasql = "insert into " + DATA + "(" +
             "search_keyword, " +
             "md5," +
@@ -42,33 +44,39 @@ public class WeiboOracleService extends OracleService<WeiboData> {
     @Override
     public void saveData(final WeiboData vd) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        this.jdbcTemplate.update(new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement(jasql, new String[]{"id"});
-                ps.setString(1, vd.getSearchKey());
-                ps.setString(2, vd.getMd5());
-                ps.setString(3, vd.getContent());
-                ps.setString(4, vd.getAuthor());
-                ps.setString(5, vd.getAuthorurl());
-                ps.setObject(6, new Timestamp(System.currentTimeMillis()));
-                ps.setString(7, vd.getSource());
-                ps.setString(8, vd.getImgUrl());
-                ps.setString(9, vd.getAuthorImg());
-                ps.setString(10, vd.getUrl());
-                ps.setInt(11, vd.getSiteId());
-                ps.setObject(12, new Timestamp(vd.getPubdate().getTime()));
-                ps.setInt(13, vd.getRttNum());
-                ps.setInt(14, vd.getCommentNum());
-                ps.setString(15, vd.getRttUrl());
-                ps.setString(16, vd.getCommentUrl());
-                ps.setString(17, vd.getMid());
-                ps.setInt(18, vd.getCategoryCode());
-                ps.setInt(19, vd.getDataId());
-                ps.setString(20, vd.getContentAddress());
-                return ps;
-            }
-        }, keyHolder);
+        try{
+	        this.jdbcTemplate.update(new PreparedStatementCreator() {
+	            @Override
+	            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+	                PreparedStatement ps = con.prepareStatement(jasql, new String[]{"id"});
+	                ps.setString(1, vd.getSearchKey());
+	                ps.setString(2, vd.getMd5());
+	                ps.setString(3, vd.getContent());
+	                ps.setString(4, vd.getAuthor());
+	                ps.setString(5, vd.getAuthorurl());
+	                ps.setObject(6, new Timestamp(System.currentTimeMillis()));
+	                ps.setString(7, vd.getSource());
+	                ps.setString(8, vd.getImgUrl());
+	                ps.setString(9, vd.getAuthorImg());
+	                ps.setString(10, vd.getUrl());
+	                ps.setInt(11, vd.getSiteId());
+	                ps.setObject(12, new Timestamp(vd.getPubdate().getTime()));
+	                ps.setInt(13, vd.getRttNum());
+	                ps.setInt(14, vd.getCommentNum());
+	                ps.setString(15, vd.getRttUrl());
+	                ps.setString(16, vd.getCommentUrl());
+	                ps.setString(17, vd.getMid());
+	                ps.setInt(18, vd.getCategoryCode());
+	                ps.setInt(19, vd.getDataId());
+	                ps.setString(20, vd.getContentAddress());
+	                return ps;
+	            }
+	        }, keyHolder);
+	    }
+		catch(Exception e){
+			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			return;
+		}
         vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
     }
 
@@ -98,33 +106,39 @@ public class WeiboOracleService extends OracleService<WeiboData> {
 
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        this.jdbcTemplate.update(new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement(commentsql, new String[]{"id"});
-                ps.setString(1, vd.getSearchKey());
-                ps.setString(2, vd.getMd5());
-                ps.setString(3, vd.getContent());
-                ps.setString(4, vd.getAuthor());
-                ps.setString(5, vd.getAuthorurl());
-                ps.setObject(6, new Timestamp(System.currentTimeMillis()));
-                ps.setString(7, vd.getSource());
-                ps.setString(8, vd.getImgUrl());
-                ps.setString(9, vd.getAuthorImg());
-                ps.setString(10, vd.getUrl());
-                ps.setInt(11, vd.getSiteId());
-                ps.setObject(12, new Timestamp(vd.getPubdate().getTime()));
-                ps.setInt(13, vd.getRttNum());
-                ps.setInt(14, vd.getCommentNum());
-                ps.setString(15, vd.getRttUrl());
-                ps.setString(16, vd.getCommentUrl());
-                ps.setString(17, vd.getMid());
-                ps.setInt(18, vd.getCategoryCode());
-                ps.setInt(19, vd.getDataId());
-                ps.setString(20, vd.getContentAddress());
-                return ps;
-            }
-        }, keyHolder);
+        try{
+	        this.jdbcTemplate.update(new PreparedStatementCreator() {
+	            @Override
+	            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+	                PreparedStatement ps = con.prepareStatement(commentsql, new String[]{"id"});
+	                ps.setString(1, vd.getSearchKey());
+	                ps.setString(2, vd.getMd5());
+	                ps.setString(3, vd.getContent());
+	                ps.setString(4, vd.getAuthor());
+	                ps.setString(5, vd.getAuthorurl());
+	                ps.setObject(6, new Timestamp(System.currentTimeMillis()));
+	                ps.setString(7, vd.getSource());
+	                ps.setString(8, vd.getImgUrl());
+	                ps.setString(9, vd.getAuthorImg());
+	                ps.setString(10, vd.getUrl());
+	                ps.setInt(11, vd.getSiteId());
+	                ps.setObject(12, new Timestamp(vd.getPubdate().getTime()));
+	                ps.setInt(13, vd.getRttNum());
+	                ps.setInt(14, vd.getCommentNum());
+	                ps.setString(15, vd.getRttUrl());
+	                ps.setString(16, vd.getCommentUrl());
+	                ps.setString(17, vd.getMid());
+	                ps.setInt(18, vd.getCategoryCode());
+	                ps.setInt(19, vd.getDataId());
+	                ps.setString(20, vd.getContentAddress());
+	                return ps;
+	            }
+	        }, keyHolder);
+	    }
+		catch(Exception e){
+			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			return;
+		}
         vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
     }
 
@@ -209,43 +223,49 @@ public class WeiboOracleService extends OracleService<WeiboData> {
         }
         final String sql = saveSql;
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        this.jdbcTemplate.update(new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
-                ps.setString(1, data.getAuthor());
-                ps.setString(2, data.getAuthorUrl());
-                ps.setString(3, data.getAuthorImg());
-                ps.setString(4, data.getMd5());
-                ps.setObject(5, new Timestamp(System.currentTimeMillis()));
-                ps.setInt(6, data.getFansNum());
-                ps.setInt(7, data.getAttentNum());
-                ps.setInt(8, data.getWeiboNum());
-                ps.setString(9, data.getCertify());
-                ps.setString(10, data.getAddress());
-                ps.setString(11, data.getContent());
-                ps.setString(12, data.getSex());
-                ps.setString(13, data.getTag());
-                ps.setString(14, data.getFansUrl());
-                ps.setString(15, data.getFollowUrl());
-                ps.setString(16, data.getWeiboUrl());
-                ps.setString(17, data.getInfoUrl());
-                ps.setString(18, data.getNick());
-                ps.setString(19, data.getCompany());
-                ps.setString(20, data.getRegistTime());
-                ps.setString(21, data.getBirth());
-                ps.setString(22, data.getConcact());
-                ps.setString(23, data.getAuthorId());
-                if (data.getType() == 0) {
-                    ps.setInt(24, data.getCategoryCode());
-                    ps.setInt(25, data.getSiteId());
-                } else {
-                    ps.setInt(24, data.getPersonId());
-                }
-
-                return ps;
-            }
-        }, keyHolder);
+        try{
+	        this.jdbcTemplate.update(new PreparedStatementCreator() {
+	            @Override
+	            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+	                PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
+	                ps.setString(1, data.getAuthor());
+	                ps.setString(2, data.getAuthorUrl());
+	                ps.setString(3, data.getAuthorImg());
+	                ps.setString(4, data.getMd5());
+	                ps.setObject(5, new Timestamp(System.currentTimeMillis()));
+	                ps.setInt(6, data.getFansNum());
+	                ps.setInt(7, data.getAttentNum());
+	                ps.setInt(8, data.getWeiboNum());
+	                ps.setString(9, data.getCertify());
+	                ps.setString(10, data.getAddress());
+	                ps.setString(11, data.getContent());
+	                ps.setString(12, data.getSex());
+	                ps.setString(13, data.getTag());
+	                ps.setString(14, data.getFansUrl());
+	                ps.setString(15, data.getFollowUrl());
+	                ps.setString(16, data.getWeiboUrl());
+	                ps.setString(17, data.getInfoUrl());
+	                ps.setString(18, data.getNick());
+	                ps.setString(19, data.getCompany());
+	                ps.setString(20, data.getRegistTime());
+	                ps.setString(21, data.getBirth());
+	                ps.setString(22, data.getConcact());
+	                ps.setString(23, data.getAuthorId());
+	                if (data.getType() == 0) {
+	                    ps.setInt(24, data.getCategoryCode());
+	                    ps.setInt(25, data.getSiteId());
+	                } else {
+	                    ps.setInt(24, data.getPersonId());
+	                }
+	
+	                return ps;
+	            }
+	        }, keyHolder);
+        }
+		catch(Exception e){
+			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			return;
+		}
         data.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
     }
 
@@ -283,23 +303,29 @@ public class WeiboOracleService extends OracleService<WeiboData> {
         }
         final String s = sql;
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        this.jdbcTemplate.update(new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement(s, new String[]{"id"});
-                ps.setString(1, data.getAuthor());
-                ps.setString(2, data.getAuthorurl());
-                ps.setString(3, data.getAuthorImg());
-                ps.setString(4, data.getMd5());
-                ps.setObject(5, new Timestamp(System.currentTimeMillis()));
-                ps.setString(6, data.getBrief());
-                ps.setString(7, data.getPubtime());
-                ps.setInt(8, data.getDataId());
-                ps.setString(9, data.getUrl());
-                ps.setString(10, data.getMid());
-                return ps;
-            }
-        }, keyHolder);
+        try{
+	        this.jdbcTemplate.update(new PreparedStatementCreator() {
+	            @Override
+	            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+	                PreparedStatement ps = con.prepareStatement(s, new String[]{"id"});
+	                ps.setString(1, data.getAuthor());
+	                ps.setString(2, data.getAuthorurl());
+	                ps.setString(3, data.getAuthorImg());
+	                ps.setString(4, data.getMd5());
+	                ps.setObject(5, new Timestamp(System.currentTimeMillis()));
+	                ps.setString(6, data.getBrief());
+	                ps.setString(7, data.getPubtime());
+	                ps.setInt(8, data.getDataId());
+	                ps.setString(9, data.getUrl());
+	                ps.setString(10, data.getMid());
+	                return ps;
+	            }
+	        }, keyHolder);
+	    }
+		catch(Exception e){
+			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			return;
+		}
     }
 
     private int findId(String md5, String table) {

@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import common.bean.FrgmediaData;
 import common.bean.GovAffairData;
 import common.bean.NewsData;
+import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class FrgmediaOracleService extends OracleService<FrgmediaData> {
@@ -21,24 +22,25 @@ public class FrgmediaOracleService extends OracleService<FrgmediaData> {
 
 
     private static final String jasql = "insert into " + TABLE + "(" +
-            "title, " +
-            "author," +
-            "pubtime," +
-            "source," +
-            "url," +
-            "inserttime," +
-            "search_keyword," +
-            "category_code," +
-            "md5," +
-            "content," +
-            "brief," +
-            "site_id," +
-            "img_url," +
-            "same_num, " +
-            "same_url) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        "title, " +
+        "author," +
+        "pubtime," +
+        "source," +
+        "url," +
+        "inserttime," +
+        "search_keyword," +
+        "category_code," +
+        "md5," +
+        "content," +
+        "brief," +
+        "site_id," +
+        "img_url," +
+        "same_num, " +
+        "same_url) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-            public void saveData(final FrgmediaData vd) {
-                KeyHolder keyHolder = new GeneratedKeyHolder();
+        public void saveData(final FrgmediaData vd) {
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            try{
                 this.jdbcTemplate.update(new PreparedStatementCreator() {
                     @Override
                     public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -61,9 +63,13 @@ public class FrgmediaOracleService extends OracleService<FrgmediaData> {
 		                ps.setInt(14, vd.getSamenum());
 		                ps.setString(15, vd.getSameUrl());
 		                return ps;
-            }
-        }, keyHolder);
-
+	            }
+	        }, keyHolder);
+	    }
+		catch(Exception e){
+			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			return;
+		}
         vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
     }
 

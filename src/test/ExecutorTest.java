@@ -21,7 +21,7 @@ public class ExecutorTest {
 				}
             }
         };
-        Runnable bye = () -> {
+        Runnable bye =  () ->{
             for (int i = 0; i < 5; i++) {
                 System.out.println(i + " bye"); 
                 
@@ -38,37 +38,20 @@ public class ExecutorTest {
         ExecutorService  executor = Executors.newFixedThreadPool(1);
        
         Future<?> f1 =  executor.submit(hello);
-        Future<?> f2 =  executor.submit(bye);
-        //f.cancel(true);
-        
-        
+        //Future<?> f2 =  executor.submit(bye);
+
         Thread.sleep(1000);
 
-        //f2.cancel(false);
-//        if(f2.isDone()){
-//        	System.out.println("f2 close");
-//        }
+
         System.out.println(f1.cancel(false)+"  f1.cancel(true)");
         System.out.println(f1.cancel(true)+"  f1.cancel(true)");
         
-        //Future<?> f3 =  executor.submit(bye);
+        Future<?> f3 =  executor.submit(bye);
         if(f1.isDone()){
         	System.out.println("f2 close");
         }
-        //executor.submit(bye);
-        
         
         System.out.println(executor.isShutdown());
-        //executor.shutdown();
-//        List<Runnable> list =  executor.shutdownNow();
-//        
-//        
-//        
-//        for (Runnable runnable : list) {
-//			System.out.println(runnable.getClass());
-//			System.out.println(runnable.toString());
-//			System.out.println(runnable.toString());
-//		}
         
         System.out.println(executor.isShutdown());
         return ;

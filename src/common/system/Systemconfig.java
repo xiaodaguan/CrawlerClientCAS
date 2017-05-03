@@ -16,11 +16,16 @@ import common.util.UrlReduplicationRemove;
 import org.apache.log4j.Logger;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.*;
 
 /**
@@ -79,6 +84,7 @@ public class Systemconfig {
     public static boolean createPic;
     public static String keywords;
     public static String table;
+    public static int md5NearbyDay;
     /**
      * 读取配置类型，0文件读取，1数据库读取
      */
@@ -160,8 +166,33 @@ public class Systemconfig {
     /**
      * 配置加载完成后，系统初始化操作
      */
+    
+    public void initialSys(){
+    	Properties props = new Properties();
+        InputStream is=null;
+		try {
+			is = new FileInputStream("./config/config.properties");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			props.load(is);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        md5NearbyDay = Integer.parseInt(props.getProperty("md5NearbyDay"));
+        try {
+			is.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
     public void initial() {
         value();
+        initialSys();
         sysLog.start();
         extractor.init();
         dbService = dbFactory.dbService();
@@ -169,6 +200,9 @@ public class Systemconfig {
             sysLog.log("没有找到相应的数据库服务，系统退出！！");
             System.exit(-1);
         }
+        
+        
+        
         if (distribute) {
             rmiClient();
             clientinfo = new Clientinfo();

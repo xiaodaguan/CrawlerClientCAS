@@ -13,6 +13,7 @@ import common.util.StringUtil;
 import common.util.TimeUtil;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -57,8 +58,10 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     URLConnection conn0 = url0.openConnection();
                     conn0.setRequestProperty("Cookie", user.getCookie());
                     conn0.connect();
-                    html.setContent(StringUtil.readStream(conn0.getInputStream()));
-
+                    
+                    InputStream is = conn0.getInputStream();
+                    html.setContent(StringUtil.readStream(is));
+                    is.close();
                     // http.getContent(html, user);//下载获取用户的微博页面
                     String html1 = html.getContent();// 页面html
                     String userName = StringUtil.regMatcher(html1, "\\$CONFIG\\['onick'\\]\\s*=\\s*'", "'");

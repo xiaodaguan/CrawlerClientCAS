@@ -46,8 +46,6 @@ public class ClientMetaCommonDownload extends GenericMetaCommonDownload<ClientDa
 				// html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
 
 				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
-								
-
 				
 				totalCount += list.size();
 				if (list.size() == 0) {

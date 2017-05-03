@@ -85,7 +85,6 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                         if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());
 //                    break;
                     } else {
-
                         dtc.process(list, siteinfo.getDownInterval(), null, key);
                     }
                     alllist.addAll(list);

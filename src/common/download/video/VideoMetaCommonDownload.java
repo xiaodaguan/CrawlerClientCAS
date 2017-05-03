@@ -1,5 +1,6 @@
 package common.download.video;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +46,11 @@ public class VideoMetaCommonDownload extends GenericMetaCommonDownload<VideoData
 				}
 				Systemconfig.sysLog.log(url + "元数据页面解析完成。");
 				
-				Systemconfig.dbService.getNorepeatData(list, "video_data");
-				if(list.size()==0) break;
+				Systemconfig.dbService.getNorepeatData(list, "");
+				if(list.size()==0) {
+					Systemconfig.sysLog.log("去重后 list size 为 0 ");
+					break;
+				}
 				alllist.addAll(list);
 				
 				map.put(keyword, map.get(keyword)+1);
@@ -59,6 +63,8 @@ public class VideoMetaCommonDownload extends GenericMetaCommonDownload<VideoData
 				break;
 			}
 		}
+		
+		
 		dtc.process(alllist, siteinfo.getDownInterval(),null,key);
 	}
 }
