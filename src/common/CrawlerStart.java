@@ -1,14 +1,12 @@
 package common;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import common.system.AppContext;
 import common.system.Job;
 import common.system.Systemconfig;
-import crawlerlog.log.CLog;
-import crawlerlog.log.CLogFactory;
-
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
+import special.ClearCrawlerLog;
 
 public class CrawlerStart {
 
@@ -23,7 +21,7 @@ public class CrawlerStart {
         if (args.length == 0) {
             return;
         }
-
+ 
         StringBuilder stringBuilder = new StringBuilder();
         String crawlerName = null;
 
@@ -81,12 +79,18 @@ public class CrawlerStart {
         }
        
         AppContext.initAppCtx("");//初始化
+        
         Systemconfig.sysLog.log("\n\n\n");
         Systemconfig.sysLog.log("[crawler start] current cmd: " + stringBuilder.toString());
         Systemconfig.sysLog.log("[crawler start] will start after 3 sec...");
         Systemconfig.sysLog.log("\n\n\n");
+        
+        
+        System.out.println("table:\t"+Systemconfig.table);
+        System.out.println("md5NearbyDay:\t"+Systemconfig.md5NearbyDay);
         Thread.sleep(3 * 1000);
         Job.simpleRun();
+        
     }
 }
 

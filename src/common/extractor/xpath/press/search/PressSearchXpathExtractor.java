@@ -54,6 +54,7 @@ public class PressSearchXpathExtractor extends XpathExtractor<PressData> impleme
 		data.setContent(result.getContent());
 		data.setImgUrl(result.getImgs());
 		data.setInserttime(new Timestamp(System.currentTimeMillis()));
+		data.setMd5(MD5Util.MD5(data.getUrl()+data.getSearchKey()));
 		return null;
 	}
 

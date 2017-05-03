@@ -15,6 +15,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import common.bean.CommentData;
 import common.bean.EbusinessData;
 import common.bean.OwnerData;
+import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class EbusinessOracleService extends OracleService<EbusinessData> {
@@ -39,39 +40,45 @@ public class EbusinessOracleService extends OracleService<EbusinessData> {
 			+ "values " + "(?,?,?,?,?,?,?,?,?,?,?)";
 	public void saveData(final EbusinessData vd) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		this.jdbcTemplate.update(new PreparedStatementCreator() {
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement ps = con.prepareStatement(jasql, new String[] { "id" });
-				ps.setString(1, vd.getTitle());
-				ps.setString(2, vd.getBrand());
-				ps.setString(3, vd.getContent() == null ? "" : vd.getContent());
-				ps.setString(4, vd.getImgs_product());
-				ps.setString(5, vd.getImgs_info());
-
-				ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
-				ps.setString(7, vd.getParams_diameter());
-				ps.setString(8, vd.getParams_width());
-				ps.setString(9, vd.getPrice());
-				ps.setString(10, vd.getTransation());
-
-				ps.setString(11, vd.getName());
-				ps.setString(12, vd.getUrl());
-				ps.setString(13, vd.getParams_params());
-				ps.setInt(14, vd.getCategoryCode());
-				ps.setString(15, vd.getMd5());
-
-				ps.setString(16, vd.getSearchKey());
-				ps.setInt(17, vd.getSiteId());
-				ps.setString(18, vd.getUpdateDate());
-				ps.setLong(19, Long.parseLong(vd.getOwner().getOwner_code()));
-				ps.setString(20, vd.getParams_model());
-
-				ps.setString(21, vd.getInfo_code());
-				ps.setString(22, vd.getCompany());
-				return ps;
-			}
-		}, keyHolder);
+		try{
+			this.jdbcTemplate.update(new PreparedStatementCreator() {
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+					PreparedStatement ps = con.prepareStatement(jasql, new String[] { "id" });
+					ps.setString(1, vd.getTitle());
+					ps.setString(2, vd.getBrand());
+					ps.setString(3, vd.getContent() == null ? "" : vd.getContent());
+					ps.setString(4, vd.getImgs_product());
+					ps.setString(5, vd.getImgs_info());
+	
+					ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
+					ps.setString(7, vd.getParams_diameter());
+					ps.setString(8, vd.getParams_width());
+					ps.setString(9, vd.getPrice());
+					ps.setString(10, vd.getTransation());
+	
+					ps.setString(11, vd.getName());
+					ps.setString(12, vd.getUrl());
+					ps.setString(13, vd.getParams_params());
+					ps.setInt(14, vd.getCategoryCode());
+					ps.setString(15, vd.getMd5());
+	
+					ps.setString(16, vd.getSearchKey());
+					ps.setInt(17, vd.getSiteId());
+					ps.setString(18, vd.getUpdateDate());
+					ps.setLong(19, Long.parseLong(vd.getOwner().getOwner_code()));
+					ps.setString(20, vd.getParams_model());
+	
+					ps.setString(21, vd.getInfo_code());
+					ps.setString(22, vd.getCompany());
+					return ps;
+				}
+			}, keyHolder);
+		}
+		catch(Exception e){
+			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			return;
+		}
 		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 
 	}/**

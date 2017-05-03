@@ -60,7 +60,7 @@ public class PressMetaCommonDownload extends GenericMetaCommonDownload<PressData
 				totalCount += list.size();
 				Systemconfig.dbService.getNorepeatData(list, "");
 				if (list.size() == 0) {
-					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + url + "no new data.");
+					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + url + "没有新数据");
 					if (alllist.size() == 0)
 						TimeUtil.rest(siteinfo.getDownInterval());
 					break;

@@ -83,7 +83,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         String table = "search_keyword";
         String col = "keyword";
         String sql = null;
-        String clause = " where status=2";
+        String clause = " where status=2 ";
         switch (Systemconfig.crawlerType) {
             case 1:
             case 3:
