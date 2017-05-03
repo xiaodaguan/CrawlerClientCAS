@@ -19,20 +19,6 @@ public class testThread {
 
     public static void main(String[] args) throws Exception {
 
-//		testThread myThread = new testThread();
-//		Thread threads[] = new Thread[100];
-//		for (int i = 0; i < threads.length; i++) {
-//			threads[i] = new Thread(myThread);
-//		}
-//		for(int i=0;i<threads.length;i++){
-//			threads[i].start();
-//		}
-//
-//		for(int i=0;i<threads.length;i++){
-//			threads[i].join();
-//		}
-//
-//		System.out.println("n: "+myThread.n);
 
 
         ExecutorService es = Executors.newFixedThreadPool(3);// ExecutorService 线程池
@@ -56,7 +42,8 @@ public class testThread {
             fList.add(f);
         }
 
-        while (true) {
+        while (true) 
+        {
             boolean allDone = true;
             for (int i = 0; i < 3; i++) {
                 Future f = fList.get(i);

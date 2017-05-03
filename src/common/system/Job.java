@@ -150,14 +150,13 @@ public class Job {
                     Set<String> taskNames = Systemconfig.tasks.keySet();
                     //接收的任务
                     for (String taskName : taskNames) {
-                        if (Systemconfig.tasks.containsKey(taskName)) {
+                        if (!Systemconfig.tasks.get(taskName).isDone()) {
                         	System.out.println(taskName+"任务被强制停止");
                             Systemconfig.tasks.get(taskName).cancel(true);
                             if(!Systemconfig.tasks.get(taskName).isDone()){
                             	Systemconfig.tasks.get(taskName).cancel(true);
                             	System.out.println(taskName+"任务第一次强制停止失败，再次被强制停止");
                             }
-                            
                         }
                     }
                     Systemconfig.finish.clear();
@@ -222,8 +221,11 @@ public class Job {
                         }
                     }
                     Systemconfig.sysLog.log("all tasks stopped. ");
-                    Systemconfig.finish = new HashMap<>();
-                    Systemconfig.tasks = new ConcurrentHashMap<>();
+                    
+                    Systemconfig.finish.clear();
+                    Systemconfig.tasks.clear();
+                    //Systemconfig.finish = new HashMap<>();
+                    //Systemconfig.tasks = new ConcurrentHashMap<>();
                     //Systemconfig.dataexec = new ConcurrentHashMap<>();
                     break;
                 }

@@ -45,9 +45,9 @@ public class WeixinDataCommonDownload extends GenericDataCommonDownload<WeixinDa
 
 //                ((WeixinSearchXpathExtractor) xpath).parseGongzhong(data, html, html.getContent());
 //
-
+                Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
                 Systemconfig.dbService.saveData(data);
-                Systemconfig.sysLog.log("data: " + data.getTitle() + " saved.");
+                Systemconfig.sysLog.log(data.getTitle() + "保存完成。。。");
 
             }
         } catch (Exception e) {

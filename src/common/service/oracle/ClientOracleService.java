@@ -3,15 +3,18 @@ package common.service.oracle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 
 import common.bean.ClientData;
 import common.bean.ReplyData;
+import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class ClientOracleService extends OracleService<ClientData> {
@@ -82,31 +85,36 @@ LIKE_COUNT
 		// if(findId(vd.getMd5(), DATA)>0) return;
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		this.jdbcTemplate.update(new PreparedStatementCreator() {
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement ps = con.prepareStatement(vsql, new String[] { "id" });
-				ps.setString(1, 	vd.getUrl());
-				ps.setString(2, 	vd.getMd5());
-				ps.setString(3, 	vd.getTitle());
-				ps.setString(4, 	vd.getAuthor());
-				ps.setString(5, 	vd.getBrief());
-				ps.setObject(6, 	new Timestamp(System.currentTimeMillis()));
-				ps.setString(7, 	vd.getContent());
-				ps.setInt(8, 		vd.getReplyCount());
-				ps.setInt(9, 		vd.getClickCount());
-				ps.setString(10, 	vd.getSearchKey()); 
-				ps.setInt(11, 		vd.getSiteId());
-				ps.setString(12, 	vd.getImgUrl());
-				ps.setObject(13, 	new Timestamp(vd.getPubdate().getTime()));
-				ps.setInt(14, 		vd.getDislikeCount());
-				ps.setInt(15, 		vd.getLikeCount());
-				ps.setString(16, 	vd.getSourceUrl());
-				ps.setInt(17, 		vd.getCategoryCode());
-				return ps;
-			}
-		}, keyHolder);
-
+		
+		try{
+			this.jdbcTemplate.update(new PreparedStatementCreator() {
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+					PreparedStatement ps = con.prepareStatement(vsql, new String[] { "id" });
+					ps.setString(1, 	vd.getUrl());
+					ps.setString(2, 	vd.getMd5());
+					ps.setString(3, 	vd.getTitle());
+					ps.setString(4, 	vd.getAuthor());
+					ps.setString(5, 	vd.getBrief());
+					ps.setObject(6, 	new Timestamp(System.currentTimeMillis()));
+					ps.setString(7, 	vd.getContent());
+					ps.setInt(8, 		vd.getReplyCount());
+					ps.setInt(9, 		vd.getClickCount());
+					ps.setString(10, 	vd.getSearchKey()); 
+					ps.setInt(11, 		vd.getSiteId());
+					ps.setString(12, 	vd.getImgUrl());
+					ps.setObject(13, 	new Timestamp(vd.getPubdate().getTime()));
+					ps.setInt(14, 		vd.getDislikeCount());
+					ps.setInt(15, 		vd.getLikeCount());
+					ps.setString(16, 	vd.getSourceUrl());
+					ps.setInt(17, 		vd.getCategoryCode());
+					return ps;
+				}           
+			}, keyHolder);  
+		}catch(Exception e){
+			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			return;
+		}
 		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
 		
 		saveCommonData(vd);
