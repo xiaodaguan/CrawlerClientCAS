@@ -103,7 +103,7 @@ public class VideoSearchXpathExtractor extends XpathExtractor<VideoData> impleme
 		for(VideoData vd : list) {
 			vd.setSearchKey(keyword[0]);
 			vd.setCategoryCode(Integer.parseInt(keyword[2]));
-			vd.setMd5(MD5Util.MD5(vd.getUrl()));
+			vd.setMd5(MD5Util.MD5(vd.getUrl()+vd.getSearchKey()));
 			vd.setSiteId(siteinfo.getSiteFlag());
 		}
 		String nextPage = parseNext(domtree, comp.getComponents().get("next"), new String[]{keyword[1], page+""});

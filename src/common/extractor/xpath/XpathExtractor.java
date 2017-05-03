@@ -292,7 +292,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 			CommonData cd = (CommonData) t;
 			cd.setSearchKey(key);
 			cd.setCategoryCode(code);
-			cd.setMd5(MD5Util.MD5(cd.getUrl()));
+			cd.setMd5(MD5Util.MD5(cd.getUrl()+cd.getSearchKey()));
 			cd.setSiteId(siteflag);
 		}
 	}

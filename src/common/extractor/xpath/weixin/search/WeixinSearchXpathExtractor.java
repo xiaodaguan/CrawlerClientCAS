@@ -508,8 +508,8 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
             wd.setSearchKey(key);
             wd.setCategoryCode(code);
             wd.setCustomizeId(code);
-//            String urlWithoutTimestamp = wd.getUrl().replace(StringUtil.extractOne(wd.getUrl(), "timestamp=\\d+"), "");
-            wd.setMd5(MD5Util.MD5(wd.getTitle()+wd.getAuthor()));
+            String urlWithoutTimestamp = wd.getUrl().replace(StringUtil.extractOne(wd.getUrl(), "timestamp=\\d+"), "");
+            wd.setMd5(MD5Util.MD5(urlWithoutTimestamp));
             wd.setSiteId(siteflag);
             wd.setCrawler_cookie(cookie);
         }
