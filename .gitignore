@@ -4,7 +4,6 @@ bin
 filedown
 logs
 META-INF
-out
 .classpath
 .project
 crawler_client_v0.951.iml
