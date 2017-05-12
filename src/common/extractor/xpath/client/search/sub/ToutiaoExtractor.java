@@ -242,7 +242,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 			JSONArray jarray = null;
 			try{
 				jarray = JSONObject.fromObject(content).getJSONObject("data").getJSONArray("comments");
-			}catch(JSONException e){
+			}catch(Exception e){
 				//e.printStackTrace();
 				Systemconfig.sysLog.log("content 不是json");
 			}
