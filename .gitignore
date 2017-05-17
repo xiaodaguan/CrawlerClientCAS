@@ -14,3 +14,7 @@ CrawlerClientCAS.iml
 config/site/*.temp
 .DS_Store
 .svn
+BaiduHotKey
+out
+phantomjs
+target
