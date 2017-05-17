@@ -28,7 +28,7 @@ site_id与site_template表中对应模板的id一致
 
 ```
 //project 目录下运行命令
-mvn install:install-file -Dfile=lib/ojdbc.jar -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/ojdbc6.jar -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar
 mvn install:install-file -Dfile=lib/chardet-1.0.jar -DgroupId=org.mozilla.intl -DartifactId=chardet -Dversion=1.0 -Dpackaging=jar
 mvn install:install-file -Dfile=lib/crwlerlog.jar -DgroupId=crwlerlog -DartifactId=crwlerlog -Dversion=1.0 -Dpackaging=jar
 mvn install:install-file -Dfile=lib/hadoop-core-1.0.4.jar -DgroupId=org.apache -DartifactId=hadoop -Dversion=1.0.4 -Dpackaging=jar

@@ -16,5 +16,6 @@ config/site/*.temp
 .svn
 BaiduHotKey
 out
-phantomjs
+phantomjs_bak
+phantomjsdriver.log
 target
