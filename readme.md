@@ -20,7 +20,32 @@ site_id与site_template表中对应模板的id一致
 
 将要监控的url配置在monitor_site中,注意site_name  
 
-## 爬虫启动  
+## 爬虫启动
+
+#### maven 打包运行方式
+
+1. 本地maven库安装第三方依赖jar
+
+```
+//project 目录下运行命令
+mvn install:install-file -Dfile=lib/ojdbc.jar -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/chardet-1.0.jar -DgroupId=org.mozilla.intl -DartifactId=chardet -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/crwlerlog.jar -DgroupId=crwlerlog -DartifactId=crwlerlog -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/hadoop-core-1.0.4.jar -DgroupId=org.apache -DartifactId=hadoop -Dversion=1.0.4 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/hbase-0.94.16-security.jar -DgroupId=org.apache.hadoop -DartifactId=hbase -Dversion=0.94.16 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/mail.jar -DgroupId=com.sun.mail -DartifactId=mail -Dversion=1.0 -Dpackaging=jar
+```
+
+2. 打包 mvn clean package
+3. 复制 config 目录到target/
+```
+cp -r config target/
+```
+4. 运行
+java -jar CrawlerClientCAS-1.0.jar type=15 name=test project=66666
+
+
+
 - 参数  
 
 ```
