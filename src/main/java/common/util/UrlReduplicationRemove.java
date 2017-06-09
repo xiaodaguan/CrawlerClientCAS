@@ -69,7 +69,7 @@ public class UrlReduplicationRemove {
 
     // 获得数据表中的url数据
     private int getQueryList(Map<String, List<String>> map) {
-        return Systemconfig.dbService.getAllMd5(Systemconfig.table, map);
+        return //todo
     }
 
     // 删除重复的url

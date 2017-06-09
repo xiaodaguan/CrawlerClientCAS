@@ -6,13 +6,17 @@ import java.util.Date;
 import common.system.AppContext;
 import common.system.Job;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import special.ClearCrawlerLog;
 
 public class CrawlerStart {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(CrawlerStart.class);
+
 
     public static void main(String[] args) throws Exception {
-    	
+
         // common.util.TimeUtil.rest(8 * 60 * 60);
         // TaskMonitor tm=new TaskMonitor();
         // Thread tmonitor=new Thread(tm);
@@ -21,11 +25,11 @@ public class CrawlerStart {
         if (args.length == 0) {
             return;
         }
- 
+
         StringBuilder stringBuilder = new StringBuilder();
         String crawlerName = null;
 
-        for (String arg : args) {      
+        for (String arg : args) {
 
             stringBuilder.append(arg).append(" ");
 
@@ -44,19 +48,18 @@ public class CrawlerStart {
                 crawlerName = arg.split("=")[1];
             } else if (arg.toLowerCase().contains("project=")) {//project
                 Job.setProject(arg.split("=")[1]);
-            }else if (arg.toLowerCase().contains("crawlercount=")) {//需要分布式部署多少个爬虫
-            	Systemconfig.crawlerCount = Integer.parseInt(arg.split("=")[1]);
-            }else if (arg.toLowerCase().contains("clientindex=")) {//当前是几号爬虫
-            	Systemconfig.crawlerNum = Integer.parseInt(arg.split("=")[1]);
-            } 
-            else if (arg.toLowerCase().contains("note=")) {//note
+            } else if (arg.toLowerCase().contains("crawlercount=")) {//需要分布式部署多少个爬虫
+                Systemconfig.crawlerCount = Integer.parseInt(arg.split("=")[1]);
+            } else if (arg.toLowerCase().contains("clientindex=")) {//当前是几号爬虫
+                Systemconfig.crawlerNum = Integer.parseInt(arg.split("=")[1]);
+            } else if (arg.toLowerCase().contains("note=")) {//note
 
             }
         }
-        
-        Systemconfig.sysLog.log(stringBuilder.toString());
 
-       
+        LOGGER.info(stringBuilder.toString());
+
+
         Job.setCrawlerNameOrCMD(stringBuilder.toString());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -77,20 +80,19 @@ public class CrawlerStart {
         if (Job.getProject().equals("")) {
             System.err.print("[warning]: project not defined!");
         }
-       
+
         AppContext.initAppCtx("");//初始化
-        
-        Systemconfig.sysLog.log("\n\n\n");
-        Systemconfig.sysLog.log("[crawler start] current cmd: " + stringBuilder.toString());
-        Systemconfig.sysLog.log("[crawler start] will start after 3 sec...");
-        Systemconfig.sysLog.log("\n\n\n");
-        
-        
-        System.out.println("table:\t"+Systemconfig.table);
-        System.out.println("md5NearbyDay:\t"+Systemconfig.md5NearbyDay);
+
+        LOGGER.info("\n\n\n");
+        LOGGER.info("[crawler start] current cmd: " + stringBuilder.toString());
+        LOGGER.info("[crawler start] will start after 3 sec...");
+        LOGGER.info("\n\n\n");
+
+
+        System.out.println("table:\t" + Systemconfig.table);
         Thread.sleep(3 * 1000);
         Job.simpleRun();
-        
+
     }
 }
 

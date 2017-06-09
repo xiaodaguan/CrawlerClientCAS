@@ -9,7 +9,7 @@ import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.system.UserManager;
 import common.util.TimeUtil;
 
@@ -20,9 +20,9 @@ import common.util.TimeUtil;
  */
 public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<WeiboData> implements Runnable {
 
-	private UserAttr userAttr;
+	private UserAttribute userAttribute;
 
-	public WeiboSearchDataCommonDownload(String siteFlag, WeiboData data, CountDownLatch endCount, UserAttr user, SearchKey key) {
+	public WeiboSearchDataCommonDownload(String siteFlag, WeiboData data, CountDownLatch endCount, UserAttribute user, SearchKey key) {
 		super(siteFlag, data, endCount, key);
 
 	}
@@ -39,19 +39,19 @@ public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<Wei
 			return;
 
 		// 每次保证只有有效用户个执行，某个任务完成后，等待的下一个任务开始执行
-		UserAttr ua = UserManager.getUser(siteFlag);
+		UserAttribute ua = UserManager.getUser(siteFlag);
 		while (ua == null) {
-			Systemconfig.sysLog.log("暂时没有可用账号用于采集，等待账号中……");
+			LOGGER.info("暂时没有可用账号用于采集，等待账号中……");
 			TimeUtil.rest(10);
 			ua = UserManager.getUser(siteFlag);
 		}
-		userAttr = ua;
-		if (!userAttr.getHadRun()) {
-			http.monitorLogin(userAttr);
+		userAttribute = ua;
+		if (!userAttribute.getHadRun()) {
+			http.monitorLogin(userAttribute);
 			ua.setHadRun(true);
-			System.out.println("监测用户！！！" + userAttr.getName());
+			System.out.println("监测用户！！！" + userAttribute.getName());
 		}
-		Systemconfig.sysLog.log("用户" + userAttr.getName() + "使用中！");
+		LOGGER.info("用户" + userAttribute.getName() + "使用中！");
 		if (ii != null) {
 			ii.setAccountId(ua.getId());
 			ii.setAccount(ua.getName());
@@ -71,7 +71,7 @@ public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<Wei
 			if (url != null && !url.equals("")) {
 				html.setOrignUrl(url);
 
-				http.getContent(html, userAttr);
+				http.getContent(html, userAttribute);
 				// html.setContent();
 				if (html.getContent() == null) {
 					return;
@@ -79,9 +79,9 @@ public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<Wei
 				// 解析数据
 				xpath.templateContentPage(data, html);
 
-				Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
+				LOGGER.info(data.getTitle() + "解析完成。。。");
 				Systemconfig.dbService.saveData(data);
-				Systemconfig.sysLog.log(data.getTitle() + "保存完成。。。");
+				LOGGER.info(data.getTitle() + "保存完成。。。");
 			}
 			// if(data.getSameUrl()!=null && count != null && data.getId()>0) {
 			// //采集链接
@@ -93,7 +93,7 @@ public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<Wei
 			// new NewsMetaCommonDownload(searchKey).process();
 			// }
 		} catch (Exception e) {
-			Systemconfig.sysLog.log("采集出现异常" + url, e);
+			LOGGER.info("采集出现异常" + url, e);
 		} finally {
 			if (count != null)
 				count.countDown();

@@ -21,7 +21,7 @@ public class WeixinOracleService extends OracleService<WeixinData> {
 
     @Override
     public int saveGongzhongData(final WxpublicData vd) {
-        Systemconfig.sysLog.log("saving: [" + vd.getName() + "]");
+        LOGGER.info("saving: [" + vd.getName() + "]");
         // 新数据保存
         KeyHolder keyHolder = new GeneratedKeyHolder();
         try{
@@ -49,10 +49,10 @@ public class WeixinOracleService extends OracleService<WeixinData> {
         }, keyHolder);
 	    }
 		catch(Exception e){
-			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			LOGGER.info("插入异常！！！"+e.getMessage());
 			return -1;
 		}
-        Systemconfig.sysLog.log(vd.getName() + "[保存]完成。。。");
+        LOGGER.info(vd.getName() + "[保存]完成。。。");
         vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));
         return vd.getId();
     }
@@ -94,7 +94,7 @@ public class WeixinOracleService extends OracleService<WeixinData> {
 	        }, keyHolder);
 	    }
 		catch(Exception e){
-			Systemconfig.sysLog.log("插入异常！！！");
+			LOGGER.info("插入异常！！！");
 			e.printStackTrace();
 			return;
 		}
@@ -125,7 +125,7 @@ public class WeixinOracleService extends OracleService<WeixinData> {
 	        }, keyHolder);
         }
 		catch(Exception e){
-			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			LOGGER.info("插入异常！！！"+e.getMessage());
 			return;
 		}
     }

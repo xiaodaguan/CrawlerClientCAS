@@ -1,4 +1,4 @@
-package common.siteinfo;
+package common.bean;
 /**
  * 采集类型
  * @author grs

@@ -131,7 +131,7 @@ public class AutohomeExtractor extends BbsSearchXpathExtractor {
 			System.out.println();
 		Node domtree = getRealDOM(html);
 		if (domtree == null) {
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
+			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
 		CommonComponent comp = getRealComp(siteinfo, html.getType()
@@ -164,9 +164,9 @@ public class AutohomeExtractor extends BbsSearchXpathExtractor {
 //					new String[] { html.getContent() });
 //			this.parseReplycontent(list, domtree, comp.getComponents().get("reply_content"),
 //					new String[] { html.getContent() });
-//			Systemconfig.sysLog.log("评论页解析完成!" + data.getUrl());
+//			LOGGER.info("评论页解析完成!" + data.getUrl());
 //		} else {
-//			Systemconfig.sysLog.log("评论页解析为空!" + data.getUrl());
+//			LOGGER.info("评论页解析为空!" + data.getUrl());
 //		}
 
 		data.setReplyList(list);

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class UserAttr implements Serializable {
+public class UserAttribute implements Serializable {
 
     private int id;
     private String ip;
@@ -33,10 +33,10 @@ public class UserAttr implements Serializable {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public UserAttr() {
+    public UserAttribute() {
     }
 
-    public UserAttr(String user, String pass) {
+    public UserAttribute(String user, String pass) {
         this.name = user;
         this.pass = pass;
     }

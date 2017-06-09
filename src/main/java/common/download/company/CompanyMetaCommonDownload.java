@@ -42,11 +42,11 @@ public class CompanyMetaCommonDownload extends GenericMetaCommonDownload<CommonD
 				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
 
 				if (list.size() == 0) {
-					Systemconfig.sysLog.log(url + "元数据页面解析为空！！");
+					LOGGER.info(url + "元数据页面解析为空！！");
 					TimeUtil.rest(siteinfo.getDownInterval());
 					break;
 				}
-				Systemconfig.sysLog.log(url + "元数据页面解析完成。");
+				LOGGER.info(url + "元数据页面解析完成。");
 
 				Systemconfig.dbService.getNorepeatData(list, "");
 				if (list.size() == 0) {

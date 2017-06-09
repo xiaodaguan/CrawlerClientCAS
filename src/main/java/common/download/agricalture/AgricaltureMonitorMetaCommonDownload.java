@@ -58,17 +58,17 @@ public class AgricaltureMonitorMetaCommonDownload extends GenericMetaCommonDownl
 
 				if (list.size() == 0) {
 					if (!nexturl.contains("continue"))
-						Systemconfig.sysLog.log(url + "元数据页面解析为空！！");
+						LOGGER.info(url + "元数据页面解析为空！！");
 					TimeUtil.rest(siteinfo.getDownInterval());
 					if (!nexturl.contains("continue"))
 						break;
 				}
-				Systemconfig.sysLog.log(url + "元数据页面解析完成。");
+				LOGGER.info(url + "元数据页面解析完成。");
 				totalCount += list.size();
 				Systemconfig.dbService.getNorepeatData(list, "");
 				if (list.size() == 0) {
 					if (!nexturl.contains("continue"))
-						Systemconfig.sysLog.log(url + "无新数据。");
+						LOGGER.info(url + "无新数据。");
 					if (alllist.size() == 0)
 						TimeUtil.rest(siteinfo.getDownInterval());
 					if (!nexturl.contains("continue"))
@@ -91,7 +91,7 @@ public class AgricaltureMonitorMetaCommonDownload extends GenericMetaCommonDownl
 		for (AgricaltureData ad : alllist) {
 			try {
 				Systemconfig.dbService.saveData(ad);
-				Systemconfig.sysLog.log(ad.getTitle() + " saved. ");
+				LOGGER.info(ad.getTitle() + " saved. ");
 
 			} catch (IOException e) {
 				e.printStackTrace();

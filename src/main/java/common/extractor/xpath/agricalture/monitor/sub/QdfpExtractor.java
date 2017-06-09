@@ -50,7 +50,7 @@ public class QdfpExtractor extends AgricaltureMonitorXpathExtractor implements A
 			 */
 
 			if (domtree == null) {
-				Systemconfig.sysLog.log("DOM解析为NULL！！");
+				LOGGER.info("DOM解析为NULL！！");
 				return null;
 			}
 

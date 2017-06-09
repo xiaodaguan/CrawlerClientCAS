@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import common.bean.CommonData;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.util.TimeUtil;
 
 /**
@@ -33,7 +33,7 @@ public class DataThreadControl {
      * @param interval
      * @param key
      */
-    public void process(List list, int interval, UserAttr user, SearchKey key) {
+    public void process(List list, int interval, UserAttribute user, SearchKey key) {
         CountDownLatch endCount = new CountDownLatch(list.size());
         Iterator<CommonData> iter = list.iterator();
         int i = 0;
@@ -47,7 +47,7 @@ public class DataThreadControl {
             Future f = Systemconfig.dataexec.get(siteFlag).submit(DownFactory.dataControl(siteFlag, vd, endCount, user, key));
             Systemconfig.tasks.put(siteFlag + "_" + key + "_" + vd.getTitle(), f);
             
-            Systemconfig.sysLog.log(siteFlag + "_" + key + "_" + vd.getTitle()+"\tdataexec 任务添加");
+            LOGGER.info(siteFlag + "_" + key + "_" + vd.getTitle()+"\tdataexec 任务添加");
             
             TimeUtil.rest(3);
         }

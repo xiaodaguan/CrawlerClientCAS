@@ -10,10 +10,10 @@ import common.download.GenericMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.search.WeiboSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
-import common.siteinfo.CollectDataType;
+import common.bean.CollectDataType;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.util.TimeUtil;
 
 /**
@@ -21,9 +21,9 @@ import common.util.TimeUtil;
  * @author grs
  */
 public class WeiboRttDownload extends GenericMetaCommonDownload<WeiboData> {
-	private UserAttr user;
+	private UserAttribute user;
 	private int id;
-	public WeiboRttDownload(SearchKey key, int id, UserAttr user) {
+	public WeiboRttDownload(SearchKey key, int id, UserAttribute user) {
 		super(key);
 		this.id = id;
 		this.user = user;
@@ -49,10 +49,10 @@ public class WeiboRttDownload extends GenericMetaCommonDownload<WeiboData> {
 					nexturl = (( WeiboSearchXpathExtractor)((XpathExtractor)xpath)).templateRtt(list, html, 0, id+"", nexturl);//WeiboMonitorXpathExtractor
 					
 					if(list.size()==0) {
-						Systemconfig.sysLog.log(url + "数据页面解析为空！！");
+						LOGGER.info(url + "数据页面解析为空！！");
 						break;
 					}
-					Systemconfig.sysLog.log(url + "数据页面解析完成。");
+					LOGGER.info(url + "数据页面解析完成。");
 					
 					Systemconfig.dbService.getNorepeatData(list, "");
 					if(list.size()==0) break;

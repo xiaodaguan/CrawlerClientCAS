@@ -3,7 +3,6 @@ package common.system;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.system.Systemconfig;
 import common.util.UserAgent;
 
 /**
@@ -18,13 +17,13 @@ public class UserManager {
      *
      * @return
      */
-    public synchronized static UserAttr getUser(String siteFlag) {
+    public synchronized static UserAttribute getUser(String siteFlag) {
 //		int in = siteFlag.indexOf("_");
 //		if(in==-1) in = siteFlag.length();
 //		String site = siteFlag.substring(0, in);
-        List<UserAttr> list = Systemconfig.users.get(siteFlag);
+        List<UserAttribute> list = Systemconfig.users.get(siteFlag);
         if (list == null) return null;
-        for (UserAttr ua : list) {
+        for (UserAttribute ua : list) {
             if (ua.getUsed() > 0) continue;
             ua.setUsed(1);
             return ua;
@@ -34,7 +33,7 @@ public class UserManager {
 
     public static List<String> getAllUserNames(String siteFlag){
         List<String> list = new ArrayList<>(Systemconfig.users.size());
-        for (UserAttr attr : Systemconfig.users.get(siteFlag)) {
+        for (UserAttribute attr : Systemconfig.users.get(siteFlag)) {
             list.add(attr.getName());
         }
         return list;
@@ -42,26 +41,26 @@ public class UserManager {
 
     public static List<String> getAvailableUserNames(String siteFlag) {
         List<String> list = new ArrayList<>(Systemconfig.users.size());
-        for (UserAttr attr : Systemconfig.users.get(siteFlag)) {
+        for (UserAttribute attr : Systemconfig.users.get(siteFlag)) {
             if (attr.getUsed() > 0) continue;
             else list.add(attr.getName());
         }
         return list;
     }
 
-    public synchronized static void releaseUser(String siteFlag, UserAttr user) {
+    public synchronized static void releaseUser(String siteFlag, UserAttribute user) {
 //		int in = siteFlag.indexOf("_");
 //		if(in==-1) in = siteFlag.length();
 //		String site = siteFlag.substring(0, in);
         if (user == null) return;
-        List<UserAttr> list = Systemconfig.users.get(siteFlag);
-        for (UserAttr ua : list) {
+        List<UserAttribute> list = Systemconfig.users.get(siteFlag);
+        for (UserAttribute ua : list) {
             if (ua.equals(user)) {
                 ua.setUsed(0);
                 UserAgent.releaseUserAgent(ua.getId());
             }
         }
-        Systemconfig.sysLog.log("用户" + user.getName() + "释放.");
+        LOGGER.info("用户" + user.getName() + "释放.");
     }
 
 }

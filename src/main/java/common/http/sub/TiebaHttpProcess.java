@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import common.system.UserAttribute;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -26,7 +27,6 @@ import org.apache.http.util.EntityUtils;
 import common.bean.HtmlInfo;
 import common.http.NeedCookieHttpProcess;
 import common.system.Systemconfig;
-import common.system.UserAttr;
 import common.util.JsonUtil;
 import common.util.StringUtil;
 import common.util.TimeUtil;
@@ -34,20 +34,20 @@ import common.util.TimeUtil;
 public class TiebaHttpProcess extends NeedCookieHttpProcess {
 
 	@Override
-	public void getContent(HtmlInfo html, UserAttr userAttr) {
-		if(userAttr == null) {
-			Systemconfig.sysLog.log("没有可用采集登陆用户！");
+	public void getContent(HtmlInfo html, UserAttribute userAttribute) {
+		if(userAttribute == null) {
+			LOGGER.info("没有可用采集登陆用户！");
 			return;
 		}
-		if(userAttr.getCookie() != null && !userAttr.getCookie().equals(""))
-			cookie = userAttr.getCookie();
+		if(userAttribute.getCookie() != null && !userAttribute.getCookie().equals(""))
+			cookie = userAttribute.getCookie();
 		else
-			login(userAttr);
+			login(userAttribute);
 		
-		super.getContent(html, userAttr);
+		super.getContent(html, userAttribute);
 	}
 	@Override
-	public byte[] simpleGet(HtmlInfo html, UserAttr user) {
+	public byte[] simpleGet(HtmlInfo html, UserAttribute user) {
 		HttpClient hc = httpClient(html);
 		HttpGet get = new HttpGet(html.getOrignUrl());
 		get.addHeader("User-Agent", user==null?userAgent:user.getUserAgent());
@@ -79,7 +79,7 @@ public class TiebaHttpProcess extends NeedCookieHttpProcess {
 	}
 	
 	@Override
-	public boolean login(UserAttr user) {
+	public boolean login(UserAttribute user) {
 		HttpClient client = new DefaultHttpClient();
 		HttpGet get = new HttpGet("http://www.baidu.com");
 		HttpResponse re = null;
@@ -283,7 +283,7 @@ public class TiebaHttpProcess extends NeedCookieHttpProcess {
 	}
 	
 	@Override
-	public boolean verify(UserAttr user) throws Exception {
+	public boolean verify(UserAttribute user) throws Exception {
 		HtmlInfo html = new HtmlInfo();
 		html.setOrignUrl("http://tieba.baidu.com");
 		html.setSite("baidu");
@@ -297,13 +297,13 @@ public class TiebaHttpProcess extends NeedCookieHttpProcess {
 	
 	private static final ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
 	@Override
-	public void monitorLogin(UserAttr user) {
+	public void monitorLogin(UserAttribute user) {
 		ses.scheduleAtFixedRate(new VerifyCookie(user), 2, 2, TimeUnit.HOURS);
 	}
 	
 	class VerifyCookie implements Runnable {
-		private UserAttr user;
-		public VerifyCookie(UserAttr user) {
+		private UserAttribute user;
+		public VerifyCookie(UserAttribute user) {
 			this.user = user;
 		}
 

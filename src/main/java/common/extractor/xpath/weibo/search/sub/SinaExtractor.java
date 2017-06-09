@@ -31,7 +31,7 @@ public class SinaExtractor extends WeiboSearchXpathExtractor {
         } else if (html.getType().contains("DATA/")||html.getType().contains("DATA\\")) {
 
         } else {
-            Systemconfig.sysLog.log("页面dom解析异常，请查看！");
+            LOGGER.info("页面dom解析异常，请查看！");
         }
 
         html.setContent(content);

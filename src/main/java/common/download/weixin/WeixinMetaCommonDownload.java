@@ -51,12 +51,12 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             html.setOrignUrl(nexturl);
             try {
 
-                Systemconfig.sysLog.log(keyword + ": " + url + "downloading...");
-                Systemconfig.sysLog.log("downloading : " + nexturl);
+                LOGGER.info(keyword + ": " + url + "downloading...");
+                LOGGER.info("downloading : " + nexturl);
                 http.getContent(html);//
 
                 if (checkBlock(html)) {// 验证是否被屏蔽
-                    Systemconfig.sysLog.log("ip被屏蔽，请手动验证@列表页，获取cookie后输入控制台回车继续。。。");
+                    LOGGER.info("ip被屏蔽，请手动验证@列表页，获取cookie后输入控制台回车继续。。。");
                     Scanner sc = new Scanner(System.in);
                     String cookie = sc.nextLine();
                     WeixinHttpProcess.manuallySetCookie(cookie);
@@ -72,17 +72,17 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "", html.getCookie());
 
                 if (list.size() == 0) {
-                    Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析为空！！");
+                    LOGGER.info(keyword + ": " + url + "元数据页面解析为空！！");
                     TimeUtil.rest(siteinfo.getDownInterval());
 //                    break;
                 }else {
-                    Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析完成。第[" + map.get(keyword) + "/" + page + "]页");
+                    LOGGER.info(keyword + ": " + url + "元数据页面解析完成。第[" + map.get(keyword) + "/" + page + "]页");
 
                     last = html.getContent();
                     totalCount += list.size();
                     Systemconfig.dbService.getNorepeatData(list, "");
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log("无新数据。");
+                        LOGGER.info("无新数据。");
                         if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());
 //                    break;
                     } else {
@@ -93,19 +93,19 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
 
                 map.put(keyword, map.get(keyword) + 1);
                 if (map.get(keyword) > page) {
-                    Systemconfig.sysLog.log("达到最大页数");
+                    LOGGER.info("达到最大页数");
 
                     break;
                 }
                 url = nexturl;
 
             } catch (Exception e) {
-                Systemconfig.sysLog.log("列表页异常{" + keyword + "}   [" + url + "]");
+                LOGGER.info("列表页异常{" + keyword + "}   [" + url + "]");
                 e.printStackTrace();
 //                break;
             }finally{
                 int wait = siteinfo.getDownInterval() + (int) Math.random() * 30;
-                Systemconfig.sysLog.log("wait " + wait + " secs to download next...");
+                LOGGER.info("wait " + wait + " secs to download next...");
                 TimeUtil.rest(wait);
             }
         }

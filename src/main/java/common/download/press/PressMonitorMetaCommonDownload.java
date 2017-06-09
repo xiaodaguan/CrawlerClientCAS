@@ -51,15 +51,15 @@ public class PressMonitorMetaCommonDownload extends GenericMetaCommonDownload<Pr
 				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
 				last = html.getContent();
 				if (list.size() == 0) {
-					Systemconfig.sysLog.log(url + "元数据页面解析为空！！");
+					LOGGER.info(url + "元数据页面解析为空！！");
 					TimeUtil.rest(siteinfo.getDownInterval());
 					break;
 				}
-				Systemconfig.sysLog.log(url + "元数据页面解析完成。");
+				LOGGER.info(url + "元数据页面解析完成。");
 				totalCount += list.size();
 				Systemconfig.dbService.getNorepeatData(list, "");
 				if (list.size() == 0) {
-					Systemconfig.sysLog.log(url + "无新数据。");
+					LOGGER.info(url + "无新数据。");
 					if (alllist.size() == 0)
 						TimeUtil.rest(siteinfo.getDownInterval());
 					break;

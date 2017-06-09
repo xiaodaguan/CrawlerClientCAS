@@ -100,7 +100,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 
 		Node domtree = getRealDOM(html);
 		if (domtree == null) {
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
+			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
 		CommonComponent comp = getRealComp(siteinfo,
@@ -243,7 +243,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 				jarray = JSONObject.fromObject(content).getJSONObject("data").getJSONArray("comments");
 			}catch(Exception e){
 				//e.printStackTrace();
-				Systemconfig.sysLog.log("content 不是json");
+				LOGGER.info("content 不是json");
 			}
 			if(jarray!=null){
 				for (Object obj : jarray) {

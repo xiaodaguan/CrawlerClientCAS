@@ -2,8 +2,8 @@ package common.service;
 
 import common.bean.*;
 import common.rmi.packet.SearchKey;
-import common.system.SiteTemplateAttr;
-import common.system.UserAttr;
+import common.system.SiteTemplateAttribute;
+import common.system.UserAttribute;
 
 import java.io.IOException;
 import java.util.List;
@@ -75,14 +75,14 @@ public interface DBService<T> {
      * @param site
      * @return
      */
-    List<UserAttr> getLoginUsers(String site);
+    List<UserAttribute> getLoginUsers(String site);
 
     /**
      * 根据crawlerType过滤，获得需采集的站点xpath配置
      *
      * @return
      */
-    Map<String, SiteTemplateAttr> getXpathConfig();
+    Map<String, SiteTemplateAttribute> getXpathConfig();
 
     /**
      * 根据crawlerType过滤，获得采集类型配置

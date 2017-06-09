@@ -23,9 +23,9 @@ public class HexunPersonHttpProcess extends SimpleHttpProcess {
 	@Override protected byte[] simpleGet(HtmlInfo html) {
 
 		HttpClient hc = httpClient(html);
-		Systemconfig.sysLog.log("url: " + html.getOrignUrl());
+		LOGGER.info("url: " + html.getOrignUrl());
 		if (html.getAgent())
-			Systemconfig.sysLog.log("本次请求使用代理：" + hc.getParams().getParameter("http.route.default-proxy"));
+			LOGGER.info("本次请求使用代理：" + hc.getParams().getParameter("http.route.default-proxy"));
 
 		HttpGet get = new HttpGet(EncoderUtil.encodeKeyWords(html.getOrignUrl(), "gb2312"));
 		if (html.getCookie() != null) {

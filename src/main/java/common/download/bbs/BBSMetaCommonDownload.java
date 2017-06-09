@@ -48,11 +48,11 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 											
 				totalCount += list.size();
 				if (list.size() == 0) {
-					Systemconfig.sysLog.log(url + "元数据页面解析为空！！");
+					LOGGER.info(url + "元数据页面解析为空！！");
 					TimeUtil.rest(siteinfo.getDownInterval());
 					break;
 				}
-				Systemconfig.sysLog.log(url + "元数据页面解析完成。");
+				LOGGER.info(url + "元数据页面解析完成。");
 
 				Systemconfig.dbService.getNorepeatData(list, "");
 				if (list.size() == 0) {

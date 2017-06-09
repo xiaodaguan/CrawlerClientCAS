@@ -49,7 +49,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
-            Systemconfig.sysLog.log("DOM解析为NULL！！");
+            LOGGER.info("DOM解析为NULL！！");
             return;
         }
 
@@ -99,7 +99,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
-            Systemconfig.sysLog.log("DOM解析为NULL！！");
+            LOGGER.info("DOM解析为NULL！！");
             return null;
         }
         CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
@@ -151,7 +151,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
-            Systemconfig.sysLog.log("DOM解析为NULL！！");
+            LOGGER.info("DOM解析为NULL！！");
             return null;
         }
         CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
@@ -189,13 +189,13 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
-            Systemconfig.sysLog.log("DOM解析为NULL！！");
+            LOGGER.info("DOM解析为NULL！！");
             return null;
         }
         CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
         parseCommentAuthor(list, domtree, comp.getComponents().get("comment_author"));
         if(list.size()==0) {
-            Systemconfig.sysLog.log("没有抓取到评论."+html.getOrignUrl());
+            LOGGER.info("没有抓取到评论."+html.getOrignUrl());
             return null;
         }
             parseCommentAuthorUrl(list, domtree, comp.getComponents().get("comment_author_url"));
@@ -231,7 +231,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
-            Systemconfig.sysLog.log("DOM解析为NULL！！");
+            LOGGER.info("DOM解析为NULL！！");
             return null;
         }
         String type = html.getType().substring(0, html.getType().indexOf(File.separator));

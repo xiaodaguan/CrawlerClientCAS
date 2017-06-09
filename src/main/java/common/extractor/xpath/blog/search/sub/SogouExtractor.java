@@ -24,7 +24,7 @@ public class SogouExtractor extends BlogSearchXpathExtractor {
 		try {
 			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
 		} catch (Exception e) {
-			Systemconfig.sysLog.log("出错url：" + html.getOrignUrl());
+			LOGGER.info("出错url：" + html.getOrignUrl());
 			e.printStackTrace();
 		}
 		String title = data.getTitle() == null ? result.getTitle() : data.getTitle();

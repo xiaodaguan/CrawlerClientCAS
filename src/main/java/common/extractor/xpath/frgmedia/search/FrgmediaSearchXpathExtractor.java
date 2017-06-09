@@ -39,7 +39,7 @@ public class FrgmediaSearchXpathExtractor extends XpathExtractor<FrgmediaData>
 			e.printStackTrace();
 		}
 		if (domtree == null) {
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
+			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
 		CommonComponent comp = getRealComp(siteinfo,

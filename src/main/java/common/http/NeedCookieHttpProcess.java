@@ -1,6 +1,6 @@
 package common.http;
 
-import common.system.UserAttr;
+import common.system.UserAttribute;
 
 /**
  * 需要cookie的http请求处理
@@ -9,11 +9,11 @@ import common.system.UserAttr;
  */
 public abstract class NeedCookieHttpProcess extends SimpleHttpProcess {
 	protected String cookie = "";
-//	protected UserAttr user;
+//	protected UserAttribute user;
 	
-	public abstract boolean login(UserAttr user) ;
+	public abstract boolean login(UserAttribute user) ;
 	
-	public abstract boolean verify(UserAttr user) throws Exception;
+	public abstract boolean verify(UserAttribute user) throws Exception;
 	
 	public void setCookie(String cookie) {
 		this.cookie = cookie;
@@ -21,10 +21,10 @@ public abstract class NeedCookieHttpProcess extends SimpleHttpProcess {
 	public String getCookie() {
 		return cookie;
 	}
-//	public UserAttr getUser() {
+//	public UserAttribute getUser() {
 //		return user;
 //	}
-//	public void setUser(UserAttr user) {
+//	public void setUser(UserAttribute user) {
 //		this.user = user;
 //	}
 //	

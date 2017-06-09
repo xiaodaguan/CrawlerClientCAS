@@ -6,10 +6,10 @@ import common.download.GenericMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
-import common.siteinfo.CollectDataType;
+import common.bean.CollectDataType;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.util.TimeUtil;
 
 import java.io.IOException;
@@ -22,10 +22,10 @@ import java.util.List;
  * @author grs
  */
 public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
-    private UserAttr user;
+    private UserAttribute user;
     private int id;
 
-    public WeiboCommentDownload(SearchKey key, int id, UserAttr user) {
+    public WeiboCommentDownload(SearchKey key, int id, UserAttribute user) {
         super(key);
         this.id = id;
         this.user = user;
@@ -58,10 +58,10 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
                     nexturl = ((WeiboMonitorXpathExtractor) ((XpathExtractor) xpath)).templateComment(list, html, 0, id + "", nexturl);
 
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log(url + "数据页面解析为空！！");
+                        LOGGER.info(url + "数据页面解析为空！！");
                         break;
                     }
-                    Systemconfig.sysLog.log(url + " 评论页面解析完成。");
+                    LOGGER.info(url + " 评论页面解析完成。");
 
                     Systemconfig.dbService.getNorepeatData(list, "");
                     if (list.size() == 0) break;
@@ -99,7 +99,7 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
 			}
             
             Systemconfig.dbService.saveCommentDatas(alllist);
-            Systemconfig.sysLog.log("微博: " + wbUrl + " 评论保存完成.");
+            LOGGER.info("微博: " + wbUrl + " 评论保存完成.");
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("err while parsing comments:" + nexturl);

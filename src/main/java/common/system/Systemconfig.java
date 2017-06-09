@@ -1,27 +1,20 @@
 package common.system;
 
-import common.communicate.CopyConfig;
-import common.communicate.HeartBeat;
 import common.filter.SeedFilter;
-import common.rmi.interf.InternalRMI;
 import common.rmi.packet.Clientinfo;
 import common.rmi.packet.CrawlerType;
 import common.rmi.packet.TaskStatus;
 import common.service.DBFactory;
 import common.service.DBService;
 import common.siteinfo.Siteinfo;
-import common.up2hdfs.PollLocalFiles;
 import common.util.HtmlExtractor;
 import common.util.UrlReduplicationRemove;
 import org.apache.log4j.Logger;
-import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,11 +108,6 @@ public class Systemconfig {
      */
     public static Clientinfo clientinfo;
     /**
-     * 远程接口
-     */
-    public static InternalRMI internalServer;
-    public static InternalRMI internalClient;
-    /**
      * 心跳线程
      */
     private ScheduledExecutorService heatBeat;
@@ -156,7 +144,7 @@ public class Systemconfig {
     /**
      * 用户管理
      */
-    public static HashMap<String, List<UserAttr>> users;
+    public static HashMap<String, List<UserAttribute>> users;
 
     /**
      * 运行模式 test/run
@@ -203,40 +191,8 @@ public class Systemconfig {
         
         
         
-        if (distribute) {
-            rmiClient();
-            clientinfo = new Clientinfo();
-            clientinfo.getInfo()[0] = (byte) crawlerType;
-            clientinfo.getInfo()[1] = (byte) clientIndex;
-            clientinfo.setTime(System.currentTimeMillis());
-            try {
-                clientinfo.setClientaddress(InetAddress.getLocalHost());
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-                sysLog.log("未知Host，地址将无法注册", e);
-                System.exit(-1);
-            }
-            try {
-                clientinfo = internalClient.regClient(clientinfo);
-                sysLog.log(localAddress + "成功注册到server！");
-            } catch (Exception e) {
-                e.printStackTrace();
-                sysLog.log("注册不成功！", e);
-                System.exit(-1);
-            }
-            Systemconfig.localAddress = CrawlerType.getCrawlerTypeMap().get(crawlerType).getCode() + clientinfo.getInfo()[1];
-            heatBeat = Executors.newScheduledThreadPool(1);
-            copyConfig = Executors.newScheduledThreadPool(1);
-            heatBeat.scheduleAtFixedRate(new HeartBeat(), 5, 5, TimeUnit.SECONDS);
-            copyConfig.scheduleAtFixedRate(new CopyConfig(), 5, 5, TimeUnit.SECONDS);
-        }
         urm = new UrlReduplicationRemove();
 
-        if (needUp) {
-            // 上传本地文件到HDFS
-            ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
-            exec.scheduleAtFixedRate(new PollLocalFiles(filePath), 24, upInterval, TimeUnit.HOURS);
-        }
     }
 
     /**
@@ -263,19 +219,8 @@ public class Systemconfig {
         }
     }
 
-    private int rmiPort;
     private String rmiName;
     private String serverAddress;
-
-    private void rmiClient() {
-        RmiProxyFactoryBean rfb = new RmiProxyFactoryBean();
-        rfb.setServiceInterface(InternalRMI.class);
-        rfb.setServiceUrl("rmi://" + serverAddress + ":" + rmiPort + "/" + rmiName);
-        rfb.setRefreshStubOnConnectFailure(true);
-        rfb.setLookupStubOnStartup(false);
-        rfb.afterPropertiesSet();
-        internalClient = (InternalRMI) rfb.getObject();
-    }
 
     public int start() {
         return clientinfo.getDataStart();
@@ -359,10 +304,6 @@ public class Systemconfig {
 
     public void setRmiName(String rmiName) {
         this.rmiName = rmiName;
-    }
-
-    public void setRmiPort(int rmiPort) {
-        this.rmiPort = rmiPort;
     }
 
     public void setCrawlerType(int crawlerType) {

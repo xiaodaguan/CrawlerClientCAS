@@ -123,7 +123,7 @@ public class AppContext {
     	// xpath = 'site'
         File[] xpathFs = new File(xpath).listFiles(new MyFileFilter());
         if (xpathFs == null) {
-            Systemconfig.sysLog.log("没有可运行配置站点");
+            LOGGER.info("没有可运行配置站点");
             return;
         }
         for (File f : xpathFs) {
@@ -150,10 +150,10 @@ public class AppContext {
     	
         File[] fs = new File(filepath).listFiles(new MyFileFilter());
         if (fs == null || fs.length == 0) {
-            Systemconfig.sysLog.log("没有采集的类型配置！");
+            LOGGER.info("没有采集的类型配置！");
             return;
         } else if (fs.length > 1) {
-            Systemconfig.sysLog.log("采集的类型配置超过一个，无法指定！");
+            LOGGER.info("采集的类型配置超过一个，无法指定！");
             return;
         }
         File f = fs[0];// 采集类型： config\site\news_monitor.xml
@@ -167,7 +167,7 @@ public class AppContext {
         }
     }
 
-    static Map<String, SiteTemplateAttr> siteConfigs = null;
+    static Map<String, SiteTemplateAttribute> siteConfigs = null;
 
     /**
      * 从数据库中读取模板配置
@@ -177,10 +177,10 @@ public class AppContext {
         // 通过crawlertype过滤出数据库中的站点配置
         siteConfigs = Systemconfig.dbService.getXpathConfig();
         if (siteConfigs == null || siteConfigs.size() == 0) {
-            Systemconfig.sysLog.log("没有可运行配置站点");
+            LOGGER.info("没有可运行配置站点");
             return;
         }
-        for (SiteTemplateAttr sta : siteConfigs.values()) {
+        for (SiteTemplateAttribute sta : siteConfigs.values()) {
             configSet(sta.getTemplateName() + "_" + sta.getSiteFlag(), sta.getContent(), sta.getLastModified().getTime());
         }
         loadSiteFromDB();

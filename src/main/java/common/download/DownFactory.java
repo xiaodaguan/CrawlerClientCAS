@@ -56,7 +56,7 @@ import common.download.weixin.WeixinDataCommonDownload;
 import common.download.weixin.WeixinMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 
 /**
  * 下载线程的工厂方法 可处理特殊的站点下载
@@ -140,7 +140,7 @@ public class DownFactory {
 	 * @return
 	 */
 	public static <T> GenericDataCommonDownload<T> dataControl(String siteFlag, T data, CountDownLatch count,
-			UserAttr user, SearchKey key) {
+                                                               UserAttribute user, SearchKey key) {
 		switch (Systemconfig.crawlerType) {
 		case 1:
 		case 2:

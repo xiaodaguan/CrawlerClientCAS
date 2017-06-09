@@ -3,7 +3,7 @@ package common.http.sub;
 import common.bean.HtmlInfo;
 import common.http.NeedCookieHttpProcess;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.util.EncoderUtil;
 import common.util.StringUtil;
 import net.sf.json.JSONObject;
@@ -58,14 +58,14 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		this.redirectURL = redirectURL;
 	}
 	@Override
-	public void getContent(HtmlInfo html, UserAttr userAttr) {
-		if(userAttr != null)
-			redirectURL = userAttr.getReferer();
-		super.getContent(html, userAttr);
+	public void getContent(HtmlInfo html, UserAttribute userAttribute) {
+		if(userAttribute != null)
+			redirectURL = userAttribute.getReferer();
+		super.getContent(html, userAttribute);
 	}
 	
 	@Override
-	protected byte[] simpleGet(HtmlInfo html, UserAttr user) {
+	protected byte[] simpleGet(HtmlInfo html, UserAttribute user) {
 		HttpClient hc = httpClient(html);
 		HttpGet get = new HttpGet(EncoderUtil.encodeKeyWords(html.getOrignUrl(), "utf-8" ));
 //		get.addHeader("User-Agent",user==null?userAgent:user.getUserAgent());
@@ -83,7 +83,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 			if(user.getCookie() != null && !user.getCookie().equals("")) 
 				cookie = user.getCookie();
 			else if(!login(user)) {
-				Systemconfig.sysLog.log(user.getName()+"登陆失败！没有采集到数据");
+				LOGGER.info(user.getName()+"登陆失败！没有采集到数据");
 				return null;
 			}
 			get.setHeader("Cookie", cookie);
@@ -154,10 +154,10 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	}
 	
 	@Override
-	public synchronized boolean login(UserAttr user) {
-		Systemconfig.sysLog.log("logging in: "+user.getName());
+	public synchronized boolean login(UserAttribute user) {
+		LOGGER.info("logging in: "+user.getName());
 		if(user == null) {
-			Systemconfig.sysLog.log("用户不存在，数据无法采集！");
+			LOGGER.info("用户不存在，数据无法采集！");
 			return false;
 		}
 		HtmlInfo html = new HtmlInfo();
@@ -210,7 +210,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		}
 		Systemconfig.dbService.updateUserOrder(loginEntity.getUsername());
 		if (entity != null && entity.indexOf("retcode=0") > -1) {
-            Systemconfig.sysLog.log(loginEntity.getUsername() + "\tlogin success.\r\n");
+            LOGGER.info(loginEntity.getUsername() + "\tlogin success.\r\n");
 			
 			String url = StringUtil.regMatcher(entity, "location.replace\\(['\"]", "['\"]").split("url=")[1].replace("%3A", ":").replace("%26", "&").replace("%3D", "=").replace("%2F", "/").replace("%3F", "?");
 			html.setOrignUrl(url);
@@ -221,7 +221,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
             user.setLastLoginTime(new Date());
 			return true;
 		} else {
-			Systemconfig.sysLog.log(loginEntity.getUsername() + "\tlogin fail.");
+			LOGGER.info(loginEntity.getUsername() + "\tlogin fail.");
 			return false;
 		}
 	}
@@ -285,7 +285,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	 * @return
      */
 	@Override
-	public boolean verify(UserAttr user) {
+	public boolean verify(UserAttribute user) {
 		String url = "http://weibo.com";
 		HtmlInfo html = new HtmlInfo();
 		html.setCookie(user.getCookie());
@@ -296,13 +296,13 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		getContent(html, user);
 		String str = html.getContent();
 		long signedIn = loginPast(user);
-		Systemconfig.sysLog.log("time: "+signedIn+" s.");
+		LOGGER.info("time: "+signedIn+" s.");
 		if(signedIn>3600*24-30*60-60){
-			Systemconfig.sysLog.log("[login status]: cookie time out.");
+			LOGGER.info("[login status]: cookie time out.");
 			return false;
 		}
 		if(str.indexOf("验证码") > -1){
-			Systemconfig.sysLog.log("[login status]: QRcode.");
+			LOGGER.info("[login status]: QRcode.");
 			return false;
 		}
 
@@ -310,7 +310,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 			return true;
 		}
 
-		Systemconfig.sysLog.log("[login status]: unknown exception.");
+		LOGGER.info("[login status]: unknown exception.");
 		return false;
 	}
 
@@ -319,12 +319,12 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	 * @param user
 	 * @return
      */
-	private long loginPast(UserAttr user){
+	private long loginPast(UserAttribute user){
 		long last = user.getLastLoginTime().getTime();
 		long curr = System.currentTimeMillis();
 
-		Systemconfig.sysLog.log("last login: "+user.getLastLoginTime());
-		Systemconfig.sysLog.log("now: "+new Date());
+		LOGGER.info("last login: "+user.getLastLoginTime());
+		LOGGER.info("now: "+new Date());
 
 		return (curr-last)/1000;
 	}
@@ -345,7 +345,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		return new String(Hex.encodeHex(encryptedContentKey));
 	}
 	//得到登录属性
-	private SinaUserLoginEntity getEntity(UserAttr user) {
+	private SinaUserLoginEntity getEntity(UserAttribute user) {
 		SinaUserLoginEntity entity = new SinaUserLoginEntity();
 		entity.setUsername(user.getName());
 		entity.setPassword(user.getPass());
@@ -550,13 +550,13 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	}
 	private ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
 	@Override
-	public void monitorLogin(UserAttr user) {
+	public void monitorLogin(UserAttribute user) {
 		ses.scheduleAtFixedRate(new VerifyUserCookie(user), 1, 30, TimeUnit.MINUTES);
 	}
 
 	class VerifyUserCookie implements Runnable {
-		private UserAttr user;
-		public VerifyUserCookie(UserAttr user) {
+		private UserAttribute user;
+		public VerifyUserCookie(UserAttribute user) {
 			this.user = user;
 		}
 
@@ -564,10 +564,10 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		public void run() {
 			boolean valid = verify(user);
 			if(!valid) {
-				Systemconfig.sysLog.log("verify cookie: unavailable");
+				LOGGER.info("verify cookie: unavailable");
 				login(user);
 			} else {
-				Systemconfig.sysLog.log("verify cookie: available.");
+				LOGGER.info("verify cookie: available.");
 			}
 		}
 	}

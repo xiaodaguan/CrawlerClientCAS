@@ -8,7 +8,7 @@ import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.system.UserManager;
 import common.util.TimeUtil;
 
@@ -31,7 +31,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
         super(key);
     }
 
-    private UserAttr userAttr;
+    private UserAttribute userAttribute;
 
     @Override
     public void prePorcess() {
@@ -44,21 +44,21 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
         if (!siteinfo.getLogin())// 不需要登陆
             return;
 
-        Systemconfig.sysLog.log("可用用户：" + UserManager.getAvailableUserNames(siteFlag) + " 全部用户：" + UserManager.getAllUserNames(siteFlag));
+        LOGGER.info("可用用户：" + UserManager.getAvailableUserNames(siteFlag) + " 全部用户：" + UserManager.getAllUserNames(siteFlag));
         // 每次保证只有有效用户个执行，某个任务完成后，等待的下一个任务开始执行
-        UserAttr ua = UserManager.getUser(siteFlag);
+        UserAttribute ua = UserManager.getUser(siteFlag);
         while (ua == null) {
-            Systemconfig.sysLog.log("暂时没有可用账号用于采集，等待账号中……");
+            LOGGER.info("暂时没有可用账号用于采集，等待账号中……");
             TimeUtil.rest(10);
             ua = UserManager.getUser(siteFlag);
         }
-        userAttr = ua;
-        if (!userAttr.getHadRun()) {
-            http.monitorLogin(userAttr);
+        userAttribute = ua;
+        if (!userAttribute.getHadRun()) {
+            http.monitorLogin(userAttribute);
             ua.setHadRun(true);
-            System.out.println("监测用户: " + userAttr.getName());
+            System.out.println("监测用户: " + userAttribute.getName());
         }
-        Systemconfig.sysLog.log("用户" + userAttr.getName() + "使用中");
+        LOGGER.info("用户" + userAttribute.getName() + "使用中");
         if (ii != null) {
             ii.setAccountId(ua.getId());
             ii.setAccount(ua.getName());
@@ -89,62 +89,62 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                 list.clear();
 
                 html.setOrignUrl(nexturl);
-                Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ": " + url + "...");
+                LOGGER.info("--" + userAttribute + " --" + keyword + ": " + url + "...");
                 try {
-                    http.getContent(html, userAttr);
+                    http.getContent(html, userAttribute);
 
                     String content = html.getContent();
 
                     if(content.contains("请输入验证码")||
                             content.contains("\u8bf7\u8f93\u5165\u9a8c\u8bc1")
                             ||content.contains("\\u8bf7\\u8f93\\u5165\\u9a8c\\u8bc1")){
-                        Systemconfig.sysLog.log("你的行为有些异常，请输入验证码：");
+                        LOGGER.info("你的行为有些异常，请输入验证码：");
                         //搜索过程中的验证码问题，数据库回写
-                        Systemconfig.dbService.updateUserValid(userAttr.getName(), 5);
+                        Systemconfig.dbService.updateUserValid(userAttribute.getName(), 5);
                         TimeUtil.rest(siteinfo.getDownInterval());
                         break;
                     }
 
                     // html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
                     if (html.getContent().contains("抱歉，未找到") && html.getContent().contains("您可以尝试更换关键词，再次搜索。")) {
-                        Systemconfig.sysLog.log(keyword + ": " + url + "没有检索结果");
+                        LOGGER.info(keyword + ": " + url + "没有检索结果");
                         TimeUtil.rest(siteinfo.getDownInterval());
                         break;
                     }
                     if (html.getContent().contains("\\u62b1\\u6b49\\uff0c\\u672a\\u627e\\u5230") && html.getContent().contains("\\u60a8\\u53ef\\u4ee5\\u5c1d\\u8bd5\\u66f4\\u6362\\u5173\\u952e\\u8bcd\\uff0c\\u518d\\u6b21\\u641c\\u7d22\\u3002")) {
-                        Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ": " + url + "没有检索结果");
+                        LOGGER.info("--" + userAttribute + " --" + keyword + ": " + url + "没有检索结果");
                         TimeUtil.rest(siteinfo.getDownInterval());
                         break;
                     }
                     nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
                     String processedHtmlSource = html.getContent();
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ": " + url + "元数据页面解析为空！！");
+                        LOGGER.info("--" + userAttribute + " --" + keyword + ": " + url + "元数据页面解析为空！！");
 
                         if (retry-- >= 0) {
                             nexturl = html.getOrignUrl();
-                            UserManager.releaseUser(siteFlag, userAttr);
+                            UserManager.releaseUser(siteFlag, userAttribute);
 
-                            userAttr = UserManager.getUser(siteFlag);
-                            Systemconfig.sysLog.log("账户切换至: " + userAttr.getName() + "");
+                            userAttribute = UserManager.getUser(siteFlag);
+                            LOGGER.info("账户切换至: " + userAttribute.getName() + "");
                             TimeUtil.rest(siteinfo.getDownInterval());
                             continue;
                         }
                         TimeUtil.rest(siteinfo.getDownInterval());
                         break;
                     }
-                    Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ": " + url + "元数据页面解析完成。");
+                    LOGGER.info("--" + userAttribute + " --" + keyword + ": " + url + "元数据页面解析完成。");
                     totalCount += list.size();
                     List<WeiboData> repeat = Systemconfig.dbService.getNorepeatData(list, "");
                     for (WeiboData wd : repeat) {
                         allRepeatMd5.add(wd.getMd5());
                     }
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log("无新数据。");
+                        LOGGER.info("无新数据。");
                         TimeUtil.rest(siteinfo.getDownInterval());
                         if (repeatPage < MAX_REPEAT_PAGE) repeatPage++;
                         else {
-                            Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ":连续" + MAX_REPEAT_PAGE + "页无新数据，停止扫描当前关键词");
+                            LOGGER.info("--" + userAttribute + " --" + keyword + ":连续" + MAX_REPEAT_PAGE + "页无新数据，停止扫描当前关键词");
                             break;
                         }
                     }
@@ -156,26 +156,26 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                     TimeUtil.rest(siteinfo.getDownInterval());
 
                 } catch (Exception e) {
-                    UserManager.releaseUser(siteFlag, userAttr);
+                    UserManager.releaseUser(siteFlag, userAttribute);
                     e.printStackTrace();
                     break;
                 }
             }// end while
 
             // dtc.process(alllist,
-            // siteinfo.getDownInterval(),userAttr,key);//不行，这样的话采集间隔就要很长
+            // siteinfo.getDownInterval(),userAttribute,key);//不行，这样的话采集间隔就要很长
 
             int allRepeat = totalCount - alllist.size();
             int allNoRepeat = alllist.size();
-            Systemconfig.sysLog.log("all[" + totalCount + "] repeat[" + allRepeat + "] no repeat[" + allNoRepeat + "]");
-            Systemconfig.sysLog.log("all repeat md5:\n" + allRepeatMd5);
+            LOGGER.info("all[" + totalCount + "] repeat[" + allRepeat + "] no repeat[" + allNoRepeat + "]");
+            LOGGER.info("all repeat md5:\n" + allRepeatMd5);
             try {
                 if (alllist.size() != 0) {
-                    Systemconfig.sysLog.log("正在保存 " + keyword + "所有新数据...[" + alllist.size() + "]");
+                    LOGGER.info("正在保存 " + keyword + "所有新数据...[" + alllist.size() + "]");
                     Systemconfig.dbService.saveDatas(alllist);
-                    Systemconfig.sysLog.log(keyword + "所有新数据已保存。" + alllist.size());
+                    LOGGER.info(keyword + "所有新数据已保存。" + alllist.size());
                 } else {
-                    Systemconfig.sysLog.log(keyword + "已扫描结束，无新数据。");
+                    LOGGER.info(keyword + "已扫描结束，无新数据。");
                 }
 
             } catch (IOException e) {
@@ -185,7 +185,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
             // process(alllist);
 
         } finally {
-            UserManager.releaseUser(siteFlag, userAttr);
+            UserManager.releaseUser(siteFlag, userAttribute);
             TimeUtil.rest(siteinfo.getDownInterval());
         }
     }
@@ -198,7 +198,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
         for (WeiboData wd : list) {
             if (wd.getCommentNum() > 0) {
                 key.setKey(wd.getCommentUrl());
-                Future<?> com = comes.submit(new WeiboCommentDownload(key, wd.getId(), userAttr));
+                Future<?> com = comes.submit(new WeiboCommentDownload(key, wd.getId(), userAttribute));
                 try {
                     com.get();
                 } catch (InterruptedException e) {
@@ -210,7 +210,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 
             if (wd.getRttNum() > 0) {
                 key.setKey(wd.getRttUrl());
-                Future<?> rtt = rttes.submit(new WeiboRttDownload(key, wd.getId(), userAttr));
+                Future<?> rtt = rttes.submit(new WeiboRttDownload(key, wd.getId(), userAttribute));
                 try {
                     rtt.get();
                 } catch (InterruptedException e) {

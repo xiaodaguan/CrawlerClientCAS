@@ -6,7 +6,7 @@ import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.system.UserManager;
 import common.util.TimeUtil;
 
@@ -24,7 +24,7 @@ public class BBSMetaMonitorDownload extends GenericMetaCommonDownload<BBSData> i
     }
 
     public void process() {
-        UserAttr ua = null;
+        UserAttribute ua = null;
         if (siteinfo.getLogin()) {
             ua = UserManager.getUser(siteFlag);
             UserManager.releaseUser(siteFlag, ua);
@@ -51,11 +51,11 @@ public class BBSMetaMonitorDownload extends GenericMetaCommonDownload<BBSData> i
                 nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
 
                 if (list.size() == 0) {
-                    Systemconfig.sysLog.log(url + "元数据页面解析为空！！");
+                    LOGGER.info(url + "元数据页面解析为空！！");
                     TimeUtil.rest(siteinfo.getDownInterval());
                     break;
                 }
-                Systemconfig.sysLog.log(url + "元数据页面解析完成。");
+                LOGGER.info(url + "元数据页面解析完成。");
                 totalCount += list.size();
                 Systemconfig.dbService.getNorepeatData(list, "");
                 if (list.size() == 0) {

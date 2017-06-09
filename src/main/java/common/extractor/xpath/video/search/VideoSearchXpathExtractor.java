@@ -81,7 +81,7 @@ public class VideoSearchXpathExtractor extends XpathExtractor<VideoData> impleme
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		Node domtree = getRealDOM(html);
 		if(domtree == null ){
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
+			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
 		//System.out.println("class : "+this.getClass());

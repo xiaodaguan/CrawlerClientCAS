@@ -76,7 +76,7 @@ public class EbusinessOracleService extends OracleService<EbusinessData> {
 			}, keyHolder);
 		}
 		catch(Exception e){
-			Systemconfig.sysLog.log("插入异常！！！"+e.getMessage());
+			LOGGER.info("插入异常！！！"+e.getMessage());
 			return;
 		}
 		vd.setId(Integer.parseInt(StringUtil.extractMulti(keyHolder.getKeyList().get(0).toString(), "\\d")));

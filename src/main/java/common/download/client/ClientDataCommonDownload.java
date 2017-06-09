@@ -30,7 +30,7 @@ public class ClientDataCommonDownload extends GenericDataCommonDownload<ClientDa
                 html.setOrignUrl(url);
                 http.getContent(html);
 
-                Systemconfig.sysLog.log(data.getUrl() + "下载完成。。。");
+                LOGGER.info(data.getUrl() + "下载完成。。。");
                 // html.setContent(StringUtil.getContent("E:/grs/开源工具/crawler(_client)_0.8.1/filedown/DATA/tieba_bbs_search/dcb64a74de7c2a750f5e5cfcf0d20697.htm",
                 // siteinfo.getCharset()));
                 if (html.getContent() == null ) {
@@ -38,17 +38,17 @@ public class ClientDataCommonDownload extends GenericDataCommonDownload<ClientDa
                 }
                 // 解析数据                       
                 url = xpath.templateContentPage(data, html);
-                Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
+                LOGGER.info(data.getTitle() + "解析完成。。。");
                 
                 Systemconfig.dbService.saveData(data);
-                Systemconfig.sysLog.log(data.getTitle() + "保存完成。。。");
+                LOGGER.info(data.getTitle() + "保存完成。。。");
                 synchronized (key) {
                     key.savedCountIncrease();
                 }
                 
             }
         } catch (Exception e) {
-            Systemconfig.sysLog.log("采集出现异常" + data.getUrl(), e);
+            LOGGER.info("采集出现异常" + data.getUrl(), e);
         } finally {
             if (count != null) count.countDown();
         }

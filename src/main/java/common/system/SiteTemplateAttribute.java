@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @SuppressWarnings("serial")
-public class SiteTemplateAttr implements Serializable {
+public class SiteTemplateAttribute implements Serializable {
 
 	private int id;
 	private String templateName;

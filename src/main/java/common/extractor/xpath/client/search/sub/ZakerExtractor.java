@@ -63,7 +63,7 @@ public class ZakerExtractor extends ClientSearchXpathExtractor {
 
 		Node domtree = getRealDOM(html);
 		if(domtree ==null ){
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
+			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
 		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到元数据的配置组件

@@ -22,7 +22,7 @@ public class FrgmediaDataCommonDownload extends GenericDataCommonDownload<Frgmed
 	}
 
 	public void process() {
-		Systemconfig.sysLog.log("downloading...：[" + key.getKey() + "] " + data.getTitle() + "");
+		LOGGER.info("downloading...：[" + key.getKey() + "] " + data.getTitle() + "");
 		String url = getRealUrl(data);
 		if (url == null)
 			return;
@@ -47,7 +47,7 @@ public class FrgmediaDataCommonDownload extends GenericDataCommonDownload<Frgmed
 				xpath.templateContentPage(data, html, key.getKey());
 				
 
-				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "解析完成。。。");
+				LOGGER.info("关键词：[" + key.getKey() + "] " + data.getTitle() + "解析完成。。。");
 				Systemconfig.dbService.saveData(data);
 
 				/* 状态 */
@@ -56,11 +56,11 @@ public class FrgmediaDataCommonDownload extends GenericDataCommonDownload<Frgmed
 				double per = (double) curr / (curr + rest);
 				if (data.getCompleteSize().contains("rest: 0")) {
 					// 判断为结束
-					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
+					LOGGER.info("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
 
 				}
 
-				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "保存完成。。。");
+				LOGGER.info("关键词：[" + key.getKey() + "] " + data.getTitle() + "保存完成。。。");
 				synchronized (key) {
 					key.savedCountIncrease();
 				}
@@ -76,19 +76,19 @@ public class FrgmediaDataCommonDownload extends GenericDataCommonDownload<Frgmed
 			// new NewsMetaCommonDownload(searchKey).process();
 			// }
 		} catch (Exception e) {
-			Systemconfig.sysLog.log("采集出现异常【" + key + "】" + url, e);
+			LOGGER.info("采集出现异常【" + key + "】" + url, e);
 			// synchronized (key) {
 			// key.savedCountDecrease();
 			// }
 			// Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setSavedCount(key.getSavedCount());
 			if (data.getCompleteSize().contains("rest: 0")) {
 				// 判断为结束
-				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
+				LOGGER.info("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
 			}
 		} finally {
 			if (count != null)
 				count.countDown();
-//			Systemconfig.sysLog.log("当前collect进度: " + data.getCompleteSize());
+//			LOGGER.info("当前collect进度: " + data.getCompleteSize());
 			TimeUtil.rest(1);
 		}
 	}

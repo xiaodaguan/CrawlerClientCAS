@@ -11,14 +11,14 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.WeiboData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.util.TimeUtil;
 
 public class WeiboAddressDownload extends GenericDataCommonDownload<WeiboData> {
 
-	private UserAttr user;
+	private UserAttribute user;
 
-	public WeiboAddressDownload(String siteFlag, WeiboData vd, CountDownLatch endCount, UserAttr user, SearchKey key) {
+	public WeiboAddressDownload(String siteFlag, WeiboData vd, CountDownLatch endCount, UserAttribute user, SearchKey key) {
 		super(siteFlag, vd, endCount, key);
 		this.user = user;
 	}

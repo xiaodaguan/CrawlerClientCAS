@@ -64,7 +64,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
         String domainId = proxy_info.split(":")[2];
         String sql = "update " + PROXY_TABLE + " set site_last_used = ? where ip = ? and port = ? and domain_id = ?";
         this.jdbcTemplate.update(sql, new Timestamp(System.currentTimeMillis()), ip, Integer.parseInt(port), Integer.parseInt(domainId));
-        Systemconfig.sysLog.log("proxy:{" + proxy_info + "} last used updated.");
+        LOGGER.info("proxy:{" + proxy_info + "} last used updated.");
     }
 
 
@@ -163,7 +163,7 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
             e.printStackTrace();
         }
 
-        Systemconfig.sysLog.log("read searchkeys:\n"+sql);
+        LOGGER.info("read searchkeys:\n"+sql);
 
         return this.jdbcTemplate.query(sql, new RowMapper<SearchKey>() {
             @Override

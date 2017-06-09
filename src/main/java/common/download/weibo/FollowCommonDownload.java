@@ -10,9 +10,9 @@ import common.download.GenericMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
-import common.siteinfo.CollectDataType;
+import common.bean.CollectDataType;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.util.TimeUtil;
 
 /**
@@ -20,9 +20,9 @@ import common.util.TimeUtil;
  * @author grs
  */
 public class FollowCommonDownload extends GenericMetaCommonDownload<UserData> {
-	private UserAttr user;
+	private UserAttribute user;
 	private int id;
-	public FollowCommonDownload(SearchKey key, int id, UserAttr user) {
+	public FollowCommonDownload(SearchKey key, int id, UserAttribute user) {
 		super(key);
 		this.id = id;
 		this.user = user;
@@ -48,10 +48,10 @@ public class FollowCommonDownload extends GenericMetaCommonDownload<UserData> {
 					nexturl =((WeiboMonitorXpathExtractor)((XpathExtractor)xpath)).templateRelation(list, html, count, id+"", nexturl, siteFlag);
 					
 					if(list.size()==0) {
-						Systemconfig.sysLog.log(url + "元数据页面解析为空！！");
+						LOGGER.info(url + "元数据页面解析为空！！");
 						break;
 					}
-					Systemconfig.sysLog.log(url + "元数据页面解析完成。");
+					LOGGER.info(url + "元数据页面解析完成。");
 					
 					Systemconfig.dbService.getNorepeatData(list, "");
 					

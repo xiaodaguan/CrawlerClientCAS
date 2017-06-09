@@ -1,13 +1,10 @@
 package special;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
@@ -21,6 +18,7 @@ import java.util.List;
 
 import javax.xml.transform.TransformerException;
 
+import common.system.UserAttribute;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -30,11 +28,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.HtmlInfo;
 import common.bean.WeiboData;
-import common.http.SimpleHttpProcess;
 import common.http.sub.SinaHttpProcess;
-import common.system.UserAttr;
 import common.util.DOMUtil;
 import common.util.MD5Util;
 import common.util.StringUtil;
@@ -190,7 +185,7 @@ public class SpeWeiboCrawler
 		/* 登录 */
 		SinaHttpProcess shp = new SinaHttpProcess();
 
-		UserAttr ua = new UserAttr();
+		UserAttribute ua = new UserAttribute();
 		ua.setName("test2co@126.com");
 		ua.setPass("test2coo");
 		shp.login(ua);

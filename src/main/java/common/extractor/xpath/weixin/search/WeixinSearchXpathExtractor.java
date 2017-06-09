@@ -78,8 +78,8 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
 
             String loc = null;
             try {
-                Systemconfig.sysLog.log("url：" + tmpUrl);
-                Systemconfig.sysLog.log("本次请求通过代理：" + proxy);
+                LOGGER.info("url：" + tmpUrl);
+                LOGGER.info("本次请求通过代理：" + proxy);
                 HttpURLConnection conn = null;
                 if (p != null) conn = (HttpURLConnection) new URL(tmpUrl).openConnection(proxy);
                 else {
@@ -95,19 +95,19 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
                 conn.connect();
                 loc = conn.getHeaderField("Location");
                 if (loc != null) {
-                    Systemconfig.sysLog.log(conn.getResponseMessage());
+                    LOGGER.info(conn.getResponseMessage());
                     if (loc.contains("antispider")) {
-                        Systemconfig.sysLog.log("ip被屏蔽，请手动验证！@详情页");
+                        LOGGER.info("ip被屏蔽，请手动验证！@详情页");
                         System.in.read();
                         i--;
                         continue;
                     }
                 }
-                Systemconfig.sysLog.log("real url: " + loc);
+                LOGGER.info("real url: " + loc);
 
                 int sleepTime = 30 + (int) (Math.random() * 30);
                 // int sleepTime = 2;
-                Systemconfig.sysLog.log("sleep..." + sleepTime);
+                LOGGER.info("sleep..." + sleepTime);
                 TimeUtil.rest(sleepTime);
 
             } catch (MalformedURLException e) {
@@ -159,14 +159,14 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
     @Override
     public String templateListPage(List<WeixinData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
         list.clear();
-        Systemconfig.sysLog.log("parsing list page: " + html.getOrignUrl());
+        LOGGER.info("parsing list page: " + html.getOrignUrl());
         /**
          * keyword 0: search_keyword 1: search_url(list) 2: ... 3: cookies
          */
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
-            Systemconfig.sysLog.log("DOM解析为NULL！！");
+            LOGGER.info("DOM解析为NULL！！");
             return null;
         }
         CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));// 得到元数据的配置组件
@@ -195,7 +195,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
 
     @Override
     public void processPage(WeixinData data, Node domtree, Map<String, Component> comp, String... args) {
-        Systemconfig.sysLog.log("parsing detail page: " + data.getTitle());
+        LOGGER.info("parsing detail page: " + data.getTitle());
         this.parseSource(data, domtree, comp.get("source"));
         this.parsePubtime(data, domtree, comp.get("pubtime"), args[0]);
         this.parseAuthor(data, domtree, comp.get("author"));

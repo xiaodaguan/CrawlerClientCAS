@@ -134,7 +134,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 		// create(content);
 		Node domtree = getRealDOM(html);
 		if (domtree == null) {
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
+			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
 		CommonComponent comp = getRealComp(siteinfo, html.getType()

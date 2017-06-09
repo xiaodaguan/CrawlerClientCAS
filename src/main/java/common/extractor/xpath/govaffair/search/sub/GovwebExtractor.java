@@ -38,7 +38,7 @@ public class GovwebExtractor extends GovAffairSearchXpathExtractor {
 				e.printStackTrace();
 			}
 	        if (domtree == null) {
-	            Systemconfig.sysLog.log("DOM解析为NULL！！");
+	            LOGGER.info("DOM解析为NULL！！");
 	            return null;
 	        }
 	        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到元数据的配置组件
@@ -58,7 +58,7 @@ public class GovwebExtractor extends GovAffairSearchXpathExtractor {
 //    		try {
 //    			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
 //    		} catch (Exception e) {
-//    			Systemconfig.sysLog.log("出错url：" + html.getOrignUrl());
+//    			LOGGER.info("出错url：" + html.getOrignUrl());
 //    			e.printStackTrace();
 //    		}
 //    		//data.setTitle(title);

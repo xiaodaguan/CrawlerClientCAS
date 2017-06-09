@@ -51,15 +51,15 @@ public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<Agr
 				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
 
 				if (list.size() == 0) {
-					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + url + "元数据页面解析为空！！");
+					LOGGER.info("关键词：[" + key.getKey() + "] " + url + "元数据页面解析为空！！");
 					TimeUtil.rest(siteinfo.getDownInterval());
 					break;
 				}
-				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + url + "元数据页面解析完成。");
+				LOGGER.info("关键词：[" + key.getKey() + "] " + url + "元数据页面解析完成。");
 				totalCount += list.size();
 				Systemconfig.dbService.getNorepeatData(list, "");
 				if (list.size() == 0) {
-					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + url + "no new data.");
+					LOGGER.info("关键词：[" + key.getKey() + "] " + url + "no new data.");
 					if (alllist.size() == 0)
 						TimeUtil.rest(siteinfo.getDownInterval());
 					break;
@@ -93,7 +93,7 @@ public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<Agr
 		}
 		
 
-		Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 列表页检索完成，不重复数据：" + alllist.size() + "条。");
+		LOGGER.info("关键词：[" + key.getKey() + "] 列表页检索完成，不重复数据：" + alllist.size() + "条。");
 		dtc.process(alllist, siteinfo.getDownInterval() - 5, null,key);
 	}
 

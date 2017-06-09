@@ -198,7 +198,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 		// String domcontent = domtree.getTextContent();
 		// System.out.println(domcontent);
 		if (domtree == null) {
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
+			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
 		CommonComponent comp = getRealComp(siteinfo, html.getType()
@@ -256,7 +256,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		Node domtree = getRealDOM(html);
 		if (domtree == null) {
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
+			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
 		CommonComponent comp = getRealComp(siteinfo, html.getType()

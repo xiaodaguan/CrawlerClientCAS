@@ -33,7 +33,7 @@ public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
                 html.setOrignUrl(url);
                 http.getContent(html);
 
-                Systemconfig.sysLog.log(data.getUrl() + "下载完成。。。");
+                LOGGER.info(data.getUrl() + "下载完成。。。");
 
                 if (html.getContent() == null || (html.getContent().contains("抱歉，您访问的贴子被隐藏") && html.getContent().contains("贴吧404"))) {
                     return;
@@ -42,20 +42,20 @@ public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
                 url = xpath.templateContentPage(data, html);
        
                 
-                Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
+                LOGGER.info(data.getTitle() + "解析完成。。。");
                 if (dataCheck(data, html.getContent())) {
                     Systemconfig.dbService.saveData(data);
-                    Systemconfig.sysLog.log(data.getTitle() + "保存完成。。。");
+                    LOGGER.info(data.getTitle() + "保存完成。。。");
                     synchronized (key) {
                         key.savedCountIncrease();
                     }
                 } else {
 
-                    Systemconfig.sysLog.log("缺失标题或pubtime，放弃保存。" + data.getUrl());
+                    LOGGER.info("缺失标题或pubtime，放弃保存。" + data.getUrl());
                 }
             }
         } catch (Exception e) {
-            Systemconfig.sysLog.log("采集出现异常" + data.getUrl(), e);
+            LOGGER.info("采集出现异常" + data.getUrl(), e);
         } finally {
             if (count != null) count.countDown();
         }

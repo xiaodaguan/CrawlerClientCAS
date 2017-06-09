@@ -11,9 +11,9 @@ import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
 import common.service.mysql.WeiboMysqlService;
 import common.service.oracle.WeiboOracleService;
-import common.siteinfo.CollectDataType;
+import common.bean.CollectDataType;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.system.UserManager;
 import common.util.TimeUtil;
 
@@ -35,7 +35,7 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
         super(key);
     }
 
-    private UserAttr userAttr;
+    private UserAttribute userAttribute;
 
     @Override
     public void prePorcess() {
@@ -49,17 +49,17 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
             return;
 
         // 每次保证只有有效用户个执行，某个任务完成后，等待的下一个任务开始执行
-        UserAttr ua = UserManager.getUser(siteFlag);
+        UserAttribute ua = UserManager.getUser(siteFlag);
         while (ua == null) {
-            Systemconfig.sysLog.log("暂时没有可用账号用于采集，等待账号中……");
+            LOGGER.info("暂时没有可用账号用于采集，等待账号中……");
             TimeUtil.rest(10);
             ua = UserManager.getUser(siteFlag);
         }
-        userAttr = ua;
-        if (!userAttr.getHadRun()) {
-            http.monitorLogin(userAttr);
+        userAttribute = ua;
+        if (!userAttribute.getHadRun()) {
+            http.monitorLogin(userAttribute);
             ua.setHadRun(true);
-            System.out.println("监测用户！！！" + userAttr.getName());
+            System.out.println("监测用户！！！" + userAttribute.getName());
         }
         if (ii != null) {
             ii.setAccountId(ua.getId());
@@ -82,14 +82,14 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
                  * 先解析博主
                  */
                 try {
-                    http.getContent(html, userAttr);
+                    http.getContent(html, userAttribute);
                     // html.setContent(common.util.StringUtil.getContent("filedown/USER/sina_weibo_monitor/51d4cea4821e13b750088647e44f2543.htm"));
                     ((WeiboMonitorXpathExtractor) ((XpathExtractor) xpath)).templateUser(userData, html, true,
                             key.getRole() + "");
                     if (userData != null && userData.getInfoUrl() != null && !userData.getInfoUrl().equals("")) {
                         html.setOrignUrl(userData.getInfoUrl());
                         html.setType(CollectDataType.USERINFO.name() + File.separator + siteFlag);
-                        http.getContent(html, userAttr);
+                        http.getContent(html, userAttribute);
                         // html.setContent(common.util.StringUtil.getContent("filedown/USERINFO/sina_weibo_monitor/5f5af5a1fe1cf1bc7ed8b0933fd814f0.htm"));
                         ((WeiboMonitorXpathExtractor) ((XpathExtractor) xpath)).templateUser(userData, html, false,
                                 key.getRole() + "");
@@ -106,12 +106,12 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
             // fansKey.setSite(siteFlag);
             // fansKey.setKey(user.getFansUrl());
             // Future<?> fans = fansexec.submit(new FansCommonDownload(fansKey,
-            // user.getId(), userAttr));
+            // user.getId(), userAttribute));
             // SearchKey followKey = new SearchKey();
             // followKey.setSite(siteFlag);
             // followKey.setKey(user.getFansUrl());
             // Future<?> follow = followexec.submit(new
-            // FollowCommonDownload(followKey, user.getId(), userAttr));
+            // FollowCommonDownload(followKey, user.getId(), userAttribute));
 
             /**
              * 再采集博主的微博
@@ -123,9 +123,9 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
                 data.setUrl(userData.getWeiboUrl());
             data.setId(userData.getId());
             data.setCategoryCode(userData.getCategoryCode());
-//            Future<?> weibo = weiboexec.submit(new WeiboDataCommonDownload(siteFlag, data, null, userAttr, key));
+//            Future<?> weibo = weiboexec.submit(new WeiboDataCommonDownload(siteFlag, data, null, userAttribute, key));
 
-            WeiboDataCommonDownload wdcd=new WeiboDataCommonDownload(siteFlag,data,null,userAttr,key);
+            WeiboDataCommonDownload wdcd=new WeiboDataCommonDownload(siteFlag,data,null, userAttribute,key);
             wdcd.process();
 
             // try {
@@ -145,7 +145,7 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
 //
 //            }
         } finally {
-            UserManager.releaseUser(siteFlag, userAttr);
+            UserManager.releaseUser(siteFlag, userAttribute);
         }
 
     }

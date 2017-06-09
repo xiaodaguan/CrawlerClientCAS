@@ -3,9 +3,9 @@ package common.service;
 import common.bean.CommonData;
 import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
-import common.system.SiteTemplateAttr;
+import common.system.SiteTemplateAttribute;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.util.UserAgent;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -85,43 +85,12 @@ public abstract class AbstractDBService<T> implements DBService<T> {
             	
             	String tt = t.replace("ebusiness", "eb").replace("person_data", "leaders") ;
             	String SQL_WEB = "select md5 from " + tt;
-            	//		+" where rownum<10 ";
-            	//select md5 from weixin_data
-            	 try {
-                 	Connection con = this.jdbcTemplate.getDataSource().getConnection();
-                     String connInfo =  con.toString();
-                     if(connInfo.toLowerCase().contains("topsearch")&&Systemconfig.md5NearbyDay>0){
-//                         sql = sql.replace("where","where trunc(propose_time) >= trunc(sysdate) - 7 and ");
-//                         sql = sql + " , propose_time  desc ";
-                    	 
-                    	 
-                    	 String getInsertTime = "select column_name from user_tab_columns where table_name='"+tt.toUpperCase()+"'";
-                    	 List<String> listInsertTime = this.jdbcTemplate.queryForList(getInsertTime, String.class);
-                    	 String  inseartTime = null;
-                    	 if(listInsertTime.contains("INSERTTIME")){
-                    		 inseartTime = "INSERTTIME";
-                    	 }else  if(listInsertTime.contains("INSERT_TIME")){
-                    		 inseartTime = "INSERT_TIME";
-                    	 }else {
-                    		 
-                    	 }
-                       	 if(inseartTime!=null&&SQL_WEB.contains("where")){
-                    		 SQL_WEB = SQL_WEB.replace("where", 
-                    				 "where trunc("+inseartTime+") >= trunc(sysdate) - "+Systemconfig.md5NearbyDay+" and ");
-                    	 }else if(inseartTime!=null){
-                    		 SQL_WEB =SQL_WEB+(" where trunc("+inseartTime+") >= trunc(sysdate) - "+Systemconfig.md5NearbyDay+" ");
-                    	 }
-                     }
-                     con.close();
-                 } catch (SQLException e) {
-                     e.printStackTrace();
-                 }
-            	
+
                 
                 		
-                Systemconfig.sysLog.log("md5 SQL_WEB: "+SQL_WEB);
+                LOGGER.info("md5 SQL: "+SQL_WEB);
                 List<String> list = this.jdbcTemplate.queryForList(SQL_WEB, String.class);
-                Systemconfig.sysLog.log("md5 获取成功！！！ ");
+                LOGGER.info("md5 获取成功！！！ ");
                 num += list.size();
                 map.put(t, list);
             }
@@ -147,7 +116,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
     public void updateUserOrder(String userName) {
         String sql = "update crawler_account set last_used = ? where name = ?";
         this.jdbcTemplate.update(sql, new Timestamp(System.currentTimeMillis()), userName);
-        Systemconfig.sysLog.log("account:{" + userName + "} last used updated.");
+        LOGGER.info("account:{" + userName + "} last used updated.");
     }
 
 
@@ -156,17 +125,17 @@ public abstract class AbstractDBService<T> implements DBService<T> {
 //        String sql = "update crawler_account set valid = ? where name = ?";
 //        this.jdbcTemplate.update(sql, mark, userName);
 //        if(mark==5){
-//            Systemconfig.sysLog.log("account:{" + userName + "} Search verification code problem");
+//            LOGGER.info("account:{" + userName + "} Search verification code problem");
 //        }else if(mark==6){
-//            Systemconfig.sysLog.log("account:{" + userName + "} Login verification code problem");
+//            LOGGER.info("account:{" + userName + "} Login verification code problem");
 //        }
-//        Systemconfig.sysLog.log("account:{" + userName + "} valid updated.");
+//        LOGGER.info("account:{" + userName + "} valid updated.");
     }
 
     @Override
-    public List<UserAttr> getLoginUsers(String site) {
+    public List<UserAttribute> getLoginUsers(String site) {
         site = site.substring(0, site.indexOf("_"));
-        final List<UserAttr> list = new ArrayList<UserAttr>();
+        final List<UserAttribute> list = new ArrayList<UserAttribute>();
         
         if(Systemconfig.crawlerType==8&&user_sql.contains("u.valid=1")){
         	//搜索	crawlerType = 7  u.valid=1
@@ -185,11 +154,11 @@ public abstract class AbstractDBService<T> implements DBService<T> {
         	user_sql = user_sql.replace("u.valid=1","u.valid="+(Systemconfig.crawlerNum*2-1));
         }
         
-        Systemconfig.sysLog.log("loading accounts...: " + user_sql);
-        this.jdbcTemplate.query(user_sql, new Object[]{site}, new RowMapper<UserAttr>() {
+        LOGGER.info("loading accounts...: " + user_sql);
+        this.jdbcTemplate.query(user_sql, new Object[]{site}, new RowMapper<UserAttribute>() {
             @Override
-            public UserAttr mapRow(ResultSet rs, int i) throws SQLException {
-                UserAttr ua = new UserAttr();
+            public UserAttribute mapRow(ResultSet rs, int i) throws SQLException {
+                UserAttribute ua = new UserAttribute();
                 ua.setName(rs.getString(1));
                 ua.setPass(rs.getString(2));
                 ua.setSiteFlag(rs.getString(3));
@@ -206,21 +175,21 @@ public abstract class AbstractDBService<T> implements DBService<T> {
             }
         });
 
-        Systemconfig.sysLog.log("[" + list.size() + "] accounts. ");
+        LOGGER.info("[" + list.size() + "] accounts. ");
         return list;
     }
 
     @Override
-    public Map<String, SiteTemplateAttr> getXpathConfig() {
+    public Map<String, SiteTemplateAttribute> getXpathConfig() {
 
         String sql = "select ID,SITEFLAG, TEMPLATE_CONTENT_SITE, TEMPLATE_LAST_MODIFIED from SITE_TEMPLATE where template_status = 2 and MEDIA=" + ((Systemconfig.crawlerType + 1) / 2) + " and TYPE=" + ((Systemconfig.crawlerType + 1) % 2);// 奇数搜索
         System.out.println(sql);
 
-        final Map<String, SiteTemplateAttr> list = new HashMap<String, SiteTemplateAttr>();
+        final Map<String, SiteTemplateAttribute> list = new HashMap<String, SiteTemplateAttribute>();
 
-        this.jdbcTemplate.query(sql, new RowMapper<SiteTemplateAttr>() {
-            public SiteTemplateAttr mapRow(ResultSet rs, int i) throws SQLException {
-                SiteTemplateAttr sta = new SiteTemplateAttr();
+        this.jdbcTemplate.query(sql, new RowMapper<SiteTemplateAttribute>() {
+            public SiteTemplateAttribute mapRow(ResultSet rs, int i) throws SQLException {
+                SiteTemplateAttribute sta = new SiteTemplateAttribute();
                 sta.setTemplateName(CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase());
                 sta.setSiteFlag(rs.getString("SITEFLAG"));
                 // sta.setType(rs.getString("TYPE"));
@@ -241,7 +210,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
 
         String monitorOrSearch = Systemconfig.crawlerType % 2 == 0 ? "MONITOR_TEMPLATE" : "SEARCH_TEMPLATE";
         String sql = "SELECT " + monitorOrSearch + " from MEDIA_TYPE where id = " + ((Systemconfig.crawlerType + 1) / 2);
-        Systemconfig.sysLog.log(sql);
+        LOGGER.info(sql);
         String result = this.jdbcTemplate.queryForObject(sql, String.class);
         return result;
 

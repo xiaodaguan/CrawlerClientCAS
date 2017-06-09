@@ -4,10 +4,10 @@ import common.bean.HtmlInfo;
 import common.bean.WeiboData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.siteinfo.CollectDataType;
+import common.bean.CollectDataType;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.util.JsonUtil;
 import common.util.StringUtil;
 import common.util.TimeUtil;
@@ -29,9 +29,9 @@ import java.util.concurrent.Executors;
  */
 public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData> {
 
-    private UserAttr user;
+    private UserAttribute user;
 
-    public WeiboDataCommonDownload(String siteFlag, WeiboData data, CountDownLatch count, UserAttr user, SearchKey key) {
+    public WeiboDataCommonDownload(String siteFlag, WeiboData data, CountDownLatch count, UserAttribute user, SearchKey key) {
         super(siteFlag, data, count, key);
         this.user = user;
     }
@@ -44,7 +44,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
         String url = data.getUrl();
         String nexturl = url;
 
-        Systemconfig.sysLog.log("downloading... " + nexturl + ". " + key.getKey());
+        LOGGER.info("downloading... " + nexturl + ". " + key.getKey());
         HtmlInfo html = htmlInfo(CollectDataType.DATA.name());
         int count = 1;
         try {
@@ -73,20 +73,20 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     }
 
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log(url + "数据页面解析为空！！");
+                        LOGGER.info(url + "数据页面解析为空！！");
                         break;
                     }
 
                     Systemconfig.dbService.getNorepeatData(list, "weibo_data");
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log(url + "无新数据.");
+                        LOGGER.info(url + "无新数据.");
                         break;
                     }
-                    Systemconfig.sysLog.log(url + "数据页面解析完成。" + list.size());
+                    LOGGER.info(url + "数据页面解析完成。" + list.size());
                     alllist.addAll(list);
 
                     if (list.get(0).getMid() == null) {
-                        Systemconfig.sysLog.log("err--->mid");
+                        LOGGER.info("err--->mid");
                     }
                     String pageId = StringUtil.regMatcher(html1, "\\$CONFIG\\['page_id'\\]\\s*=\\s*'", "'");
                     uId = StringUtil.regMatcher(html1, "\\$CONFIG\\['uid'\\]\\s*=\\s*'", "'");
@@ -129,15 +129,15 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
 
 
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log(url + "下拉加载解析为空！！");
+                        LOGGER.info(url + "下拉加载解析为空！！");
                         break;
                     }
                     Systemconfig.dbService.getNorepeatData(list, "weibo_data");
                     if (list.size() == 0) {
-                        Systemconfig.sysLog.log(url + "下拉加载解无新数据.");
+                        LOGGER.info(url + "下拉加载解无新数据.");
                         break;
                     }
-                    Systemconfig.sysLog.log(url + "下拉加载解析完成。" + list.size());
+                    LOGGER.info(url + "下拉加载解析完成。" + list.size());
 
                     for (WeiboData wd : list) {
                         wd.setUid(uId);
@@ -173,7 +173,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     key.savedCountIncrease();
                 }
             }
-            Systemconfig.sysLog.log("saved." + alllist.size());
+            LOGGER.info("saved." + alllist.size());
             alllist.clear();
 
 //        } catch (IOException e) {
@@ -201,7 +201,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
             /**
              * 采集评论
              */
-            Systemconfig.sysLog.log("开始采集微博: " + wd.getUrl() + " 的评论...");
+            LOGGER.info("开始采集微博: " + wd.getUrl() + " 的评论...");
 //            if (wd.getCommentNum() > 0) {
 //                key.setKey(wd.getCommentUrl());
 //                Future<?> com = comes.submit(new WeiboCommentDownload(key, wd.getId(), user));
@@ -230,11 +230,11 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                 wcd.process();
             }else
             {
-                Systemconfig.sysLog.log("微博:"+wd.getUrl()+" 无评论");
+                LOGGER.info("微博:"+wd.getUrl()+" 无评论");
             }
             try {
                 Systemconfig.dbService.saveData(wd);
-                Systemconfig.sysLog.log("微博: " + wd.getUrl() + " 保存完成.");
+                LOGGER.info("微博: " + wd.getUrl() + " 保存完成.");
             } catch (IOException e) {
                 e.printStackTrace();
             }

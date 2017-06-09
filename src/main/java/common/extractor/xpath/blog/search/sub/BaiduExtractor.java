@@ -34,7 +34,7 @@ public class BaiduExtractor extends BlogSearchXpathExtractor {
 		if (page == 1) {
 			Node domtree = getRealDOM(html);
 			if (domtree == null) {
-				Systemconfig.sysLog.log("DOM解析为NULL！！");
+				LOGGER.info("DOM解析为NULL！！");
 				return null;
 			}
 			CommonComponent comp = getRealComp(siteinfo,

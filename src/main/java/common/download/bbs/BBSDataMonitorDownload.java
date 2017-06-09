@@ -5,7 +5,7 @@ import common.bean.HtmlInfo;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.system.UserAttr;
+import common.system.UserAttribute;
 import common.system.UserManager;
 
 import java.util.concurrent.CountDownLatch;
@@ -23,7 +23,7 @@ public class BBSDataMonitorDownload extends GenericDataCommonDownload<BBSData> {
 
     @Override
     public void process() {
-        UserAttr ua = null;
+        UserAttribute ua = null;
 
         if (siteinfo.getLogin())
 
@@ -38,7 +38,7 @@ public class BBSDataMonitorDownload extends GenericDataCommonDownload<BBSData> {
         if (url == null) return;
         HtmlInfo html = htmlInfo("DATA");
         try {
-            Systemconfig.sysLog.log("当前url：" + url);
+            LOGGER.info("当前url：" + url);
             if (url != null && !url.equals("")) {
                 html.setOrignUrl(url);
                 http.getContent(html, ua);
@@ -50,12 +50,12 @@ public class BBSDataMonitorDownload extends GenericDataCommonDownload<BBSData> {
                 // 解析数据
                 url = xpath.templateContentPage(data, html);
 
-                Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
+                LOGGER.info(data.getTitle() + "解析完成。。。");
                 Systemconfig.dbService.saveData(data);
-                Systemconfig.sysLog.log(data.getTitle() + "保存完成。。。");
+                LOGGER.info(data.getTitle() + "保存完成。。。");
             }
         } catch (Exception e) {
-            Systemconfig.sysLog.log("采集出现异常" + url, e);
+            LOGGER.info("采集出现异常" + url, e);
         } finally {
             if (count != null) count.countDown();
         }

@@ -90,7 +90,7 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 		while (!content.contains("read_num")) {
 			if (retry++ > 3)
 				break;
-			Systemconfig.sysLog.log("请获取key后输入任意内容回车继续...输入c忽略(很可能无法继续采集，不推荐)");
+			LOGGER.info("请获取key后输入任意内容回车继续...输入c忽略(很可能无法继续采集，不推荐)");
 			System.err.println("请获取key后输入任意内容回车继续...输入c忽略(很可能无法继续采集，不推荐)");
 			Scanner input = new Scanner(System.in);
 			String s = input.next();
@@ -171,7 +171,7 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		Node domtree = getRealDOM(html);
 		if (domtree == null) {
-			Systemconfig.sysLog.log("DOM解析为NULL！！");
+			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
 		CommonComponent comp = getRealComp(siteinfo, html.getType()
@@ -247,11 +247,11 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 				conn.connect();
 				loc = conn.getHeaderField("Location");
 				if (loc != null)
-					Systemconfig.sysLog.log(conn.getResponseMessage());
+					LOGGER.info(conn.getResponseMessage());
 
-				Systemconfig.sysLog.log("real url: " + loc);
+				LOGGER.info("real url: " + loc);
 				int sleepTime = 30 + (int) (Math.random() * 20);
-				Systemconfig.sysLog.log("sleep..." + sleepTime);
+				LOGGER.info("sleep..." + sleepTime);
 				TimeUtil.rest(sleepTime);
 
 			} catch (MalformedURLException e) {

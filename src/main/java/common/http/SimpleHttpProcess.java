@@ -3,12 +3,10 @@ package common.http;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Locale;
@@ -21,8 +19,8 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
+import common.system.UserAttribute;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -48,7 +46,6 @@ import org.apache.http.util.EntityUtils;
 import common.bean.HtmlInfo;
 import common.bean.Proxy;
 import common.system.Systemconfig;
-import common.system.UserAttr;
 import common.util.CharsetDetector;
 import common.util.EncoderUtil;
 import common.util.MD5Util;
@@ -112,12 +109,12 @@ public class SimpleHttpProcess implements HttpProcess {
 	}
 
 	@Override
-	public void getContent(HtmlInfo html, UserAttr userAttr) {
+	public void getContent(HtmlInfo html, UserAttribute userAttribute) {
 		byte[] fromURL = null;
 		try {
-			fromURL = userAttr == null ? simpleGet(html) : simpleGet(html, userAttr);
+			fromURL = userAttribute == null ? simpleGet(html) : simpleGet(html, userAttribute);
 			if (fromURL == null) {
-				Systemconfig.sysLog.log("没有抓取到内容，建议暂停采集！请检查网络链接或URL：" + html.getOrignUrl() + "是否正确。");
+				LOGGER.info("没有抓取到内容，建议暂停采集！请检查网络链接或URL：" + html.getOrignUrl() + "是否正确。");
 				html.setContent(null);
 				return;
 			}
@@ -179,7 +176,7 @@ public class SimpleHttpProcess implements HttpProcess {
 				}
 			}
 		} catch (UnsupportedEncodingException e) {
-			Systemconfig.sysLog.log("请检查并输入正确字符集！", e);
+			LOGGER.info("请检查并输入正确字符集！", e);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -211,9 +208,9 @@ public class SimpleHttpProcess implements HttpProcess {
 			String fileName = folderName + File.separator + MD5Util.MD5(html.getOrignUrl()) + html.getFileType();
 			fos = new FileOutputStream(fileName);
 			fos.write(fromURL);
-			Systemconfig.sysLog.log("pdf保存至： " + fileName);
+			LOGGER.info("pdf保存至： " + fileName);
 		} catch (IOException e) {
-			Systemconfig.sysLog.log("文件无法下载。", e);
+			LOGGER.info("文件无法下载。", e);
 		} finally {
 			if (fos != null)
 				try {
@@ -226,7 +223,7 @@ public class SimpleHttpProcess implements HttpProcess {
 
 	}
 
-	protected byte[] simpleGet(HtmlInfo html, UserAttr user) throws Exception {
+	protected byte[] simpleGet(HtmlInfo html, UserAttribute user) throws Exception {
 		return simpleGet(html);
 	}
 
@@ -244,9 +241,9 @@ public class SimpleHttpProcess implements HttpProcess {
 	protected byte[] simpleGet(HtmlInfo html) throws Exception {
 
 		HttpClient hc = httpClient(html);
-		Systemconfig.sysLog.log("url: " + html.getOrignUrl());
+		LOGGER.info("url: " + html.getOrignUrl());
 		if (html.getAgent())
-			Systemconfig.sysLog.log("本次请求使用代理：" + hc.getParams().getParameter("http.route.default-proxy"));
+			LOGGER.info("本次请求使用代理：" + hc.getParams().getParameter("http.route.default-proxy"));
 
 		HttpGet get = new HttpGet(EncoderUtil.encodeKeyWords(html.getOrignUrl(), "utf-8"));
 		if (html.getCookie() != null) {
@@ -321,7 +318,7 @@ public class SimpleHttpProcess implements HttpProcess {
 			while (true) {
 				proxy = Systemconfig.dbService.getProxy(siteId);// 已修改为从数据库读取
 				if (proxy == null) {
-					Systemconfig.sysLog.log("未读取有效代理服务器，等待1秒重试...");
+					LOGGER.info("未读取有效代理服务器，等待1秒重试...");
 					TimeUtil.rest(1);
 
 				} else {
@@ -417,7 +414,7 @@ public class SimpleHttpProcess implements HttpProcess {
 	}
 
 	@Override
-	public void monitorLogin(UserAttr user) {
+	public void monitorLogin(UserAttribute user) {
 	}
 
 	public String getJsonContent(String url, String charSet) {
@@ -440,11 +437,11 @@ public class SimpleHttpProcess implements HttpProcess {
 			content = content2;
 		}
 		// if (StringUtil.regMatcher(content1, "\\(", "\\)") != null){
-		// Systemconfig.sysLog.log("encoding: gb2312");
+		// LOGGER.info("encoding: gb2312");
 		// return content1;
 		// }
 		// if (StringUtil.regMatcher(content2, "\\(", "\\)") != null){
-		// Systemconfig.sysLog.log("encoding: utf8");
+		// LOGGER.info("encoding: utf8");
 		// return content2;
 		// }
 		if (content == null || !content.contains("{"))

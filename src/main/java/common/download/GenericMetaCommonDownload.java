@@ -54,7 +54,7 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
-		Systemconfig.sysLog.log(siteFlag+"的"+key.getKey()+"数据采集完成！！");
+		LOGGER.info(siteFlag+"的"+key.getKey()+"数据采集完成！！");
 		if(Systemconfig.clientinfo != null) {
 			ViewInfo vi = Systemconfig.clientinfo.getViewinfos().get(Systemconfig.localAddress+"_"+siteFlag);
 			InnerInfo ii = vi.getCrawlers().get(key.getKey());
@@ -62,7 +62,7 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 		}
 		
 		String taskName =   siteFlag+key.getKey();
-		Systemconfig.sysLog.log( taskName + "   任务已完成        postProcess  ");
+		LOGGER.info( taskName + "   任务已完成        postProcess  ");
 		
 		Systemconfig.finish.put(siteFlag+key.getKey(), true);
 	}

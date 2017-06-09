@@ -33,12 +33,12 @@ public class CompanyDataCommonDownload extends GenericDataCommonDownload<CommonD
 				//解析数据
 				xpath.templateContentPage(data, html);
 				
-				Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
+				LOGGER.info(data.getTitle() + "解析完成。。。");
 				Systemconfig.dbService.saveData(data);
-				Systemconfig.sysLog.log(data.getTitle() + "保存完成。。。");
+				LOGGER.info(data.getTitle() + "保存完成。。。");
 			}
 		} catch (Exception e) {
-			Systemconfig.sysLog.log("采集出现异常"+url, e);
+			LOGGER.info("采集出现异常"+url, e);
 		} finally {
 			if(count != null)
 				count.countDown();
