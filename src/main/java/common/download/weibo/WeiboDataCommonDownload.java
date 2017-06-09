@@ -3,6 +3,7 @@ package common.download.weibo;
 import common.bean.HtmlInfo;
 import common.bean.WeiboData;
 import common.download.GenericDataCommonDownload;
+import common.extractor.xpath.weixin.monitor.WeixinMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.bean.CollectDataType;
 import common.siteinfo.Siteinfo;
@@ -11,6 +12,8 @@ import common.system.UserAttribute;
 import common.util.JsonUtil;
 import common.util.StringUtil;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +31,7 @@ import java.util.concurrent.Executors;
  * @author grs
  */
 public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeiboDataCommonDownload.class);
 
     private UserAttribute user;
 

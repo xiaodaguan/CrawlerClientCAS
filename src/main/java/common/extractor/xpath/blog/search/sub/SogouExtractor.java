@@ -3,10 +3,13 @@ package common.extractor.xpath.blog.search.sub;
 import common.bean.BlogData;
 import common.bean.HtmlInfo;
 import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
+import common.service.oracle.FrgmediaOracleService;
 import common.siteinfo.Component;
 import common.system.Systemconfig;
 import common.util.ExtractResult;
 import common.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -16,10 +19,11 @@ import java.util.Map;
 
 
 public class SogouExtractor extends BlogSearchXpathExtractor {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SogouExtractor.class);
 
 	@Override
 	public String templateContentPage(BlogData data, HtmlInfo html, int page, String... keyword) {
-		
+
 		ExtractResult result = null;
 		try {
 			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
@@ -129,13 +133,13 @@ public class SogouExtractor extends BlogSearchXpathExtractor {
 			}
 		}
 	}
-	
-	
+
+
 	@Override
 	public void parsePubtime(List<BlogData> list, Node dom, Component component, String... args) {
-	
+
 		if (component == null)	{
-			
+
 			System.out.println("pubtime component is null !!!"+component);
 			return;
 		}

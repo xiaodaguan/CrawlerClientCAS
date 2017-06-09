@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import common.download.weibo.WeiboMonitorMetaCommonDownload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -24,6 +27,7 @@ import common.system.Systemconfig;
  *
  */
 public class SinoExtractor extends FrgmediaSearchXpathExtractor {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SinoExtractor.class);
 
 	@Override // templateContentPage
 	public String templateContentPage(FrgmediaData data, HtmlInfo html, int page, String... keyword) {

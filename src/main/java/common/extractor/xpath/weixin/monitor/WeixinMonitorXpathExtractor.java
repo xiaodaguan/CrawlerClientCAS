@@ -11,6 +11,9 @@ import java.util.Scanner;
 
 import javax.swing.text.html.HTML;
 
+import common.service.oracle.BlogOracleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -34,6 +37,7 @@ import common.util.TimeUtil;
  * @author gxd
  */
 public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> implements WeixinMonitorExtractorAttribute {
+	private static final Logger LOGGER = LoggerFactory.getLogger(WeixinMonitorXpathExtractor.class);
 
 	@Override
 	public void processPage(WeixinData data, Node domtree, Map<String, Component> comp, String... args) {

@@ -17,6 +17,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -52,7 +54,8 @@ import java.util.zip.GZIPInputStream;
  *
  */
 public class SinaHttpProcess extends NeedCookieHttpProcess {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SinaHttpProcess.class);
+
 	private String redirectURL;
 	public void setRedirectURL(String redirectURL) {
 		this.redirectURL = redirectURL;

@@ -52,6 +52,8 @@ import common.util.MD5Util;
 import common.util.StringUtil;
 import common.util.TimeUtil;
 import common.util.UserAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 普通http请求处理
@@ -60,6 +62,8 @@ import common.util.UserAgent;
  * @since 2014年1月
  */
 public class SimpleHttpProcess implements HttpProcess {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleHttpProcess.class);
+
 	private static final String[] charsets = new String[] { "utf-8", "gbk", "gb2312", "big5" };
 	protected int readTime = 180000;
 	protected int connectNum = 3;

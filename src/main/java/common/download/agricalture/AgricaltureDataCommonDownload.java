@@ -5,8 +5,11 @@ import common.bean.HtmlInfo;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+import common.system.UserManager;
 import common.util.StringUtil;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -16,6 +19,7 @@ import java.util.concurrent.CountDownLatch;
  * @author gxd
  */
 public class AgricaltureDataCommonDownload extends GenericDataCommonDownload<AgricaltureData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AgricaltureDataCommonDownload.class);
 
 	public AgricaltureDataCommonDownload(String siteFlag, AgricaltureData vd, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, vd, endCount, key);

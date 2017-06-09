@@ -3,7 +3,10 @@ package common.system;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.service.oracle.GovAffairOracleService;
 import common.util.UserAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 用户管理
@@ -11,6 +14,7 @@ import common.util.UserAgent;
  * @author grs
  */
 public class UserManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserManager.class);
 
     /**
      * 每个用户只能运行一种类型的采集

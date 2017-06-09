@@ -8,8 +8,11 @@ import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
+import common.service.oracle.EbusinessOracleService;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载元数据
@@ -17,6 +20,7 @@ import common.util.TimeUtil;
  * @author rzy
  */
 public class FrgmediaMetaCommonDownload extends GenericMetaCommonDownload<FrgmediaData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(FrgmediaMetaCommonDownload.class);
 
 	public FrgmediaMetaCommonDownload(SearchKey key) {
 		super(key);

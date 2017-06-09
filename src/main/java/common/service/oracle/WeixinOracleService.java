@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import common.download.video.VideoMetaCommonDownload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -15,6 +18,7 @@ import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class WeixinOracleService extends OracleService<WeixinData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(WeixinOracleService.class);
 
     private static final String GONGZHONG_TABLE = "search_gongzhong";
     private static final String gongzhong_sql = "insert into " + GONGZHONG_TABLE + "(name, creat_time, url, brief, account, img, pos_icon, openid, verify, md5, twoD_code, from_article, keyword_id) " + "values " + "(?,?,?,?,?,?,?,?,?,?,?,?,?)";

@@ -2,6 +2,7 @@ package common.extractor.xpath.academic.search;
 
 import common.bean.AgricaltureData;
 import common.bean.HtmlInfo;
+import common.download.weibo.WeiboSearchDataCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -9,6 +10,8 @@ import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.MD5Util;
 import common.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -23,6 +26,9 @@ import java.util.Map;
  * @author grs
  */
 public class AcademicSearchXpathExtractor extends XpathExtractor<AgricaltureData> implements AcademicSearchExtractorAttribute {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(AcademicSearchXpathExtractor.class);
+
 	@Override
 	public String templateListPage(List<AgricaltureData> list, HtmlInfo html,
 			int page, String... keyword) throws SAXException, IOException {

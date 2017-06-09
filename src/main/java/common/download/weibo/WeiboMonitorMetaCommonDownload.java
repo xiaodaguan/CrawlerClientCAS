@@ -5,6 +5,7 @@ import common.bean.UserData;
 import common.bean.WeiboData;
 import common.download.GenericMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
+import common.extractor.xpath.press.search.PressSearchXpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
@@ -16,6 +17,8 @@ import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.concurrent.ExecutorService;
@@ -28,6 +31,8 @@ import java.util.concurrent.Future;
  * @author grs
  */
 public class WeiboMonitorMetaCommonDownload extends GenericMetaCommonDownload<WeiboData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(WeiboMonitorMetaCommonDownload.class);
+
 	private ExecutorService fansexec = Executors.newFixedThreadPool(1);
 	private ExecutorService followexec = Executors.newFixedThreadPool(1);
 	private ExecutorService weiboexec = Executors.newFixedThreadPool(1);

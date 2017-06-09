@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import common.download.agricalture.AgricaltureDataCommonDownload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -17,6 +20,7 @@ import common.util.StringUtil;
 
 public class FrgmediaOracleService extends OracleService<FrgmediaData> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FrgmediaOracleService.class);
 
     private static final String TABLE = "frgmedia_data";
 

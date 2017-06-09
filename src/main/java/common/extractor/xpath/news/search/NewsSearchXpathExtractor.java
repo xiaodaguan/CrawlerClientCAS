@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import common.service.oracle.ClientOracleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -22,6 +25,7 @@ import common.util.StringUtil;
  * @author grs
  */
 public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implements NewsSearchExtractorAttribute {
+	private static final Logger LOGGER = LoggerFactory.getLogger(NewsSearchXpathExtractor.class);
 
 	@Override
 	public String templateContentPage(NewsData data, HtmlInfo html, int page, String... keyword) {

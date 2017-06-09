@@ -2,8 +2,11 @@ package common.service.oracle;
 
 import common.bean.UserData;
 import common.bean.WeiboData;
+import common.download.bbs.BBSMetaMonitorDownload;
 import common.system.Systemconfig;
 import common.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeiboOracleService extends OracleService<WeiboData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(WeiboOracleService.class);
 
     private static final String DATA = "weibo_data";
     //private static final String COMMENT = "weibo_comment_data";

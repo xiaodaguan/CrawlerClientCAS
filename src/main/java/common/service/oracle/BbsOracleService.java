@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import common.extractor.xpath.weibo.search.sub.SinaExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -17,6 +20,7 @@ import common.util.StringUtil;
 
 public class BbsOracleService extends OracleService<BBSData> {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(BbsOracleService.class);
 
 	
 

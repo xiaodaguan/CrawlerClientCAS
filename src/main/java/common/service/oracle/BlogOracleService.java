@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import common.extractor.xpath.video.monitor.VideoMonitorXpathExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -14,6 +17,7 @@ import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class BlogOracleService extends OracleService<BlogData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BlogOracleService.class);
 
 	private static final String TABLE = "blog_data";
 

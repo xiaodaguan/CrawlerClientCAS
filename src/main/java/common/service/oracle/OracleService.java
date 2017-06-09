@@ -8,6 +8,8 @@ import common.system.Systemconfig;
 
 
 import org.apache.http.HttpHost;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.io.IOException;
@@ -24,6 +26,11 @@ import java.util.Random;
  * @author grs
  */
 public abstract class OracleService<T> extends AbstractDBService<T> {
+
+
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OracleService.class);
+
     @Override
     public void saveCommentData(T t) throws IOException {
 

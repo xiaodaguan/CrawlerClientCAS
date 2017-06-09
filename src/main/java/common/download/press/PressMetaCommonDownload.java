@@ -8,9 +8,12 @@ import common.bean.NewsData;
 import common.bean.PressData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.download.company.CompanyMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载元数据
@@ -18,6 +21,7 @@ import common.util.TimeUtil;
  * @author rzy
  */
 public class PressMetaCommonDownload extends GenericMetaCommonDownload<PressData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PressMetaCommonDownload.class);
 
 	public PressMetaCommonDownload(SearchKey key) {
 		super(key);

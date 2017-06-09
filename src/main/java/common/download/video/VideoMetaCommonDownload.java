@@ -8,16 +8,20 @@ import common.bean.VideoData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.download.frgmedia.FrgmediaMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载元数据
  * @author rzy
  */
 public class VideoMetaCommonDownload extends GenericMetaCommonDownload<VideoData> {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(VideoMetaCommonDownload.class);
+
 	public VideoMetaCommonDownload(SearchKey key) {
 		super(key);
 	}

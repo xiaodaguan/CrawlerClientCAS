@@ -6,17 +6,21 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import common.extractor.xpath.client.search.ClientSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载元数据
  * @author grs
  */
 public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload<T> implements Runnable {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(GenericMetaCommonDownload.class);
+
 	protected Map<String, Integer> map = Collections.synchronizedMap(new HashMap<String, Integer>());
 	
 	public GenericMetaCommonDownload(SearchKey key) {

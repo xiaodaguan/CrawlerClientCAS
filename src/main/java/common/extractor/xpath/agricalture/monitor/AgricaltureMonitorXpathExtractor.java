@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.xml.transform.TransformerException;
 
+import common.extractor.xpath.agricalture.monitor.sub.QdfpExtractor;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -23,6 +24,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.xpath.XPathAPI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -45,6 +48,7 @@ import common.util.StringUtil;
  * @author grs
  */
 public class AgricaltureMonitorXpathExtractor extends XpathExtractor<AgricaltureData> implements AgricaltureMonitorExtractorAttribute {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AgricaltureMonitorXpathExtractor.class);
 
 	/**
 	 * 品名

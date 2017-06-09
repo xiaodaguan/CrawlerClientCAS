@@ -5,8 +5,11 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.ConferenceData;
 import common.bean.HtmlInfo;
 import common.download.GenericDataCommonDownload;
+import common.extractor.xpath.bbs.monitor.sub.QtvExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
@@ -14,6 +17,7 @@ import common.system.Systemconfig;
  * @author grs
  */
 public class ConferenceDataCommonDownload extends GenericDataCommonDownload<ConferenceData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceDataCommonDownload.class);
 
 	public ConferenceDataCommonDownload(String siteFlag, ConferenceData data, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, data, endCount, key);

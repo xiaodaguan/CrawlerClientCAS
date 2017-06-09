@@ -4,11 +4,14 @@ import common.bean.HtmlInfo;
 import common.bean.WeixinData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.extractor.xpath.client.search.sub.ZakerExtractor;
 import common.http.sub.WeixinHttpProcess;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.StringUtil;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +24,10 @@ import java.util.Scanner;
  * @author grs
  */
 public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinData> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeixinMetaCommonDownload.class);
+
+
     private static String cookies = "";
 
     public WeixinMetaCommonDownload(SearchKey key) {

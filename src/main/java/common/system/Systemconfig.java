@@ -1,6 +1,5 @@
 package common.system;
 
-import common.filter.SeedFilter;
 import common.rmi.packet.Clientinfo;
 import common.rmi.packet.CrawlerType;
 import common.rmi.packet.TaskStatus;
@@ -8,8 +7,9 @@ import common.service.DBFactory;
 import common.service.DBService;
 import common.siteinfo.Siteinfo;
 import common.util.HtmlExtractor;
-import common.util.UrlReduplicationRemove;
+import common.util.URLFilter;
 import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,6 +28,7 @@ import java.util.concurrent.*;
  * @since 0.5
  */
 public class Systemconfig {
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Systemconfig.class);
 
 
     /**
@@ -61,7 +62,7 @@ public class Systemconfig {
      * 自动抽取
      */
     public static HtmlExtractor extractor = new HtmlExtractor();
-    public static UrlReduplicationRemove urm;
+    public static URLFilter urlFilter;
     /**
      * 系统运行日志
      */
@@ -138,10 +139,6 @@ public class Systemconfig {
      */
     private static int clientIndex;
     /**
-     * 种子过滤器
-     */
-    public static SeedFilter seedFilter;
-    /**
      * 用户管理
      */
     public static HashMap<String, List<UserAttribute>> users;
@@ -191,7 +188,7 @@ public class Systemconfig {
         
         
         
-        urm = new UrlReduplicationRemove();
+        urlFilter = new URLFilter();
 
     }
 
@@ -310,9 +307,6 @@ public class Systemconfig {
         Systemconfig.crawlerType = crawlerType;
     }
 
-    public void setSeedFilter(SeedFilter seedFilter) {
-        Systemconfig.seedFilter = seedFilter;
-    }
 
     public void setDistribute(boolean isDistribute) {
         Systemconfig.distribute = isDistribute;

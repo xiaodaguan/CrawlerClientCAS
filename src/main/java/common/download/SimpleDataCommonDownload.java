@@ -4,14 +4,18 @@ import java.util.concurrent.CountDownLatch;
 
 import common.bean.CommonData;
 import common.bean.HtmlInfo;
+import common.download.weibo.WeiboRttDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
  * @author grs
  */
 public class SimpleDataCommonDownload extends GenericDataCommonDownload<CommonData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleDataCommonDownload.class);
 
 	public SimpleDataCommonDownload(String siteFlag, CommonData data, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, data, endCount, key);

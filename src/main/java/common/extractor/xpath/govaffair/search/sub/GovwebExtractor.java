@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -24,7 +26,8 @@ import common.util.ExtractResult;
  *
  */
 public class GovwebExtractor extends GovAffairSearchXpathExtractor {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(GovwebExtractor.class);
+
 	@Override
 	public String templateContentPage(GovAffairData data, HtmlInfo html, int page, String... keyword) {
 		{

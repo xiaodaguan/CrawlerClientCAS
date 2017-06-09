@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import common.util.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -25,6 +28,8 @@ import common.util.StringUtil;
  * @author grs
  */
 public class VideoMonitorXpathExtractor extends XpathExtractor<VideoData> implements VideoMonitorExtractorAttribute {
+	private static final Logger LOGGER = LoggerFactory.getLogger(VideoMonitorXpathExtractor.class);
+
 	@Override
 	public void parseUrl(List<VideoData> list, Node dom, Component component, String... args) {
 		if(component==null) return;

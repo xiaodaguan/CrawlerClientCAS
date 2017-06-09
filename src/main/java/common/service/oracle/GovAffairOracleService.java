@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import common.download.video.VideoDataCommonDownload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -16,6 +19,7 @@ import common.util.StringUtil;
 
 public class GovAffairOracleService extends OracleService<GovAffairData> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GovAffairOracleService.class);
 
     private static final String TABLE = "govaffair_data";
 

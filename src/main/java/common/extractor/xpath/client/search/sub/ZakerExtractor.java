@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import common.extractor.xpath.bbs.monitor.sub.BandaoSnExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -24,6 +27,7 @@ import common.util.MD5Util;
 import common.util.StringUtil;
 
 public class ZakerExtractor extends ClientSearchXpathExtractor {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ZakerExtractor.class);
 
 
 	@Override

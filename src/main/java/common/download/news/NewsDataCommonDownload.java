@@ -5,10 +5,13 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.HtmlInfo;
 import common.bean.NewsData;
 import common.download.GenericDataCommonDownload;
+import common.download.press.PressDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.StringUtil;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
@@ -16,6 +19,7 @@ import common.util.TimeUtil;
  * @author grs
  */
 public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(NewsDataCommonDownload.class);
 
 	public NewsDataCommonDownload(String siteFlag, NewsData vd, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, vd, endCount, key);

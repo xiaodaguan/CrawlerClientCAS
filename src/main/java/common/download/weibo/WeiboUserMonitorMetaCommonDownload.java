@@ -10,12 +10,15 @@ import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
 import common.service.mysql.WeiboMysqlService;
+import common.service.oracle.AgricaltureOracleService;
 import common.service.oracle.WeiboOracleService;
 import common.bean.CollectDataType;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.concurrent.ExecutorService;
@@ -27,6 +30,8 @@ import java.util.concurrent.Executors;
  * @author grs
  */
 public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownload<WeiboData> implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeiboUserMonitorMetaCommonDownload.class);
+
     private ExecutorService fansexec = Executors.newFixedThreadPool(1);
     private ExecutorService followexec = Executors.newFixedThreadPool(1);
     private ExecutorService weiboexec = Executors.newFixedThreadPool(1);

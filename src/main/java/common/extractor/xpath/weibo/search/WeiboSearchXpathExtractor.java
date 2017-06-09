@@ -8,7 +8,10 @@ import java.util.Map;
 
 import javax.xml.transform.TransformerException;
 
+import common.download.company.CompanyDataCommonDownload;
 import org.apache.xpath.XPathAPI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -29,6 +32,7 @@ import common.util.StringUtil;
  * @author grs
  */
 public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> implements WeiboSearchExtractorAttribute {
+	private static final Logger LOGGER = LoggerFactory.getLogger(WeiboSearchXpathExtractor.class);
 
 	@Override
 	public void processList(List<WeiboData> list, Node domtree, Map<String, Component> comp, String... args) {

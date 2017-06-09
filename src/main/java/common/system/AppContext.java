@@ -9,8 +9,11 @@ import java.util.Map;
 
 import javax.xml.transform.TransformerException;
 
+import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorXpathExtractor;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.xpath.XPathAPI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.xml.ResourceEntityResolver;
@@ -34,6 +37,7 @@ import common.util.StringUtil;
  * @author grs
  */
 public class AppContext {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppContext.class);
 
     public static ApplicationContext appCtx;
 

@@ -8,6 +8,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import common.download.bbs.BBSDataCommonDownload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -19,6 +22,7 @@ import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class EbusinessOracleService extends OracleService<EbusinessData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(EbusinessOracleService.class);
 
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private static final String oracle_product_table = "eb_data";

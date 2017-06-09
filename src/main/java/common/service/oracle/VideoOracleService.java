@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -16,6 +18,7 @@ import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class VideoOracleService extends OracleService<VideoData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(VideoOracleService.class);
 
 	private static final String TABLE = "video_data";
 

@@ -3,6 +3,7 @@ package common.http.sub;
 import java.io.IOException;
 import java.io.InputStream;
 
+import common.download.agricalture.AgricaltureMetaCommonDownload;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -15,8 +16,12 @@ import common.bean.HtmlInfo;
 import common.http.SimpleHttpProcess;
 import common.system.Systemconfig;
 import common.util.EncoderUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HexunPersonHttpProcess extends SimpleHttpProcess {
+	private static final Logger LOGGER = LoggerFactory.getLogger(HexunPersonHttpProcess.class);
+
 	/**
 	 * 对url需使用gb2312编码
 	 */

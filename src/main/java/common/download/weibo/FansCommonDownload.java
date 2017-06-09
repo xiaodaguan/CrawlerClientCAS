@@ -7,6 +7,7 @@ import java.util.List;
 import common.bean.HtmlInfo;
 import common.bean.UserData;
 import common.download.GenericMetaCommonDownload;
+import common.download.weixin.WeixinMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
@@ -14,13 +15,16 @@ import common.bean.CollectDataType;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载数据
  * @author grs
  */
 public class FansCommonDownload extends GenericMetaCommonDownload<UserData> {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(FansCommonDownload.class);
+
 	private UserAttribute user;
 	private int id;
 	public FansCommonDownload(SearchKey key, int id, UserAttribute user) {

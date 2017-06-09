@@ -7,10 +7,13 @@ import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.bean.CollectDataType;
+import common.service.oracle.WeiboOracleService;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ import java.util.List;
  * @author grs
  */
 public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeiboCommentDownload.class);
+
     private UserAttribute user;
     private int id;
 

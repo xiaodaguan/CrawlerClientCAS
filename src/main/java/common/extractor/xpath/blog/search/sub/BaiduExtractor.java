@@ -6,8 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import common.extractor.xpath.client.search.sub.ToutiaoExtractor;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -22,6 +25,7 @@ import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class BaiduExtractor extends BlogSearchXpathExtractor {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BaiduExtractor.class);
 
 	@Override
 	public String templateListPage(List<BlogData> list, HtmlInfo html, int page, String... keyword)

@@ -4,9 +4,12 @@ import common.bean.CommonData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.extractor.xpath.bbs.search.sub.ZhihuExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
  * @author guanxiaoda Wed Jan 27 2016
  */
 public class CompanyMetaCommonDownload extends GenericMetaCommonDownload<CommonData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(CompanyMetaCommonDownload.class);
 
 	public CompanyMetaCommonDownload(SearchKey key) {
 		super(key);

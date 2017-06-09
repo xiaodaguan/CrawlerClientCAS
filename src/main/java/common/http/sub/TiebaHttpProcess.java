@@ -30,8 +30,11 @@ import common.system.Systemconfig;
 import common.util.JsonUtil;
 import common.util.StringUtil;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TiebaHttpProcess extends NeedCookieHttpProcess {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TiebaHttpProcess.class);
 
 	@Override
 	public void getContent(HtmlInfo html, UserAttribute userAttribute) {

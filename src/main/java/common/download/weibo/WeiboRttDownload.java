@@ -11,16 +11,22 @@ import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.search.WeiboSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.bean.CollectDataType;
+import common.service.oracle.PressOracleService;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 微博转发数据
  * @author grs
  */
 public class WeiboRttDownload extends GenericMetaCommonDownload<WeiboData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(WeiboRttDownload.class);
+
+
 	private UserAttribute user;
 	private int id;
 	public WeiboRttDownload(SearchKey key, int id, UserAttribute user) {

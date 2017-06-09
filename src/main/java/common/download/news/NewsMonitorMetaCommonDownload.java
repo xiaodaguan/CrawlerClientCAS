@@ -5,8 +5,11 @@ import common.bean.NewsData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
+import common.service.oracle.CompanyOracleService;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
  * @author grs
  */
 public class NewsMonitorMetaCommonDownload extends GenericMetaCommonDownload<NewsData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(NewsMonitorMetaCommonDownload.class);
 
 	public NewsMonitorMetaCommonDownload(SearchKey key) {
 		super(key);

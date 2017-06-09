@@ -10,6 +10,8 @@ import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载元数据
@@ -17,6 +19,10 @@ import common.util.TimeUtil;
  * @author grs
  */
 public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> implements Runnable {
+
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(BBSMetaCommonDownload.class);
+
 	public BBSMetaCommonDownload(SearchKey key) {
 		super(key);
 	}

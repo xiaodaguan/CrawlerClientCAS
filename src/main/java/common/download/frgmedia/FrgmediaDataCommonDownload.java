@@ -5,10 +5,13 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.FrgmediaData;
 import common.bean.HtmlInfo;
 import common.download.GenericDataCommonDownload;
+import common.extractor.xpath.academic.monitor.AcademicMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.StringUtil;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
@@ -16,6 +19,7 @@ import common.util.TimeUtil;
  * @author rzy
  */
 public class FrgmediaDataCommonDownload extends GenericDataCommonDownload<FrgmediaData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(FrgmediaDataCommonDownload.class);
 
 	public FrgmediaDataCommonDownload(String siteFlag, FrgmediaData vd, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, vd, endCount, key);

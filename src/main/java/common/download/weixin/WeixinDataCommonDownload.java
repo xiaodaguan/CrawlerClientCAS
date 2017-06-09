@@ -7,8 +7,11 @@ import common.bean.WeixinData;
 import common.download.GenericDataCommonDownload;
 import common.extractor.xpath.weixin.search.WeixinSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
+import common.service.oracle.NewsOracleService;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
@@ -16,6 +19,7 @@ import common.util.TimeUtil;
  * @author grs
  */
 public class WeixinDataCommonDownload extends GenericDataCommonDownload<WeixinData> implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeixinDataCommonDownload.class);
 
     public WeixinDataCommonDownload(String siteFlag, WeixinData data, CountDownLatch endCount, SearchKey key) {
         super(siteFlag, data, endCount, key);

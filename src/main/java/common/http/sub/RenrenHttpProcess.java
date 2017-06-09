@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import common.download.weixin.WeixinDataCommonDownload;
 import common.system.UserAttribute;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
@@ -30,8 +31,11 @@ import common.system.Systemconfig;
 import common.util.JsonUtil;
 import common.util.StringUtil;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RenrenHttpProcess extends NeedCookieHttpProcess {
+	private static final Logger LOGGER = LoggerFactory.getLogger(RenrenHttpProcess.class);
 
 	@Override
 	public void getContent(HtmlInfo html, UserAttribute userAttribute) {

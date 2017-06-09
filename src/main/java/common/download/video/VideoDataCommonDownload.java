@@ -5,14 +5,18 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.VideoData;
 import common.bean.HtmlInfo;
 import common.download.GenericDataCommonDownload;
+import common.download.frgmedia.FrgmediaDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
  * @author rzy
  */
 public class VideoDataCommonDownload extends GenericDataCommonDownload<VideoData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(VideoDataCommonDownload.class);
 
 	public VideoDataCommonDownload(String siteFlag, VideoData vd, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, vd, endCount, key);

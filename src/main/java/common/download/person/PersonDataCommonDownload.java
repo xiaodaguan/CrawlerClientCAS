@@ -5,8 +5,11 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.PersonData;
 import common.bean.HtmlInfo;
 import common.download.GenericDataCommonDownload;
+import common.extractor.xpath.weibo.search.WeiboSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
@@ -14,6 +17,7 @@ import common.system.Systemconfig;
  * @author grs
  */
 public class PersonDataCommonDownload extends GenericDataCommonDownload<PersonData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonDataCommonDownload.class);
 
 	public PersonDataCommonDownload(String siteFlag, PersonData vd, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, vd, endCount, key);

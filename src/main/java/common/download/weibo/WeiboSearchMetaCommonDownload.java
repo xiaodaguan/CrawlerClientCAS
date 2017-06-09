@@ -4,6 +4,7 @@ import common.bean.HtmlInfo;
 import common.bean.WeiboData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.extractor.xpath.blog.search.sub.SogouExtractor;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
@@ -11,6 +12,8 @@ import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +29,7 @@ import java.util.concurrent.Future;
  * 微博搜索列表页下载
  */
 public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<WeiboData> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeiboSearchMetaCommonDownload.class);
 
     public WeiboSearchMetaCommonDownload(SearchKey key) {
         super(key);

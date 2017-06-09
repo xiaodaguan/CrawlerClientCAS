@@ -4,11 +4,14 @@ import common.bean.BBSData;
 import common.bean.HtmlInfo;
 import common.bean.ReplyData;
 import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
+import common.extractor.xpath.blog.search.sub.BaiduExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.MD5Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -21,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BandaoSnExtractor extends BbsMonitorXpathExtractor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BandaoSnExtractor.class);
 
     @Override
     public void processList(List<BBSData> list, Node domtree, Map<String, Component> components, String... args) {

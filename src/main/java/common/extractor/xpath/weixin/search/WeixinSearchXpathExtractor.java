@@ -5,6 +5,7 @@ import common.bean.Proxy;
 import common.bean.WeixinData;
 import common.bean.WxpublicData;
 import common.extractor.xpath.XpathExtractor;
+import common.service.oracle.ReportOracleService;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
@@ -15,6 +16,8 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.xpath.XPathAPI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -40,6 +43,7 @@ import java.util.Map;
  * @author gxd
  */
 public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> implements WeixinSearchExtractorAttribute {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeixinSearchXpathExtractor.class);
 
 
     public void parseUrl1(List<WeixinData> list, Node dom, Component component, String... args) {

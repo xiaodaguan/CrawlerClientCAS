@@ -7,9 +7,12 @@ import common.bean.HtmlInfo;
 import common.bean.PressData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.download.weibo.FansCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载元数据
@@ -17,6 +20,7 @@ import common.util.TimeUtil;
  * @author grs
  */
 public class PressMonitorMetaCommonDownload extends GenericMetaCommonDownload<PressData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PressMonitorMetaCommonDownload.class);
 
 	public PressMonitorMetaCommonDownload(SearchKey key) {
 		super(key);

@@ -7,10 +7,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import common.bean.CommonData;
+import common.extractor.xpath.frgmedia.search.sub.SinoExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 详细数据控制线程
@@ -18,6 +21,8 @@ import common.util.TimeUtil;
  * @author grs
  */
 public class DataThreadControl {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataThreadControl.class);
+
     protected final String siteFlag;
     protected final String unique;
 

@@ -1,32 +1,5 @@
 package common.extractor.xpath.agricalture.monitor.sub;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.xml.transform.TransformerException;
-
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.xpath.XPathAPI;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import common.bean.AgricaltureData;
 import common.bean.HtmlInfo;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorExtractorAttribute;
@@ -36,8 +9,30 @@ import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.StringUtil;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.xpath.XPathAPI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+import javax.xml.transform.TransformerException;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class QdfpExtractor extends AgricaltureMonitorXpathExtractor implements AgricaltureMonitorExtractorAttribute {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(QdfpExtractor.class);
 
 	@Override public String templateListPage(List<AgricaltureData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
 		list.clear();

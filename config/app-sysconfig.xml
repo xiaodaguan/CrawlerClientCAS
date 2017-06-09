@@ -198,6 +198,5 @@
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 
-	<bean id="seedFilter" class="common.filter.SimpleSeedFilter" />
 
 </beans>

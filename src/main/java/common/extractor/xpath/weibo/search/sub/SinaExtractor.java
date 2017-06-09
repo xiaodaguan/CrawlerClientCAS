@@ -2,11 +2,14 @@ package common.extractor.xpath.weibo.search.sub;
 
 import common.bean.HtmlInfo;
 import common.bean.WeiboData;
+import common.extractor.xpath.bbs.monitor.sub.TianyaExtractor;
 import common.extractor.xpath.weibo.search.WeiboSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.system.Systemconfig;
 import common.util.JsonUtil;
 import common.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
@@ -16,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 public class SinaExtractor extends WeiboSearchXpathExtractor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SinaExtractor.class);
 
     @Override
     protected Node getRealDOM(HtmlInfo html) throws SAXException, IOException {

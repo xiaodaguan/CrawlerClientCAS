@@ -8,7 +8,10 @@ import java.util.Map;
 import javax.xml.crypto.Data;
 import javax.xml.transform.TransformerException;
 
+import common.http.SimpleHttpProcess;
 import org.apache.xpath.XPathAPI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -31,6 +34,7 @@ import common.util.StringUtil;
  * @author grs
  */
 public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(XpathExtractor.class);
 
 	/**
 	 * 供测试

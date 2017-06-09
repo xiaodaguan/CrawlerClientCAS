@@ -1,12 +1,15 @@
 package common.service;
 
 import common.bean.CommonData;
+import common.extractor.xpath.video.search.VideoSearchXpathExtractor;
 import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.system.SiteTemplateAttribute;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.util.UserAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -15,6 +18,8 @@ import java.sql.*;
 import java.util.*;
 
 public abstract class AbstractDBService<T> implements DBService<T> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDBService.class);
+
 
     protected JdbcTemplate jdbcTemplate;
 
@@ -48,7 +53,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
         List<CommonData> repeatDatas = new ArrayList<CommonData>();
         while (iter.hasNext()) {
             CommonData cd = iter.next();
-            if (!Systemconfig.urm.checkNoRepeat(cd.getMd5())) {
+            if (!Systemconfig.urlFilter.checkNoRepeat(cd.getMd5())) {
                 iter.remove();
                 repeatDatas.add(cd);
             }
@@ -86,8 +91,8 @@ public abstract class AbstractDBService<T> implements DBService<T> {
             	String tt = t.replace("ebusiness", "eb").replace("person_data", "leaders") ;
             	String SQL_WEB = "select md5 from " + tt;
 
-                
-                		
+
+
                 LOGGER.info("md5 SQL: "+SQL_WEB);
                 List<String> list = this.jdbcTemplate.queryForList(SQL_WEB, String.class);
                 LOGGER.info("md5 获取成功！！！ ");

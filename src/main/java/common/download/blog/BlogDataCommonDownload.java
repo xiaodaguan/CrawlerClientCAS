@@ -5,8 +5,11 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.BlogData;
 import common.bean.HtmlInfo;
 import common.download.GenericDataCommonDownload;
+import common.download.press.PressMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
@@ -14,6 +17,7 @@ import common.system.Systemconfig;
  * @author grs
  */
 public class BlogDataCommonDownload extends GenericDataCommonDownload<BlogData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BlogDataCommonDownload.class);
 
 	public BlogDataCommonDownload(String siteFlag, BlogData vd, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, vd, endCount, key);

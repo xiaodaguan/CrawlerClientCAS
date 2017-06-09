@@ -4,12 +4,15 @@ import common.bean.BBSData;
 import common.bean.HtmlInfo;
 import common.bean.ReplyData;
 import common.extractor.xpath.XpathExtractor;
+import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.MD5Util;
 import common.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -26,6 +29,9 @@ import java.util.Map;
  * @author grs
  */
 public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements BbsSearchExtractorAttribute {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(BbsSearchXpathExtractor.class);
+
 	@Override
 	public void processList(List<BBSData> list, Node domtree,
 			Map<String, Component> components, String... args) {

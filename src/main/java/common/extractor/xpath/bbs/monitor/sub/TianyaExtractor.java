@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 
+import common.download.weibo.WeiboCommentDownload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -24,6 +27,9 @@ import common.util.MD5Util;
 import common.util.StringUtil;
 
 public class TianyaExtractor extends BbsMonitorXpathExtractor {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TianyaExtractor.class);
+
+
 	@Override
 	public void processList(List<BBSData> list, Node domtree, Map<String, Component> components, String... args) {
 		this.parseTitle(list, domtree, components.get("title"));

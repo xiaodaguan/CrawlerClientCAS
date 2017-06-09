@@ -5,17 +5,21 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.HtmlInfo;
 import common.bean.NewsData;
 import common.download.GenericDataCommonDownload;
+import common.extractor.xpath.academic.search.AcademicSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.service.mysql.NewsMysqlService;
 import common.service.oracle.NewsOracleService;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
  * @author grs
  */
 public class NewsSameDataCommonDownload extends GenericDataCommonDownload<NewsData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(NewsSameDataCommonDownload.class);
 
 	public NewsSameDataCommonDownload(String siteFlag, NewsData vd,
 			CountDownLatch endCount, SearchKey key) {

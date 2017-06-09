@@ -5,12 +5,15 @@ import common.bean.ClientData;
 import common.bean.HtmlInfo;
 import common.bean.ReplyData;
 import common.extractor.xpath.XpathExtractor;
+import common.service.oracle.VideoOracleService;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.MD5Util;
 import common.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -28,8 +31,9 @@ import java.util.Map;
  * @author rzy
  */
 public class ClientSearchXpathExtractor extends XpathExtractor<ClientData> implements ClientSearchExtractorAttribute {
-	
-	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClientSearchXpathExtractor.class);
+
 	@Override
 	public void processList(List<ClientData> list, Node domtree,
 			Map<String, Component> components, String... args) {

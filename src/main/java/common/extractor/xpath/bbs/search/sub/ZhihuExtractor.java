@@ -4,6 +4,7 @@ import common.bean.BBSData;
 import common.bean.BlogData;
 import common.bean.HtmlInfo;
 import common.bean.ReplyData;
+import common.download.person.PersonDataCommonDownload;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -13,6 +14,8 @@ import common.util.ExtractResult;
 import common.util.MD5Util;
 import common.util.StringUtil;
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -27,6 +30,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ZhihuExtractor extends BbsSearchXpathExtractor {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ZhihuExtractor.class);
 
 	public  String delHTMLTag(String htmlStr) {
 		final String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式

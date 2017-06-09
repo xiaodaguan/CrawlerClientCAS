@@ -1,6 +1,7 @@
 package common.system;
 
 import common.download.DownFactory;
+import common.download.weibo.WeiboSearchMetaCommonDownload;
 import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
@@ -10,6 +11,8 @@ import common.util.StringUtil;
 import common.util.TimeUtil;
 import crawlerlog.log.CLog;
 import crawlerlog.log.CLogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -21,6 +24,7 @@ import java.util.concurrent.Future;
 
 public class Job {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Job.class);
 
     /**
      * crawler log config

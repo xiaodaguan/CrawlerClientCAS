@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import common.download.conference.ConferenceMetaCommonDownload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -14,6 +17,7 @@ import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class ReportOracleService extends OracleService<ReportData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReportOracleService.class);
 
 	private static final String TABLE = "company_report";
 

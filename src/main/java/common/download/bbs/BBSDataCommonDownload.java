@@ -7,7 +7,10 @@ import common.bean.HtmlInfo;
 import common.bean.ReplyData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
+import common.service.oracle.BbsOracleService;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
@@ -15,6 +18,7 @@ import common.system.Systemconfig;
  * @author grs
  */
 public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BBSDataCommonDownload.class);
 
     public BBSDataCommonDownload(String siteFlag, BBSData vd, CountDownLatch endCount, SearchKey key) {
         super(siteFlag, vd, endCount, key);

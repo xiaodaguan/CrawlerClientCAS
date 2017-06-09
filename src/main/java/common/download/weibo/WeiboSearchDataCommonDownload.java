@@ -5,6 +5,7 @@ import java.util.concurrent.CountDownLatch;
 import common.bean.HtmlInfo;
 import common.bean.WeiboData;
 import common.download.GenericDataCommonDownload;
+import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
@@ -12,6 +13,8 @@ import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
@@ -19,6 +22,7 @@ import common.util.TimeUtil;
  * @author grs
  */
 public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<WeiboData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(WeiboSearchDataCommonDownload.class);
 
 	private UserAttribute userAttribute;
 

@@ -8,9 +8,12 @@ import common.bean.ClientData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.download.blog.BlogMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载元数据
@@ -18,6 +21,8 @@ import common.util.TimeUtil;
  * @author rzy
  */
 public class ClientMetaCommonDownload extends GenericMetaCommonDownload<ClientData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClientMetaCommonDownload.class);
+
 	public ClientMetaCommonDownload(SearchKey key) {
 		super(key);
 	}

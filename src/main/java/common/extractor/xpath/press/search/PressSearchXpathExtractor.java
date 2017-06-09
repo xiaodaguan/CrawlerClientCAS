@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import common.extractor.xpath.frgmedia.search.FrgmediaSearchXpathExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -23,6 +26,7 @@ import common.util.StringUtil;
  * @author rzy
  */
 public class PressSearchXpathExtractor extends XpathExtractor<PressData> implements PressSearchExtractorAttribute {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PressSearchXpathExtractor.class);
 
 	@Override
 	public String templateContentPage(PressData data, HtmlInfo html, int page, String... keyword) {

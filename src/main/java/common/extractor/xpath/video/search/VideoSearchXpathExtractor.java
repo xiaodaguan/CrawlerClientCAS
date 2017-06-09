@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -27,6 +29,10 @@ import common.util.StringUtil;
  * @author grs
  */
 public class VideoSearchXpathExtractor extends XpathExtractor<VideoData> implements VideoSearchExtractorAttribute {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(VideoSearchXpathExtractor.class);
+
+
 	@Override
 	public void parseUrl(List<VideoData> list, Node dom, Component component, String... args) {
 		if(component==null) return;

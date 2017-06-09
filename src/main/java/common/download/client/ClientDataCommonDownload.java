@@ -6,8 +6,11 @@ import common.bean.ClientData;
 import common.bean.HtmlInfo;
 import common.bean.ReplyData;
 import common.download.GenericDataCommonDownload;
+import common.download.blog.BlogDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
@@ -15,6 +18,7 @@ import common.system.Systemconfig;
  * @author rzy
  */
 public class ClientDataCommonDownload extends GenericDataCommonDownload<ClientData> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientDataCommonDownload.class);
 
     public ClientDataCommonDownload(String siteFlag, ClientData vd, CountDownLatch endCount, SearchKey key) {
         super(siteFlag, vd, endCount, key);

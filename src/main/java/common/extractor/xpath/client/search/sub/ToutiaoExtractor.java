@@ -9,8 +9,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import common.download.DataThreadControl;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -29,6 +32,7 @@ import common.util.StringUtil;
 import common.util.TimeUtil;
 
 public class ToutiaoExtractor extends ClientSearchXpathExtractor {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ToutiaoExtractor.class);
 
 	@Override
 	public String templateListPage(List<ClientData> list, HtmlInfo html, int page, String... keyword)

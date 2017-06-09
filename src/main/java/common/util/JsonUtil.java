@@ -2,8 +2,12 @@ package common.util;
 
 import java.util.List;
 
+import common.extractor.xpath.weixin.search.WeixinSearchXpathExtractor;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 解析json的通用方法
  * @author grs
@@ -11,6 +15,8 @@ import net.sf.json.JSONObject;
  * 
  */
 public class JsonUtil {
+	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtil.class);
+
 	/**
 	 * 获得解析json文件中的对象列表
 	 * 泛型方法

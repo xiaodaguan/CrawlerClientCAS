@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import common.extractor.xpath.govaffair.search.sub.GovwebExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -14,6 +17,7 @@ import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class NewsOracleService extends OracleService<NewsData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(NewsOracleService.class);
 
 
     private static final String TABLE = "news_data";

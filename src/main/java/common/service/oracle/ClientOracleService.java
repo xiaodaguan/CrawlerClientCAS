@@ -7,6 +7,9 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import common.download.agricalture.AgricaltureMonitorMetaCommonDownload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -18,6 +21,7 @@ import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class ClientOracleService extends OracleService<ClientData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClientOracleService.class);
 
 
 	

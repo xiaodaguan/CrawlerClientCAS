@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -16,6 +19,7 @@ import common.system.Systemconfig;
 import common.util.StringUtil;
 
 public class PersonOracleService extends OracleService<PersonData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonOracleService.class);
 
 	private static final String TABLE = "leaders";
 

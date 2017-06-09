@@ -5,9 +5,12 @@ import java.util.List;
 
 import common.bean.CommonData;
 import common.bean.HtmlInfo;
+import common.extractor.xpath.bbs.search.sub.AutohomeExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载元数据
@@ -15,6 +18,7 @@ import common.util.TimeUtil;
  * @author grs
  */
 public class SimpleMetaCommonDownload extends GenericMetaCommonDownload<CommonData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleMetaCommonDownload.class);
 
 	public SimpleMetaCommonDownload(SearchKey key) {
 		super(key);

@@ -7,12 +7,16 @@ import common.bean.ReportData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
  * @author grs
  */
 public class ReportDataCommonDownload extends GenericDataCommonDownload<ReportData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReportDataCommonDownload.class);
+
 
 	public ReportDataCommonDownload(String siteFlag, ReportData data, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, data, endCount, key);

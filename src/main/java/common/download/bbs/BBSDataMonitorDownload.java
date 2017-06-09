@@ -3,10 +3,13 @@ package common.download.bbs;
 import common.bean.BBSData;
 import common.bean.HtmlInfo;
 import common.download.GenericDataCommonDownload;
+import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -16,6 +19,7 @@ import java.util.concurrent.CountDownLatch;
  * @author grs
  */
 public class BBSDataMonitorDownload extends GenericDataCommonDownload<BBSData> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BBSDataMonitorDownload.class);
 
     public BBSDataMonitorDownload(String siteFlag, BBSData vd, CountDownLatch endCount, SearchKey key) {
         super(siteFlag, vd, endCount, key);

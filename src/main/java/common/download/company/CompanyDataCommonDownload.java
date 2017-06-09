@@ -3,8 +3,11 @@ package common.download.company;
 import common.bean.CommonData;
 import common.bean.HtmlInfo;
 import common.download.GenericDataCommonDownload;
+import common.download.report.ReportDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -13,6 +16,7 @@ import java.util.concurrent.CountDownLatch;
  * @author grs
  */
 public class CompanyDataCommonDownload extends GenericDataCommonDownload<CommonData> implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDataCommonDownload.class);
 
 	public CompanyDataCommonDownload(String siteFlag, CommonData data, CountDownLatch endCount, SearchKey key) {
 		super(siteFlag, data, endCount, key);

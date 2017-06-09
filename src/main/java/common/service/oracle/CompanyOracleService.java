@@ -1,8 +1,11 @@
 package common.service.oracle;
 
 import common.bean.CompanyData;
+import common.http.sub.TiebaHttpProcess;
 import common.system.Systemconfig;
 import common.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -12,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CompanyOracleService extends OracleService<CompanyData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(CompanyOracleService.class);
 
     private static final String TABLE = "company_data";
 

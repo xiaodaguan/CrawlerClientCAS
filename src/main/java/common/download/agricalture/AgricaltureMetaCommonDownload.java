@@ -4,9 +4,12 @@ import common.bean.AgricaltureData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.extractor.xpath.bbs.search.sub.XcarExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
  * @author gxd
  */
 public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<AgricaltureData> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AgricaltureMetaCommonDownload.class);
 
 	public AgricaltureMetaCommonDownload(SearchKey key) {
 		super(key);

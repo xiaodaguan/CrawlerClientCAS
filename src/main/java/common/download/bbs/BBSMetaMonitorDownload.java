@@ -4,11 +4,14 @@ import common.bean.BBSData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.extractor.xpath.bbs.search.sub.sogouExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,9 @@ import java.util.List;
  * @author grs
  */
 public class BBSMetaMonitorDownload extends GenericMetaCommonDownload<BBSData> implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BBSMetaMonitorDownload.class);
+
+
     public BBSMetaMonitorDownload(SearchKey key) {
         super(key);
     }
