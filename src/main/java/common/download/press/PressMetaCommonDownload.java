@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.bean.HtmlInfo;
-import common.bean.NewsData;
 import common.bean.PressData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.download.company.CompanyMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
@@ -62,7 +60,7 @@ public class PressMetaCommonDownload extends GenericMetaCommonDownload<PressData
 				}
 				LOGGER.info("关键词：[" + key.getKey() + "] " + url + "元数据页面解析完成。");
 				totalCount += list.size();
-				Systemconfig.dbService.getNorepeatData(list, "");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0) {
 					LOGGER.info("关键词：[" + key.getKey() + "] " + url + "没有新数据");
 					if (alllist.size() == 0)

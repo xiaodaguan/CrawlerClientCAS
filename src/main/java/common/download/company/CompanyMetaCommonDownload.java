@@ -4,7 +4,6 @@ import common.bean.CommonData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.extractor.xpath.bbs.search.sub.ZhihuExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
@@ -52,7 +51,7 @@ public class CompanyMetaCommonDownload extends GenericMetaCommonDownload<CommonD
 				}
 				LOGGER.info(url + "元数据页面解析完成。");
 
-				Systemconfig.dbService.getNorepeatData(list, "");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0) {
 					if (alllist.size() == 0)
 						TimeUtil.rest(siteinfo.getDownInterval());

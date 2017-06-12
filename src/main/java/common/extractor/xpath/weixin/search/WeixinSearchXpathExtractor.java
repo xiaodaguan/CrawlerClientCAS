@@ -294,7 +294,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
 
                     List<WxpublicData> list = new ArrayList<WxpublicData>();
                     list.add(wpd);
-                    // Systemconfig.dbService.getNorepeatData(list,
+                    // Systemconfig.dbService.filterDuplication(list,
                     // "vip_temp_gongzhong");
                     if (list.size() > 0) {
                         int gongzhongid = Systemconfig.dbService.saveGongzhongData(wpd);

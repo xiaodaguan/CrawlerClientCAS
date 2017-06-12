@@ -1,7 +1,6 @@
 package common.service;
 
 import common.bean.CommonData;
-import common.extractor.xpath.video.search.VideoSearchXpathExtractor;
 import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.system.SiteTemplateAttribute;
@@ -48,12 +47,12 @@ public abstract class AbstractDBService<T> implements DBService<T> {
     }
 
     @Override
-    public List<? extends CommonData> getNorepeatData(List<? extends CommonData> list, String table) {
+    public List<? extends CommonData> filterDuplication(List<? extends CommonData> list) {
         Iterator<? extends CommonData> iter = list.iterator();
         List<CommonData> repeatDatas = new ArrayList<CommonData>();
         while (iter.hasNext()) {
             CommonData cd = iter.next();
-            if (!Systemconfig.urlFilter.checkNoRepeat(cd.getMd5())) {
+            if (!Systemconfig.urlFilter.contains(cd.getMd5())) {
                 iter.remove();
                 repeatDatas.add(cd);
             }
@@ -62,7 +61,7 @@ public abstract class AbstractDBService<T> implements DBService<T> {
     }
 
     @Override
-    public void deleteReduplicationUrls(List<String> urlList, String table) {
+    public void removeDataBaseDuplication(List<String> urlList, String table) {
         table = table.replace("person_data", "leaders");
         String sql = "select id from " + table + " where md5=?";
         String DELETE_SQL = "delete from " + table + " where id=?";

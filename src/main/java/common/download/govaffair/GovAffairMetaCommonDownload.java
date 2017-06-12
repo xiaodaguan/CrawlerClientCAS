@@ -3,7 +3,6 @@ package common.download.govaffair;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.CrawlerStart;
 import common.bean.GovAffairData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
@@ -62,7 +61,7 @@ public class GovAffairMetaCommonDownload extends GenericMetaCommonDownload<GovAf
                 }
                 LOGGER.info("关键词：[" + key.getKey() + "] " + url + "元数据页面解析完成。");
                 totalCount += list.size();
-                Systemconfig.dbService.getNorepeatData(list, "");
+                Systemconfig.dbService.filterDuplication(list);
                 if (list.size() == 0) {
                     LOGGER.info("关键词：[" + key.getKey() + "] " + url + "no new data.");
                     if (alllist.size() == 0)

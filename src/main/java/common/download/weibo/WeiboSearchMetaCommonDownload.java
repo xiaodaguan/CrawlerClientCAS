@@ -4,7 +4,6 @@ import common.bean.HtmlInfo;
 import common.bean.WeiboData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.extractor.xpath.blog.search.sub.SogouExtractor;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
@@ -139,7 +138,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                     }
                     LOGGER.info("--" + userAttribute + " --" + keyword + ": " + url + "元数据页面解析完成。");
                     totalCount += list.size();
-                    List<WeiboData> repeat = Systemconfig.dbService.getNorepeatData(list, "");
+                    List<WeiboData> repeat = Systemconfig.dbService.filterDuplication(list);
                     for (WeiboData wd : repeat) {
                         allRepeatMd5.add(wd.getMd5());
                     }

@@ -3,12 +3,10 @@ package common.download.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.BBSData;
 import common.bean.ClientData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.download.blog.BlogMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
@@ -60,7 +58,7 @@ public class ClientMetaCommonDownload extends GenericMetaCommonDownload<ClientDa
 				}
 				LOGGER.info(url + "元数据页面解析完成。");
 
-				Systemconfig.dbService.getNorepeatData(list, "");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0) {
 					TimeUtil.rest(siteinfo.getDownInterval());
 					// break;

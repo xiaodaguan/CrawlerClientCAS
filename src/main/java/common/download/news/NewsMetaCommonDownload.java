@@ -7,7 +7,6 @@ import common.bean.HtmlInfo;
 import common.bean.NewsData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.download.client.ClientDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
@@ -61,7 +60,7 @@ public class NewsMetaCommonDownload extends GenericMetaCommonDownload<NewsData> 
 				}
 				LOGGER.info("关键词：[" + key.getKey() + "] " + url + "元数据页面解析完成。");
 				totalCount += list.size();
-				Systemconfig.dbService.getNorepeatData(list, "");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0) {
 					LOGGER.info("关键词：[" + key.getKey() + "] " + url + "no new data.");
 					if (alllist.size() == 0)

@@ -11,7 +11,6 @@ import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.search.WeiboSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.bean.CollectDataType;
-import common.service.oracle.PressOracleService;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
@@ -60,7 +59,7 @@ public class WeiboRttDownload extends GenericMetaCommonDownload<WeiboData> {
 					}
 					LOGGER.info(url + "数据页面解析完成。");
 					
-					Systemconfig.dbService.getNorepeatData(list, "");
+					Systemconfig.dbService.filterDuplication(list);
 					if(list.size()==0) break;
 					alllist.addAll(list);
 					

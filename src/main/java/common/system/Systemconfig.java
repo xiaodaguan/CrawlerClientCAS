@@ -6,8 +6,8 @@ import common.rmi.packet.TaskStatus;
 import common.service.DBFactory;
 import common.service.DBService;
 import common.siteinfo.Siteinfo;
+import common.urlFilter.BloomFilterRedis;
 import common.util.HtmlExtractor;
-import common.util.URLFilter;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +62,7 @@ public class Systemconfig {
      * 自动抽取
      */
     public static HtmlExtractor extractor = new HtmlExtractor();
-    public static URLFilter urlFilter;
+    public static BloomFilterRedis urlFilter;
     /**
      * 系统运行日志
      */
@@ -188,7 +188,7 @@ public class Systemconfig {
         
         
         
-        urlFilter = new URLFilter();
+        urlFilter.init();
 
     }
 

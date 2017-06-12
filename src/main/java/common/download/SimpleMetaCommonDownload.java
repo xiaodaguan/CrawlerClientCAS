@@ -5,7 +5,6 @@ import java.util.List;
 
 import common.bean.CommonData;
 import common.bean.HtmlInfo;
-import common.extractor.xpath.bbs.search.sub.AutohomeExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
@@ -50,7 +49,7 @@ public class SimpleMetaCommonDownload extends GenericMetaCommonDownload<CommonDa
 				}
 				LOGGER.info(url + "元数据页面解析完成。");
 
-				Systemconfig.dbService.getNorepeatData(list, "");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0) {
 					if (alllist.size() == 0)
 						TimeUtil.rest(siteinfo.getDownInterval());

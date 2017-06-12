@@ -1,4 +1,4 @@
-package common.redis;
+package common.util;
 
 
 import redis.clients.jedis.HostAndPort;

@@ -60,7 +60,7 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 				}
 				LOGGER.info(url + "元数据页面解析完成。");
 
-				Systemconfig.dbService.getNorepeatData(list, "");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0) {
 					TimeUtil.rest(siteinfo.getDownInterval());
 					// break;

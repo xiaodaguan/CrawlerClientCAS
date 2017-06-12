@@ -4,7 +4,6 @@ import common.bean.HtmlInfo;
 import common.bean.WeixinData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.extractor.xpath.client.search.sub.ZakerExtractor;
 import common.http.sub.WeixinHttpProcess;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
@@ -13,7 +12,6 @@ import common.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -87,7 +85,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
 
                     last = html.getContent();
                     totalCount += list.size();
-                    Systemconfig.dbService.getNorepeatData(list, "");
+                    Systemconfig.dbService.filterDuplication(list);
                     if (list.size() == 0) {
                         LOGGER.info("无新数据。");
                         if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());

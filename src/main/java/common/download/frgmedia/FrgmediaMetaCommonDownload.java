@@ -8,7 +8,6 @@ import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.service.oracle.EbusinessOracleService;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
 import org.slf4j.Logger;
@@ -60,7 +59,7 @@ public class FrgmediaMetaCommonDownload extends GenericMetaCommonDownload<Frgmed
 				}
 				LOGGER.info("关键词：[" + key.getKey() + "] " + url + "元数据页面解析完成。");
 				totalCount += list.size();
-				Systemconfig.dbService.getNorepeatData(list, "");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0) {
 					LOGGER.info("关键词：[" + key.getKey() + "] " + url + "no new data.");
 					if (alllist.size() == 0)

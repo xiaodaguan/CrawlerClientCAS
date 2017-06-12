@@ -7,7 +7,6 @@ import common.bean.ConferenceData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.download.weibo.FollowCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
@@ -54,7 +53,7 @@ public class ConferenceMetaCommonDownload extends GenericMetaCommonDownload<Conf
 				}
 				LOGGER.info(url + "元数据页面解析完成。");
 				totalCount += list.size();
-				Systemconfig.dbService.getNorepeatData(list, "news_data");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0)
 					break;
 				alllist.addAll(list);

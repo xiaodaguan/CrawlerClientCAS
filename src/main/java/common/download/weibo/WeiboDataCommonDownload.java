@@ -3,7 +3,6 @@ package common.download.weibo;
 import common.bean.HtmlInfo;
 import common.bean.WeiboData;
 import common.download.GenericDataCommonDownload;
-import common.extractor.xpath.weixin.monitor.WeixinMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.bean.CollectDataType;
 import common.siteinfo.Siteinfo;
@@ -81,7 +80,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                         break;
                     }
 
-                    Systemconfig.dbService.getNorepeatData(list, "weibo_data");
+                    Systemconfig.dbService.filterDuplication(list);
                     if (list.size() == 0) {
                         LOGGER.info(url + "无新数据.");
                         break;
@@ -136,7 +135,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                         LOGGER.info(url + "下拉加载解析为空！！");
                         break;
                     }
-                    Systemconfig.dbService.getNorepeatData(list, "weibo_data");
+                    Systemconfig.dbService.filterDuplication(list);
                     if (list.size() == 0) {
                         LOGGER.info(url + "下拉加载解无新数据.");
                         break;

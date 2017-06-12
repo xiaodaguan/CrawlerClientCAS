@@ -1,4 +1,4 @@
-package common.util;
+package common.urlFilter;
 
 
 import common.redis.RedisBitSet;

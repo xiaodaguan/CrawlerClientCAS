@@ -8,7 +8,6 @@ import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.system.Job;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
 import org.slf4j.Logger;
@@ -54,7 +53,7 @@ public class PersonMetaCommonDownload extends GenericMetaCommonDownload<PersonDa
 				}
 				LOGGER.info(url + "元数据页面解析完成。");
 				totalCount += list.size();
-				Systemconfig.dbService.getNorepeatData(list, "news_data");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0)
 					break;
 				alllist.addAll(list);

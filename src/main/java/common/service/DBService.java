@@ -34,7 +34,7 @@ public interface DBService<T> {
      * @param url
      * @param table
      */
-    public void deleteReduplicationUrls(List<String> url, String table);
+    public void removeDataBaseDuplication(List<String> url, String table);
 
     /**
      * 获得表中的md5
@@ -57,10 +57,9 @@ public interface DBService<T> {
      * 过滤重复数据
      *
      * @param list
-     * @param table
      * @return
      */
-    List<? extends CommonData> getNorepeatData(List<? extends CommonData> list, String table);
+    List<? extends CommonData> filterDuplication(List<? extends CommonData> list);
 
     /**
      * 数据库中的检索词

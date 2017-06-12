@@ -4,7 +4,6 @@ import common.bean.BBSData;
 import common.bean.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.extractor.xpath.bbs.search.sub.sogouExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
@@ -63,7 +62,7 @@ public class BBSMetaMonitorDownload extends GenericMetaCommonDownload<BBSData> i
                 }
                 LOGGER.info(url + "元数据页面解析完成。");
                 totalCount += list.size();
-                Systemconfig.dbService.getNorepeatData(list, "");
+                Systemconfig.dbService.filterDuplication(list);
                 if (list.size() == 0) {
                     TimeUtil.rest(siteinfo.getDownInterval());
 //					break;

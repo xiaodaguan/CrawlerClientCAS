@@ -8,7 +8,6 @@ import common.bean.HtmlInfo;
 import common.bean.ReportData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.download.press.PressMonitorMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.StringUtil;
@@ -64,7 +63,7 @@ public class ReportMetaCommonDownload extends GenericMetaCommonDownload<ReportDa
 				LOGGER.info(url + "元数据页面解析完成。");
 
 				totalCount += list.size();
-				Systemconfig.dbService.getNorepeatData(list, "");
+				Systemconfig.dbService.filterDuplication(list);
 				if (list.size() == 0) {
 					if (alllist.size() == 0)
 						TimeUtil.rest(siteinfo.getDownInterval());

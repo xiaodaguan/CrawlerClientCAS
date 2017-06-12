@@ -7,7 +7,6 @@ import java.util.List;
 import common.bean.HtmlInfo;
 import common.bean.UserData;
 import common.download.GenericMetaCommonDownload;
-import common.download.govaffair.GovAffairDataCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
@@ -58,7 +57,7 @@ public class FollowCommonDownload extends GenericMetaCommonDownload<UserData> {
 					}
 					LOGGER.info(url + "元数据页面解析完成。");
 					
-					Systemconfig.dbService.getNorepeatData(list, "");
+					Systemconfig.dbService.filterDuplication(list);
 					
 					alllist.addAll(list);
 					
