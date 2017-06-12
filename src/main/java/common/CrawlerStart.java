@@ -8,7 +8,6 @@ import common.system.Job;
 import common.system.Systemconfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import special.ClearCrawlerLog;
 
 public class CrawlerStart {
 

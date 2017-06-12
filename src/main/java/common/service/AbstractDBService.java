@@ -81,6 +81,30 @@ public abstract class AbstractDBService<T> implements DBService<T> {
     }
 
     @Override
+    public List<String> getAllMd5(String table) {
+        String[] tabs = table.split(",");
+        List<String> allList = new ArrayList<>();
+        try {
+            for (String t : tabs) {
+
+                String tt = t.replace("ebusiness", "eb").replace("person_data", "leaders") ;
+                String SQL_WEB = "select md5 from " + tt;
+
+
+
+                LOGGER.info("md5 SQL: {}", SQL_WEB);
+                List<String> list = this.jdbcTemplate.queryForList(SQL_WEB, String.class);
+                LOGGER.info("table {} md5 获取成功！！！ ", tt);
+                allList.addAll(list);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return allList;
+    }
+
+    @Override
     public int getAllMd5(String table, Map<String, List<String>> map) {
         int num = 0;
         String[] tabs = table.split(",");

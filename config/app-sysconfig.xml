@@ -11,18 +11,15 @@
 		<property name="agentIp" value="${agentip}" />
 		<property name="agentPort" value="${agentport}" />
 		<property name="extractor" ref="extractor" />
-		<property name="seedFilter" ref="seedFilter" />
 		<property name="upThreadNum" value="${upThreadNum}" />
 		<property name="remote" value="${remote}" />
 		<property name="delLoaclFile" value="${delLoaclFile}" />
 
 		<property name="localAddress" value="${localAddress}" />
 		<property name="rmiName" value="${rmiName}" />
-		<property name="rmiPort" value="${rmiPort}" />
 		<property name="serverAddress" value="${serverAddress}" />
 		
 		<property name="distribute" value="${distribute}" />
-		<property name="clientIndex" value="${client_index}" />
 		<property name="mode" value="${mode}" />
 
 		<property name="siteExtractClass">

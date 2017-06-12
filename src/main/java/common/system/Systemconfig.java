@@ -10,6 +10,8 @@ import common.urlFilter.BloomFilterRedis;
 import common.util.HtmlExtractor;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,6 +30,7 @@ import java.util.concurrent.*;
  * @since 0.5
  */
 public class Systemconfig {
+
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Systemconfig.class);
 
 
@@ -78,7 +81,6 @@ public class Systemconfig {
     public static boolean createPic;
     public static String keywords;
     public static String table;
-    public static int md5NearbyDay;
     /**
      * 读取配置类型，0文件读取，1数据库读取
      */
@@ -167,7 +169,6 @@ public class Systemconfig {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        md5NearbyDay = Integer.parseInt(props.getProperty("md5NearbyDay"));
         try {
 			is.close();
 		} catch (IOException e) {
@@ -185,8 +186,9 @@ public class Systemconfig {
             sysLog.log("没有找到相应的数据库服务，系统退出！！");
             System.exit(-1);
         }
-        
-        
+
+        ApplicationContext ctx = new FileSystemXmlApplicationContext("config/redis-cluster-conf.xml");
+        urlFilter = (BloomFilterRedis) ctx.getBean("bloomFilterRedis");
         
         urlFilter.init();
 

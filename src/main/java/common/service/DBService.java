@@ -40,10 +40,11 @@ public interface DBService<T> {
      * 获得表中的md5
      *
      * @param string
-     * @param map
+     * @param map <tablename, List<md5>>
      * @return
      */
     public int getAllMd5(String string, Map<String, List<String>> map);
+    public List<String> getAllMd5(String string);
 
     /**
      * 处理异常数据
