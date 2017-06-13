@@ -50,7 +50,6 @@ public class AppContext {
 
     	//path = ""
         initEbusinessBrandCode();// 电商垂直商品编码，用于直接设置品牌
-        PropertyConfigurator.configure(path + "./config/log4j.properties");
         File[] files = new File(path + "config").listFiles();
         ArrayList<String> list = new ArrayList<String>();
         for (File file : files) {
