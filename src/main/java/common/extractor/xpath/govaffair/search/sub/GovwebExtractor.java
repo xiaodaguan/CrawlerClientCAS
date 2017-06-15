@@ -10,14 +10,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.GovAffairData;
-import common.bean.HtmlInfo;
+import common.pojos.GovAffairData;
+import common.pojos.HtmlInfo;
 import common.extractor.xpath.govaffair.search.GovAffairSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.ExtractResult;
 
 
 /**

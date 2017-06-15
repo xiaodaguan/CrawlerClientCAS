@@ -10,7 +10,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import common.download.weixin.WeixinDataCommonDownload;
 import common.system.UserAttribute;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
@@ -25,9 +24,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 import common.http.NeedCookieHttpProcess;
-import common.system.Systemconfig;
 import common.util.JsonUtil;
 import common.util.StringUtil;
 import common.util.TimeUtil;

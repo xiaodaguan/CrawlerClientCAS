@@ -2,11 +2,9 @@ package common.download.client;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.ClientData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.ClientData;
+import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
-import common.download.blog.BlogDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import org.slf4j.Logger;

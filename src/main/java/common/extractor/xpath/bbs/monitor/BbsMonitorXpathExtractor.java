@@ -1,9 +1,8 @@
 package common.extractor.xpath.bbs.monitor;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
-import common.download.bbs.BBSMetaCommonDownload;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

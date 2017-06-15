@@ -1,8 +1,7 @@
 package common.extractor.xpath.academic.monitor;
 
-import common.bean.AgricaltureData;
-import common.bean.HtmlInfo;
-import common.download.conference.ConferenceDataCommonDownload;
+import common.pojos.AgricaltureData;
+import common.pojos.HtmlInfo;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

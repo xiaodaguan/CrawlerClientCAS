@@ -7,7 +7,7 @@ import java.util.List;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.NewsData;
+import common.pojos.NewsData;
 import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;

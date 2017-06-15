@@ -1,20 +1,13 @@
 package common.system;
 
-import common.rmi.packet.Clientinfo;
 import common.rmi.packet.CrawlerType;
-import common.rmi.packet.TaskStatus;
-import common.service.DBFactory;
 import common.service.DBService;
 import common.siteinfo.Siteinfo;
 import common.urlFilter.BloomFilterRedis;
 import common.util.HtmlExtractor;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -31,7 +24,7 @@ import java.util.concurrent.*;
  */
 public class Systemconfig {
 
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Systemconfig.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Systemconfig.class);
 
 
     /**
@@ -55,8 +48,7 @@ public class Systemconfig {
     /**
      * 初始化站点线程
      */
-    public static Map<String, ExecutorService> metaexec = new HashMap<String, ExecutorService>();//没有用
-    public static Map<String, ExecutorService> dataexec = new HashMap<String, ExecutorService>();
+    public static Map<String, ExecutorService> threadPoolMap = new HashMap<String, ExecutorService>();
     /**
      * 任务是否完成
      */
@@ -64,12 +56,8 @@ public class Systemconfig {
     /**
      * 自动抽取
      */
-    public static HtmlExtractor extractor = new HtmlExtractor();
+    public static HtmlExtractor htmlAutoExtractor = new HtmlExtractor();
     public static BloomFilterRedis urlFilter;
-    /**
-     * 系统运行日志
-     */
-    public static LoggerManager sysLog = new LoggerManager(Logger.getLogger("system"));
     /**
      * 文件存储路径
      */
@@ -99,17 +87,10 @@ public class Systemconfig {
     /**
      * 运行的任务
      */
-    public static ConcurrentHashMap<String, Future<?>> tasks = new ConcurrentHashMap<>();
-    /**
-     * 任务状态
-     */
-    public static Map<String, TaskStatus> taskStatusManager = new HashMap<String, TaskStatus>();
+    public static ConcurrentHashMap<String, Future<?>> taskResultMap = new ConcurrentHashMap<>();
 
     private static boolean distribute;// 是否使用分布式启动
-    /**
-     * 客户端信息
-     */
-    public static Clientinfo clientinfo;
+
     /**
      * 心跳线程
      */
@@ -123,7 +104,6 @@ public class Systemconfig {
      * 数据库服务
      */
     public static DBService dbService;
-    public static DBFactory dbFactory;
     /**
      * 爬虫类型
      */
@@ -157,41 +137,50 @@ public class Systemconfig {
     public void initialSys(){
     	Properties props = new Properties();
         InputStream is=null;
-		try {
-			is = new FileInputStream("./config/config.properties");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        is = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");
         try {
-			props.load(is);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        try {
-			is.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            props.load(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
+    /*
+    skip bloom filter bind, deprecated
+     */
+    private static boolean SKIP_BLOOM_FILTER = false;
+
+    public static boolean isSkipBloomFilter() {
+        return SKIP_BLOOM_FILTER;
+    }
+
+    public static void setSkipBloomFilter(boolean skipBloomFilter) {
+        SKIP_BLOOM_FILTER = skipBloomFilter;
+    }
+
     public void initial() {
         value();
         initialSys();
-        sysLog.start();
-        extractor.init();
-        dbService = dbFactory.dbService();
-        if (dbService == null) {
-            sysLog.log("没有找到相应的数据库服务，系统退出！！");
-            System.exit(-1);
+        htmlAutoExtractor.init();
+
+
+    }
+
+    public static void initUrlFilter() {
+        if(!SKIP_BLOOM_FILTER) {
+            urlFilter = (BloomFilterRedis) AppContext.appContext.getBean("bloomFilterRedis");
+            if(urlFilter == null) {
+                LOGGER.error("redis 配置有误，系统退出！！");
+                System.exit(-1);
+            }
+            urlFilter.init();
         }
-
-        ApplicationContext ctx = new FileSystemXmlApplicationContext("config/redis-cluster-conf.xml");
-        urlFilter = (BloomFilterRedis) ctx.getBean("bloomFilterRedis");
-        
-        urlFilter.init();
-
     }
 
     /**
@@ -200,7 +189,7 @@ public class Systemconfig {
     public static void createThreadPool() {
         for (String site : allSiteinfos.keySet()) {
             int num = allSiteinfos.get(site).getThreadNum();
-            dataexec.put(site, Executors.newFixedThreadPool(num > 5 ? 5 : num));
+            threadPoolMap.put(site, Executors.newFixedThreadPool(num > 5 ? 5 : num));
         }
     }
 
@@ -213,7 +202,7 @@ public class Systemconfig {
             if ((crawlerType + 1) / 2 == 11) table += str.equals("company_data") ? "company_report" : str;
             else table += str;
         } else {
-            sysLog.log("没有找到相应的采集类型，系统退出！！");
+            LOGGER.error("没有找到相应的采集类型，系统退出！！");
             System.exit(-1);
         }
     }
@@ -221,13 +210,6 @@ public class Systemconfig {
     private String rmiName;
     private String serverAddress;
 
-    public int start() {
-        return clientinfo.getDataStart();
-    }
-
-    public int end() {
-        return clientinfo.getDataEnd();
-    }
 
     public void setSiteExtractClass(Map<String, String> sitesClassName) {
         Systemconfig.siteExtractClass = sitesClassName;
@@ -257,9 +239,6 @@ public class Systemconfig {
         Systemconfig.createPic = createPic;
     }
 
-    public void setDbFactory(DBFactory factory) {
-        Systemconfig.dbFactory = factory;
-    }
 
     public void setKeywords(String keywords) {
         Systemconfig.keywords = keywords;
@@ -270,7 +249,7 @@ public class Systemconfig {
     }
 
     public void setExtractor(HtmlExtractor extractor) {
-        Systemconfig.extractor = extractor;
+        Systemconfig.htmlAutoExtractor = extractor;
     }
 
     public void setUpThreadNum(int upThreadNum) {
@@ -334,4 +313,11 @@ public class Systemconfig {
         Systemconfig.mode = mode;
     }
 
+    public static void initDBService() {
+        dbService = (DBService) AppContext.appContext.getBean("dbService");
+        String typename = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
+        String tablename= typename.substring(0,typename.indexOf("_"))+"_data";
+        int c = dbService.getDataCount(table);
+        LOGGER.info("DB service init succeed, {} has {} items.", tablename, c);
+    }
 }

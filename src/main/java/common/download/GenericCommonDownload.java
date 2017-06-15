@@ -1,7 +1,7 @@
 package common.download;
 
-import common.bean.CommonData;
-import common.bean.HtmlInfo;
+import common.pojos.CommonData;
+import common.pojos.HtmlInfo;
 import common.extractor.Extractor;
 import common.extractor.xpath.SimpleXpathExtractor;
 import common.extractor.xpath.academic.monitor.AcademicMonitorXpathExtractor;
@@ -27,6 +27,8 @@ import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.EncoderUtil;
 import common.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +42,7 @@ import java.util.concurrent.CountDownLatch;
  * @author grs
  */
 public abstract class GenericCommonDownload<T> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericCommonDownload.class);
 
     protected static final Map<String, Extractor> xpathMap = new HashMap<String, Extractor>();
     protected T data;
@@ -86,7 +89,7 @@ public abstract class GenericCommonDownload<T> {
             if (!url.contains("<begin>")) url = url.replace("<keyword>", EncoderUtil.encodeKeyWords(key.getKey(), siteinfo.getCharset()));
             else {
                 if (!url.contains("<end>")) {
-                    System.err.println("请检查入口url参数");
+                    LOGGER.error("请检查入口url参数");
                 }
                 url = url.replace("<keyword>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[0], siteinfo.getCharset()));
                 url = url.replace("<begin>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[1], siteinfo.getCharset()));
@@ -176,8 +179,8 @@ public abstract class GenericCommonDownload<T> {
                 if (fg != -1) {
                     key = name.substring(0, 1).toUpperCase() + name.substring(1, fg) + name.substring(fg + 1, fg + 2).toUpperCase() + name.substring(fg + 2);
                 } else key = name.substring(0, 1).toUpperCase() + name.substring(1);
-                String s = "common.extractor.xpath." + name.substring(0, name.indexOf("_")) + "." + (Systemconfig.crawlerType % 2 == 0 ? "monitor" : "search") + "." + key + "XpathExtractor";
-                System.out.println(s);
+                String s = "common.htmlAutoExtractor.xpath." + name.substring(0, name.indexOf("_")) + "." + (Systemconfig.crawlerType % 2 == 0 ? "monitor" : "search") + "." + key + "XpathExtractor";
+                LOGGER.info(s);
                 // 没有配置的xpath，根据爬虫类型判断使用哪种抽取器
                 be = (Extractor) Class.forName(s).newInstance();
             }

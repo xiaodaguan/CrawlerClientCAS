@@ -3,8 +3,8 @@ package common.download.video;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.VideoData;
-import common.bean.HtmlInfo;
+import common.pojos.VideoData;
+import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

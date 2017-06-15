@@ -1,7 +1,6 @@
 package common.system;
 
 import common.download.DownFactory;
-import common.download.weibo.WeiboSearchMetaCommonDownload;
 import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
@@ -150,21 +149,21 @@ public class Job {
                     //单循环最大24h
                     LOGGER.info("single loop time out, stopping...");
                     
-                    Set<String> taskNames = Systemconfig.tasks.keySet();
+                    Set<String> taskNames = Systemconfig.taskResultMap.keySet();
                     //接收的任务
                     for (String taskName : taskNames) {
-                        if (!Systemconfig.tasks.get(taskName).isDone()) {
-                        	System.out.println(taskName+"任务被强制停止");
-                            Systemconfig.tasks.get(taskName).cancel(true);
-                            if(!Systemconfig.tasks.get(taskName).isDone()){
-                            	Systemconfig.tasks.get(taskName).cancel(true);
-                            	System.out.println(taskName+"任务第一次强制停止失败，再次被强制停止");
+                        if (!Systemconfig.taskResultMap.get(taskName).isDone()) {
+                        	LOGGER.info(taskName+"任务被强制停止");
+                            Systemconfig.taskResultMap.get(taskName).cancel(true);
+                            if(!Systemconfig.taskResultMap.get(taskName).isDone()){
+                            	Systemconfig.taskResultMap.get(taskName).cancel(true);
+                            	LOGGER.info(taskName+"任务第一次强制停止失败，再次被强制停止");
                             }
                         }
                     }
                     Systemconfig.finish.clear();
-                    Systemconfig.tasks.clear();
-                    LOGGER.info("all tasks stopped. ");
+                    Systemconfig.taskResultMap.clear();
+                    LOGGER.info("all taskResultMap stopped. ");
 
                     break;
                 }
@@ -215,21 +214,21 @@ public class Job {
                 if (start + 1000 * 3600 * 24 < System.currentTimeMillis()) {
                     //单循环最大24h
                     LOGGER.info("single loop time out, stopping...");
-                    Set<String> taskNames = Systemconfig.tasks.keySet();
+                    Set<String> taskNames = Systemconfig.taskResultMap.keySet();
 
                     //接收的任务
                     for (String taskName : taskNames) {
-                        if (Systemconfig.tasks.containsKey(taskName)) {
-                            Systemconfig.tasks.get(taskName).cancel(true);
+                        if (Systemconfig.taskResultMap.containsKey(taskName)) {
+                            Systemconfig.taskResultMap.get(taskName).cancel(true);
                         }
                     }
-                    LOGGER.info("all tasks stopped. ");
+                    LOGGER.info("all taskResultMap stopped. ");
                     
                     Systemconfig.finish.clear();
-                    Systemconfig.tasks.clear();
+                    Systemconfig.taskResultMap.clear();
                     //Systemconfig.finish = new HashMap<>();
-                    //Systemconfig.tasks = new ConcurrentHashMap<>();
-                    //Systemconfig.dataexec = new ConcurrentHashMap<>();
+                    //Systemconfig.taskResultMap = new ConcurrentHashMap<>();
+                    //Systemconfig.threadPoolMap = new ConcurrentHashMap<>();
                     break;
                 }
             }
@@ -251,11 +250,11 @@ public class Job {
     private static boolean ifAllFinished() {
         boolean allFinished = true;
         int runningTaskCount = 0;
-        Set<String> taskNames = Systemconfig.tasks.keySet();
+        Set<String> taskNames = Systemconfig.taskResultMap.keySet();
 
         for (String taskName : taskNames) {
-            if (Systemconfig.tasks.containsKey(taskName)) {
-                if (Systemconfig.tasks.get(taskName).isDone()) {
+            if (Systemconfig.taskResultMap.containsKey(taskName)) {
+                if (Systemconfig.taskResultMap.get(taskName).isDone()) {
                 	Systemconfig.finish.put(taskName,true);
                 } else {
                     runningTaskCount++;
@@ -265,10 +264,10 @@ public class Job {
         if (runningTaskCount > 0) allFinished = false;
         else{
         	Systemconfig.finish.clear();
-        	Systemconfig.tasks.clear();
+        	Systemconfig.taskResultMap.clear();
         }
         LOGGER.info("Systemconfi.task stat: ");
-        LOGGER.info("running task count: " + runningTaskCount + " / total task count: " + Systemconfig.tasks.size());
+        LOGGER.info("running task count: " + runningTaskCount + " / total task count: " + Systemconfig.taskResultMap.size());
 
         return allFinished;
     }
@@ -337,9 +336,6 @@ public class Job {
         HashMap<String, InnerInfo> crawlers = new HashMap<String, InnerInfo>();// 每个关键词或网址作为一个子爬虫
         vi.setCrawlers(crawlers);
 
-        if (Systemconfig.clientinfo.getViewinfos().get(key) == null) {
-            Systemconfig.clientinfo.getViewinfos().put(key, vi);
-        }
 
         if (si.getLogin()) {
             if (Systemconfig.users == null) Systemconfig.users = new HashMap<String, List<UserAttribute>>();
@@ -378,7 +374,7 @@ public class Job {
             vi.setName(site);
             String type = site.substring(site.indexOf("_") + 1);// 采集类型
             String name = site.substring(0, site.indexOf("_"));// 站点名
-            File f = new File("site" + File.separator + type + "_" + name + ".xml");
+            File f = new File("typeConf" + File.separator + type + "_" + name + ".xml");
             if (f.exists()) vi.setFile(StringUtil.getContent(f));
             vi.setThreadNum(si.getThreadNum());
             vi.setInterval(si.getDownInterval());
@@ -454,13 +450,13 @@ public class Job {
         skey.setKey(key);
         skey.setSite(site);
         Future<?> f = EXECUTOR_SERVICE_MAP.get(site).submit(DownFactory.metaControl(skey));
-        Systemconfig.tasks.put(site + "_" + key, f);
+        Systemconfig.taskResultMap.put(site + "_" + key, f);
     }
 
     public void submitSearchKey(SearchKey sk) {
         LOGGER.info("submit searchkey: "+sk.getSite()+"+"+sk.getKey());
         Future<?> f = EXECUTOR_SERVICE_MAP.get(sk.getSite()).submit(DownFactory.metaControl(sk));
-        Systemconfig.tasks.put(sk.getSite() + "_" + sk.getKey(), f);
+        Systemconfig.taskResultMap.put(sk.getSite() + "_" + sk.getKey(), f);
     }
 
 

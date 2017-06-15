@@ -1,11 +1,10 @@
 package common.extractor.xpath.bbs.search.sub;
 
-import common.bean.BBSData;
-import common.bean.ReplyData;
+import common.pojos.BBSData;
+import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;
-import net.sf.json.JSONObject;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

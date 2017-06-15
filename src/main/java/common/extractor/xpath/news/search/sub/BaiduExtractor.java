@@ -1,6 +1,6 @@
 package common.extractor.xpath.news.search.sub;
 
-import common.bean.NewsData;
+import common.pojos.NewsData;
 import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;

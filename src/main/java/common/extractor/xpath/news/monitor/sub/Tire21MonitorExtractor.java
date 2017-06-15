@@ -1,23 +1,13 @@
 package common.extractor.xpath.news.monitor.sub;
 
-import java.io.File;
-import java.sql.Timestamp;
-import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import common.bean.HtmlInfo;
-import common.bean.NewsData;
-import common.extractor.xpath.XpathExtractor;
+import common.pojos.NewsData;
 import common.extractor.xpath.news.monitor.NewsMonitorExtractorAttribute;
 import common.extractor.xpath.news.monitor.NewsMonitorXpathExtractor;
-import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
-import common.siteinfo.Siteinfo;
-import common.system.Systemconfig;
-import common.util.MD5Util;
-import common.util.StringUtil;
 
 /**
  * 抽取实现类
@@ -25,6 +15,7 @@ import common.util.StringUtil;
  * @author grs
  */
 public class Tire21MonitorExtractor extends NewsMonitorXpathExtractor implements NewsMonitorExtractorAttribute {
+	private static final Logger LOGGER = LoggerFactory.getLogger(Tire21MonitorExtractor.class);
 
 	@Override
 	public String parseNext(Node dom, Component component, String... args) {
@@ -43,7 +34,7 @@ public class Tire21MonitorExtractor extends NewsMonitorXpathExtractor implements
 			try {
 				currPageInt = Integer.parseInt(currPageStr);
 			} catch (Exception e) {
-				System.out.println("截取到非数字字符.");
+				LOGGER.info("截取到非数字字符.");
 				e.printStackTrace();
 			}
 		}

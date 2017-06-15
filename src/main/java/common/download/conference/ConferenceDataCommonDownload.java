@@ -2,10 +2,9 @@ package common.download.conference;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.ConferenceData;
-import common.bean.HtmlInfo;
+import common.pojos.ConferenceData;
+import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
-import common.extractor.xpath.bbs.monitor.sub.QtvExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import org.slf4j.Logger;

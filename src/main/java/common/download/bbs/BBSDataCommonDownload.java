@@ -2,12 +2,10 @@ package common.download.bbs;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.service.oracle.BbsOracleService;
 import common.system.Systemconfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +74,7 @@ public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
             return true;
         }
         if (html.contains("<title>贴吧404</title>")){
-            System.err.println("帖子已被删除");
+            LOGGER.error("帖子已被删除");
             return false;
         }
         return false;

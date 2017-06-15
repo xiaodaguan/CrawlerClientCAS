@@ -6,7 +6,7 @@ import java.util.Map;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.CommonData;
+import common.pojos.CommonData;
 import common.siteinfo.Component;
 import common.util.StringUtil;
 /**

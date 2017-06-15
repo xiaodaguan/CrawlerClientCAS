@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.w3c.dom.Node;
 
-import common.bean.PersonData;
+import common.pojos.PersonData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 

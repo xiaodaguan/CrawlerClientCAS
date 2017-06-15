@@ -3,8 +3,8 @@ package common.download.press;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.HtmlInfo;
-import common.bean.PressData;
+import common.pojos.HtmlInfo;
+import common.pojos.PressData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

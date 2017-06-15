@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.xml.transform.TransformerException;
 
-import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -23,8 +22,8 @@ import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.AgricaltureData;
-import common.bean.HtmlInfo;
+import common.pojos.AgricaltureData;
+import common.pojos.HtmlInfo;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorExtractorAttribute;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorXpathExtractor;
 import common.siteinfo.Component;

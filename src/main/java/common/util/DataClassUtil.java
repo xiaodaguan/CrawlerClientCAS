@@ -7,10 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.bean.CommentData;
-import common.bean.EbusinessData;
+import common.extractor.xpath.weibo.monitor.sub.SinaExtractor;
+import common.pojos.CommentData;
+import common.pojos.EbusinessData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DataClassUtil {
+	private static final Logger LOGGER = LoggerFactory.getLogger(DataClassUtil.class);
+
 	/**
 	 * 根据属性名获取属性值
 	 * */
@@ -33,7 +38,7 @@ public class DataClassUtil {
 		Field[] fields = o.getClass().getDeclaredFields();
 		String[] fieldNames = new String[fields.length];
 		for (int i = 0; i < fields.length; i++) {
-			System.out.println(fields[i].getType());
+			LOGGER.info("",fields[i].getType());
 			fieldNames[i] = fields[i].getName();
 		}
 		return fieldNames;
@@ -77,13 +82,13 @@ public class DataClassUtil {
 			if (map.get("type").toString().contains("java.lang.String")) {
 				for (int i = 0; i < level; i++)
 					System.out.print("\t");
-				System.out.println(map.get("name") + "\t" + map.get("value"));
+				LOGGER.info("{}\t{}",map.get("name"), map.get("value"));
 			}
 
 			else if (map.get("type").toString().contains("java.util.List")) {
 				for (int i = 0; i < level; i++)
 					System.out.print("\t");
-				System.out.println(map.get("name"));
+				LOGGER.info("",map.get("name"));
 				
 				level++;
 				List l2 = (List) map.get("value");

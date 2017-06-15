@@ -1,9 +1,8 @@
 package common.extractor.xpath.bbs.monitor.sub;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
-import common.download.weibo.WeiboDataCommonDownload;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

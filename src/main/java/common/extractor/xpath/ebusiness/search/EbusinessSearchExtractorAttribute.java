@@ -2,7 +2,7 @@ package common.extractor.xpath.ebusiness.search;
 
 import org.w3c.dom.Node;
 
-import common.bean.EbusinessData;
+import common.pojos.EbusinessData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 

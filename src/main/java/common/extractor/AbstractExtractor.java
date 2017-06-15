@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.xml.sax.SAXException;
 
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 /**
  * 数据抽取类
  * @author grs

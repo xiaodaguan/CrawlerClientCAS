@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.xml.transform.TransformerException;
 
-import common.download.company.CompanyDataCommonDownload;
 import org.apache.xpath.XPathAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +15,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.HtmlInfo;
-import common.bean.WeiboData;
+import common.pojos.HtmlInfo;
+import common.pojos.WeiboData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

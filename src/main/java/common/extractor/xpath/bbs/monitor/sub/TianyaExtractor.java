@@ -8,23 +8,21 @@ import java.util.List;
 import java.util.Map;
 
 
-import common.download.weibo.WeiboCommentDownload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.MD5Util;
-import common.util.StringUtil;
 
 public class TianyaExtractor extends BbsMonitorXpathExtractor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TianyaExtractor.class);

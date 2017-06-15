@@ -5,15 +5,14 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import common.download.weibo.WeiboMonitorMetaCommonDownload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.FrgmediaData;
-import common.bean.HtmlInfo;
+import common.pojos.FrgmediaData;
+import common.pojos.HtmlInfo;
 import common.extractor.xpath.frgmedia.search.FrgmediaSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

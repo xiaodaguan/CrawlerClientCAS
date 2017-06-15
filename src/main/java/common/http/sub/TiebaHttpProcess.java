@@ -24,9 +24,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 import common.http.NeedCookieHttpProcess;
-import common.system.Systemconfig;
 import common.util.JsonUtil;
 import common.util.StringUtil;
 import common.util.TimeUtil;

@@ -1,22 +1,13 @@
 package common.extractor.xpath.frgmedia.search.sub;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import common.bean.FrgmediaData;
-import common.bean.HtmlInfo;
+import common.pojos.FrgmediaData;
 import common.extractor.xpath.frgmedia.search.FrgmediaSearchXpathExtractor;
-import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
-import common.siteinfo.Siteinfo;
-import common.system.Systemconfig;
 
 /**
  * 外媒搜索特殊属性抽取

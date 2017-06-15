@@ -9,18 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.swing.text.html.HTML;
-
-import common.service.oracle.BlogOracleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.CommonData;
-import common.bean.HtmlInfo;
-import common.bean.WeixinData;
+import common.pojos.HtmlInfo;
+import common.pojos.WeixinData;
 import common.extractor.xpath.XpathExtractor;
 import common.http.SimpleHttpProcess;
 import common.siteinfo.CommonComponent;
@@ -95,7 +91,7 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 			if (retry++ > 3)
 				break;
 			LOGGER.info("请获取key后输入任意内容回车继续...输入c忽略(很可能无法继续采集，不推荐)");
-			System.err.println("请获取key后输入任意内容回车继续...输入c忽略(很可能无法继续采集，不推荐)");
+			LOGGER.error("请获取key后输入任意内容回车继续...输入c忽略(很可能无法继续采集，不推荐)");
 			Scanner input = new Scanner(System.in);
 			String s = input.next();
 			if (s.equals("c") || s.equals("C"))

@@ -7,7 +7,7 @@ import java.util.List;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.BlogData;
+import common.pojos.BlogData;
 import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;

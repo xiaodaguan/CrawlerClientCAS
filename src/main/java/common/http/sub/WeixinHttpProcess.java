@@ -5,15 +5,18 @@ import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 import com.gargoylesoftware.htmlunit.util.Cookie;
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 import common.http.SimpleHttpProcess;
+import common.util.HtmlExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 
 public class WeixinHttpProcess extends SimpleHttpProcess {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeixinHttpProcess.class);
 
     static BrowserVersion qiyu = new BrowserVersion("qiyu","qiyubrowser","Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.63 Safari/537.36 Qiyu/2.1.0.0",0);
 
@@ -72,7 +75,7 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
 
             }
         }
-        System.out.println("cookie updated: "+client.getCookieManager().getCookies());
+        LOGGER.info("cookie updated: "+client.getCookieManager().getCookies());
     }
 
     @Override

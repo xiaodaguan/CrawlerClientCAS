@@ -1,6 +1,6 @@
 package common.siteinfo;
 
-import common.bean.CollectDataType;
+import common.pojos.CollectDataType;
 
 import java.io.Serializable;
 import java.util.Map;

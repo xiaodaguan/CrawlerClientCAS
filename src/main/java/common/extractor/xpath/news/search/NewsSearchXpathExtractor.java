@@ -4,19 +4,17 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
-import common.service.oracle.ClientOracleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.HtmlInfo;
-import common.bean.NewsData;
+import common.pojos.HtmlInfo;
+import common.pojos.NewsData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import common.system.Systemconfig;
 import common.util.ExtractResult;
-import common.util.MD5Util;
 import common.util.StringUtil;
 
 /**
@@ -31,7 +29,7 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	public String templateContentPage(NewsData data, HtmlInfo html, int page, String... keyword) {
 		ExtractResult result = null;
 		try {
-			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
+			result = Systemconfig.htmlAutoExtractor.extract(html.getContent(), html.getEncode(), data.getUrl());
 		} catch (Exception e) {
 			LOGGER.info("出错url：" + html.getOrignUrl());
 			e.printStackTrace();

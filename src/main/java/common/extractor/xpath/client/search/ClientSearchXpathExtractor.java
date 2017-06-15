@@ -1,11 +1,10 @@
 package common.extractor.xpath.client.search;
 
 
-import common.bean.ClientData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.ClientData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.XpathExtractor;
-import common.service.oracle.VideoOracleService;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
@@ -21,7 +20,6 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

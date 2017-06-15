@@ -43,8 +43,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
-import common.bean.HtmlInfo;
-import common.bean.Proxy;
+import common.pojos.HtmlInfo;
+import common.pojos.Proxy;
 import common.system.Systemconfig;
 import common.util.CharsetDetector;
 import common.util.EncoderUtil;

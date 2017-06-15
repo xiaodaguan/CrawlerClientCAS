@@ -3,8 +3,8 @@ package common.download.govaffair;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.GovAffairData;
-import common.bean.HtmlInfo;
+import common.pojos.GovAffairData;
+import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

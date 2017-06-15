@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.w3c.dom.Node;
 
-import common.bean.FrgmediaData;
+import common.pojos.FrgmediaData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 

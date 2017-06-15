@@ -2,8 +2,6 @@ package common.extractor.xpath.video.search;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +11,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.AgricaltureData;
-import common.bean.HtmlInfo;
-import common.bean.VideoData;
+import common.pojos.HtmlInfo;
+import common.pojos.VideoData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -90,7 +87,7 @@ public class VideoSearchXpathExtractor extends XpathExtractor<VideoData> impleme
 			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
-		//System.out.println("class : "+this.getClass());
+		//LOGGER.info("class : "+this.getClass());
 		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到元数据的配置组件
 		this.parseTitle(list, domtree, comp.getComponents().get("title"));
 		if (list.size() == 0) return null;

@@ -3,10 +3,8 @@ package common.extractor.xpath.blog.search.sub;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import common.extractor.xpath.client.search.sub.ToutiaoExtractor;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -15,8 +13,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.BlogData;
-import common.bean.HtmlInfo;
+import common.pojos.BlogData;
+import common.pojos.HtmlInfo;
 import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

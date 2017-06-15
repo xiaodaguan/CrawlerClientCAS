@@ -1,6 +1,6 @@
 package common.http.sub;
 
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 import common.http.NeedCookieHttpProcess;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
@@ -219,7 +219,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 			html.setOrignUrl(url);
 			html.setReferUrl(postLoginUrl);
 			cookie(html, user.getUserAgent());
-//			System.out.println(cookie);
+//			LOGGER.info(cookie);
 			user.setCookie(cookie);
             user.setLastLoginTime(new Date());
 			return true;
@@ -385,7 +385,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 
 			Systemconfig.dbService.updateUserValid(user.getName(), 6);
 			return null;
-			//System.err.println("新浪微博登陆需要验证码，从validateImg文件夹查看验证码，将验证码写入相同名字的文本文件并复制到validateImg文件夹！");
+			//LOGGER.error("新浪微博登陆需要验证码，从validateImg文件夹查看验证码，将验证码写入相同名字的文本文件并复制到validateImg文件夹！");
 			//addPicDoor(entity);
 		}
 		return entity;

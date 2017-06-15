@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.w3c.dom.Node;
 
-import common.bean.UserData;
-import common.bean.WeiboData;
+import common.pojos.UserData;
+import common.pojos.WeiboData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 

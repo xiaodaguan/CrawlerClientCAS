@@ -2,12 +2,10 @@ package common.download.weixin;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.HtmlInfo;
-import common.bean.WeixinData;
+import common.pojos.HtmlInfo;
+import common.pojos.WeixinData;
 import common.download.GenericDataCommonDownload;
-import common.extractor.xpath.weixin.search.WeixinSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
-import common.service.oracle.NewsOracleService;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
 import org.slf4j.Logger;

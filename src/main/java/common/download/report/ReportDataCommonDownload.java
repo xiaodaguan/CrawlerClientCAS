@@ -2,8 +2,8 @@ package common.download.report;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.HtmlInfo;
-import common.bean.ReportData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReportData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;

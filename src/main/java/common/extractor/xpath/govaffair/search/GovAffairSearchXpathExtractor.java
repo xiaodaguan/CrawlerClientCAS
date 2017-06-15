@@ -5,15 +5,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import common.service.oracle.PersonOracleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.GovAffairData;
-import common.bean.HtmlInfo;
+import common.pojos.GovAffairData;
+import common.pojos.HtmlInfo;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

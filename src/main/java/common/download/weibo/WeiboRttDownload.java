@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.HtmlInfo;
-import common.bean.WeiboData;
+import common.pojos.HtmlInfo;
+import common.pojos.WeiboData;
 import common.download.GenericMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.search.WeiboSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
-import common.bean.CollectDataType;
+import common.pojos.CollectDataType;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;

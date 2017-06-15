@@ -3,7 +3,6 @@ package common.http.sub;
 import java.io.IOException;
 import java.io.InputStream;
 
-import common.download.agricalture.AgricaltureMetaCommonDownload;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -12,9 +11,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 import common.http.SimpleHttpProcess;
-import common.system.Systemconfig;
 import common.util.EncoderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

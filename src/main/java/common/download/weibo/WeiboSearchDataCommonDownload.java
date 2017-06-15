@@ -2,10 +2,9 @@ package common.download.weibo;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.HtmlInfo;
-import common.bean.WeiboData;
+import common.pojos.HtmlInfo;
+import common.pojos.WeiboData;
 import common.download.GenericDataCommonDownload;
-import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
@@ -34,11 +33,6 @@ public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<Wei
 	@Override
 	public void prePorcess() {
 		InnerInfo ii = null;
-		if (Systemconfig.clientinfo != null) {
-			ViewInfo vi = Systemconfig.clientinfo.getViewinfos().get(Systemconfig.localAddress + "_" + siteFlag);
-			ii = vi.getCrawlers().get(key.getKey());
-			ii.setAlive(1);
-		}
 		if (!siteinfo.getLogin())// 不需要登陆
 			return;
 
@@ -53,7 +47,7 @@ public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<Wei
 		if (!userAttribute.getHadRun()) {
 			http.monitorLogin(userAttribute);
 			ua.setHadRun(true);
-			System.out.println("监测用户！！！" + userAttribute.getName());
+			LOGGER.info("监测用户！！！" + userAttribute.getName());
 		}
 		LOGGER.info("用户" + userAttribute.getName() + "使用中！");
 		if (ii != null) {

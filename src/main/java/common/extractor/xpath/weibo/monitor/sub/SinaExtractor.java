@@ -1,8 +1,9 @@
 package common.extractor.xpath.weibo.monitor.sub;
 
-import common.bean.HtmlInfo;
-import common.bean.UserData;
-import common.bean.WeiboData;
+import common.http.sub.WeixinHttpProcess;
+import common.pojos.HtmlInfo;
+import common.pojos.UserData;
+import common.pojos.WeiboData;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -13,6 +14,8 @@ import common.util.MD5Util;
 import common.util.StringUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -27,6 +30,8 @@ import java.util.List;
  * @author grs
  */
 public class SinaExtractor extends WeiboMonitorXpathExtractor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SinaExtractor.class);
+
     // @Override
     // protected Node getRealDOM(HtmlInfo html) throws SAXException, IOException
     // {
@@ -79,20 +84,20 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
         /**
          * 解析json
          */
-//        System.out.println(cont);
+//        LOGGER.info(cont);
         JSONArray root = null;
         try {
             root = JSONArray.fromObject(cont);
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("json content: \r\n" + cont);
+            LOGGER.error("json content: \r\n" + cont);
         }
 
 //        JSONArray cardGroup = null;
 //        if (root.size() > 1) cardGroup = (JSONArray) root.getJSONObject(1).get("card_group");
 //        else cardGroup = (JSONArray) root.getJSONObject(0).get("card_group");
 //        if (cardGroup == null) {
-//            System.out.println("debug");
+//            LOGGER.info("debug");
 //        }
         for (int j = 0; j < root.size(); j++) {
             JSONObject child = root.getJSONObject(j);
@@ -143,7 +148,7 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
                 list.add(wd);
 
 
-//                System.out.println(commentUrl);
+//                LOGGER.info(commentUrl);
 
             }
         }

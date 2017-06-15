@@ -2,10 +2,9 @@ package common.download.person;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.PersonData;
-import common.bean.HtmlInfo;
+import common.pojos.PersonData;
+import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
-import common.extractor.xpath.weibo.search.WeiboSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import org.slf4j.Logger;

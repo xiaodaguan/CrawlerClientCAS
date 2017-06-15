@@ -3,8 +3,8 @@ package common.download.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.ClientData;
-import common.bean.HtmlInfo;
+import common.pojos.ClientData;
+import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

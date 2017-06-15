@@ -2,9 +2,8 @@ package common.download;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.CommonData;
-import common.bean.HtmlInfo;
-import common.download.weibo.WeiboRttDownload;
+import common.pojos.CommonData;
+import common.pojos.HtmlInfo;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import org.slf4j.Logger;

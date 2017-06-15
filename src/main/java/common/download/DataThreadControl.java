@@ -6,8 +6,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import common.bean.CommonData;
-import common.extractor.xpath.frgmedia.search.sub.SinoExtractor;
+import common.pojos.CommonData;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
@@ -49,10 +48,10 @@ public class DataThreadControl {
                 iter.remove();
             }
             vd.setCompleteSize("[collect id: " + key.getId() + "| current: " + (++i) + "/ rest: " + list.size() + "]");
-            Future f = Systemconfig.dataexec.get(siteFlag).submit(DownFactory.dataControl(siteFlag, vd, endCount, user, key));
-            Systemconfig.tasks.put(siteFlag + "_" + key + "_" + vd.getTitle(), f);
+            Future f = Systemconfig.threadPoolMap.get(siteFlag).submit(DownFactory.dataControl(siteFlag, vd, endCount, user, key));
+            Systemconfig.taskResultMap.put(siteFlag + "_" + key + "_" + vd.getTitle(), f);
             
-            LOGGER.info(siteFlag + "_" + key + "_" + vd.getTitle()+"\tdataexec 任务添加");
+            LOGGER.info(siteFlag + "_" + key + "_" + vd.getTitle()+"\tthreadPoolMap 任务添加");
             
             TimeUtil.rest(3);
         }

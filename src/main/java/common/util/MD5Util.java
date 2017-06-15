@@ -1,5 +1,8 @@
 package common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 /**
@@ -9,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
  * @since 2012.5
  */
 public class MD5Util {
+	private static final Logger LOGGER = LoggerFactory.getLogger(MD5Util.class);
 
 	public static final String MD5 = "MD5";
 	public static final String CODE = "%02x";
@@ -17,7 +21,7 @@ public class MD5Util {
 		try {
 			digest = MessageDigest.getInstance(MD5);
 		} catch (NoSuchAlgorithmException e) {
-			System.err.println("没有此加密算法！");
+			LOGGER.error("没有此加密算法！");
 		}
 	}
 	/**

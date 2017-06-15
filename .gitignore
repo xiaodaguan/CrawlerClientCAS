@@ -11,7 +11,7 @@ readme.txt
 result.txt
 tmpDom.htm
 CrawlerClientCAS.iml
-config/site/*.temp
+src/main/resources/config/site/*.temp
 .DS_Store
 .svn
 BaiduHotKey

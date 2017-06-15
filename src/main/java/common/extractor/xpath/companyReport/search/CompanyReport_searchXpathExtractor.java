@@ -1,6 +1,6 @@
 package common.extractor.xpath.companyReport.search;
 
-import common.bean.ReportData;
+import common.pojos.ReportData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import common.util.MD5Util;
@@ -35,7 +35,7 @@ public class CompanyReport_searchXpathExtractor extends XpathExtractor<ReportDat
 			String title = attrs[2].replace("\"", "");
 			String pubtime = attrs[6].replace("\"", "");
 
-			// System.out.println(stockCode + "\t" + title + "\t" + url + "\t" +
+			// LOGGER.info(stockCode + "\t" + title + "\t" + url + "\t" +
 			// pubtime);
 			ReportData data = new ReportData();
 			data.setTitle(title);

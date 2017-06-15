@@ -1,7 +1,7 @@
 package common.download.agricalture;
 
-import common.bean.AgricaltureData;
-import common.bean.HtmlInfo;
+import common.pojos.AgricaltureData;
+import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

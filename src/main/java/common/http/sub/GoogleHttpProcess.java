@@ -5,7 +5,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.HttpParams;
 
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 import common.http.SimpleHttpProcess;
 
 public class GoogleHttpProcess extends SimpleHttpProcess {

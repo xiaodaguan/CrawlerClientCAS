@@ -45,7 +45,7 @@ public class BloomFilterRedis {
                 redis.set(BLOOM_FILTER_REDIS_NAME+"init_status","2");
             } else if (redis.get(BLOOM_FILTER_REDIS_NAME+"init_status").equals("1")) {
                 LOGGER.info("other client is initializing redis bloom filter, program will exit. ");
-                System.exit(0);
+                System.exit(-1);
             } else {
                 LOGGER.info("redis bloom filter available[ok].");
             }

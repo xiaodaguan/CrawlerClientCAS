@@ -1,7 +1,6 @@
 package common.extractor.xpath.news.monitor.sub;
 
-import common.bean.NewsData;
-import common.bean.WeixinData;
+import common.pojos.NewsData;
 import common.extractor.xpath.news.monitor.NewsMonitorExtractorAttribute;
 import common.extractor.xpath.news.monitor.NewsMonitorXpathExtractor;
 import common.siteinfo.Component;

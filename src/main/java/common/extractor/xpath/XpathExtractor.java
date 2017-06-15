@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.crypto.Data;
 import javax.xml.transform.TransformerException;
 
-import common.http.SimpleHttpProcess;
 import org.apache.xpath.XPathAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +14,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.CommonData;
-import common.bean.EbusinessData;
-import common.bean.HtmlInfo;
+import common.pojos.CommonData;
+import common.pojos.HtmlInfo;
 import common.extractor.AbstractExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -53,8 +50,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 			}
 		}
 		params = StringUtil.format(params);
-		// System.out.println("result:");
-		System.out.println(params);
+		// LOGGER.info("result:");
 		return params;
 	}
 
@@ -67,7 +63,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 		String params = "";
 		for (int i = 0; i < nl.getLength(); i++) {
 			// System.out.print("[" + i + "]:");
-			System.out.println(StringUtil.format(nl.item(i).getTextContent()));
+			LOGGER.info(StringUtil.format(nl.item(i).getTextContent()));
 			params += StringUtil.format(nl.item(i).getTextContent()) + "\r\n";
 		}
 		return params;
@@ -86,7 +82,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 		if (first)
 			return;
 		if (len1 != len2) {
-			System.err.println("抽取" + s + "属性数量不一致:" + len1 + ":" + len2);
+			LOGGER.error("抽取" + s + "属性数量不一致:" + len1 + ":" + len2);
 		}
 	}
 
@@ -200,7 +196,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		Node domtree = getRealDOM(html);
 		// String domcontent = domtree.getTextContent();
-		// System.out.println(domcontent);
+		// LOGGER.info(domcontent);
 		if (domtree == null) {
 			LOGGER.info("DOM解析为NULL！！");
 			return null;

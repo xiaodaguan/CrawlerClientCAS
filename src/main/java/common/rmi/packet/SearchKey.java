@@ -46,7 +46,7 @@ public class SearchKey implements Serializable {
 
 	@Override
 	public String toString() {
-		return "[site]" + site + "[key]" + key;
+		return "[typeConf]" + site + "[key]" + key;
 
 	};
 

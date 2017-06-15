@@ -3,7 +3,6 @@ package common.system;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.service.oracle.GovAffairOracleService;
 import common.util.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +23,7 @@ public class UserManager {
     public synchronized static UserAttribute getUser(String siteFlag) {
 //		int in = siteFlag.indexOf("_");
 //		if(in==-1) in = siteFlag.length();
-//		String site = siteFlag.substring(0, in);
+//		String typeConf = siteFlag.substring(0, in);
         List<UserAttribute> list = Systemconfig.users.get(siteFlag);
         if (list == null) return null;
         for (UserAttribute ua : list) {
@@ -55,7 +54,7 @@ public class UserManager {
     public synchronized static void releaseUser(String siteFlag, UserAttribute user) {
 //		int in = siteFlag.indexOf("_");
 //		if(in==-1) in = siteFlag.length();
-//		String site = siteFlag.substring(0, in);
+//		String typeConf = siteFlag.substring(0, in);
         if (user == null) return;
         List<UserAttribute> list = Systemconfig.users.get(siteFlag);
         for (UserAttribute ua : list) {

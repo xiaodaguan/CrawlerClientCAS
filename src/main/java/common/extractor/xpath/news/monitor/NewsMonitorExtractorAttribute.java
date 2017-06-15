@@ -2,7 +2,7 @@ package common.extractor.xpath.news.monitor;
 
 import org.w3c.dom.Node;
 
-import common.bean.NewsData;
+import common.pojos.NewsData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 

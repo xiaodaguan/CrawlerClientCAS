@@ -1,13 +1,10 @@
 package common.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.script.Bindings;
@@ -20,14 +17,6 @@ import javax.script.ScriptException;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.log4j.PropertyConfigurator;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-
-import common.bean.AccessKey;
-import common.bean.HtmlInfo;
-import common.http.SimpleHttpProcess;
-import common.system.Systemconfig;
 
 public class WeixinUtil {
 
@@ -137,7 +126,7 @@ public class WeixinUtil {
 //		AccessKey ak = Systemconfig.dbService.accessKey();
 //		int retryCount = 0;
 //		while (ak == null) {
-//			System.out.println("暂时没有key，等待60秒重试..." + retryCount++);
+//			LOGGER.info("暂时没有key，等待60秒重试..." + retryCount++);
 //			TimeUtil.rest(60);
 //			ak = Systemconfig.dbService.accessKey();
 //		}
@@ -201,7 +190,6 @@ public class WeixinUtil {
 		File[] files = new File(path).listFiles();
 		for (File file : files) {
 			if (file.getName().contains(".htm")) {
-				System.out.println(file.getAbsolutePath());
 				String content = StringUtil.getContent(file.getAbsolutePath());
 
 				String uin = StringUtil.regMatcher(content, "var uin = \"",
@@ -210,7 +198,7 @@ public class WeixinUtil {
 						"\";").trim();
 				String pass_ticket = StringUtil.regMatcher(content,
 						"var pass_ticket = \"", "\";").trim();
-				// System.out.println(content);
+				// LOGGER.info(content);
 				String params = "&uin=" + uin + "&key=" + key + "&pass_ticket="
 						+ pass_ticket;
 				return params;

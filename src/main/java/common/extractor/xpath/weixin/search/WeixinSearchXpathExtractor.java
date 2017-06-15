@@ -1,11 +1,10 @@
 package common.extractor.xpath.weixin.search;
 
-import common.bean.HtmlInfo;
-import common.bean.Proxy;
-import common.bean.WeixinData;
-import common.bean.WxpublicData;
+import common.pojos.HtmlInfo;
+import common.pojos.Proxy;
+import common.pojos.WeixinData;
+import common.pojos.WxpublicData;
 import common.extractor.xpath.XpathExtractor;
-import common.service.oracle.ReportOracleService;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
@@ -33,7 +32,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -237,12 +235,12 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
     }
 
     public void parseGongzhong(WeixinData data, HtmlInfo html, String content) throws SAXException {
-        System.out.println("正在解析文章：" + data.getTitle() + "的公众号信息.");
+        LOGGER.info("正在解析文章：" + data.getTitle() + "的公众号信息.");
         String url = "http://weixin.sogou.com/weixin?type=1&query=" + data.getAuthor() + "&page=1";
         int page = 1;
         if (url != null)// 只在第一页搜索
         {
-            System.out.println(page++ + "\t" + url);
+            LOGGER.info(page++ + "\t" + url);
             HttpClient client = new HttpClient();
             url = EncoderUtil.encodeKeyWords(url, "utf-8");
 
@@ -299,10 +297,10 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
                     if (list.size() > 0) {
                         int gongzhongid = Systemconfig.dbService.saveGongzhongData(wpd);
                         data.setGongzhongId(gongzhongid);
-                        System.out.println("文章：" + data.getTitle() + "的公众号：" + wpd.getName() + "保存完成.");
+                        LOGGER.info("文章：" + data.getTitle() + "的公众号：" + wpd.getName() + "保存完成.");
                         return;
                     } else {
-                        System.out.println("无新公众号。");
+                        LOGGER.info("无新公众号。");
                     }
 
                 } // end if 解析到dom节点
@@ -315,7 +313,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
                 e.printStackTrace();
             }
         } // end if
-        System.out.println("没有找到匹配公众号。");
+        LOGGER.info("没有找到匹配公众号。");
     }
 
     /**

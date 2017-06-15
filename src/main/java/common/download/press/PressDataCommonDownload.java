@@ -2,9 +2,8 @@ package common.download.press;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.HtmlInfo;
-import common.bean.PressData;
-import common.bean.PressData;
+import common.pojos.HtmlInfo;
+import common.pojos.PressData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
@@ -34,7 +33,7 @@ public class PressDataCommonDownload extends GenericDataCommonDownload<PressData
 		siteinfo.setAgent(false);
 		HtmlInfo html = htmlInfo("DATA");
 		if (html.getEncode().contains(";"))
-			System.out.println();
+			LOGGER.info("");
 
 		try {
 			if (url != null && !url.equals("")) {

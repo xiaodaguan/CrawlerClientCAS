@@ -1,11 +1,10 @@
 package common.download.agricalture;
 
-import common.bean.AgricaltureData;
-import common.bean.HtmlInfo;
+import common.pojos.AgricaltureData;
+import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.system.UserManager;
 import common.util.StringUtil;
 import common.util.TimeUtil;
 import org.slf4j.Logger;
@@ -34,7 +33,7 @@ public class AgricaltureDataCommonDownload extends GenericDataCommonDownload<Agr
 //		siteinfo.setAgent(false);
 		HtmlInfo html = htmlInfo("DATA");
 		if (html.getEncode().contains(";"))
-			System.out.println();
+			LOGGER.info("");
 
 		try {
 			if (url != null && !url.equals("")) {

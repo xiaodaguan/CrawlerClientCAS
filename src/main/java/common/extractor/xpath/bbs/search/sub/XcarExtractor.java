@@ -7,16 +7,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import common.download.client.ClientMetaCommonDownload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -57,7 +56,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
-		// System.out.println("作者数："+nl.getLength());
+		// LOGGER.info("作者数："+nl.getLength());
 		for (int i = 0; i < nl.getLength(); i++) {
 			list.get(i).setAuthor(nl.item(i).getTextContent());
 		}
@@ -76,7 +75,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
-		// System.out.println("评论数数："+nl.getLength());
+		// LOGGER.info("评论数数："+nl.getLength());
 		for (int i = 0; i < nl.getLength(); i++) {
 			list.get(i)
 					.setReplyCount(Integer.parseInt(nl.item(i).getTextContent().replace("回复(", "").replace(")", "")));
@@ -87,7 +86,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
-		// System.out.println("点击数数："+nl.getLength());
+		// LOGGER.info("点击数数："+nl.getLength());
 		for (int i = 0; i < nl.getLength(); i++) {
 			list.get(i)
 					.setClickCount(Integer.parseInt(nl.item(i).getTextContent().replace("浏览(", "").replace(")", "")));
@@ -111,7 +110,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 			try {
 				list.get(i).setPubdate(timeProcess(text));
 			} catch (Exception e) {
-				System.err.println(text);
+				LOGGER.error(text);
 				e.printStackTrace();
 			}
 

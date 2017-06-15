@@ -2,10 +2,9 @@ package common.download.news;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.HtmlInfo;
-import common.bean.NewsData;
+import common.pojos.HtmlInfo;
+import common.pojos.NewsData;
 import common.download.GenericDataCommonDownload;
-import common.download.press.PressDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.StringUtil;
@@ -34,7 +33,7 @@ public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> 
 		siteinfo.setAgent(false);
 		HtmlInfo html = htmlInfo("DATA");
 		if (html.getEncode().contains(";"))
-			System.out.println();
+			LOGGER.info("");
 
 		try {
 			if (url != null && !url.equals("")) {

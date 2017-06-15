@@ -3,8 +3,8 @@ package common.download;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.CommonData;
-import common.bean.HtmlInfo;
+import common.pojos.CommonData;
+import common.pojos.HtmlInfo;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;

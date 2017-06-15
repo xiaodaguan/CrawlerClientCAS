@@ -1,6 +1,6 @@
 package common.extractor.xpath.press.search.sub;
 
-import common.bean.PressData;
+import common.pojos.PressData;
 import common.extractor.xpath.press.search.PressSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;

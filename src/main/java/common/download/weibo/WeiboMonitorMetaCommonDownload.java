@@ -1,18 +1,15 @@
 package common.download.weibo;
 
-import common.bean.HtmlInfo;
-import common.bean.UserData;
-import common.bean.WeiboData;
+import common.pojos.HtmlInfo;
+import common.pojos.UserData;
+import common.pojos.WeiboData;
 import common.download.GenericMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
-import common.extractor.xpath.press.search.PressSearchXpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
-import common.service.mysql.WeiboMysqlService;
-import common.service.oracle.WeiboOracleService;
-import common.bean.CollectDataType;
+import common.pojos.CollectDataType;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
@@ -46,11 +43,6 @@ public class WeiboMonitorMetaCommonDownload extends GenericMetaCommonDownload<We
 	@Override
 	public void prePorcess() {
 		InnerInfo ii = null;
-		if (Systemconfig.clientinfo != null) {
-			ViewInfo vi = Systemconfig.clientinfo.getViewinfos().get(Systemconfig.localAddress + "_" + siteFlag);
-			ii = vi.getCrawlers().get(key.getKey());
-			ii.setAlive(1);
-		}
 		if (!siteinfo.getLogin())
 			return;
 
@@ -65,7 +57,7 @@ public class WeiboMonitorMetaCommonDownload extends GenericMetaCommonDownload<We
 		if (!userAttribute.getHadRun()) {
 			http.monitorLogin(userAttribute);
 			ua.setHadRun(true);
-			System.out.println("监测用户！！！" + userAttribute.getName());
+			LOGGER.info("监测用户！！！" + userAttribute.getName());
 		}
 		if (ii != null) {
 			ii.setAccountId(ua.getId());
@@ -97,10 +89,11 @@ public class WeiboMonitorMetaCommonDownload extends GenericMetaCommonDownload<We
 						// html.setContent(common.util.StringUtil.getContent("filedown/USERINFO/sina_weibo_monitor/5f5af5a1fe1cf1bc7ed8b0933fd814f0.htm"));
 						((WeiboMonitorXpathExtractor) ((XpathExtractor) xpath)).templateUser(user, html, false,
 								key.getRole() + "");
-						if (Systemconfig.dbService instanceof WeiboMysqlService)
-							((WeiboMysqlService) Systemconfig.dbService).saveUser(user);
-						else if (Systemconfig.dbService instanceof WeiboOracleService)
-							((WeiboOracleService) Systemconfig.dbService).saveUser(user);
+						//todo
+//						if (Systemconfig.dbService instanceof WeiboMysqlService)
+//							((WeiboMysqlService) Systemconfig.dbService).saveUser(user);
+//						else if (Systemconfig.dbService instanceof WeiboOracleService)
+//							((WeiboOracleService) Systemconfig.dbService).saveUser(user);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

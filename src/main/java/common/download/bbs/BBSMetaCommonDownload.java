@@ -3,8 +3,8 @@ package common.download.bbs;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

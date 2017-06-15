@@ -1,9 +1,8 @@
 package common.extractor.xpath.blog.search.sub;
 
-import common.bean.BlogData;
-import common.bean.HtmlInfo;
+import common.pojos.BlogData;
+import common.pojos.HtmlInfo;
 import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
-import common.service.oracle.FrgmediaOracleService;
 import common.siteinfo.Component;
 import common.system.Systemconfig;
 import common.util.ExtractResult;
@@ -13,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 
 public class SogouExtractor extends BlogSearchXpathExtractor {
@@ -26,7 +23,7 @@ public class SogouExtractor extends BlogSearchXpathExtractor {
 
 		ExtractResult result = null;
 		try {
-			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
+			result = Systemconfig.htmlAutoExtractor.extract(html.getContent(), html.getEncode(), data.getUrl());
 		} catch (Exception e) {
 			LOGGER.info("出错url：" + html.getOrignUrl());
 			e.printStackTrace();
@@ -140,7 +137,7 @@ public class SogouExtractor extends BlogSearchXpathExtractor {
 
 		if (component == null)	{
 
-			System.out.println("pubtime component is null !!!"+component);
+			LOGGER.info("pubtime component is null !!!"+component);
 			return;
 		}
 		for(int i = 0;i < list.size();i++) {

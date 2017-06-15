@@ -1,16 +1,16 @@
 package common.util;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import common.extractor.xpath.video.search.sub.SokuVideoSearchXpathExtractor;
 import org.apache.xerces.util.URI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -24,6 +24,8 @@ import org.xml.sax.SAXException;
  * 
  */
 public class HtmlExtractor {
+	private static final Logger LOGGER = LoggerFactory.getLogger(HtmlExtractor.class);
+
 	/** tags to be removed */
 	public static String[] REMOVE_TAGS = null;
 	private static String removeTags;
@@ -62,8 +64,11 @@ public class HtmlExtractor {
 		TABLE_TAGS = tableTags.split("\\s");
 		IMAGE_TYPE = imageType.split("\\s");
 		INVALID_BEG = invalidBeg.split(",");
-		invalidWords = StringUtil.contentList("config/invalid.dic");
-		invalidImgs = StringUtil.contentList("config/img.dic");
+
+		String path = "src/main/resources/".replace("/",File.separator);
+		invalidWords = StringUtil.contentList(path+"invalid.dic");
+
+		invalidImgs = StringUtil.contentList(path+"img.dic");
 	}
 	
 	/**
@@ -228,7 +233,6 @@ public class HtmlExtractor {
 	 * @param charset
 	 *            page charset
 	 * @return absolute url string
-	 * @throws URIException
 	 */
 	private String getAbsoluteURLStr(String baseURLStr, String relativeURLStr,
 			String charset) throws Exception {
@@ -813,8 +817,8 @@ public class HtmlExtractor {
 			properties.load(in);
 			in.close();
 		} catch (IOException e) {
-			System.out.println(e);
-			return;
+			LOGGER.error("html extractor failure",e);
+			throw new RuntimeException(e);
 		}
 		REMOVE_TAGS = properties.getProperty("remove_tags").trim().split("\\s");
 		TABLE_TAGS = properties.getProperty("table_tags").trim().split("\\s");
@@ -830,7 +834,7 @@ public class HtmlExtractor {
 		downloadImg = Boolean.parseBoolean(properties.getProperty("download_img"));
 
 		try {
-			in = new FileInputStream("config/invalid_beg");
+			in = new FileInputStream("config"+File.separator+"invalid_beg");
 			InputStreamReader isr = new InputStreamReader(in, "utf8");
 			BufferedReader bf = new BufferedReader(isr);
 			String temp = "";
@@ -841,8 +845,8 @@ public class HtmlExtractor {
 			INVALID_BEG = temp.trim().split("\\s");
 			in.close();
 		} catch (IOException e) {
-			System.out.println(e);
-			return;
+			LOGGER.error("html extractor failure",e);
+			throw new RuntimeException(e);
 		}
 	}
 	

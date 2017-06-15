@@ -1,7 +1,7 @@
 package common.extractor.xpath.company.monitor;
 
 
-import common.bean.CompanyData;
+import common.pojos.CompanyData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 import org.w3c.dom.Node;

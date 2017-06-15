@@ -1,14 +1,9 @@
 package common.extractor.xpath.blog.search.sub;
 
-import java.util.List;
-
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import common.bean.BlogData;
 import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
 
 public class HexunExtractor extends BlogSearchXpathExtractor {
 

@@ -3,8 +3,8 @@ package common.download.news;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.HtmlInfo;
-import common.bean.NewsData;
+import common.pojos.HtmlInfo;
+import common.pojos.NewsData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

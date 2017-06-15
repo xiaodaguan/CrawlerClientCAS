@@ -44,11 +44,6 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 	
 	public void prePorcess() {
 		
-		if(Systemconfig.clientinfo != null) {
-			ViewInfo vi = Systemconfig.clientinfo.getViewinfos().get(Systemconfig.localAddress+"_"+siteFlag);
-			InnerInfo ii = vi.getCrawlers().get(key.getKey());
-			ii.setAlive(1);
-		}
 	}
 	public void postProcess() {
 		map.clear();
@@ -59,11 +54,7 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 			Thread.currentThread().interrupt();
 		}
 		LOGGER.info(siteFlag+"的"+key.getKey()+"数据采集完成！！");
-		if(Systemconfig.clientinfo != null) {
-			ViewInfo vi = Systemconfig.clientinfo.getViewinfos().get(Systemconfig.localAddress+"_"+siteFlag);
-			InnerInfo ii = vi.getCrawlers().get(key.getKey());
-			ii.setAlive(2);
-		}
+
 		
 		String taskName =   siteFlag+key.getKey();
 		LOGGER.info( taskName + "   任务已完成        postProcess  ");

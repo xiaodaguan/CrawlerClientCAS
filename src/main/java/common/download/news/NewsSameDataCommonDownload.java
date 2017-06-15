@@ -2,14 +2,10 @@ package common.download.news;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.HtmlInfo;
-import common.bean.NewsData;
+import common.pojos.HtmlInfo;
+import common.pojos.NewsData;
 import common.download.GenericDataCommonDownload;
-import common.extractor.xpath.academic.search.AcademicSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
-import common.service.mysql.NewsMysqlService;
-import common.service.oracle.NewsOracleService;
-import common.system.Systemconfig;
 import common.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,10 +39,12 @@ public class NewsSameDataCommonDownload extends GenericDataCommonDownload<NewsDa
 				//解析数据
 				xpath.templateContentPage(data, html);
 				LOGGER.info("相同新闻"+data.getTitle() + "解析完成。。。");
-				if(Systemconfig.dbService instanceof NewsOracleService)
-					((NewsOracleService)Systemconfig.dbService).saveSameData(data);
-				else if(Systemconfig.dbService instanceof NewsMysqlService)
-					((NewsMysqlService)Systemconfig.dbService).saveSameData(data);
+
+				//todo
+//				if(Systemconfig.dbService instanceof NewsOracleService)
+//					((NewsOracleService)Systemconfig.dbService).saveSameData(data);
+//				else if(Systemconfig.dbService instanceof NewsMysqlService)
+//					((NewsMysqlService)Systemconfig.dbService).saveSameData(data);
 				LOGGER.info("相同新闻"+data.getTitle() + "保存完成。。。");
 			}
 		} catch (Exception e) {

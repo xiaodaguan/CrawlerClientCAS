@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import common.extractor.xpath.bbs.monitor.sub.BandaoQdExtractor;
 import org.apache.xpath.XPathAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +13,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.HtmlInfo;
-import common.bean.UserData;
-import common.bean.WeiboData;
+import common.pojos.HtmlInfo;
+import common.pojos.UserData;
+import common.pojos.WeiboData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

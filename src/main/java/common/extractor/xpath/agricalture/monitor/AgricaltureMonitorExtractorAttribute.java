@@ -2,7 +2,7 @@ package common.extractor.xpath.agricalture.monitor;
 
 import org.w3c.dom.Node;
 
-import common.bean.AgricaltureData;
+import common.pojos.AgricaltureData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 

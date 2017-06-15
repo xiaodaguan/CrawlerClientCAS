@@ -1,12 +1,12 @@
 package common.download.weibo;
 
-import common.bean.HtmlInfo;
-import common.bean.WeiboData;
+import common.pojos.HtmlInfo;
+import common.pojos.WeiboData;
 import common.download.GenericMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
-import common.bean.CollectDataType;
+import common.pojos.CollectDataType;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
@@ -78,36 +78,36 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.err.println("err while downloading: " + nexturl);
-                    System.err.println("wb url " + wbUrl);
+                    LOGGER.error("err while downloading: " + nexturl);
+                    LOGGER.error("wb url " + wbUrl);
                     break;
                 }
             }
             
             for (WeiboData videoData:alllist) {
-            	System.out.println("\n\nWeibo：");	
-                System.out.println("getAuthor:      \t"+videoData.getAuthor());
-                System.out.println("getCategoryCode:\t"+videoData.getCategoryCode());
-                System.out.println("getCommentUrl：     \t"+videoData.getCommentUrl());
-                System.out.println("getCompleteSize:\t"+videoData.getCompleteSize());
-                System.out.println("getContent:     \t"+videoData.getContent());
-                System.out.println("getId:          \t"+videoData.getId());
-                System.out.println("getMd5:         \t"+videoData.getMd5());
-                System.out.println("getSearchKey:   \t"+videoData.getSearchKey());
-                System.out.println("getSiteId:      \t"+videoData.getSiteId());
-                System.out.println("getTitle:       \t"+videoData.getTitle());
-                System.out.println("getUrl:         \t"+videoData.getUrl());
-                System.out.println("getInserttime:  \t"+videoData.getInserttime());
-                System.out.println("getPubdate:     \t"+videoData.getPubdate().toLocaleString());	
-                System.out.println("\n\n");	
+            	LOGGER.info("\n\nWeibo：");
+                LOGGER.info("getAuthor:      \t"+videoData.getAuthor());
+                LOGGER.info("getCategoryCode:\t"+videoData.getCategoryCode());
+                LOGGER.info("getCommentUrl：     \t"+videoData.getCommentUrl());
+                LOGGER.info("getCompleteSize:\t"+videoData.getCompleteSize());
+                LOGGER.info("getContent:     \t"+videoData.getContent());
+                LOGGER.info("getId:          \t"+videoData.getId());
+                LOGGER.info("getMd5:         \t"+videoData.getMd5());
+                LOGGER.info("getSearchKey:   \t"+videoData.getSearchKey());
+                LOGGER.info("getSiteId:      \t"+videoData.getSiteId());
+                LOGGER.info("getTitle:       \t"+videoData.getTitle());
+                LOGGER.info("getUrl:         \t"+videoData.getUrl());
+                LOGGER.info("getInserttime:  \t"+videoData.getInserttime());
+                LOGGER.info("getPubdate:     \t"+videoData.getPubdate().toLocaleString());
+                LOGGER.info("\n\n");
 			}
             
             Systemconfig.dbService.saveCommentDatas(alllist);
             LOGGER.info("微博: " + wbUrl + " 评论保存完成.");
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("err while parsing comments:" + nexturl);
-            System.err.println("webo url: " + wbUrl);
+            LOGGER.error("err while parsing comments:" + nexturl);
+            LOGGER.error("webo url: " + wbUrl);
         } finally {
             alllist.clear();
             list.clear();

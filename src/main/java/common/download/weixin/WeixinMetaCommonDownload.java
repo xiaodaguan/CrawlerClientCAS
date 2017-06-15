@@ -1,7 +1,7 @@
 package common.download.weixin;
 
-import common.bean.HtmlInfo;
-import common.bean.WeixinData;
+import common.pojos.HtmlInfo;
+import common.pojos.WeixinData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.http.sub.WeixinHttpProcess;
@@ -149,7 +149,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             String lastPage = StringUtil.regMatcher(last, "<DOCUMENT>", "/DOCUMENT>");
             if (currPage != null && lastPage != null) {
                 if (currPage.equals(lastPage)) {
-                    System.out.println("当前页和上一页内容相同，已是最后一页，退出.");
+                    LOGGER.info("当前页和上一页内容相同，已是最后一页，退出.");
                     return true;
                 }
             }

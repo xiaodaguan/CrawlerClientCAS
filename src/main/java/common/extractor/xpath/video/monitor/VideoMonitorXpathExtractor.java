@@ -5,16 +5,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import common.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
-import common.bean.VideoData;
+import common.pojos.HtmlInfo;
+import common.pojos.VideoData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;

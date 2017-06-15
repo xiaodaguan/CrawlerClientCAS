@@ -4,15 +4,14 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
-import common.extractor.xpath.frgmedia.search.FrgmediaSearchXpathExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.HtmlInfo;
-import common.bean.PressData;
-import common.bean.NewsData;
+import common.pojos.HtmlInfo;
+import common.pojos.PressData;
+import common.pojos.NewsData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import common.system.Systemconfig;
@@ -32,7 +31,7 @@ public class PressSearchXpathExtractor extends XpathExtractor<PressData> impleme
 	public String templateContentPage(PressData data, HtmlInfo html, int page, String... keyword) {
 		ExtractResult result = null;
 		try {
-			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
+			result = Systemconfig.htmlAutoExtractor.extract(html.getContent(), html.getEncode(), data.getUrl());
 		} catch (Exception e) {
 			LOGGER.info("出错url：" + html.getOrignUrl());
 			e.printStackTrace();

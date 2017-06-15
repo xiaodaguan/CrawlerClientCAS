@@ -3,8 +3,8 @@ package common.download.conference;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.ConferenceData;
-import common.bean.HtmlInfo;
+import common.pojos.ConferenceData;
+import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

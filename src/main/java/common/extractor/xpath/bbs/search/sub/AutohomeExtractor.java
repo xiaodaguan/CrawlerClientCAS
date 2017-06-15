@@ -7,16 +7,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import common.download.weibo.WeiboUserMonitorMetaCommonDownload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -49,7 +48,7 @@ public class AutohomeExtractor extends BbsSearchXpathExtractor {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
-		// System.err.println(nl.getLength());
+		// LOGGER.error(nl.getLength());
 		for (int i = 0; i < nl.getLength(); i++) {
 			list.get(i).setBrief(nl.item(i).getTextContent());
 		}
@@ -59,7 +58,7 @@ public class AutohomeExtractor extends BbsSearchXpathExtractor {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
-		// System.out.println("作者数："+nl.getLength());
+		// LOGGER.info("作者数："+nl.getLength());
 		for (int i = 0; i < nl.getLength(); i++) {
 			list.get(i).setAuthor(nl.item(i).getTextContent().replace("楼主：", ""));
 		}
@@ -78,7 +77,7 @@ public class AutohomeExtractor extends BbsSearchXpathExtractor {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
-		// System.out.println("评论数数："+nl.getLength());
+		// LOGGER.info("评论数数："+nl.getLength());
 		for (int i = 0; i < nl.getLength(); i++) {
 			list.get(i).setReplyCount(Integer.parseInt(nl.item(i).getTextContent().replace(" 个回复", "")));
 		}
@@ -88,7 +87,7 @@ public class AutohomeExtractor extends BbsSearchXpathExtractor {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
-		// System.out.println("点击数数："+nl.getLength());
+		// LOGGER.info("点击数数："+nl.getLength());
 		for (int i = 0; i < nl.getLength(); i++) {
 			list.get(i)
 					.setClickCount(Integer.parseInt(nl.item(i).getTextContent().replace("浏览(", "").replace(")", "")));
@@ -130,9 +129,9 @@ public class AutohomeExtractor extends BbsSearchXpathExtractor {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		// create(content);
 		// StringUtil.writeFile("c:/a.htm", html.getContent());
-		// System.out.println(html.getContent());
+		// LOGGER.info(html.getContent());
 		if (page != 1)
-			System.out.println();
+			LOGGER.info("");
 		Node domtree = getRealDOM(html);
 		if (domtree == null) {
 			LOGGER.info("DOM解析为NULL！！");

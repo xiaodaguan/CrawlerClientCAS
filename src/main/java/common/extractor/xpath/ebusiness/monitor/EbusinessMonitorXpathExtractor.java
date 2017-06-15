@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Node;
-import common.bean.EbusinessData;
+import common.pojos.EbusinessData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 

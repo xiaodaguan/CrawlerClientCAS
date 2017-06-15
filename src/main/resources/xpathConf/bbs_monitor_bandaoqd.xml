@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<site>
+    <prop name="site" value="bandaoqd" />
+    <prop name="siteName" value="bandaoqd_bbs_monitor" />
+    <prop name="siteFlag" value="101" />
+    <prop name="charset" value="gbk" />
+    <prop name="downInterval" value="2" />
+    <prop name="page" value="2" />
+    <prop name="threadNum" value="1" />
+    <!-- <prop name="accessUrl" value="http://tieba.baidu.com/f?kw=%C8%FC%C2%D6" />--><!-- 赛轮 -->
+    <prop name="accessUrl" value="" />
+    <!-- 列表页 -->
+    <prop name="title" value="//A[@class='s xst']" />
+    <prop name="url" value="//A[@class='s xst']/@href" />
+
+    <prop name="next" value="(//A[@class='nxt'])[1]/@href" />
+
+    <!-- 内容页 -->
+    <!--
+        <prop name="author" value="//DIV[contains(@class,'l_post') and contains(@class,'noborder')]/DIV[@class='d_author']/UL/LI[@class='d_name']/A/text()" />
+        <prop name="reply_count" value="//LI[@class='l_reply_num']/SPAN[1]" />
+        <prop name="click_count" value="" />
+        <prop name="img_url" value="//DIV[contains(@class,'post_content') and contains(@class,'firstfloor')]//DIV[contains(@id,'post_content')]/IMG[@class[contains(.,'Image')]]/@src" />
+        <prop name="pubtime" value="//DIV[@class[contains(.,'d_post_content_firstfloor')]]//DIV[@class='core_reply_tail ']/UL/LI[2]/SPAN" />
+        <prop name="content" value="//DIV[contains(@class,'firstfloor')]/DIV[contains(@class,'p_content_nameplate')]/CC/DIV[contains(@class,'post_content')]" />
+        -->
+    <prop name="author_l" value="//TD[@class='by'][1]/CITE/A" />
+    <prop name="reply_count_l" value="//TD[@class='num']/A" />
+    <prop name="click_count_l" value="//TD[@class='num']/EM" />
+    <prop name="img_url" value="" />
+    <prop name="pubtime_l" value="//TD[@class='by']/EM/SPAN" />
+    <prop name="content" value="//DIV[@id='postlist']/DIV[contains(@id,'post')][1]//TD[contains(@id,'postmessage')]" />
+
+    <!--
+    <prop name="reply_content" value="//DIV[not(contains(@class,'firstfloor'))]/DIV[contains(@class,'p_content_nameplate')]/CC/DIV[contains(@class,'post_content')]" />
+    <prop name="reply_time" value="//DIV[contains(@class,'post_content') and not(contains(@class,'firstfloor'))]//DIV[@class='core_reply_tail ']/UL[contains(@class,'p_tail')]/LI[2]/SPAN" />
+    <prop name="reply_name" value="//DIV[contains(@class,'l_post') and not(contains(@class,'noborder'))]/DIV[@class='d_author']/UL/LI[@class='d_name']/A/text()" />
+    -->
+    <prop name="reply_content" value="//DIV[@id='postlist']/DIV[contains(@id,'post')]//TD[contains(@id,'postmessage')]" />
+    <prop name="reply_time" value="//DIV[@id='postlist']/DIV[contains(@id,'post')]//EM[contains(@id,'authorposton')]" />
+    <prop name="reply_name" value="//DIV[@id='postlist']/DIV[contains(@id,'post')]//DIV[@class='authi']/A[@class='xw1']" />
+
+
+    <prop name="reply_next" value="(//A[@class='nxt'])[1]/@href" />
+    <prop name="column" value="" />
+    <prop name="source" value="" />
+    <prop name="pageTitle" value="" />
+</site>

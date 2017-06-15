@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.w3c.dom.Node;
 
-import common.bean.AgricaltureData;
-import common.bean.VideoData;
+import common.pojos.VideoData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 

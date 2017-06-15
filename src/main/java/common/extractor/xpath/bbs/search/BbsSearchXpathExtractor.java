@@ -1,10 +1,9 @@
 package common.extractor.xpath.bbs.search;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.XpathExtractor;
-import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
@@ -234,7 +233,7 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 	public void parseReplyname(List<ReplyData> list, Node domtree,
 			Component component, String... strings) {
 		NodeList nl = head(component.getXpath(), domtree);
-//		System.out.println(domtree.getTextContent());
+//		LOGGER.info(domtree.getTextContent());
 		for(int i = 0;i < nl.getLength();i++) {
 			ReplyData vd = new ReplyData();
 			vd.setName(StringUtil.format(nl.item(i).getTextContent()));

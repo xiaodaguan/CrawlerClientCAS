@@ -7,7 +7,7 @@ import java.util.Map;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.ConferenceData;
+import common.pojos.ConferenceData;
 import common.extractor.xpath.conference.monitor.ConferenceMonitorXpathExtractor;
 import common.siteinfo.Component;
 

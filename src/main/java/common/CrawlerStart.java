@@ -16,13 +16,32 @@ public class CrawlerStart {
 
     public static void main(String[] args) throws Exception {
 
-        // common.util.TimeUtil.rest(8 * 60 * 60);
-        // TaskMonitor tm=new TaskMonitor();
-        // Thread tmonitor=new Thread(tm);
-        // tmonitor.start(); 
 
-        if (args.length == 0) {
+        StringBuilder stringBuilder = parseArgs(args);
+        if (stringBuilder == null){
+            LOGGER.error("no args found.");
             return;
+        }
+
+
+        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        AppContext.initAppCtx(path);//初始化
+
+        LOGGER.info("\n\n\n");
+        LOGGER.info("[crawler start] current cmd: " + stringBuilder.toString());
+        LOGGER.info("[crawler start] will start after 3 sec...");
+        LOGGER.info("\n\n\n");
+
+
+        LOGGER.info("table:\t" + Systemconfig.table);
+        Thread.sleep(3 * 1000);
+        Job.simpleRun();
+
+    }
+
+    public static StringBuilder parseArgs(String[] args) {
+        if (args.length == 0) {
+            return null;
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -40,7 +59,7 @@ public class CrawlerStart {
                     Job.setcType(value);
 
                 } catch (NumberFormatException nfe) {
-                    System.err.println("type 错误.");
+                    LOGGER.error("type 错误.");
                     nfe.printStackTrace();
                 }
             } else if (arg.toLowerCase().contains("name=")) {//name
@@ -53,6 +72,8 @@ public class CrawlerStart {
                 Systemconfig.crawlerNum = Integer.parseInt(arg.split("=")[1]);
             } else if (arg.toLowerCase().contains("note=")) {//note
 
+            }else if(arg.equalsIgnoreCase("--skipbloomfilter")||arg.equals("-s")){
+                Systemconfig.setSkipBloomFilter(true);
             }
         }
 
@@ -66,12 +87,12 @@ public class CrawlerStart {
         Job.setCid(cid);
 
         if (Systemconfig.crawlerType == 0) {
-            System.err.println("类别参数没有定义('type=n')");
-            return;
+            LOGGER.error("类别参数没有定义('type=n')");
+            return null;
         }
         if (crawlerName == null) {
-            System.err.println("名称参数没有定义('name=n')");
-            return;
+            LOGGER.error("名称参数没有定义('name=n')");
+            return null;
         }
         if (Job.getCid().equals("")) {
             System.err.print("[warning]: cid not defined!");
@@ -79,19 +100,7 @@ public class CrawlerStart {
         if (Job.getProject().equals("")) {
             System.err.print("[warning]: project not defined!");
         }
-
-        AppContext.initAppCtx("");//初始化
-
-        LOGGER.info("\n\n\n");
-        LOGGER.info("[crawler start] current cmd: " + stringBuilder.toString());
-        LOGGER.info("[crawler start] will start after 3 sec...");
-        LOGGER.info("\n\n\n");
-
-
-        System.out.println("table:\t" + Systemconfig.table);
-        Thread.sleep(3 * 1000);
-        Job.simpleRun();
-
+        return stringBuilder;
     }
 }
 

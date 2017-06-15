@@ -3,7 +3,7 @@ package common.extractor.xpath.frgmedia.search.sub;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.FrgmediaData;
+import common.pojos.FrgmediaData;
 import common.extractor.xpath.frgmedia.search.FrgmediaSearchXpathExtractor;
 import common.siteinfo.Component;
 

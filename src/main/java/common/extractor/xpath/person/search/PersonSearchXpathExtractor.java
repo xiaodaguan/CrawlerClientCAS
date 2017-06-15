@@ -6,7 +6,7 @@ import java.util.Map;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.PersonData;
+import common.pojos.PersonData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;

@@ -9,12 +9,9 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 import common.http.SimpleHttpProcess;
 import common.util.EncoderUtil;
 
@@ -57,7 +54,7 @@ public class Hz18HttpProcess extends SimpleHttpProcess {
 				for (Header header : cookies) {
 					resCookie += header.getValue().substring(0, header.getValue().indexOf(";")) + ";";
 				}
-				// System.out.println(resCookie);
+				// LOGGER.info(resCookie);
 				html.setResponseCookie(resCookie);
 				return EntityUtils.toByteArray(responseEntity);
 			}

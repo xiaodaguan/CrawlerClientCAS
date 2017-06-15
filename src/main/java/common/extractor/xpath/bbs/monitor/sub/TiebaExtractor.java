@@ -5,7 +5,7 @@ import net.sf.json.JSONObject;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.BBSData;
+import common.pojos.BBSData;
 import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;

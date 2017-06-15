@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import common.download.DataThreadControl;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -18,9 +17,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.ClientData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.ClientData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.client.search.ClientSearchXpathExtractor;
 import common.http.SimpleHttpProcess;
 import common.siteinfo.CommonComponent;
@@ -28,7 +27,6 @@ import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.MD5Util;
-import common.util.StringUtil;
 import common.util.TimeUtil;
 
 public class ToutiaoExtractor extends ClientSearchXpathExtractor {
@@ -235,7 +233,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 			int page = i + 2;
 			int offset = i * count;
 			String churl = commentUrl.replace("<page>", page + "").replace("<offset>", offset + "");
-			// System.out.println("commentUrl:"+churl);
+			// LOGGER.info("commentUrl:"+churl);
 			html.setOrignUrl(churl);
 			http.getContent(html);
 			content = html.getContent();

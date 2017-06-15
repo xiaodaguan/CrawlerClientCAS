@@ -1,6 +1,6 @@
 package common.extractor.xpath.blog.search;
 
-import common.bean.BlogData;
+import common.pojos.BlogData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;

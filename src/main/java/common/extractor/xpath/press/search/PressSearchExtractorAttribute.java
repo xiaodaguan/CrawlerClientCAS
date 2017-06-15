@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.w3c.dom.Node;
 
-import common.bean.PressData;
-import common.bean.NewsData;
+import common.pojos.PressData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 

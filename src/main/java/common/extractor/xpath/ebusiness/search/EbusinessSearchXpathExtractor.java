@@ -1,6 +1,6 @@
 package common.extractor.xpath.ebusiness.search;
 
-import common.bean.EbusinessData;
+import common.pojos.EbusinessData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import org.w3c.dom.Node;

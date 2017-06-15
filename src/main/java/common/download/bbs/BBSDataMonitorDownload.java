@@ -1,9 +1,8 @@
 package common.download.bbs;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
-import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.system.UserAttribute;

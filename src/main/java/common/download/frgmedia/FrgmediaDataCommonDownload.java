@@ -2,10 +2,9 @@ package common.download.frgmedia;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.FrgmediaData;
-import common.bean.HtmlInfo;
+import common.pojos.FrgmediaData;
+import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
-import common.extractor.xpath.academic.monitor.AcademicMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.StringUtil;
@@ -34,7 +33,7 @@ public class FrgmediaDataCommonDownload extends GenericDataCommonDownload<Frgmed
 		siteinfo.setAgent(false);
 		HtmlInfo html = htmlInfo("DATA");
 		if (html.getEncode().contains(";"))
-			System.out.println();
+			LOGGER.info("");
 
 		try {
 			if (url != null && !url.equals("")) {

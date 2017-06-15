@@ -1,10 +1,9 @@
 package common.extractor.xpath.bbs.monitor.sub;
 
-import common.bean.BBSData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.BBSData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
-import common.extractor.xpath.blog.search.sub.BaiduExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;

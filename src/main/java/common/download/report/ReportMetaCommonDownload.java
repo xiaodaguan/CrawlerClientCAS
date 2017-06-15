@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.HtmlInfo;
-import common.bean.ReportData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReportData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
@@ -109,7 +109,7 @@ public class ReportMetaCommonDownload extends GenericMetaCommonDownload<ReportDa
 			String lastPage = StringUtil.regMatcher(last, "\"page\"", ",");
 			if (currPage != null && lastPage != null) {
 				if (currPage.equals(lastPage)) {
-					System.out.println("当前页和上一页内容相同，已是最后一页，退出.");
+					LOGGER.info("当前页和上一页内容相同，已是最后一页，退出.");
 					return true;
 				}
 			}

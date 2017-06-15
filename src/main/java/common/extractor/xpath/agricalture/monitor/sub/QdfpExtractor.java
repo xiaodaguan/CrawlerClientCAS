@@ -1,7 +1,7 @@
 package common.extractor.xpath.agricalture.monitor.sub;
 
-import common.bean.AgricaltureData;
-import common.bean.HtmlInfo;
+import common.pojos.AgricaltureData;
+import common.pojos.HtmlInfo;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorExtractorAttribute;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorXpathExtractor;
 import common.siteinfo.CommonComponent;

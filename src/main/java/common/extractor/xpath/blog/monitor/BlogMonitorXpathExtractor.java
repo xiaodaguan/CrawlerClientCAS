@@ -1,6 +1,5 @@
 package common.extractor.xpath.blog.monitor;
 
-import java.io.File;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -8,15 +7,12 @@ import java.util.Map;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.bean.HtmlInfo;
-import common.bean.BlogData;
+import common.pojos.HtmlInfo;
+import common.pojos.BlogData;
 import common.extractor.xpath.XpathExtractor;
-import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
-import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.ExtractResult;
-import common.util.MD5Util;
 import common.util.StringUtil;
 
 /**
@@ -141,7 +137,7 @@ public class BlogMonitorXpathExtractor extends XpathExtractor<BlogData> implemen
 	public String templateContentPage(BlogData data, HtmlInfo html, int page, String... keyword) {
 		ExtractResult result = null;
 		try {
-			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());
+			result = Systemconfig.htmlAutoExtractor.extract(html.getContent(), html.getEncode(), data.getUrl());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

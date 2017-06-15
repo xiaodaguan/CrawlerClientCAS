@@ -1,6 +1,6 @@
 package common.extractor.xpath.company.monitor;
 
-import common.bean.CompanyData;
+import common.pojos.CompanyData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import common.util.StringUtil;

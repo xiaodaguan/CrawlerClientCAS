@@ -1,13 +1,7 @@
 package common.extractor.xpath.video.monitor;
 
-import java.util.List;
-import java.util.Map;
-
-import org.w3c.dom.Node;
-
-import common.bean.VideoData;
+import common.pojos.VideoData;
 import common.extractor.ExtractorAttribute;
-import common.siteinfo.Component;
 
 public interface VideoMonitorExtractorAttribute extends ExtractorAttribute<VideoData> {
 

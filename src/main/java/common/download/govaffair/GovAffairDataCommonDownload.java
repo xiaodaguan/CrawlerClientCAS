@@ -2,8 +2,8 @@ package common.download.govaffair;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.GovAffairData;
-import common.bean.HtmlInfo;
+import common.pojos.GovAffairData;
+import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
@@ -32,7 +32,7 @@ public class GovAffairDataCommonDownload extends GenericDataCommonDownload<GovAf
 		siteinfo.setAgent(false);
 		HtmlInfo html = htmlInfo("DATA");
 		if (html.getEncode().contains(";"))
-			System.out.println();
+			LOGGER.info("");
 
 		try {
 			if (url != null && !url.equals("")) {

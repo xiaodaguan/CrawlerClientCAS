@@ -3,7 +3,7 @@ package common.http;
 import common.system.UserAttribute;
 import org.apache.http.client.HttpClient;
 
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 
 public interface HttpProcess {
 

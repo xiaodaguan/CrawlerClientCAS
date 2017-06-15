@@ -1,10 +1,10 @@
 package common.download.weibo;
 
-import common.bean.HtmlInfo;
-import common.bean.WeiboData;
+import common.pojos.HtmlInfo;
+import common.pojos.WeiboData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.bean.CollectDataType;
+import common.pojos.CollectDataType;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
@@ -94,7 +94,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     String pageId = StringUtil.regMatcher(html1, "\\$CONFIG\\['page_id'\\]\\s*=\\s*'", "'");
                     uId = StringUtil.regMatcher(html1, "\\$CONFIG\\['uid'\\]\\s*=\\s*'", "'");
                     if (uId == null) {
-                        System.out.println("debug.");
+                        LOGGER.info("debug.");
                     }
                     String ajaxUrl1 = "http://weibo.com/p/aj/v6/mblog/mbloglist?ajwvr=6&" + "domain=100106&" + "is_search=0&" + "visible=0&" + "is_tag=0&" + "profile_ftype=1&" + "page=" + page + "&" + "pre_page=" + page + "&" + "max_id=&" + "end_id=" + list.get(0).getMid() + "&" + "pagebar=0&" + "filtered_min_id=&" + "pl_name=Pl_Official_MyProfileFeed__22&" + "id=" + pageId + "&" + "script_uri=/u/" + uId + "&" + "feed_type=0&" + "domain_op=100106";
                     // 下载第一次加载
@@ -219,11 +219,11 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
             if (wd.getCommentNum() > 0) {
 
                 if (wd.getUid() == null) {
-                    System.err.println("uid is missing.");
+                    LOGGER.error("uid is missing.");
                     continue;
                 }
                 if (wd.getMid() == null) {
-                    System.err.println("mid is missing.");
+                    LOGGER.error("mid is missing.");
                     continue;
                 }
                 String commUrl = "http://m.weibo.cn/" + wd.getUid() + "/" + wd.getMid() + "/rcMod?format=cards&type=comment&page=1";

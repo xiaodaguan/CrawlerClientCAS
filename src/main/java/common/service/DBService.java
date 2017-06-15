@@ -1,6 +1,6 @@
 package common.service;
 
-import common.bean.*;
+import common.pojos.*;
 import common.rmi.packet.SearchKey;
 import common.system.SiteTemplateAttribute;
 import common.system.UserAttribute;
@@ -15,7 +15,6 @@ import java.util.Map;
  * @author Administrator
  */
 public interface DBService<T> {
-
 
 
     /**
@@ -39,12 +38,12 @@ public interface DBService<T> {
     /**
      * 获得表中的md5
      *
-     * @param string
-     * @param map <tablename, List<md5>>
+     * @param tablename
      * @return
      */
-    public int getAllMd5(String string, Map<String, List<String>> map);
-    public List<String> getAllMd5(String string);
+    public List<String> getAllMd5(String tablename);
+
+    public int getDataCount(String tablename);
 
     /**
      * 处理异常数据

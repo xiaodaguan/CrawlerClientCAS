@@ -3,8 +3,6 @@ package common.extractor.xpath.video.search.sub;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Calendar;
@@ -15,11 +13,13 @@ import java.util.regex.Pattern;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.VideoData;
+import common.pojos.VideoData;
 import common.extractor.xpath.video.search.VideoSearchExtractorAttribute;
 import common.extractor.xpath.video.search.VideoSearchXpathExtractor;
 import common.siteinfo.Component;
@@ -32,7 +32,7 @@ import net.sf.json.JSONObject;
  * @author rzy
  */
 public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor implements VideoSearchExtractorAttribute {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SokuVideoSearchXpathExtractor.class);
 	@Override
 	public String parseNext(Node dom, Component component, String... args) {
 		String pageUrl = args[0].split("page=")[0];
@@ -87,9 +87,9 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 		StringBuffer sb = new StringBuffer();
 		try {
 			int statusCode = client.executeMethod(getMethod);
-			//System.out.println("statusCode:" + statusCode);
+			//LOGGER.info("statusCode:" + statusCode);
 			if (statusCode != HttpStatus.SC_OK) {
-				System.err.println("Method failed:" + getMethod.getStatusLine());
+				LOGGER.error("Method failed:" + getMethod.getStatusLine());
 				return null;
 			}
 			BufferedReader br = new BufferedReader(
@@ -102,7 +102,7 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			//System.out.println(sb.toString());
+			//LOGGER.info(sb.toString());
 		}
 		return sb.toString();
 	}
@@ -113,9 +113,9 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 		for (VideoData data : list) {
 			
 			String url = data.getUrl();
-			//System.out.println(url);
+			//LOGGER.info(url);
 			String content = this.getHtmlContent(url,null);
-			//System.out.println("content1："+content);
+			//LOGGER.info("content1："+content);
 			try {
 				Node node = (new DOMUtil()).ini(content,null);
 				String xpath = "//H1[@class='title']/A";
@@ -139,7 +139,7 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 			String realUpdownUrl = updownUrl.replace("<timestamp>", timestamp+"").
 					replace("<vid>", vid).replace("<showid>", showid);
 			content = this.getHtmlContent(realUpdownUrl,null);
-			//System.out.println("JSONObject updownUrl:"+content);
+			//LOGGER.info("JSONObject updownUrl:"+content);
 			content = content.split("\\(")[1];
 			JSONObject obj = JSONObject.fromObject(content).getJSONObject("data").getJSONObject("updown");
 			String up = obj.getString("up").replace(",", "");
@@ -153,7 +153,7 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 			String realCommentUrl = commentUrl.replace("<vid>", vid).replace("<showid>", showid);;
 			try {
 				//realCommentUrl = URLEncoder.encode(realCommentUrl, "UTF-8");
-				//System.out.println("URLEncoder : "+realCommentUrl);
+				//LOGGER.info("URLEncoder : "+realCommentUrl);
 				data.setCommentUrl(realCommentUrl);
 			} catch (Exception e1){
 				e1.printStackTrace();
@@ -174,7 +174,7 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 			VideoData vd = list.get(i);
 			String s = nl.item(i).getTextContent();
 			Calendar calendar = Calendar.getInstance();  
-			//System.out.println(x);
+			//LOGGER.info(x);
 			if(s.contains("年前")){
 				int year = Integer.parseInt(s.split("年前")[0]);
 				calendar.add(Calendar.YEAR, -year);

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.w3c.dom.Node;
 
-import common.bean.BBSData;
-import common.bean.ReplyData;
+import common.pojos.BBSData;
+import common.pojos.ReplyData;
 import common.extractor.ExtractorAttribute;
 import common.siteinfo.Component;
 

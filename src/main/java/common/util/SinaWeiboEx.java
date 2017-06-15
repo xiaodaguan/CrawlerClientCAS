@@ -160,7 +160,6 @@ public class SinaWeiboEx {
                 "</html>";
 
 
-        System.out.println(ifKeywordHasNoResult(s));
     }
 
     /**

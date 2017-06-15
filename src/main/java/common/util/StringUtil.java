@@ -195,7 +195,7 @@ public class StringUtil {
 
 		while (m.find()) {
 			resutls.add(m.group(0));
-			// System.out.println(m.group(0));
+			// LOGGER.info(m.group(0));
 		}
 		return resutls;
 	}
@@ -467,6 +467,17 @@ public class StringUtil {
 				}
 			}
 		}
+	}
+
+	/**
+	 * please input
+	 * @param str
+	 * @return
+	 */
+	public static String upperFirstLetter(String str){
+		char[] cs = str.toCharArray();
+		cs[0]-=32;
+		return String.valueOf(cs);
 	}
 
 }

@@ -8,7 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.WeiboData;
+import common.pojos.WeiboData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.UserAttribute;

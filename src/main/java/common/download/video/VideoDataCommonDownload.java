@@ -2,10 +2,9 @@ package common.download.video;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.bean.VideoData;
-import common.bean.HtmlInfo;
+import common.pojos.VideoData;
+import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
-import common.download.frgmedia.FrgmediaDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import org.slf4j.Logger;

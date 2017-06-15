@@ -3,8 +3,8 @@ package common.download.frgmedia;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.bean.FrgmediaData;
-import common.bean.HtmlInfo;
+import common.pojos.FrgmediaData;
+import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

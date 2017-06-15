@@ -8,16 +8,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import common.service.oracle.WeixinOracleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.bean.ClientData;
-import common.bean.HtmlInfo;
-import common.bean.ReplyData;
+import common.pojos.ClientData;
+import common.pojos.HtmlInfo;
+import common.pojos.ReplyData;
 import common.extractor.xpath.client.search.ClientSearchXpathExtractor;
 import common.http.SimpleHttpProcess;
 import common.siteinfo.CommonComponent;
@@ -25,7 +24,6 @@ import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.util.MD5Util;
-import common.util.StringUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 

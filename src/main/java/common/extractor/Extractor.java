@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.xml.sax.SAXException;
 
-import common.bean.HtmlInfo;
+import common.pojos.HtmlInfo;
 
 public interface Extractor<T> {
 

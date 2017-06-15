@@ -1,7 +1,7 @@
 package common.download.company;
 
-import common.bean.CommonData;
-import common.bean.HtmlInfo;
+import common.pojos.CommonData;
+import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;

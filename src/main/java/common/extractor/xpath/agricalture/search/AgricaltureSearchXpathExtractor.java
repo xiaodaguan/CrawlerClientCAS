@@ -1,20 +1,13 @@
 package common.extractor.xpath.agricalture.search;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import common.bean.HtmlInfo;
-import common.bean.AgricaltureData;
+import common.pojos.AgricaltureData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
-import common.system.Systemconfig;
-import common.util.ExtractResult;
-import common.util.MD5Util;
-import common.util.StringUtil;
 
 /**
  * 抽取实现类
