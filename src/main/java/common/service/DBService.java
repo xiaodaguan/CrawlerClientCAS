@@ -59,5 +59,5 @@ public interface DBService<T> {
     void updateUserOrder(String userName);
 
 
-    T read(int id);
+    T getData(int id);
 }

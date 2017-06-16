@@ -9,6 +9,8 @@ mybatis 插入数据，oracle通过序列生成自增主键，setId()给实体
 
 sql的每个字段，实体对应的属性都必须有值，否则无法写入数据库
 
+
+
 ## 架构
 
 - 任务队列：redis-cluster  
@@ -36,3 +38,16 @@ src/main/resource/
     - img.dic&invalid.dic: 无视
     - simplelogger.properties: 日志配置
 
+## 开发
+
+#### 持久层
+照猫画虎四步走
+1. 新建 XxxMapper.java
+2. 实现 XxxService.java
+3. 新建 mapper-xxx.xml
+4. 修改 app-sysconfig.xml，```xxxMapper和xxxService```两个bean
+5. 测试
+
+## todo
+
+对保存成功的数据进行bloomfilter add处理

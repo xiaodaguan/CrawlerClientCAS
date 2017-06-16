@@ -11,7 +11,7 @@ public class NewsData extends CommonData{
 	private String imgUrl;
 	private String sameUrl;
 	private String author;
-	private int samenum;
+	private int sameNum;
 	
 	public String getSameUrl() {
 		return sameUrl;
@@ -49,11 +49,11 @@ public class NewsData extends CommonData{
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public int getSamenum() {
-		return samenum;
+	public int getSameNum() {
+		return sameNum;
 	}
-	public void setSamenum(int samenum) {
-		this.samenum = samenum;
+	public void setSameNum(int sameNum) {
+		this.sameNum = sameNum;
 	}
 
 }

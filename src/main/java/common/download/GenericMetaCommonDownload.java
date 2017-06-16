@@ -26,7 +26,7 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 	public GenericMetaCommonDownload(SearchKey key) {
 		super(key);
 	}
-	private final CountDownLatch endCount = new CountDownLatch(1);
+
 	@Override
 	public void run() {
 		prePorcess();
@@ -36,7 +36,6 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 			e.printStackTrace();
 		}
 		finally {
-			release();
 		}
 		postProcess();
 	}
@@ -48,22 +47,10 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 	public void postProcess() {
 		map.clear();
 		map = null;
-		try {
-			endCount.await(5, TimeUnit.HOURS);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
-		LOGGER.info(siteFlag+"的"+key.getKEYWORD()+"数据采集完成！！");
+		LOGGER.info(siteFlag+"的"+key.getKEYWORD()+"列表页数据采集完成！！");
 
-		
-		String taskName =   siteFlag+key.getKEYWORD();
-		LOGGER.info( taskName + "   任务已完成        postProcess  ");
-		
-		Systemconfig.finish.put(siteFlag+key.getKEYWORD(), true);
+
 	}
 	
-	public void release() {
-		endCount.countDown();
-	}
-	
+
 }

@@ -1,11 +1,10 @@
 package common.service;
 
-import common.pojos.WeixinData;
+import common.pojos.NewsData;
 import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -25,7 +24,7 @@ public class serviceTest {
     @BeforeClass
     public static void beforeClass() throws ClassNotFoundException {
 
-        Systemconfig.crawlerType = 15;
+        Systemconfig.crawlerType = 1;
         context = new ClassPathXmlApplicationContext("app-sysconfig.xml");
         String typeName = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
 
@@ -49,7 +48,7 @@ public class serviceTest {
 
     @Test
     public void readTest(){
-        WeixinData data = (WeixinData) dbService.read(1454392);
+        NewsData data = (NewsData) dbService.getData(583);
         System.out.println(data.getTitle());
         System.out.println(data.getUrl());
         Assert.assertNotNull(data);
@@ -57,7 +56,9 @@ public class serviceTest {
 
     @Test
     public void createTest() throws IOException {
-        WeixinData data = new WeixinData();
+        NewsData data = new NewsData();
+        // (id, title, content, md5, inserttime, category_code, search_keyword, url, pubtime, brief, source, same_url, same_num, img_url)
+
         data.setTitle("test title");
         data.setUrl("www.test.url");
         data.setContent("test contentttttt");
@@ -69,7 +70,10 @@ public class serviceTest {
         data.setBrief("testbbbb");
         data.setImgUrl("testjau");
         data.setInserttime(new Date());
-        data.setOnlyUpdate(0);
+        data.setCategoryCode(3);
+        data.setSameNum(25);
+        data.setImgUrl("www.img.url");
+        data.setSameUrl("www.same.url");
 
 
         int i = dbService.saveData(data);

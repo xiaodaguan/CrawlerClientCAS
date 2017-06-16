@@ -23,7 +23,8 @@ public class WeixinService extends BaseService<WeixinData> {
 
     @Override
     public void saveDatas(List<WeixinData> list) {
-
+        for (WeixinData data: list)
+            saveData(data);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class WeixinService extends BaseService<WeixinData> {
     }
 
     @Override
-    public WeixinData read(int id){
+    public WeixinData getData(int id){
         return weixinMapper.read(id);
     }
 }

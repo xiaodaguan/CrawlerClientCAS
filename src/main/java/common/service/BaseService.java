@@ -35,7 +35,7 @@ public abstract class BaseService<T> implements DBService<T> {
 
 
     @Override
-    public T read(int id){
+    public T getData(int id){
         return null;
     }
 

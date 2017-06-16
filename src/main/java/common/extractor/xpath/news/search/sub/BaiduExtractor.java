@@ -151,7 +151,7 @@ public class BaiduExtractor extends NewsSearchXpathExtractor {
 			NodeList nl = commonList(xpath, dom);
 			if(nl.item(0)!=null) {
 				String s = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d+");
-				list.get(i).setSamenum(Integer.parseInt(s==null?"0":s));
+				list.get(i).setSameNum(Integer.parseInt(s==null?"0":s));
 			}
 		}
 	}

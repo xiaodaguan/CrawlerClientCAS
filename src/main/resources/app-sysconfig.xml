@@ -129,15 +129,25 @@
 		<property name="mapperInterface" value="common.mapper.BaseMapper"/>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
+
 	<bean id="weixinMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="common.mapper.WeixinMapper"/>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
-
 	<bean id="weixinService" class="common.service.WeixinService">
 		<property name="weixinMapper" ref="weixinMapper"/>
 		<property name="baseMapper" ref="baseMapper"/>
 	</bean>
+
+	<bean id="newsMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="common.mapper.NewsMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="newsService" class="common.service.NewsService">
+		<property name="newsMapper" ref="newsMapper"/>
+		<property name="baseMapper" ref="baseMapper"/>
+	</bean>
+
 
 
 	<!-- redis -->
@@ -172,8 +182,8 @@
 		</property>
 		<property name="bloomFilter">
 			<bean class="common.urlFilter.BloomFilter">
-				<constructor-arg type="double" value="0.000001"/>
-				<constructor-arg type="int" value="100000000"/>
+				<constructor-arg type="double" value="${errorRate}"/>
+				<constructor-arg type="int" value="${entityCount}"/>
 			</bean>
 		</property>
 
