@@ -18,9 +18,6 @@ public abstract class BaseService<T> implements DBService<T> {
 
     private BaseMapper<T> baseMapper;
 
-    static{
-        LOGGER.debug("base service ........................");
-    }
 
     public void setBaseMapper(BaseMapper baseMapper) {
         this.baseMapper = baseMapper;
@@ -32,8 +29,8 @@ public abstract class BaseService<T> implements DBService<T> {
     }
 
     @Override
-    public void saveData(T data){
-
+    public int saveData(T data){
+        return 0;
     }
 
 

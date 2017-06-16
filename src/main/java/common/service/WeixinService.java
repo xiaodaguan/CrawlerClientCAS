@@ -16,9 +16,6 @@ public class WeixinService extends BaseService<WeixinData> {
     private WeixinMapper weixinMapper;
 
 
-    static{
-        LOGGER.debug("weixin service ........................");
-    }
 
     public void setWeixinMapper(WeixinMapper weixinMapper) {
         this.weixinMapper = weixinMapper;
@@ -30,8 +27,8 @@ public class WeixinService extends BaseService<WeixinData> {
     }
 
     @Override
-    public void saveData(WeixinData data) {
-
+    public int saveData(WeixinData data) {
+        return weixinMapper.create(data);
     }
 
     @Override

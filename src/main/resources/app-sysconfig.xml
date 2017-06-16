@@ -4,7 +4,7 @@
 	   xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
-	<context:property-placeholder location="classpath*:config.properties"/>
+	<context:property-placeholder location="classpath*:*.properties"/>
 
 	<bean id="systemconfig" class="common.system.Systemconfig" init-method="initial">
 		<property name="extractor" ref="extractor" />

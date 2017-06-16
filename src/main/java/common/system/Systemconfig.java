@@ -310,7 +310,11 @@ public class Systemconfig {
     }
 
     public static void initDBService() {
-        dbService = (DBService) AppContext.appContext.getBean("dbService");
+
+        String typeName = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
+
+        String serviceName = typeName.substring(0,typeName.indexOf("_"))+"Service";
+        dbService = (DBService) AppContext.appContext.getBean(serviceName);
         String typename = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
         String tablename= typename.substring(0,typename.indexOf("_"))+"_data";
         int c = dbService.getDataCount(table);

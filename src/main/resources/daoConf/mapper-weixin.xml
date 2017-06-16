@@ -5,4 +5,14 @@
         select * from WEIXIN_DATA where id=${id}
     </select>
 
+    <insert id="create" parameterType="common.pojos.WeixinData" >
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select weixin_data_seq.nextval from dual
+        </selectKey>
+        INSERT INTO WEIXIN_DATA
+        (id, title, author, pubtime, source, url, inserttime, search_keyword, md5, content, brief, img_url, read_num, like_num, updated)
+        VALUES
+        (#{id}, #{title}, #{author}, #{pubdate}, #{source}, #{url}, sysdate, #{searchKey}, #{md5}, #{content}, #{brief}, #{imgUrl}, #{readNum}, #{praiseNum}, 0)
+    </insert>
+
 </mapper>

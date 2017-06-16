@@ -22,7 +22,7 @@ public interface DBService<T> {
      */
     public void saveDatas(List<T> list) throws IOException;
 
-    public void saveData(T t) throws IOException;
+    public int saveData(T t) throws IOException;
 
     /**
      * 获得表中的md5

@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,5 +55,27 @@ public class serviceTest {
         Assert.assertNotNull(data);
     }
 
+    @Test
+    public void createTest() throws IOException {
+        WeixinData data = new WeixinData();
+        data.setTitle("test title");
+        data.setUrl("www.test.url");
+        data.setContent("test contentttttt");
+        data.setAuthor("tester");
+        data.setSearchKey("test");
+        data.setMd5("testjdskalfjdklmd5");
+        data.setPubdate(new Date());
+        data.setSource("testsour");
+        data.setBrief("testbbbb");
+        data.setImgUrl("testjau");
+        data.setInserttime(new Date());
+        data.setOnlyUpdate(0);
+
+
+        int i = dbService.saveData(data);
+        System.out.println("status:"+i);
+        System.out.println("data id:"+data.getId());
+        Assert.assertNotEquals(0,i);
+    }
 
 }
