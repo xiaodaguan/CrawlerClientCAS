@@ -1,22 +1,27 @@
-package common.http.sub;
-
+package test;
 
 import com.gargoylesoftware.htmlunit.*;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 import com.gargoylesoftware.htmlunit.util.Cookie;
-import common.bean.HtmlInfo;
-import common.http.SimpleHttpProcess;
+import org.junit.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Created by Administrator on 2017/6/15 0015.
+ */
+public class testWebClient {
 
-public class WeixinHttpProcess extends SimpleHttpProcess {
+
+
 
     //static BrowserVersion qiyu = new BrowserVersion("qiyu","qiyubrowser","Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.63 Safari/537.36 Qiyu/2.1.0.0",0);
 
-//    private static WebClient client = new WebClient(BrowserVersion.FIREFOX_38);
+    //    private static WebClient client = new WebClient(BrowserVersion.FIREFOX_38);
     private static WebClient client = new WebClient();
 
 //    private static WebClient client = new WebClient(BrowserVersion.EDGE);
@@ -78,21 +83,32 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
         }
         System.out.println("cookie updated: "+client.getCookieManager().getCookies());
     }
+    @Test
+    public void testMain() {
 
-    @Override
-    public synchronized byte[] simpleGet(HtmlInfo html) throws Exception {
+        String url = "http://weixin.sogou.com/";
+        HtmlPage page = null;
+        try {
+
+            page = client.getPage(url);
+
+            //HtmlSubmitInput button = page.getelementby("搜文章");
+            HtmlForm htmlform  = page.getFormByName("searchForm");
+            HtmlTextInput textField = htmlform.getInputByName("query");
+            textField.setValueAttribute("郭德纲");
+            htmlform.getButtonByName("").click();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
 
-
-
-        HtmlPage page = client.getPage(html.getOrignUrl());
 
         client.waitForBackgroundJavaScript(1000*10);
         String content = page.asText();
         String source = page.asXml();
 
-        return source.getBytes();
-    }
 
+    }
 
 }
