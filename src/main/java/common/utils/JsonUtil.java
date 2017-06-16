@@ -1,8 +1,7 @@
-package common.util;
+package common.utils;
 
 import java.util.List;
 
-import common.extractor.xpath.weixin.search.WeixinSearchXpathExtractor;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;

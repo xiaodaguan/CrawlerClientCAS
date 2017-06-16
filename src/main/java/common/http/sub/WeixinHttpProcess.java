@@ -7,7 +7,6 @@ import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 import com.gargoylesoftware.htmlunit.util.Cookie;
 import common.pojos.HtmlInfo;
 import common.http.SimpleHttpProcess;
-import common.util.HtmlExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

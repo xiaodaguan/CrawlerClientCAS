@@ -3,7 +3,7 @@ package common.extractor.xpath.news.search.sub;
 import common.pojos.NewsData;
 import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

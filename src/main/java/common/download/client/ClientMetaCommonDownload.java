@@ -9,7 +9,7 @@ import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +30,7 @@ public class ClientMetaCommonDownload extends GenericMetaCommonDownload<ClientDa
 		List<ClientData> list = new ArrayList<ClientData>();
 		String url = getRealUrl(siteinfo, gloaburl);
 		int page = getRealPage(siteinfo);
-		String keyword = key.getKey();
+		String keyword = key.getKEYWORD();
 		map.put(keyword, 1);
 		String nexturl = url;
 		DataThreadControl dtc = new DataThreadControl(siteFlag, keyword);
@@ -46,9 +46,9 @@ public class ClientMetaCommonDownload extends GenericMetaCommonDownload<ClientDa
 			try {
 				
 				http.getContent(html);
-				// html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
+				// html.setContent(common.utils.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
 
-				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
+				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl);
 				
 				totalCount += list.size();
 				if (list.size() == 0) {
@@ -58,7 +58,7 @@ public class ClientMetaCommonDownload extends GenericMetaCommonDownload<ClientDa
 				}
 				LOGGER.info(url + "元数据页面解析完成。");
 
-				Systemconfig.dbService.filterDuplication(list);
+				Systemconfig.urlFilter.filterDuplication(list);
 				if (list.size() == 0) {
 					TimeUtil.rest(siteinfo.getDownInterval());
 					// break;

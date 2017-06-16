@@ -4,7 +4,7 @@ import common.pojos.BBSData;
 import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

@@ -26,9 +26,9 @@ import org.apache.http.util.EntityUtils;
 
 import common.pojos.HtmlInfo;
 import common.http.NeedCookieHttpProcess;
-import common.util.JsonUtil;
-import common.util.StringUtil;
-import common.util.TimeUtil;
+import common.utils.JsonUtil;
+import common.utils.StringUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

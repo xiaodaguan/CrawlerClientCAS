@@ -10,7 +10,7 @@ import common.pojos.CollectDataType;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +67,7 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
                     }
                     LOGGER.info(url + " 评论页面解析完成。");
 
-                    Systemconfig.dbService.filterDuplication(list);
+                    Systemconfig.urlFilter.filterDuplication(list);
                     if (list.size() == 0) break;
 
                     alllist.addAll(list);
@@ -101,13 +101,9 @@ public class WeiboCommentDownload extends GenericMetaCommonDownload<WeiboData> {
                 LOGGER.info("getPubdate:     \t"+videoData.getPubdate().toLocaleString());
                 LOGGER.info("\n\n");
 			}
-            
-            Systemconfig.dbService.saveCommentDatas(alllist);
+
+			//todo save comment
             LOGGER.info("微博: " + wbUrl + " 评论保存完成.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            LOGGER.error("err while parsing comments:" + nexturl);
-            LOGGER.error("webo url: " + wbUrl);
         } finally {
             alllist.clear();
             list.clear();

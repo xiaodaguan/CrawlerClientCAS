@@ -6,7 +6,7 @@ import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +33,9 @@ public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<Agr
 
 		List<AgricaltureData> alllist = new ArrayList<AgricaltureData>();
 		List<AgricaltureData> list = new ArrayList<AgricaltureData>();
-		String url = getRealUrl(siteinfo, key.getId() > 0 ? key.getKey() : gloaburl);
+		String url = getRealUrl(siteinfo, key.getSITE_ID() != null ? key.getKEYWORD() : gloaburl);
 		int page = getRealPage(siteinfo);
-		String keyword = key.getKey();
+		String keyword = key.getKEYWORD();
 		map.put(keyword, 1);
 		String nexturl = url;
 		DataThreadControl dtc = new DataThreadControl(siteFlag, keyword);
@@ -50,19 +50,19 @@ public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<Agr
 				if (nexturl.contains("163.com"))
 					html.setAcceptEncoding("Accept-Encoding: gzip, deflate");
 				http.getContent(html);
-				// html.setContent(common.util.StringUtil.getContent("filedown/META/baidu_news_search/6f962c1b7d205db4faf80453362b648e.htm"));
-				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
+				// html.setContent(common.utils.StringUtil.getContent("filedown/META/baidu_news_search/6f962c1b7d205db4faf80453362b648e.htm"));
+				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl);
 
 				if (list.size() == 0) {
-					LOGGER.info("关键词：[" + key.getKey() + "] " + url + "元数据页面解析为空！！");
+					LOGGER.info("关键词：[" + key.getKEYWORD() + "] " + url + "元数据页面解析为空！！");
 					TimeUtil.rest(siteinfo.getDownInterval());
 					break;
 				}
-				LOGGER.info("关键词：[" + key.getKey() + "] " + url + "元数据页面解析完成。");
+				LOGGER.info("关键词：[" + key.getKEYWORD() + "] " + url + "元数据页面解析完成。");
 				totalCount += list.size();
-				Systemconfig.dbService.filterDuplication(list);
+				Systemconfig.urlFilter.filterDuplication(list);
 				if (list.size() == 0) {
-					LOGGER.info("关键词：[" + key.getKey() + "] " + url + "no new data.");
+					LOGGER.info("关键词：[" + key.getKEYWORD() + "] " + url + "no new data.");
 					if (alllist.size() == 0)
 						TimeUtil.rest(siteinfo.getDownInterval());
 					break;
@@ -82,9 +82,9 @@ public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<Agr
 			}
 		}
 		// //ID大于0表示有相同新闻需要采集
-		// if(key.getId() > 0) {
+		// if(key.getSITE_ID() != null) {
 		// for(int i = 0;i< alllist.size();i++) {
-		// list.get(i).setId(key.getId());
+		// list.get(i).setId(key.getSITE_ID());
 		// new NewsSameDataCommonDownload(siteFlag,list.get(i), null).run();
 		// }
 		// } else {
@@ -96,7 +96,7 @@ public class AgricaltureMetaCommonDownload extends GenericMetaCommonDownload<Agr
 		}
 		
 
-		LOGGER.info("关键词：[" + key.getKey() + "] 列表页检索完成，不重复数据：" + alllist.size() + "条。");
+		LOGGER.info("关键词：[" + key.getKEYWORD() + "] 列表页检索完成，不重复数据：" + alllist.size() + "条。");
 		dtc.process(alllist, siteinfo.getDownInterval() - 5, null,key);
 	}
 

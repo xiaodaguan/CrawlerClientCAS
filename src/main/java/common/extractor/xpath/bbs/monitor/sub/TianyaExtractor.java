@@ -22,7 +22,7 @@ import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.MD5Util;
+import common.utils.MD5Util;
 
 public class TianyaExtractor extends BbsMonitorXpathExtractor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TianyaExtractor.class);

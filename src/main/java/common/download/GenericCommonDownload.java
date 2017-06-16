@@ -25,8 +25,8 @@ import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.EncoderUtil;
-import common.util.TimeUtil;
+import common.utils.EncoderUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,27 +79,27 @@ public abstract class GenericCommonDownload<T> {
 
     public GenericCommonDownload(SearchKey key) {
     	
-        this.siteFlag = key.getSite();
+        this.siteFlag = key.getSITE_NAME();
         this.key = key;
                 
         siteinfo = Systemconfig.allSiteinfos.get(siteFlag);
        
         String url = siteinfo.getUrl();
         if (url != null && !url.startsWith("${") && url.contains("<keyword>")) {
-            if (!url.contains("<begin>")) url = url.replace("<keyword>", EncoderUtil.encodeKeyWords(key.getKey(), siteinfo.getCharset()));
+            if (!url.contains("<begin>")) url = url.replace("<keyword>", EncoderUtil.encodeKeyWords(key.getKEYWORD(), siteinfo.getCharset()));
             else {
                 if (!url.contains("<end>")) {
                     LOGGER.error("请检查入口url参数");
                 }
-                url = url.replace("<keyword>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[0], siteinfo.getCharset()));
-                url = url.replace("<begin>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[1], siteinfo.getCharset()));
-                url = url.replace("<end>", EncoderUtil.encodeKeyWords(key.getKey().split(";")[2], siteinfo.getCharset()));
+                url = url.replace("<keyword>", EncoderUtil.encodeKeyWords(key.getKEYWORD().split(";")[0], siteinfo.getCharset()));
+                url = url.replace("<begin>", EncoderUtil.encodeKeyWords(key.getKEYWORD().split(";")[1], siteinfo.getCharset()));
+                url = url.replace("<end>", EncoderUtil.encodeKeyWords(key.getKEYWORD().split(";")[2], siteinfo.getCharset()));
                 if (url.contains("news.baidu")) {
-                    url += "&bt=" + (TimeUtil.str2Timestamp(key.getKey().split(";")[1], "yyyy-MM-dd")/1000);
-                    url += "&et=" + (TimeUtil.str2Timestamp(key.getKey().split(";")[2], "yyyy-MM-dd")/1000);
+                    url += "&bt=" + (TimeUtil.str2Timestamp(key.getKEYWORD().split(";")[1], "yyyy-MM-dd")/1000);
+                    url += "&et=" + (TimeUtil.str2Timestamp(key.getKEYWORD().split(";")[2], "yyyy-MM-dd")/1000);
                 }
             }
-        } else url = key.getKey();
+        } else url = key.getKEYWORD();
 
         gloaburl = url;
         createHttpClient(siteFlag);

@@ -46,12 +46,12 @@ import org.apache.http.util.EntityUtils;
 import common.pojos.HtmlInfo;
 import common.pojos.Proxy;
 import common.system.Systemconfig;
-import common.util.CharsetDetector;
-import common.util.EncoderUtil;
-import common.util.MD5Util;
-import common.util.StringUtil;
-import common.util.TimeUtil;
-import common.util.UserAgent;
+import common.utils.CharsetDetector;
+import common.utils.EncoderUtil;
+import common.utils.MD5Util;
+import common.utils.StringUtil;
+import common.utils.TimeUtil;
+import common.utils.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -317,21 +317,6 @@ public class SimpleHttpProcess implements HttpProcess {
 		params.setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.BROWSER_COMPATIBILITY);
 		params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, requestTime);
 		params.setParameter(CoreConnectionPNames.SO_TIMEOUT, readTime);
-		if (agent) {
-			Proxy proxy = null;
-			while (true) {
-				proxy = Systemconfig.dbService.getProxy(siteId);// 已修改为从数据库读取
-				if (proxy == null) {
-					LOGGER.info("未读取有效代理服务器，等待1秒重试...");
-					TimeUtil.rest(1);
-
-				} else {
-					break;
-				}
-			}
-			HttpHost host = new HttpHost(proxy.gethHost().getHostName(), proxy.gethHost().getPort());
-			params.setParameter(ConnRoutePNames.DEFAULT_PROXY, host);
-		}
 		return params;
 	}
 

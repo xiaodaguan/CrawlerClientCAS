@@ -10,7 +10,7 @@ import org.w3c.dom.NodeList;
 import common.pojos.NewsData;
 import common.extractor.xpath.news.search.NewsSearchXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 public class GoogleExtractor extends NewsSearchXpathExtractor {
 

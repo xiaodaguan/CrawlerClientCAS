@@ -29,7 +29,7 @@ public class MapperTest {
 
 
 
-        UserMapper mapper = (UserMapper)context.getBean("userMapper");
+        BaseMapper mapper = (BaseMapper)context.getBean("userMapper");
         int c = mapper.getTotalCountByType(map);
         System.out.println(c);
         Assert.assertNotEquals(0,c);

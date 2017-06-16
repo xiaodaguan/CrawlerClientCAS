@@ -1,4 +1,4 @@
-package common.util;
+package common.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -135,7 +135,7 @@ public class WeixinUtil {
 //				"/mp/appmsg/show?", "/mp/getappmsgext?");// 阅读/赞数json文件url格式
 //		// 添加参数
 //		if (ak != null) {
-//			url += "&key=" + ak.getKey() + "&uin=" + ak.getUin()
+//			url += "&key=" + ak.getKEYWORD() + "&uin=" + ak.getUin()
 //					+ "&pass_ticket=" + ak.getPassTicket();
 //		}
 //

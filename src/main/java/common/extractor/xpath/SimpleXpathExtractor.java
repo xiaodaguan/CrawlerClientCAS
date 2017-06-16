@@ -8,7 +8,7 @@ import org.w3c.dom.NodeList;
 
 import common.pojos.CommonData;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 /**
  * 简单抽取类，默认抽取实现
  * @author grs

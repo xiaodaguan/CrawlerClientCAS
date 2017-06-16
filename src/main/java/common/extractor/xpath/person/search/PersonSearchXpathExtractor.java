@@ -9,7 +9,7 @@ import org.w3c.dom.NodeList;
 import common.pojos.PersonData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 /**
  * 抽取实现类

@@ -7,8 +7,8 @@ import common.pojos.PressData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.util.StringUtil;
-import common.util.TimeUtil;
+import common.utils.StringUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ public class PressDataCommonDownload extends GenericDataCommonDownload<PressData
 	}
 
 	public void process() {
-		LOGGER.info("downloading...：[" + key.getKey() + "] " + data.getTitle() + "");
+		LOGGER.info("downloading...：[" + key.getKEYWORD() + "] " + data.getTitle() + "");
 		String url = getRealUrl(data);
 		if (url == null)
 			return;
@@ -50,9 +50,9 @@ public class PressDataCommonDownload extends GenericDataCommonDownload<PressData
 				}
 				specialProcess(html);
 				// 解析数据
-				xpath.templateContentPage(data, html, key.getKey());
+				xpath.templateContentPage(data, html, key.getKEYWORD());
 
-				LOGGER.info("关键词：[" + key.getKey() + "] " + data.getTitle() + "解析完成。。。");
+				LOGGER.info("关键词：[" + key.getKEYWORD() + "] " + data.getTitle() + "解析完成。。。");
 				Systemconfig.dbService.saveData(data);
 
 				/* 状态 */
@@ -61,12 +61,10 @@ public class PressDataCommonDownload extends GenericDataCommonDownload<PressData
 				double per = (double) curr / (curr + rest);
 				if (data.getCompleteSize().contains("rest: 0")) {
 					// 判断为结束
-					LOGGER.info("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
+					LOGGER.info("关键词：[" + key.getKEYWORD() + "] 全部详细页面采集完成。");
 				}
-				LOGGER.info("关键词：[" + key.getKey() + "] " + data.getTitle() + "保存完成。。。");
-				synchronized (key) {
-					key.savedCountIncrease();
-				}
+				LOGGER.info("关键词：[" + key.getKEYWORD() + "] " + data.getTitle() + "保存完成。。。");
+
 			}
 			// if(data.getSameUrl()!=null && count != null && data.getId()>0) {
 			// //采集链接
@@ -85,7 +83,7 @@ public class PressDataCommonDownload extends GenericDataCommonDownload<PressData
 			// Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setSavedCount(key.getSavedCount());
 			if (data.getCompleteSize().contains("rest: 0")) {
 				// 判断为结束
-				LOGGER.info("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
+				LOGGER.info("关键词：[" + key.getKEYWORD() + "] 全部详细页面采集完成。");
 			}
 		} finally {
 			if (count != null)

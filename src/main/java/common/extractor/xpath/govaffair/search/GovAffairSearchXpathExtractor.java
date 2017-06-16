@@ -18,7 +18,7 @@ import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 /**
  * 抽取实现类

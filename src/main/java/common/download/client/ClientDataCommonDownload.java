@@ -44,10 +44,7 @@ public class ClientDataCommonDownload extends GenericDataCommonDownload<ClientDa
                 
                 Systemconfig.dbService.saveData(data);
                 LOGGER.info(data.getTitle() + "保存完成。。。");
-                synchronized (key) {
-                    key.savedCountIncrease();
-                }
-                
+
             }
         } catch (Exception e) {
             LOGGER.info("采集出现异常" + data.getUrl(), e);

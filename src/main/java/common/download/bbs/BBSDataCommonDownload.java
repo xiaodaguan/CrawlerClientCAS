@@ -48,9 +48,6 @@ public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
                 if (dataCheck(data, html.getContent())) {
                     Systemconfig.dbService.saveData(data);
                     LOGGER.info(data.getTitle() + "保存完成。。。");
-                    synchronized (key) {
-                        key.savedCountIncrease();
-                    }
                 } else {
 
                     LOGGER.info("缺失标题或pubtime，放弃保存。" + data.getUrl());

@@ -53,13 +53,13 @@ public abstract class GenericMetaCommonDownload<T> extends GenericCommonDownload
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
-		LOGGER.info(siteFlag+"的"+key.getKey()+"数据采集完成！！");
+		LOGGER.info(siteFlag+"的"+key.getKEYWORD()+"数据采集完成！！");
 
 		
-		String taskName =   siteFlag+key.getKey();
+		String taskName =   siteFlag+key.getKEYWORD();
 		LOGGER.info( taskName + "   任务已完成        postProcess  ");
 		
-		Systemconfig.finish.put(siteFlag+key.getKey(), true);
+		Systemconfig.finish.put(siteFlag+key.getKEYWORD(), true);
 	}
 	
 	public void release() {

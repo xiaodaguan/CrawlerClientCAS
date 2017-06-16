@@ -1,11 +1,14 @@
 package common.urlFilter;
 
+import common.pojos.CommonData;
 import common.system.Systemconfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -17,9 +20,21 @@ public class BloomFilterRedis {
 
     private BloomFilter<String> bloomFilter;
     private Set<HostAndPort> hostAndPortSet;
-    private JedisCluster jedisCluster;
 
     private static String BLOOM_FILTER_REDIS_NAME;
+
+    public List<? extends CommonData> filterDuplication(List<? extends CommonData> dataList){
+        Iterator<? extends CommonData> iter = dataList.iterator();
+        List<CommonData> duplication = new ArrayList<>();
+        while(iter.hasNext()){
+           CommonData data = iter.next();
+           if(!Systemconfig.urlFilter.contains(data.getMd5())){
+               iter.remove();
+               duplication.add(data);
+           }
+        }
+        return duplication;
+    }
 
     public void init() {
         JedisCluster redis = new JedisCluster(hostAndPortSet);

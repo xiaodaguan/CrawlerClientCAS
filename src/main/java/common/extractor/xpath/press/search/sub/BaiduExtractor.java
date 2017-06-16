@@ -3,7 +3,7 @@ package common.extractor.xpath.press.search.sub;
 import common.pojos.PressData;
 import common.extractor.xpath.press.search.PressSearchXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

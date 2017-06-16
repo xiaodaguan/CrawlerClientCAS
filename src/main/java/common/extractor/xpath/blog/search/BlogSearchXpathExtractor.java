@@ -3,7 +3,7 @@ package common.extractor.xpath.blog.search;
 import common.pojos.BlogData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

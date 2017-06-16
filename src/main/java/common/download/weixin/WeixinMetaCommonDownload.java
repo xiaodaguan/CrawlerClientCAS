@@ -7,8 +7,8 @@ import common.download.GenericMetaCommonDownload;
 import common.http.sub.WeixinHttpProcess;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.util.StringUtil;
-import common.util.TimeUtil;
+import common.utils.StringUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +37,9 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
 
         List<WeixinData> alllist = new ArrayList<WeixinData>();
         List<WeixinData> list = new ArrayList<WeixinData>();
-        String url = getRealUrl(siteinfo, key.getId() > 0 ? key.getKey() : gloaburl);//
+        String url = getRealUrl(siteinfo, key.getSITE_ID() != null ? key.getKEYWORD() : gloaburl);//
         int page = getRealPage(siteinfo);
-        String keyword = key.getKey();
+        String keyword = key.getKEYWORD();
         map.put(keyword, 1);
         String nexturl = url;
         DataThreadControl dtc = new DataThreadControl(siteFlag, keyword);
@@ -74,7 +74,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 }
 
                 if (ifStop(html.getContent(), last)) break;
-                nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "", html.getCookie());
+                nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, html.getCookie());
 
                 if (list.size() == 0) {
                     LOGGER.info(keyword + ": " + url + "元数据页面解析为空！！");
@@ -85,7 +85,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
 
                     last = html.getContent();
                     totalCount += list.size();
-                    Systemconfig.dbService.filterDuplication(list);
+                    Systemconfig.urlFilter.filterDuplication(list);
                     if (list.size() == 0) {
                         LOGGER.info("无新数据。");
                         if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());

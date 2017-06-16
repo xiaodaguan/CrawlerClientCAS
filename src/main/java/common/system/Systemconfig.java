@@ -4,7 +4,7 @@ import common.rmi.packet.CrawlerType;
 import common.service.DBService;
 import common.siteinfo.Siteinfo;
 import common.urlFilter.BloomFilterRedis;
-import common.util.HtmlExtractor;
+import common.utils.HtmlExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,10 +45,6 @@ public class Systemconfig {
      */
     public static Map<String, String> siteExtractClass = new HashMap<String, String>();
 
-    /**
-     * 初始化站点线程
-     */
-    public static Map<String, ExecutorService> threadPoolMap = new HashMap<String, ExecutorService>();
     /**
      * 任务是否完成
      */
@@ -186,10 +182,10 @@ public class Systemconfig {
     /**
      * 创建数据采集线程池
      */
-    public static void createThreadPool() {
+    public static void createDataThreadPool() {
         for (String site : allSiteinfos.keySet()) {
             int num = allSiteinfos.get(site).getThreadNum();
-            threadPoolMap.put(site, Executors.newFixedThreadPool(num > 5 ? 5 : num));
+            Job.DATA_THREAD_POOL_MAP.put(site, Executors.newFixedThreadPool(num > 5 ? 5 : num));
         }
     }
 

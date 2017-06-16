@@ -27,7 +27,7 @@ import common.pojos.HtmlInfo;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorExtractorAttribute;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 public class Hz18Extractor extends AgricaltureMonitorXpathExtractor implements AgricaltureMonitorExtractorAttribute {
 	@Override public String parseNext(Node domtree, Component component, HtmlInfo html, String... args) throws TransformerException {

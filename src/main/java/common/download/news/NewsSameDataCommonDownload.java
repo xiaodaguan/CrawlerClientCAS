@@ -6,7 +6,7 @@ import common.pojos.HtmlInfo;
 import common.pojos.NewsData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

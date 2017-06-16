@@ -23,7 +23,7 @@ import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.MD5Util;
+import common.utils.MD5Util;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 

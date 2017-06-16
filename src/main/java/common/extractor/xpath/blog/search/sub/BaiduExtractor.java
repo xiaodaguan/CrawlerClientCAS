@@ -20,7 +20,7 @@ import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 public class BaiduExtractor extends BlogSearchXpathExtractor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BaiduExtractor.class);

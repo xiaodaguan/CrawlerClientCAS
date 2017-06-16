@@ -1,4 +1,4 @@
-package common.util;
+package common.utils;
 
 /**
  * Created by guanxiaoda on 6/16/15.

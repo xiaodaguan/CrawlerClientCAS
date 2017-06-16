@@ -21,9 +21,9 @@ import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.DOMUtil;
-import common.util.MD5Util;
-import common.util.StringUtil;
+import common.utils.DOMUtil;
+import common.utils.MD5Util;
+import common.utils.StringUtil;
 
 /**
  * Xpath抽取类

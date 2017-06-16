@@ -1,4 +1,4 @@
-package common.util;
+package common.utils;
 
 /**
  * content , image links

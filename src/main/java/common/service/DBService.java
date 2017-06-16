@@ -1,13 +1,10 @@
 package common.service;
 
-import common.pojos.*;
 import common.rmi.packet.SearchKey;
-import common.system.SiteTemplateAttribute;
 import common.system.UserAttribute;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * mysql数据库操作
@@ -28,14 +25,6 @@ public interface DBService<T> {
     public void saveData(T t) throws IOException;
 
     /**
-     * 删除表中重复的数据
-     *
-     * @param url
-     * @param table
-     */
-    public void removeDataBaseDuplication(List<String> url, String table);
-
-    /**
      * 获得表中的md5
      *
      * @param tablename
@@ -46,27 +35,11 @@ public interface DBService<T> {
     public int getDataCount(String tablename);
 
     /**
-     * 处理异常数据
-     *
-     * @param md5
-     * @param table
-     */
-    public void exceptionData(String md5, String table);
-
-    /**
-     * 过滤重复数据
-     *
-     * @param list
-     * @return
-     */
-    List<? extends CommonData> filterDuplication(List<? extends CommonData> list);
-
-    /**
      * 数据库中的检索词
      *
      * @return
      */
-    public List<SearchKey> searchKeys();
+    public List<SearchKey> getAllSearchKeys();
 
     /**
      * 获得需要登录的网站的用户
@@ -77,20 +50,6 @@ public interface DBService<T> {
     List<UserAttribute> getLoginUsers(String site);
 
     /**
-     * 根据crawlerType过滤，获得需采集的站点xpath配置
-     *
-     * @return
-     */
-    Map<String, SiteTemplateAttribute> getXpathConfig();
-
-    /**
-     * 根据crawlerType过滤，获得采集类型配置
-     *
-     * @return
-     */
-    String getTypeConfig();
-
-    /**
      * 更新微博账号valid有效字段，
      * @param userName 微博账号名称
      * @param mark     字段标识
@@ -99,19 +58,6 @@ public interface DBService<T> {
 
     void updateUserOrder(String userName);
 
-    Proxy getProxy(int siteId);
 
-    /**
-     * 更新代理使用时间
-     *
-     * @param proxyInfo: ip:port:domainId
-     */
-    public void updateProxyOrder(String proxyInfo);
-
-    public int saveGongzhongData(WxpublicData wpd);
-
-
-    public void saveCommentDatas(List<T> list) throws IOException;
-
-    public void saveCommentData(T t) throws IOException;
+    T read(int id);
 }

@@ -7,7 +7,7 @@ import common.pojos.CommonData;
 import common.pojos.HtmlInfo;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class SimpleMetaCommonDownload extends GenericMetaCommonDownload<CommonDa
 		List<CommonData> list = new ArrayList<CommonData>();
 		String url = getRealUrl(siteinfo, gloaburl);
 		int page = getRealPage(siteinfo);
-		String keyword = key.getKey();
+		String keyword = key.getKEYWORD();
 		map.put(keyword, 1);
 		String nexturl = url;
 		DataThreadControl dtc = new DataThreadControl(siteFlag, keyword);
@@ -40,7 +40,7 @@ public class SimpleMetaCommonDownload extends GenericMetaCommonDownload<CommonDa
 			html.setOrignUrl(nexturl);
 			try {
 				http.getContent(html);
-				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
+				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl);
 
 				if (list.size() == 0) {
 					LOGGER.info(url + "元数据页面解析为空！！");
@@ -49,7 +49,7 @@ public class SimpleMetaCommonDownload extends GenericMetaCommonDownload<CommonDa
 				}
 				LOGGER.info(url + "元数据页面解析完成。");
 
-				Systemconfig.dbService.filterDuplication(list);
+				Systemconfig.urlFilter.filterDuplication(list);
 				if (list.size() == 0) {
 					if (alllist.size() == 0)
 						TimeUtil.rest(siteinfo.getDownInterval());

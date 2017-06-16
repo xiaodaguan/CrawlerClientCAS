@@ -1,4 +1,4 @@
-package common.util;
+package common.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,8 +19,6 @@ import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
 
 /**
  * dom初始化类

@@ -6,7 +6,7 @@ import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +29,9 @@ public class NewsMonitorMetaCommonDownload extends GenericMetaCommonDownload<New
 	public void process() {
 		List<NewsData> alllist = new ArrayList<NewsData>();
 		List<NewsData> list = new ArrayList<NewsData>();
-		String url = getRealUrl(siteinfo, key.getId() > 0 ? key.getKey() : gloaburl);
+		String url = getRealUrl(siteinfo, key.getSITE_ID() != null ? key.getKEYWORD() : gloaburl);
 		int page = getRealPage(siteinfo);
-		String keyword = key.getKey();
+		String keyword = key.getKEYWORD();
 		map.put(keyword, 1);
 		String nexturl = url;
 		DataThreadControl dtc = new DataThreadControl(siteFlag, keyword);
@@ -50,8 +50,8 @@ public class NewsMonitorMetaCommonDownload extends GenericMetaCommonDownload<New
 				if (last != null)
 					if (html.getContent().equals(last))
 						break;
-				// html.setContent(common.util.StringUtil.getContent("filedown/META/baidu_news_search/6f962c1b7d205db4faf80453362b648e.htm"));
-				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
+				// html.setContent(common.utils.StringUtil.getContent("filedown/META/baidu_news_search/6f962c1b7d205db4faf80453362b648e.htm"));
+				nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl);
 				last = html.getContent();
 				if (list.size() == 0) {
 					LOGGER.info(url + "元数据页面解析为空！！");
@@ -60,7 +60,7 @@ public class NewsMonitorMetaCommonDownload extends GenericMetaCommonDownload<New
 				}
 				LOGGER.info(url + "元数据页面解析完成。");
 				totalCount += list.size();
-				Systemconfig.dbService.filterDuplication(list);
+				Systemconfig.urlFilter.filterDuplication(list);
 				if (list.size() == 0) {
 					LOGGER.info(url + "无新数据。");
 					if (alllist.size() == 0)

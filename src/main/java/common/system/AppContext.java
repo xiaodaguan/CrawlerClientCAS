@@ -26,8 +26,8 @@ import org.xml.sax.SAXException;
 
 import common.rmi.packet.CrawlerType;
 import common.siteinfo.Siteinfo;
-import common.util.DOMUtil;
-import common.util.StringUtil;
+import common.utils.DOMUtil;
+import common.utils.StringUtil;
 
 /**
  * 系统初始启动
@@ -46,20 +46,20 @@ public class AppContext {
      */
     public static void initAppCtx(String path) {
 
-    	//path = ""
+        //path = ""
         initEbusinessBrandCode();// 电商垂直商品编码，用于直接设置品牌
-        File[] files = new File(path ).listFiles();
+        File[] files = new File(path).listFiles();
         ArrayList<String> list = new ArrayList<String>();
         for (File file : files) {
             if (file.getName().startsWith("app")) {
-                list.add( file.getName());
+                list.add(file.getName());
 //                list.add(path + "config" + File.separator + file.getName());
             }
         }
         String[] arry = new String[list.size()];
         list.toArray(arry);
 
-        
+
 //        appContext = new FileSystemXmlApplicationContext(arry);
         appContext = new ClassPathXmlApplicationContext(arry);
 
@@ -73,22 +73,18 @@ public class AppContext {
 
         readConfig();
 
-        Systemconfig.createThreadPool();
+        Systemconfig.createDataThreadPool();
         LOGGER.info("init. ok. ");
     }
 
     public static void readConfig() {// 读取配置
-        switch (Systemconfig.readConfigType) {
-            case 0:
-                readConfigFromFile();
-                break;
-            case 1:
-                readConfigFromDB();
-                break;
-        }
+
+        readConfigFromFile();
+
+
     }
 
-    private static String typeConfFolder =  "typeConf";
+    private static String typeConfFolder = "typeConf";
     private static String xpathConfFolder = "xpathConf";
     private static Map<String, FileEntry> xpathTemplateMap = new HashMap<String, FileEntry>();
 
@@ -113,11 +109,11 @@ public class AppContext {
      * @author grs
      */
     public static class MyFileFilter implements FileFilter {
-    	
+
         String prefix = CrawlerType.getCrawlerTypeMap().
-        		get(Systemconfig.crawlerType).name().toLowerCase();
-        
-        
+                get(Systemconfig.crawlerType).name().toLowerCase();
+
+
         @Override
         public boolean accept(File f) {
             return f.getName().startsWith(prefix) && !f.getName().replace(xpathConfFolder, "").replace(File.separator, "").startsWith(".") && f.getName().endsWith("xml");
@@ -128,9 +124,9 @@ public class AppContext {
      * 从文件读取站点配置
      */
     public static void readConfigFromFile() {
-    	// xpathConfFolder = 'typeConfFolder'
-        String path = "src/main/resources/".replace("/",File.separator);
-        File[] xpathFs = new File(path+File.separator+xpathConfFolder).listFiles(new MyFileFilter());
+        // xpathConfFolder = 'typeConfFolder'
+        String path = "src/main/resources/".replace("/", File.separator);
+        File[] xpathFs = new File(path + File.separator + xpathConfFolder).listFiles(new MyFileFilter());
         if (xpathFs == null) {
             LOGGER.info("没有可运行配置站点");
             return;
@@ -140,7 +136,7 @@ public class AppContext {
 
             // String name=f.getName();//ebusiness_search_taobao.xml
             // long modified=f.lastModified();//1409798260836
-            
+
             //配置文件写到map   k=f.getName() value = 文件状态 
 //            LOGGER.info("configSet(f.getName(), content, f.lastModified());");
 //            LOGGER.info(f.getName());
@@ -156,7 +152,7 @@ public class AppContext {
     private static void loadSiteFromFile() {
         // 读取简单配置后，处理详细配置
 
-        String path="src/main/resources/".replace("/",File.separator)+typeConfFolder;
+        String path = "src/main/resources/".replace("/", File.separator) + typeConfFolder;
         File[] fs = new File(path).listFiles(new MyFileFilter());
         if (fs == null || fs.length == 0) {
             LOGGER.info("没有采集的类型配置！");
@@ -168,7 +164,7 @@ public class AppContext {
         File f = fs[0];// 采集类型： config\typeConfFolder\news_monitor.xml
         // 根据map大小复制数据
         for (String s : xpathTemplateMap.keySet()) {
-        	//
+            //
             String name = f.getName().substring(0, f.getName().lastIndexOf(".")) + "_" + s.substring(s.lastIndexOf("_") + 1, s.length());// ebusiness_search_taobao.xml
 
             String content = StringUtil.getContent(f.getAbsolutePath());
@@ -177,36 +173,6 @@ public class AppContext {
     }
 
     static Map<String, SiteTemplateAttribute> siteConfigs = null;
-
-    /**
-     * 从数据库中读取模板配置
-     */
-    @SuppressWarnings("unchecked")
-    public static void readConfigFromDB() {
-        // 通过crawlertype过滤出数据库中的站点配置
-        siteConfigs = Systemconfig.dbService.getXpathConfig();
-        if (siteConfigs == null || siteConfigs.size() == 0) {
-            LOGGER.info("没有可运行配置站点");
-            return;
-        }
-        for (SiteTemplateAttribute sta : siteConfigs.values()) {
-            configSet(sta.getTemplateName() + "_" + sta.getSiteFlag(), sta.getContent(), sta.getLastModified().getTime());
-        }
-        loadSiteFromDB();
-    }
-
-    public static void loadSiteFromDB() {
-        String typeConfig = Systemconfig.dbService.getTypeConfig();
-        boolean first = true;
-        for (String s : xpathTemplateMap.keySet()) {
-            if (first) {
-                File f = new File(typeConfFolder + File.separator + CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase() + ".xml");
-                if (!f.exists()) StringUtil.writeFile(f.getAbsolutePath(), typeConfig, "utf-8");
-                first = false;
-            }
-            configProcess(s, typeConfig);
-        }
-    }
 
     /**
      * 配置数据结构属性设置，公用
@@ -254,14 +220,14 @@ public class AppContext {
             NodeList nameList = null;
             NodeList valueList = null;
             try {
-                nameList  = XPathAPI.selectNodeList(domtree, "/SITE/PROP/@name");
+                nameList = XPathAPI.selectNodeList(domtree, "/SITE/PROP/@name");
                 valueList = XPathAPI.selectNodeList(domtree, "/SITE/PROP/@value");
             } catch (TransformerException e) {
                 e.printStackTrace();
             }
             for (int i = 0; i < nameList.getLength(); i++) {
-                content = content.replace("${" + nameList.item(i).getTextContent() + "}", 
-                		filterCode(valueList.item(i).getTextContent()));
+                content = content.replace("${" + nameList.item(i).getTextContent() + "}",
+                        filterCode(valueList.item(i).getTextContent()));
             }
             // 暂时需要特殊处理boolean型属性
             content = content.replace("${agent}", "false").replace("${login}", "false");
@@ -280,8 +246,8 @@ public class AppContext {
     private static synchronized void loadDynamicBean(String file) {
 
         LOGGER.info("ini:" + file);
-        XmlBeanDefinitionReader beanReader = new XmlBeanDefinitionReader(((BeanDefinitionRegistry) 
-        		((ConfigurableApplicationContext) appContext).getBeanFactory()));
+        XmlBeanDefinitionReader beanReader = new XmlBeanDefinitionReader(((BeanDefinitionRegistry)
+                ((ConfigurableApplicationContext) appContext).getBeanFactory()));
         beanReader.setResourceLoader(appContext);
         beanReader.setEntityResolver(new ResourceEntityResolver(appContext));
         try {
@@ -297,8 +263,7 @@ public class AppContext {
                 si.setSiteFlag(siteConfigs.get(si.getSiteName()).getId());
             }
             File f = new File(file);
-            if (!f.delete()) 
-            {
+            if (!f.delete()) {
                 LOGGER.error(f + "没有被删除");
             }
             LOGGER.info("系统初始化站点：" + si);

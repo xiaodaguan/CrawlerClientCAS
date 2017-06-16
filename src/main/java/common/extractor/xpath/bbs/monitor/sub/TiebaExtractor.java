@@ -8,7 +8,7 @@ import org.w3c.dom.NodeList;
 import common.pojos.BBSData;
 import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 public class TiebaExtractor extends BbsMonitorXpathExtractor {
 

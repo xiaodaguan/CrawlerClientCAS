@@ -10,7 +10,7 @@ import org.w3c.dom.NodeList;
 import common.pojos.BlogData;
 import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 public class GoogleExtractor extends BlogSearchXpathExtractor {
 

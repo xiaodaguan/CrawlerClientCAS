@@ -13,7 +13,7 @@ import org.apache.http.util.EntityUtils;
 
 import common.pojos.HtmlInfo;
 import common.http.SimpleHttpProcess;
-import common.util.EncoderUtil;
+import common.utils.EncoderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

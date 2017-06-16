@@ -13,7 +13,7 @@ import common.rmi.packet.SearchKey;
 import common.pojos.CollectDataType;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +47,7 @@ public class FansCommonDownload extends GenericMetaCommonDownload<UserData> {
 				
 				try {
 					http.getContent(html, user);
-//					html.setContent(common.util.StringUtil.getContent("filedown/FANS/sina/50b7702c4c3dc15a1cf1c56155b08d46.htm"));
+//					html.setContent(common.utils.StringUtil.getContent("filedown/FANS/sina/50b7702c4c3dc15a1cf1c56155b08d46.htm"));
 					
 					nexturl = ((WeiboMonitorXpathExtractor)((XpathExtractor)xpath)).templateRelation(list, html, count, id+"", nexturl);
 					
@@ -57,7 +57,7 @@ public class FansCommonDownload extends GenericMetaCommonDownload<UserData> {
 					}
 					LOGGER.info(url + "元数据页面解析完成。");
 					
-					Systemconfig.dbService.filterDuplication(list);
+					Systemconfig.urlFilter.filterDuplication(list);
 					
 					alllist.addAll(list);
 					

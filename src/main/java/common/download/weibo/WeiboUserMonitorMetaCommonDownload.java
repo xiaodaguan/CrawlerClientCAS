@@ -7,13 +7,11 @@ import common.download.GenericMetaCommonDownload;
 import common.extractor.xpath.XpathExtractor;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
 import common.rmi.packet.SearchKey;
-import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
 import common.pojos.CollectDataType;
-import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,16 +78,16 @@ public class WeiboUserMonitorMetaCommonDownload extends GenericMetaCommonDownloa
                  */
                 try {
                     http.getContent(html, userAttribute);
-                    // html.setContent(common.util.StringUtil.getContent("filedown/USER/sina_weibo_monitor/51d4cea4821e13b750088647e44f2543.htm"));
-                    ((WeiboMonitorXpathExtractor) ((XpathExtractor) xpath)).templateUser(userData, html, true,
-                            key.getRole() + "");
+                    // html.setContent(common.utils.StringUtil.getContent("filedown/USER/sina_weibo_monitor/51d4cea4821e13b750088647e44f2543.htm"));
+                    ((WeiboMonitorXpathExtractor) ((XpathExtractor) xpath)).templateUser(userData, html, true
+                            );
                     if (userData != null && userData.getInfoUrl() != null && !userData.getInfoUrl().equals("")) {
                         html.setOrignUrl(userData.getInfoUrl());
                         html.setType(CollectDataType.USERINFO.name() + File.separator + siteFlag);
                         http.getContent(html, userAttribute);
-                        // html.setContent(common.util.StringUtil.getContent("filedown/USERINFO/sina_weibo_monitor/5f5af5a1fe1cf1bc7ed8b0933fd814f0.htm"));
-                        ((WeiboMonitorXpathExtractor) ((XpathExtractor) xpath)).templateUser(userData, html, false,
-                                key.getRole() + "");
+                        // html.setContent(common.utils.StringUtil.getContent("filedown/USERINFO/sina_weibo_monitor/5f5af5a1fe1cf1bc7ed8b0933fd814f0.htm"));
+                        ((WeiboMonitorXpathExtractor) ((XpathExtractor) xpath)).templateUser(userData, html, false
+                                );
 //                        if (Systemconfig.dbService instanceof WeiboMysqlService)
 //                            ((WeiboMysqlService) Systemconfig.dbService).saveUser(userData);
 //                        else if (Systemconfig.dbService instanceof WeiboOracleService)

@@ -12,7 +12,7 @@ import common.pojos.WeiboData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.UserAttribute;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 
 public class WeiboAddressDownload extends GenericDataCommonDownload<WeiboData> {
 

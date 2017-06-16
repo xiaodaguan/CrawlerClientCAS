@@ -10,7 +10,7 @@ import common.pojos.NewsData;
 import common.extractor.xpath.news.monitor.NewsMonitorExtractorAttribute;
 import common.extractor.xpath.news.monitor.NewsMonitorXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 /**
  * 抽取实现类

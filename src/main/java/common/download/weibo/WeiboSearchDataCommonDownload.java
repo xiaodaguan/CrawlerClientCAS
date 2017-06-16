@@ -6,12 +6,11 @@ import common.pojos.HtmlInfo;
 import common.pojos.WeiboData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

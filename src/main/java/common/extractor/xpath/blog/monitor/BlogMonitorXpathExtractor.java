@@ -12,8 +12,8 @@ import common.pojos.BlogData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
 import common.system.Systemconfig;
-import common.util.ExtractResult;
-import common.util.StringUtil;
+import common.utils.ExtractResult;
+import common.utils.StringUtil;
 
 /**
  * 抽取实现类

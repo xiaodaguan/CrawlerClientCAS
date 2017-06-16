@@ -1,4 +1,4 @@
-package common.util;
+package common.utils;
 
 import java.io.*;
 import java.nio.ByteBuffer;

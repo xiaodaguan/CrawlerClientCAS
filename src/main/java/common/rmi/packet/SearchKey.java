@@ -1,6 +1,7 @@
 package common.rmi.packet;
 
 import java.io.Serializable;
+import java.sql.Time;
 
 
 public class SearchKey implements Serializable {
@@ -8,110 +9,153 @@ public class SearchKey implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8592400718234618947L;
-	private int id;// 词项ID
-	private String name;// 垂直名，搜索无该属性
-	private String site;// 站点标识
-	private String key;// 关键词/网址
-	private int type;// 类型
-	private int role;// 角色
-	private int person;// 用户
-	private String ip;// 运行的IP
-	private int savedCount;// 已入库的记录数
 
-	private String crawlerStatusId;
+	private long ID;
+	private int CATEGORY_CODE;
+	private String KEYWORD;
+	private String SITE_ID;
+	private String SITE_NAME;
+	private int USER_ID;
+	private Time PROPOSE_TIME;
+	private int STATUS;
+	private String TYPE;
+	private int CATEGORY1;
+	private String EB_STYLE;
+	private int IS_USABLE;
+	private int HIGHWAY;
+	private int DEBUG;
+	private int PRIORITY;
+	private int KEYWORD_BELONG;
 
-	public String getCrawlerStatusId() {
-		return crawlerStatusId;
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
-	public void setCrawlerStatusId(String crawlerStatusId) {
-		this.crawlerStatusId = crawlerStatusId;
+	public long getID() {
+		return ID;
 	}
 
-	public void savedCountDecrease() {
-		this.savedCount--;
+	public void setID(long ID) {
+		this.ID = ID;
 	}
 
-	public void savedCountIncrease() {
-		this.savedCount++;
+	public int getCATEGORY_CODE() {
+		return CATEGORY_CODE;
 	}
 
-	public int getSavedCount() {
-		return savedCount;
+	public void setCATEGORY_CODE(int CATEGORY_CODE) {
+		this.CATEGORY_CODE = CATEGORY_CODE;
 	}
 
-	public void setSavedCount(int savedCount) {
-		this.savedCount = savedCount;
+	public String getKEYWORD() {
+		return KEYWORD;
 	}
 
-	@Override
-	public String toString() {
-		return "[typeConf]" + site + "[key]" + key;
-
-	};
-
-	public int getId() {
-		return id;
+	public void setKEYWORD(String KEYWORD) {
+		this.KEYWORD = KEYWORD;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public String getSITE_ID() {
+		return SITE_ID;
 	}
 
-	public String getName() {
-		return name;
+	public void setSITE_ID(String SITE_ID) {
+		this.SITE_ID = SITE_ID;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getSITE_NAME() {
+		return SITE_NAME;
 	}
 
-	public String getSite() {
-		return site;
+	public void setSITE_NAME(String SITE_NAME) {
+		this.SITE_NAME = SITE_NAME;
 	}
 
-	public void setSite(String nameFlag) {
-		this.site = nameFlag;
+	public int getUSER_ID() {
+		return USER_ID;
 	}
 
-	public String getKey() {
-		return key;
+	public void setUSER_ID(int USER_ID) {
+		this.USER_ID = USER_ID;
 	}
 
-	public void setKey(String url) {
-		this.key = url;
+	public Time getPROPOSE_TIME() {
+		return PROPOSE_TIME;
 	}
 
-	public int getType() {
-		return type;
+	public void setPROPOSE_TIME(Time PROPOSE_TIME) {
+		this.PROPOSE_TIME = PROPOSE_TIME;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public int getSTATUS() {
+		return STATUS;
 	}
 
-	public int getRole() {
-		return role;
+	public void setSTATUS(int STATUS) {
+		this.STATUS = STATUS;
 	}
 
-	public void setRole(int role) {
-		this.role = role;
+	public String getTYPE() {
+		return TYPE;
 	}
 
-	public int getPerson() {
-		return person;
+	public void setTYPE(String TYPE) {
+		this.TYPE = TYPE;
 	}
 
-	public void setPerson(int person) {
-		this.person = person;
+	public int getCATEGORY1() {
+		return CATEGORY1;
 	}
 
-	public String getIp() {
-		return ip;
+	public void setCATEGORY1(int CATEGORY1) {
+		this.CATEGORY1 = CATEGORY1;
 	}
 
-	public void setIp(String ip) {
-		this.ip = ip;
+	public String getEB_STYLE() {
+		return EB_STYLE;
 	}
 
+	public void setEB_STYLE(String EB_STYLE) {
+		this.EB_STYLE = EB_STYLE;
+	}
+
+	public int getIS_USABLE() {
+		return IS_USABLE;
+	}
+
+	public void setIS_USABLE(int IS_USABLE) {
+		this.IS_USABLE = IS_USABLE;
+	}
+
+	public int getHIGHWAY() {
+		return HIGHWAY;
+	}
+
+	public void setHIGHWAY(int HIGHWAY) {
+		this.HIGHWAY = HIGHWAY;
+	}
+
+	public int getDEBUG() {
+		return DEBUG;
+	}
+
+	public void setDEBUG(int DEBUG) {
+		this.DEBUG = DEBUG;
+	}
+
+	public int getPRIORITY() {
+		return PRIORITY;
+	}
+
+	public void setPRIORITY(int PRIORITY) {
+		this.PRIORITY = PRIORITY;
+	}
+
+	public int getKEYWORD_BELONG() {
+		return KEYWORD_BELONG;
+	}
+
+	public void setKEYWORD_BELONG(int KEYWORD_BELONG) {
+		this.KEYWORD_BELONG = KEYWORD_BELONG;
+	}
 }

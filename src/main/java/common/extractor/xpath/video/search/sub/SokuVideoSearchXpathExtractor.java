@@ -23,7 +23,7 @@ import common.pojos.VideoData;
 import common.extractor.xpath.video.search.VideoSearchExtractorAttribute;
 import common.extractor.xpath.video.search.VideoSearchXpathExtractor;
 import common.siteinfo.Component;
-import common.util.DOMUtil;
+import common.utils.DOMUtil;
 import net.sf.json.JSONObject;
 
 /**

@@ -1,4 +1,4 @@
-package common.util;
+package common.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.extractor.xpath.weibo.monitor.sub.SinaExtractor;
 import common.pojos.CommentData;
 import common.pojos.EbusinessData;
 import org.slf4j.Logger;
@@ -85,7 +84,7 @@ public class DataClassUtil {
 				LOGGER.info("{}\t{}",map.get("name"), map.get("value"));
 			}
 
-			else if (map.get("type").toString().contains("java.util.List")) {
+			else if (map.get("type").toString().contains("java.utils.List")) {
 				for (int i = 0; i < level; i++)
 					System.out.print("\t");
 				LOGGER.info("",map.get("name"));

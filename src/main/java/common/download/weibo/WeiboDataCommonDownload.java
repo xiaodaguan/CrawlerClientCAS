@@ -8,9 +8,9 @@ import common.pojos.CollectDataType;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
-import common.util.JsonUtil;
-import common.util.StringUtil;
-import common.util.TimeUtil;
+import common.utils.JsonUtil;
+import common.utils.StringUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +47,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
         String url = data.getUrl();
         String nexturl = url;
 
-        LOGGER.info("downloading... " + nexturl + ". " + key.getKey());
+        LOGGER.info("downloading... " + nexturl + ". " + key.getKEYWORD());
         HtmlInfo html = htmlInfo(CollectDataType.DATA.name());
         int count = 1;
         try {
@@ -70,7 +70,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     String userName = StringUtil.regMatcher(html1, "\\$CONFIG\\['onick'\\]\\s*=\\s*'", "'");
                     String uId = StringUtil.regMatcher(html1, "\\$CONFIG\\['uid'\\]\\s*=\\s*'", "'");
 
-                    xpath.templateListPage(list, html, count, data.getId() + "", nexturl, data.getCategoryCode() + "", key.getKey(), userName);// 解析微博列表
+                    xpath.templateListPage(list, html, count, data.getId() + "", nexturl, data.getCategoryCode() + "", key.getKEYWORD(), userName);// 解析微博列表
                     for (WeiboData wd : list) {
                         wd.setUid(uId);
                     }
@@ -80,7 +80,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                         break;
                     }
 
-                    Systemconfig.dbService.filterDuplication(list);
+                    Systemconfig.urlFilter.filterDuplication(list);
                     if (list.size() == 0) {
                         LOGGER.info(url + "无新数据.");
                         break;
@@ -125,7 +125,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     html.setContent(StringUtil.decodeUnicode(ajaxHtml));
                     // 解析延时加载的内容
                     list.clear();
-                    nexturl = xpath.templateListPage(list, html, count, data.getId() + "", nexturl, data.getCategoryCode() + "", key.getKey(), userName);// 解析微博列表
+                    nexturl = xpath.templateListPage(list, html, count, data.getId() + "", nexturl, data.getCategoryCode() + "", key.getKEYWORD(), userName);// 解析微博列表
                     for (WeiboData wd : list) {
                         wd.setUid(uId);
                     }
@@ -135,7 +135,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                         LOGGER.info(url + "下拉加载解析为空！！");
                         break;
                     }
-                    Systemconfig.dbService.filterDuplication(list);
+                    Systemconfig.urlFilter.filterDuplication(list);
                     if (list.size() == 0) {
                         LOGGER.info(url + "下拉加载解无新数据.");
                         break;
@@ -149,10 +149,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
 
                     if (alllist.size() >= 500) {
                         Systemconfig.dbService.saveDatas(alllist);
-                        for (int i = 0; i < alllist.size(); i++)
-                            synchronized (key) {
-                                key.savedCountIncrease();
-                            }
+
                         alllist.clear();
                     }
                     url = nexturl;
@@ -171,11 +168,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
              */
             process(alllist);
 //            Systemconfig.dbService.saveDatas(alllist);
-            for (int i = 0; i < alllist.size(); i++) {
-                synchronized (key) {
-                    key.savedCountIncrease();
-                }
-            }
+
             LOGGER.info("saved." + alllist.size());
             alllist.clear();
 
@@ -227,7 +220,7 @@ public class WeiboDataCommonDownload extends GenericDataCommonDownload<WeiboData
                     continue;
                 }
                 String commUrl = "http://m.weibo.cn/" + wd.getUid() + "/" + wd.getMid() + "/rcMod?format=cards&type=comment&page=1";
-                key.setKey(commUrl);
+                key.setKEYWORD(commUrl);
 
                 WeiboCommentDownload wcd = new WeiboCommentDownload(key, wd.getId(), user);
                 wcd.process();

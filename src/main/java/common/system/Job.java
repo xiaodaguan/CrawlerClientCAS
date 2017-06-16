@@ -6,8 +6,8 @@ import common.rmi.packet.SearchKey;
 import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
 import common.siteinfo.Siteinfo;
-import common.util.StringUtil;
-import common.util.TimeUtil;
+import common.utils.StringUtil;
+import common.utils.TimeUtil;
 import crawlerlog.log.CLog;
 import crawlerlog.log.CLogFactory;
 import org.slf4j.Logger;
@@ -41,7 +41,9 @@ public class Job {
     /**
      * 线程池管理
      */
-    private final static Map<String, ExecutorService> EXECUTOR_SERVICE_MAP = new HashMap<String, ExecutorService>();
+    public final static Map<String, ExecutorService> META_THREAD_POOL_MAP = new HashMap<String, ExecutorService>();
+
+    public final static Map<String, ExecutorService> DATA_THREAD_POOL_MAP = new HashMap<String, ExecutorService>();
 
     private static Job job = new Job();
     static Map<String, ViewInfo> first = new HashMap<String, ViewInfo>();
@@ -91,7 +93,7 @@ public class Job {
             	
             	List<SearchKey> prekeys  = null;
             	try{
-            		prekeys= Systemconfig.dbService.searchKeys();
+            		prekeys= Systemconfig.dbService.getAllSearchKeys();
             	}catch(Exception e){
             		e.printStackTrace();
             	}
@@ -99,16 +101,16 @@ public class Job {
             	for (String dialy : dailies) {
             		for (SearchKey searchKey : prekeys) {
             			SearchKey sk = new SearchKey();
-                        sk.setKey(searchKey.getKey()+" "+dialy);
-                        sk.setRole(searchKey.getRole());
-                        sk.setSite(searchKey.getSite());
+                        sk.setKEYWORD(searchKey.getKEYWORD()+" "+dialy);
+                        sk.setCATEGORY_CODE(searchKey.getCATEGORY_CODE());
+                        sk.setSITE_ID(searchKey.getSITE_ID());
             			keys.add(sk);
 					}
 				}
             }
             else{
             	try{
-            		keys = Systemconfig.dbService.searchKeys();
+            		keys = Systemconfig.dbService.getAllSearchKeys();
             	}catch(Exception e){
             		e.printStackTrace();
             	}
@@ -121,11 +123,11 @@ public class Job {
                 for (String site : Systemconfig.allSiteinfos.keySet()) {
 
                     Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
-                    sk.setSite(site);
+                    sk.setSITE_NAME(site);
                     
                     createThreadPool(site, siteinfo);
                     
-                    String taskName = sk.getSite() + sk.getKey();
+                    String taskName = sk.getSITE_NAME() + sk.getKEYWORD();
                     if (Systemconfig.finish.get(taskName) == null 
                     		|| Systemconfig.finish.get(taskName)) {
 
@@ -187,22 +189,22 @@ public class Job {
             cLogger.start(crawlerNameOrCMD, crawlerNameOrCMD);//name, note
             LOGGER.info("loop start...");
 
-            keys = Systemconfig.dbService.searchKeys();
+            keys = Systemconfig.dbService.getAllSearchKeys();
             LOGGER.info(keys.size() + "个关键词将采集:");
 
             LOGGER.info(">>keys: \n"+keys);
             LOGGER.info(">>crawler map: \n"+CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType));
             out:
             for (SearchKey sk : keys) {
-                String site = sk.getSite() + "_" + CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
+                String site = sk.getSITE_NAME() + "_" + CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
                 Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
                 if (siteinfo == null){
                     LOGGER.info("siteinfo is null");
                     continue;
                 }
-                sk.setSite(site);
+                sk.setSITE_NAME(site);
                 createThreadPool(site, siteinfo);
-                String taskName = sk.getSite() + sk.getKey();
+                String taskName = sk.getSITE_NAME() + sk.getKEYWORD();
                 if (Systemconfig.finish.get(taskName) == null || Systemconfig.finish.get(taskName)) {
                     job.submitSearchKey(sk);
                     Systemconfig.finish.put(taskName, false);
@@ -228,7 +230,7 @@ public class Job {
                     Systemconfig.taskResultMap.clear();
                     //Systemconfig.finish = new HashMap<>();
                     //Systemconfig.taskResultMap = new ConcurrentHashMap<>();
-                    //Systemconfig.threadPoolMap = new ConcurrentHashMap<>();
+                    //Systemconfig.DATA_THREAD_POOL_MAP = new ConcurrentHashMap<>();
                     break;
                 }
             }
@@ -273,85 +275,9 @@ public class Job {
     }
 
 
-    /**
-     * 运行某个站点的所有检索词或所属的垂直网址
-     *
-     * @param si
-     */
-    public static void runSite(Siteinfo si) {
-        runSite(si, job);
-    }
-
-    /**
-     * 指定job运行站点所有内容
-     *
-     * @param si
-     * @param job
-     */
-    public static void runSite(Siteinfo si, Job job) {
-        String key = Systemconfig.localAddress + "_" + si.getSiteName();
-        ViewInfo vi = first.get(key);
-        if (vi == null) {
-            vi = new ViewInfo();
-            // 初始化
-            runInit(si, vi);
-            first.put(key, vi);
-        }
-        // 对每个关键词处理，搜索采集searckey不设置site属性
-        Iterator<SearchKey> iter = keys.iterator();
-        while (iter.hasNext()) {
-            SearchKey sk = iter.next();
-            if (sk.getIp() == null) sk.setIp(Systemconfig.localAddress);
-            // 只执行指定为当前IP的数据
-            if (!Systemconfig.localAddress.equals(sk.getIp())) {
-                synchronized (keys) {
-                    iter.remove();
-                }
-                continue;
-            }
-            runSearchKey(si, sk, vi);
-            TimeUtil.rest(1);
-        }
-    }
-
-    /**
-     * 爬虫线程运行初始化
-     *
-     * @param si
-     * @param vi
-     */
-    public static void runInit(Siteinfo si, ViewInfo vi) {
-        String site = si.getSiteName();
-
-        String key = Systemconfig.localAddress + "_" + site;
-        int n = Systemconfig.crawlerType / 2;
-        int le = 1;
-        if (Systemconfig.crawlerType % 2 != 0) {
-            n++;
-            le--;
-        }
-        vi.setBuildType(n);// 类型：
-        vi.setStyle(le);// 方式：搜索
-        vi.setIp(Systemconfig.localAddress);
-        HashMap<String, InnerInfo> crawlers = new HashMap<String, InnerInfo>();// 每个关键词或网址作为一个子爬虫
-        vi.setCrawlers(crawlers);
 
 
-        if (si.getLogin()) {
-            if (Systemconfig.users == null) Systemconfig.users = new HashMap<String, List<UserAttribute>>();
-            if (Systemconfig.users.get(site) == null) {
-                List<UserAttribute> list = Systemconfig.dbService.getLoginUsers(site);
-                Systemconfig.users.put(site, list);
-                if (list.size() == 0) {
-                    LOGGER.info("没有可用账号！本轮采集退出");
-                    return;
-                }
-                if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
-            }
-        } else {
-            if (Job.getExecutorServiceMap().get(site) == null) Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(si.getThreadNum()));
-        }
-    }
+
 
 
     /**
@@ -363,12 +289,10 @@ public class Job {
      */
     public static void runSearchKey(Siteinfo si, SearchKey sk, ViewInfo vi) {
         /* 状态 */
-        String taskId = sk.getKey() + " " + sk.getSite() + " " + new Date().toString();
-        sk.setCrawlerStatusId(taskId);
+        String taskId = sk.getKEYWORD() + " " + sk.getSITE_NAME() + " " + new Date().toString();
 
         String site = si.getSiteName();
-        sk.setSite(site);
-        sk.setType(Systemconfig.crawlerType);
+        sk.setSITE_NAME(site);
         // 每个站点属性值设置一次
         if (vi != null) {
             vi.setName(site);
@@ -381,14 +305,14 @@ public class Job {
             vi.setCrawlerCycle(si.getCycleTime());
         }
 
-        String searchKey = sk.getSite() + sk.getKey();
+        String searchKey = sk.getSITE_NAME() + sk.getKEYWORD();
         // 该爬虫是初次运行和完成后才会再次执行
         if (Systemconfig.finish.get(searchKey) == null || Systemconfig.finish.get(searchKey)) {
             // 爬虫名和爬虫地址
             InnerInfo ii = new ViewInfo().new InnerInfo();
             ii.setSearchKey(sk);
             ii.setAlive(0);
-            vi.getCrawlers().put(sk.getKey(), ii);
+            vi.getCrawlers().put(sk.getKEYWORD(), ii);
 
             job.submitSearchKey(sk);
 
@@ -425,43 +349,34 @@ public class Job {
                     LOGGER.info("没有可用账号！本轮采集退出");
                     return true;
                 }
-                if (Job.getExecutorServiceMap().get(site) == null){
+                if (Job.getMetaThreadPoolMap().get(site) == null){
                     if(!siteinfo.getSiteName().contains("sina")) {
-                        Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(list.size()));
+                        Job.getMetaThreadPoolMap().put(site, Executors.newFixedThreadPool(list.size()));
                     }
                     else{
-                        Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
+                        Job.getMetaThreadPoolMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
                     }
                 }
             }
         }
         else
          {
-            if (Job.getExecutorServiceMap().get(site) == null) {
-            	Job.getExecutorServiceMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
+            if (Job.getMetaThreadPoolMap().get(site) == null) {
+            	Job.getMetaThreadPoolMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
             }
 
         }
         return false;
     }
 
-    public void submitSearchKey(String site, String key) {
-        SearchKey skey = new SearchKey();
-        skey.setKey(key);
-        skey.setSite(site);
-        Future<?> f = EXECUTOR_SERVICE_MAP.get(site).submit(DownFactory.metaControl(skey));
-        Systemconfig.taskResultMap.put(site + "_" + key, f);
-    }
-
     public void submitSearchKey(SearchKey sk) {
-        LOGGER.info("submit searchkey: "+sk.getSite()+"+"+sk.getKey());
-        Future<?> f = EXECUTOR_SERVICE_MAP.get(sk.getSite()).submit(DownFactory.metaControl(sk));
-        Systemconfig.taskResultMap.put(sk.getSite() + "_" + sk.getKey(), f);
+        Future<?> f = META_THREAD_POOL_MAP.get(sk.getSITE_NAME()).submit(DownFactory.metaControl(sk));
+        Systemconfig.taskResultMap.put(sk.getSITE_NAME() + "_" + sk.getKEYWORD(), f);
     }
 
 
-    public static Map<String, ExecutorService> getExecutorServiceMap() {
-        return EXECUTOR_SERVICE_MAP;
+    public static Map<String, ExecutorService> getMetaThreadPoolMap() {
+        return META_THREAD_POOL_MAP;
     }
 
     public static Map<String, ViewInfo> getFirst() {

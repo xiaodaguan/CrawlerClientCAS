@@ -14,7 +14,7 @@ import common.pojos.CollectDataType;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +59,7 @@ public class WeiboRttDownload extends GenericMetaCommonDownload<WeiboData> {
 					}
 					LOGGER.info(url + "数据页面解析完成。");
 					
-					Systemconfig.dbService.filterDuplication(list);
+					Systemconfig.urlFilter.filterDuplication(list);
 					if(list.size()==0) break;
 					alllist.addAll(list);
 					

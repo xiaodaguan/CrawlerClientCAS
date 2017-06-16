@@ -41,9 +41,7 @@ public class BlogDataCommonDownload extends GenericDataCommonDownload<BlogData> 
 								
 				LOGGER.info(data.getTitle() + "解析完成。。。");
 				Systemconfig.dbService.saveData(data);
-				synchronized (key) {
-					key.savedCountIncrease();
-				}
+
 				LOGGER.info(data.getTitle() + "保存完成。。。");
 			}
 		} catch (Exception e) {

@@ -1,4 +1,4 @@
-package common.util;
+package common.utils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -7,7 +7,6 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import common.extractor.xpath.video.search.sub.SokuVideoSearchXpathExtractor;
 import org.apache.xerces.util.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

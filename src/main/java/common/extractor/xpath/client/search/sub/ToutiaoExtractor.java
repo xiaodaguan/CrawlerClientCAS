@@ -26,8 +26,8 @@ import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
 import common.siteinfo.Siteinfo;
 import common.system.Systemconfig;
-import common.util.MD5Util;
-import common.util.TimeUtil;
+import common.utils.MD5Util;
+import common.utils.TimeUtil;
 
 public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ToutiaoExtractor.class);

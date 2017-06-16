@@ -6,7 +6,7 @@ import org.w3c.dom.NodeList;
 import common.pojos.BBSData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.Component;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 /**
  * 天涯内容特殊解析

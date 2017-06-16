@@ -3,7 +3,7 @@ package common.extractor.xpath.companyReport.search;
 import common.pojos.ReportData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
-import common.util.MD5Util;
+import common.utils.MD5Util;
 import org.w3c.dom.Node;
 
 import java.util.List;

@@ -8,9 +8,10 @@ import java.util.concurrent.TimeUnit;
 
 import common.pojos.CommonData;
 import common.rmi.packet.SearchKey;
+import common.system.Job;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,11 +48,11 @@ public class DataThreadControl {
             synchronized (list) {
                 iter.remove();
             }
-            vd.setCompleteSize("[collect id: " + key.getId() + "| current: " + (++i) + "/ rest: " + list.size() + "]");
-            Future f = Systemconfig.threadPoolMap.get(siteFlag).submit(DownFactory.dataControl(siteFlag, vd, endCount, user, key));
+            vd.setCompleteSize("[collect id: " + key.getSITE_ID() + "| current: " + (++i) + "/ rest: " + list.size() + "]");
+            Future f = Job.DATA_THREAD_POOL_MAP.get(siteFlag).submit(DownFactory.dataControl(siteFlag, vd, endCount, user, key));
             Systemconfig.taskResultMap.put(siteFlag + "_" + key + "_" + vd.getTitle(), f);
             
-            LOGGER.info(siteFlag + "_" + key + "_" + vd.getTitle()+"\tthreadPoolMap 任务添加");
+            LOGGER.info(siteFlag + "_" + key + "_" + vd.getTitle()+"\tDATA_THREAD_POOL_MAP 任务添加");
             
             TimeUtil.rest(3);
         }

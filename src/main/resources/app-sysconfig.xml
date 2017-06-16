@@ -97,7 +97,7 @@
 			</map>
 		</property>
 	</bean>
-	<bean id="extractor" class="common.util.HtmlExtractor">
+	<bean id="extractor" class="common.utils.HtmlExtractor">
 		<property name="removeTags" value="${remove_tags}" />
 		<property name="tableTags" value="${table_tags}" />
 		<property name="imageType" value="${image_type}" />
@@ -118,21 +118,29 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-		<property name="mapperLocations" value="classpath:mapper.xml"/>
+		<property name="mapperLocations" value="classpath:daoConf/*.xml"/>
 	</bean>
 
+	<!-- mapper & service -->
 	<mybatis:scan base-package="common.mapper"/>
 
-	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="common.mapper.UserMapper"/>
+
+	<bean id="baseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="common.mapper.BaseMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="weixinMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="common.mapper.WeixinMapper"/>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 
-	<bean id="dbService" class="common.service.DBServiceImp">
-		<property name="mapper" ref="userMapper"/>
+	<bean id="weixinService" class="common.service.WeixinService">
+		<property name="weixinMapper" ref="weixinMapper"/>
+		<property name="baseMapper" ref="baseMapper"/>
 	</bean>
 
 
+	<!-- redis -->
 	<bean id="bloomFilterRedis" class="common.urlFilter.BloomFilterRedis">
 		<property name="hostAndPortSet">
 			<set>

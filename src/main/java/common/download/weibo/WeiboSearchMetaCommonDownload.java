@@ -5,12 +5,11 @@ import common.pojos.WeiboData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
 import common.rmi.packet.SearchKey;
-import common.rmi.packet.ViewInfo;
 import common.rmi.packet.ViewInfo.InnerInfo;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.system.UserManager;
-import common.util.TimeUtil;
+import common.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,7 +70,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
         List<String> allRepeatMd5 = new ArrayList<>();
         String url = getRealUrl(siteinfo, gloaburl);
         int page = getRealPage(siteinfo);
-        String keyword = key.getKey();
+        String keyword = key.getKEYWORD();
         map.put(keyword, 1);
         String nexturl = url;
 
@@ -103,7 +102,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                         break;
                     }
 
-                    // html.setContent(common.util.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
+                    // html.setContent(common.utils.StringUtil.getContent("filedown/META/baidu/37b30f2108ed06501ad6a769ca8cedc8.htm"));
                     if (html.getContent().contains("抱歉，未找到") && html.getContent().contains("您可以尝试更换关键词，再次搜索。")) {
                         LOGGER.info(keyword + ": " + url + "没有检索结果");
                         TimeUtil.rest(siteinfo.getDownInterval());
@@ -114,7 +113,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                         TimeUtil.rest(siteinfo.getDownInterval());
                         break;
                     }
-                    nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, key.getRole() + "");
+                    nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl);
                     String processedHtmlSource = html.getContent();
                     if (list.size() == 0) {
                         LOGGER.info("--" + userAttribute + " --" + keyword + ": " + url + "元数据页面解析为空！！");
@@ -133,7 +132,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                     }
                     LOGGER.info("--" + userAttribute + " --" + keyword + ": " + url + "元数据页面解析完成。");
                     totalCount += list.size();
-                    List<WeiboData> repeat = Systemconfig.dbService.filterDuplication(list);
+                    List<WeiboData> repeat = (List<WeiboData>) Systemconfig.urlFilter.filterDuplication(list);
                     for (WeiboData wd : repeat) {
                         allRepeatMd5.add(wd.getMd5());
                     }
@@ -195,7 +194,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 
         for (WeiboData wd : list) {
             if (wd.getCommentNum() > 0) {
-                key.setKey(wd.getCommentUrl());
+                key.setKEYWORD(wd.getCommentUrl());
                 Future<?> com = comes.submit(new WeiboCommentDownload(key, wd.getId(), userAttribute));
                 try {
                     com.get();
@@ -207,7 +206,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
             }
 
             if (wd.getRttNum() > 0) {
-                key.setKey(wd.getRttUrl());
+                key.setKEYWORD(wd.getRttUrl());
                 Future<?> rtt = rttes.submit(new WeiboRttDownload(key, wd.getId(), userAttribute));
                 try {
                     rtt.get();

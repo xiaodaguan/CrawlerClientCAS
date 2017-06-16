@@ -3,7 +3,7 @@ package common.system;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.util.UserAgent;
+import common.utils.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

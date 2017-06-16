@@ -1,7 +1,7 @@
 package common.extractor.xpath.weixin.search.sub;
 
 import common.extractor.xpath.weixin.search.WeixinSearchXpathExtractor;
-import common.util.StringUtil;
+import common.utils.StringUtil;
 
 import java.util.Calendar;
 import java.util.Date;
