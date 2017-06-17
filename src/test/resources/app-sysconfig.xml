@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+	<context:property-placeholder location="classpath*:*.properties"/>
+
+	<bean id="systemconfig" class="common.system.Systemconfig" init-method="initial">
+		<property name="extractor" ref="extractor" />
+		<property name="siteExtractClass">
+			<map>
+				<entry key="pedaily_company_monitor" value="common.extractor.xpath.company.monitor.sub.PedailyExtractor" />
+				<entry key="cngold_conference_monitor" value="common.extractor.xpath.conference.monitor.sub.CngoldExtractor" />
+				<entry key="huiyi31_conference_monitor" value="common.extractor.xpath.conference.monitor.sub.Huiyi31Extractor" />
+				<entry key="hexun_blog_search" value="common.extractor.xpath.blog.search.sub.HexunExtractor" />
+
+				<entry key="hz18_agricalture_monitor" value="common.extractor.xpath.agricalture.monitor.sub.Hz18Extractor" />
+				<entry key="cncyms_agricalture_monitor" value="common.extractor.xpath.agricalture.monitor.sub.CncymsExtractor" />
+				<entry key="qdfp_agricalture_monitor" value="common.extractor.xpath.agricalture.monitor.sub.QdfpExtractor" />
+				<entry key="sj99_agricalture_monitor" value="common.extractor.xpath.agricalture.monitor.sub.Sj99Extractor" />
+				<entry key="zaobao_frgmedia_search" value="common.extractor.xpath.frgmedia.search.sub.ZaobaoExtractor" />
+				<entry key="sino_frgmedia_search" value="common.extractor.xpath.frgmedia.search.sub.SinoExtractor" />
+				<entry key="chinaru_frgmedia_search" value="common.extractor.xpath.frgmedia.search.sub.ChinaruExtractor" />
+
+
+
+				<entry key="baidu_news_search" 		value="common.extractor.xpath.news.search.sub.BaiduExtractor" />
+				<entry key="baidu_press_search" 	value="common.extractor.xpath.press.search.sub.BaiduExtractor" />
+				<entry key="soku_video_search" 		value="common.extractor.xpath.video.search.sub.SokuVideoSearchXpathExtractor" />
+				<entry key="zaker_client_search" 	value="common.extractor.xpath.client.search.sub.ZakerExtractor" />
+				<entry key="yidian_client_search" 	value="common.extractor.xpath.client.search.sub.YidianExtractor" />
+				<entry key="toutiao_client_search" 	value="common.extractor.xpath.client.search.sub.ToutiaoExtractor" />
+
+				<entry key="qingdaonizao_news_search" value="common.extractor.xpath.news.search.sub.QingdaonizaoExtractor" />
+
+				<entry key="google_news_search" 		value="common.extractor.xpath.news.search.sub.GoogleExtractor" />
+				<entry key="govweb_govaffair_search" 	value="common.extractor.xpath.govaffair.search.sub.GovwebExtractor" />
+
+
+				<entry key="21tire_news_monitor" value="common.extractor.xpath.news.monitor.sub.Tire21MonitorExtractor" />
+				<entry key="tirechina_news_monitor" value="common.extractor.xpath.news.monitor.sub.TirechinaMonitorExtractor" />
+				<entry key="tireworld_news_monitor" value="common.extractor.xpath.news.monitor.sub.TireworldMonitorExtractor" />
+				<entry key="hcrubber_news_monitor" value="common.extractor.xpath.news.monitor.sub.HcrubberMonitorExtractor" />
+				<entry key="cvce_news_monitor" value="common.extractor.xpath.news.monitor.sub.CvceMonitorExtractor" />
+				<entry key="cria_news_monitor" value="common.extractor.xpath.news.monitor.sub.CriaMonitorExtractor" />
+				<entry key="tyrefh_news_monitor" value="common.extractor.xpath.news.monitor.sub.TyrefhMonitorExtractor" />
+				<entry key="moc_news_monitor" value="common.extractor.xpath.news.monitor.sub.MocMonitorExtractor" />
+				<entry key="zgjtb_news_monitor" value="common.extractor.xpath.news.monitor.sub.ZgjtbMonitorExtractor" />
+				<entry key="qdznjt_news_monitor" value="common.extractor.xpath.news.monitor.sub.QdznjtMonitorExtractor" />
+
+				<entry key="sogou_bbs_search" value="common.extractor.xpath.bbs.search.sub.sogouExtractor" />
+				<entry key="tianya_bbs_search" value="common.extractor.xpath.bbs.search.sub.TianyaExtractor" />
+				<entry key="tieba_bbs_search" value="common.extractor.xpath.bbs.search.sub.TiebaExtractor" />
+				<entry key="xcar_bbs_search" value="common.extractor.xpath.bbs.search.sub.XcarExtractor" />
+				<entry key="autohome_bbs_search" value="common.extractor.xpath.bbs.search.sub.AutohomeExtractor" />
+				<entry key="tieba_bbs_monitor" value="common.extractor.xpath.bbs.monitor.sub.TiebaExtractor" />
+				<entry key="bandaoqd_bbs_monitor" value="common.extractor.xpath.bbs.monitor.sub.BandaoQdExtractor" />
+				<entry key="bandaosn_bbs_monitor" value="common.extractor.xpath.bbs.monitor.sub.BandaoSnExtractor" />
+				<entry key="bandaohd_bbs_monitor" value="common.extractor.xpath.bbs.monitor.sub.BandaoHdExtractor" />
+				<entry key="tianya_bbs_monitor" value="common.extractor.xpath.bbs.monitor.sub.TianyaExtractor" />
+				<entry key="qtv_bbs_monitor" value="common.extractor.xpath.bbs.monitor.sub.QtvExtractor" />
+
+				<entry key="google_blog_search" value="common.extractor.xpath.blog.search.sub.GoogleExtractor" />
+				<entry key="sogou_blog_search" value="common.extractor.xpath.blog.search.sub.SogouExtractor" />
+				<entry key="sina_blog_search" value="common.extractor.xpath.blog.search.sub.SinaExtractor" />
+				<entry key="baidu_blog_search" value="common.extractor.xpath.blog.search.sub.BaiduExtractor" />
+
+				<entry key="renren_weibo_search" value="common.extractor.xpath.weibo.search.sub.RenrenExtractor" />
+				<entry key="sina_weibo_search" value="common.extractor.xpath.weibo.search.sub.SinaExtractor" />
+
+				<entry key="sina_weibo_monitor" value="common.extractor.xpath.weibo.monitor.sub.SinaExtractor" />
+
+				<entry key="jd_ebusiness_search" value="common.extractor.xpath.ebusiness.search.sub.JDExtractor" />
+				<entry key="jd_ebusiness_monitor" value="common.extractor.xpath.ebusiness.monitor.sub.JDExtractor" />
+
+				<entry key="taobao_ebusiness_search" value="common.extractor.xpath.ebusiness.search.sub.TaobaoExtractor" />
+				<entry key="taobao_ebusiness_monitor" value="common.extractor.xpath.ebusiness.monitor.sub.TaobaoExtractor" />
+
+				<entry key="weixin_weixin_search" 	value="common.extractor.xpath.weixin.search.sub.QQWeixinExtractor" />
+
+
+			</map>
+		</property>
+		<property name="siteHttpClass">
+			<map>
+				<entry key="google_news_search" value="common.http.sub.GoogleHttpProcess" />
+				<entry key="google_blog_search" value="common.http.sub.GoogleHttpProcess" />
+				<entry key="sina_weibo_search" value="common.http.sub.SinaHttpProcess" />
+				<entry key="sina_weibo_monitor" value="common.http.sub.SinaHttpProcess" />
+				<entry key="tieba_bbs_monitor" value="common.http.sub.TiebaHttpProcess" />
+				<entry key="jd_ebusiness_search" value="common.http.sub.JdHttpProcess" />
+				<entry key="hz18_agricalture_monitor" value="common.http.sub.Hz18HttpProcess" />
+				<entry key="qdfp_agricalture_monitor" value="common.http.sub.QdfpHttpProcess" />
+				<entry key="weixin_weixin_search" value="common.http.sub.WeixinHttpProcess" />
+				<entry key="hexun_person_search" value="common.http.sub.HexunPersonHttpProcess" />
+			</map>
+		</property>
+	</bean>
+	<bean id="extractor" class="common.utils.HtmlExtractor">
+		<property name="removeTags" value="${remove_tags}" />
+		<property name="tableTags" value="${table_tags}" />
+		<property name="imageType" value="${image_type}" />
+		<property name="downloadImg" value="${download_img}" />
+		<property name="positiveRatios" value="${positive_ratios}" />
+		<property name="imgHeight" value="${img_min_height}" />
+		<property name="imgWidth" value="${img_min_width}" />
+		<property name="imgSize" value="${img_local_size}" />
+		<property name="invalidBeg" value="${invalid_beg}" />
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${databaseDriver}"/>
+		<property name="url" value="${datasourceUrl}"/>
+		<property name="username" value="${datasourceUsername}"/>
+		<property name="password" value="${datasourcePassword}"/>
+  	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath:daoConf/*.xml"/>
+	</bean>
+
+	<!-- mapper & service -->
+	<mybatis:scan base-package="common.mapper"/>
+
+
+	<bean id="baseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="common.mapper.BaseMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean id="weixinMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="common.mapper.WeixinMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="weixinService" class="common.service.WeixinService">
+		<property name="weixinMapper" ref="weixinMapper"/>
+		<property name="baseMapper" ref="baseMapper"/>
+	</bean>
+
+	<bean id="newsMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="common.mapper.NewsMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="newsService" class="common.service.NewsService">
+		<property name="newsMapper" ref="newsMapper"/>
+		<property name="baseMapper" ref="baseMapper"/>
+	</bean>
+
+
+
+	<!-- redis -->
+	<bean id="bloomFilterRedis" class="common.urlFilter.BloomFilterRedis">
+		<property name="hostAndPortSet">
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort" >
+					<constructor-arg type="java.lang.String" value="${host1}"/>
+					<constructor-arg type="int" value="${port1}"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort" >
+					<constructor-arg type="java.lang.String" value="${host2}"/>
+					<constructor-arg type="int" value="${port2}"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort" >
+					<constructor-arg type="java.lang.String" value="${host3}"/>
+					<constructor-arg type="int" value="${port3}"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort" >
+					<constructor-arg type="java.lang.String" value="${host4}"/>
+					<constructor-arg type="int" value="${port4}"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort" >
+					<constructor-arg type="java.lang.String" value="${host5}"/>
+					<constructor-arg type="int" value="${port5}"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort" >
+					<constructor-arg type="java.lang.String" value="${host6}"/>
+					<constructor-arg type="int" value="${port6}"/>
+				</bean>
+			</set>
+		</property>
+		<property name="bloomFilter">
+			<bean class="common.urlFilter.BloomFilter">
+				<constructor-arg type="double" value="${errorRate}"/>
+				<constructor-arg type="int" value="${entityCount}"/>
+			</bean>
+		</property>
+
+
+	</bean>
+</beans>

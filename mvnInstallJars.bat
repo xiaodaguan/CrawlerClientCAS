@@ -4,3 +4,4 @@ mvn install:install-file -Dfile=lib/crwlerlog.jar -DgroupId=crwlerlog -Dartifact
 mvn install:install-file -Dfile=lib/hadoop-core-1.0.4.jar -DgroupId=org.apache -DartifactId=hadoop -Dversion=1.0.4 -Dpackaging=jar
 mvn install:install-file -Dfile=lib/hbase-0.94.16-security.jar -DgroupId=org.apache.hadoop -DartifactId=hbase -Dversion=0.94.16 -Dpackaging=jar
 mvn install:install-file -Dfile=lib/mail.jar -DgroupId=com.sun.mail -DartifactId=mail -Dversion=1.0 -Dpackaging=jar
+pause

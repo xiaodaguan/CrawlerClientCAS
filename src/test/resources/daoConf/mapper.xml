@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper.TestMapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common.mapper.BaseMapper">
+    <select id="getAllMD5ByType" parameterType="map"
+            resultType="String" statementType="STATEMENT">
+        select md5 from ${tablename}
+    </select>
+    <select id="getTotalCountByType" parameterType="map" resultType="int" statementType="STATEMENT">
+        select count(id) from ${tablename}
+    </select>
+
+    <select id="selectAllSearchKeyword" resultType="common.rmi.packet.SearchKey">
+        select * from search_keyword
+    </select>
+
+
+</mapper>
