@@ -11,7 +11,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.util.EntityUtils;
@@ -99,10 +98,8 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
 
 
             get = new HttpGet(html.getOrignUrl().startsWith("http") ? html.getOrignUrl() : "https://" + html.getOrignUrl());
-            if (html.getOrignUrl().contains("baidu")) {
-                RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000).build();//设置请求和传输超时时间
-                get.setConfig(requestConfig);
-            }
+
+
 
             html.setContent(null);
 
@@ -117,7 +114,6 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
                 get.setHeader("Cookie", html.getCookie());
             }
             if (html.getReferUrl() != null) {
-                //设置请求头 referer
                 get.setHeader("Referer", html.getReferUrl());
             }
         } catch (Exception e) {
