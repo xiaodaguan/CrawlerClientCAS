@@ -54,6 +54,7 @@ public class Systemconfig {
      */
     public static HtmlExtractor htmlAutoExtractor = new HtmlExtractor();
     public static BloomFilterRedis urlFilter;
+    public static int force_init_bf;
     /**
      * 文件存储路径
      */
@@ -147,18 +148,8 @@ public class Systemconfig {
         }
 
     }
-    /*
-    skip bloom filter bind, deprecated
-     */
-    private static boolean SKIP_BLOOM_FILTER = false;
 
-    public static boolean isSkipBloomFilter() {
-        return SKIP_BLOOM_FILTER;
-    }
 
-    public static void setSkipBloomFilter(boolean skipBloomFilter) {
-        SKIP_BLOOM_FILTER = skipBloomFilter;
-    }
 
     public void initial() {
         value();
@@ -169,14 +160,13 @@ public class Systemconfig {
     }
 
     public static void initUrlFilter() {
-        if(!SKIP_BLOOM_FILTER) {
+
             urlFilter = (BloomFilterRedis) AppContext.appContext.getBean("bloomFilterRedis");
             if(urlFilter == null) {
                 LOGGER.error("redis 配置有误，系统退出！！");
                 System.exit(-1);
             }
             urlFilter.init();
-        }
     }
 
     /**
@@ -317,7 +307,7 @@ public class Systemconfig {
         dbService = (DBService) AppContext.appContext.getBean(serviceName);
         String typename = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
         String tablename= typename.substring(0,typename.indexOf("_"))+"_data";
-        int c = dbService.getDataCount(table);
+        int c = dbService.getDataCount(tablename);
         LOGGER.info("DB service init succeed, {} has {} items.", tablename, c);
     }
 }

@@ -23,28 +23,28 @@ public class BloomFilterRedis {
 
     private static String BLOOM_FILTER_REDIS_NAME;
 
-    public List<? extends CommonData> filterDuplication(List<? extends CommonData> dataList){
+    public List<? extends CommonData> filterDuplication(List<? extends CommonData> dataList) {
         Iterator<? extends CommonData> iter = dataList.iterator();
         List<CommonData> duplication = new ArrayList<>();
-        while(iter.hasNext()){
-           CommonData data = iter.next();
-           if(!Systemconfig.urlFilter.contains(data.getMd5())){
-               iter.remove();
-               duplication.add(data);
-           }
+        while (iter.hasNext()) {
+            CommonData data = iter.next();
+            if (!Systemconfig.urlFilter.contains(data.getMd5())) {
+                iter.remove();
+                duplication.add(data);
+            }
         }
         return duplication;
     }
 
     public void init() {
         JedisCluster redis = new JedisCluster(hostAndPortSet);
-        BLOOM_FILTER_REDIS_NAME = "BF_"+Systemconfig.crawlerType;
-
-        bloomFilter.bind(redis, BLOOM_FILTER_REDIS_NAME);
-        LOGGER.info("redis bloom filter bind succeed.");
+        BLOOM_FILTER_REDIS_NAME = "BF_" + Systemconfig.crawlerType;
         try {
-            if (redis.get(BLOOM_FILTER_REDIS_NAME+"init_status") == null||redis.get(BLOOM_FILTER_REDIS_NAME+"init_status").equals("0")) {
-                redis.set(BLOOM_FILTER_REDIS_NAME+"init_status", "1");
+            bloomFilter.bind(redis, BLOOM_FILTER_REDIS_NAME);
+            LOGGER.info("redis bloom filter bind succeed.");
+
+            if (redis.get(BLOOM_FILTER_REDIS_NAME + "init_status") == null || redis.get(BLOOM_FILTER_REDIS_NAME + "init_status").equals("0")||Systemconfig.force_init_bf == 1) {
+                redis.set(BLOOM_FILTER_REDIS_NAME + "init_status", "1");
                 List<String> allMD5 = Systemconfig.dbService.getAllMd5(Systemconfig.table);
                 LOGGER.info("get {} items from database.", allMD5.size());
                 LOGGER.info("adding items to redis bloom filter...");
@@ -57,15 +57,17 @@ public class BloomFilterRedis {
                     }
                 }
                 LOGGER.info("redis bloom filter init ok. total: [{}] items ");
-                redis.set(BLOOM_FILTER_REDIS_NAME+"init_status","2");
-            } else if (redis.get(BLOOM_FILTER_REDIS_NAME+"init_status").equals("1")) {
+                redis.set(BLOOM_FILTER_REDIS_NAME + "init_status", "2");
+            } else if (redis.get(BLOOM_FILTER_REDIS_NAME + "init_status").equals("1")) {
                 LOGGER.info("other client is initializing redis bloom filter, program will exit. ");
                 System.exit(-1);
             } else {
                 LOGGER.info("redis bloom filter available[ok].");
             }
-        }catch (Exception e){
-            redis.set(BLOOM_FILTER_REDIS_NAME+"init_status","0");
+        } catch (Exception e) {
+//            redis.set(BLOOM_FILTER_REDIS_NAME+"init_status","0");
+            LOGGER.error("bloom filter exception", e);
+            throw new RuntimeException(e);
         }
     }
 

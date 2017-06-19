@@ -14,4 +14,7 @@
     </select>
 
 
+    <select id="getCountByDay" resultType="int" parameterType="map" statementType="STATEMENT">
+        select count(*) from ${tablename} where trunc(${insertColName}) = trunc(sysdate)-${offset}
+    </select>
 </mapper>

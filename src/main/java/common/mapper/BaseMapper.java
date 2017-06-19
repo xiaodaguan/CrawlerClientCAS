@@ -1,6 +1,5 @@
 package common.mapper;
 
-import common.pojos.CommonData;
 import common.rmi.packet.SearchKey;
 import org.springframework.stereotype.Repository;
 
@@ -28,4 +27,5 @@ public interface BaseMapper<T> {
 
     public void delete(long id);
 
+    public int getCountByDay(Map<String, Object> paramMap);
 }

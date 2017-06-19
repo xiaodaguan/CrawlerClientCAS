@@ -76,4 +76,9 @@ public abstract class BaseService<T> implements DBService<T> {
         paramMap.put("tablename",tablename);
         return baseMapper.getTotalCountByType(paramMap);
     }
+
+    @Override
+    public int getDataCountByDay(Map<String, Object> paramMap){
+        return baseMapper.getCountByDay(paramMap);
+    }
 }

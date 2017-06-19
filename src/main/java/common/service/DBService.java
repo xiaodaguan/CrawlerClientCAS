@@ -5,6 +5,7 @@ import common.system.UserAttribute;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * mysql数据库操作
@@ -60,4 +61,7 @@ public interface DBService<T> {
 
 
     T getData(int id);
+
+
+    int getDataCountByDay(Map<String, Object> paramMap);
 }

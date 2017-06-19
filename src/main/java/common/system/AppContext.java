@@ -68,8 +68,8 @@ public class AppContext {
         arry = null;
 
 
-        Systemconfig.initUrlFilter();
         Systemconfig.initDBService();
+        Systemconfig.initUrlFilter();
 
         readConfig();
 
@@ -231,8 +231,10 @@ public class AppContext {
             }
             // 暂时需要特殊处理boolean型属性
             content = content.replace("${agent}", "false").replace("${login}", "false");
+
+            String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
             String tmp = typeConfFolder + File.separator + name + ".temp";
-            StringUtil.writeFile(tmp, content);
+            StringUtil.writeFile(path+ tmp, content);
 
             loadDynamicBean(tmp);
             fe.load = false;

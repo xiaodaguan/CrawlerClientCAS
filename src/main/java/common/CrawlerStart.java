@@ -72,8 +72,8 @@ public class CrawlerStart {
                 Systemconfig.crawlerNum = Integer.parseInt(arg.split("=")[1]);
             } else if (arg.toLowerCase().contains("note=")) {//note
 
-            }else if(arg.equalsIgnoreCase("--skipbloomfilter")||arg.equals("-s")){
-                Systemconfig.setSkipBloomFilter(true);
+            }else if(arg.toLowerCase().equals("-f")||arg.toLowerCase().equals("--force-init-bf")){
+                Systemconfig.force_init_bf = 1;
             }
         }
 
