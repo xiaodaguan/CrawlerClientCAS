@@ -83,7 +83,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
         try {
             int totalCount = 0;
             int repeatPage = 0;
-            int MAX_REPEAT_PAGE = 3;
+            int MAX_REPEAT_PAGE = 1;
             int retry = 5;
             while (nexturl != null && !nexturl.equals("")) {
                 list.clear();

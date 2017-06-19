@@ -75,7 +75,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                     Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析为空！！");
                     TimeUtil.rest(siteinfo.getDownInterval());
 //                    break;
-                }else {
+                } else {
                     Systemconfig.sysLog.log(keyword + ": " + url + "元数据页面解析完成。第[" + map.get(keyword) + "/" + page + "]页");
 
                     last = html.getContent();
@@ -83,8 +83,8 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                     Systemconfig.dbService.getNorepeatData(list, "");
                     if (list.size() == 0) {
                         Systemconfig.sysLog.log("无新数据。");
-                        if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());
-//                    break;
+                        TimeUtil.rest(siteinfo.getDownInterval());
+                        break;
                     } else {
                         dtc.process(list, siteinfo.getDownInterval(), null, key);
                     }
@@ -103,7 +103,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 Systemconfig.sysLog.log("列表页异常{" + keyword + "}   [" + url + "]");
                 e.printStackTrace();
 //                break;
-            }finally{
+            } finally {
                 int wait = siteinfo.getDownInterval() + (int) Math.random() * 30;
                 Systemconfig.sysLog.log("wait " + wait + " secs to download next...");
                 TimeUtil.rest(wait);

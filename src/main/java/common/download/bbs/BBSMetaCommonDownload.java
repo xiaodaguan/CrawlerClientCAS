@@ -57,9 +57,11 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 				Systemconfig.dbService.getNorepeatData(list, "");
 				if (list.size() == 0) {
 					TimeUtil.rest(siteinfo.getDownInterval());
-					// break;
+					 break;
 				}
 				alllist.addAll(list);
+
+				dtc.process(list, siteinfo.getDownInterval(),null, key);
 
 				map.put(keyword, map.get(keyword) + 1);
 				if (map.get(keyword) > page)
@@ -75,7 +77,6 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 		}
 
 
-		dtc.process(alllist, siteinfo.getDownInterval(),null, key);
 
 		// String siteFlag, SearchKey sk, int logType, String... info
 
