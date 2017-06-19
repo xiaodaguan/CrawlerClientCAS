@@ -13,6 +13,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.HttpHostConnectException;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.net.MalformedURLException;
@@ -88,9 +89,10 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
 
     @Override
     public synchronized byte[] simpleGet(HtmlInfo html) throws Exception {
-        HttpClient client = null;
+        HttpClient client = HttpClients.createDefault();
         //创建httpget请求对象
         HttpGet get = null;
+        //System.out.println("weixin http simpleget");
         try {
             //清空上次请求
             html.setContent(null);
@@ -148,12 +150,13 @@ public class WeixinHttpProcess extends SimpleHttpProcess {
                 }
                 response.getEntity().getContent().close();
                 //记录http get请求获得的内容
+                //System.out.println("html content:"+result);
                 html.setContent(result);
             }
         } catch(HttpHostConnectException |ClientProtocolException e)	{
-
+            e.printStackTrace();
         } catch(Exception e)		{
-
+            e.printStackTrace();
         }
 
         if(html.getContent()!=null) {

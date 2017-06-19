@@ -85,8 +85,8 @@ public abstract class AbstractDBService<T> implements DBService<T> {
             	
             	String tt = t.replace("ebusiness", "eb").replace("person_data", "leaders") ;
             	String SQL_WEB = "select md5 from " + tt;
-            	//		+" where rownum<10 ";
-            	//select md5 from weixin_data
+
+                //SQL_WEB = SQL_WEB+" where rownum<10 ";
             	 try {
                  	Connection con = this.jdbcTemplate.getDataSource().getConnection();
                      String connInfo =  con.toString();
