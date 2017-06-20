@@ -99,6 +99,9 @@ public class SimpleHttpProcess implements HttpProcess {
     }
 
     protected static ConcurrentHashSet<String> proxies = new ConcurrentHashSet<>();
+    static{
+        flushProxies();
+    }
     protected static long proxiesLastUpdate;
 
 
@@ -140,8 +143,8 @@ public class SimpleHttpProcess implements HttpProcess {
         }
     }
 
-    public static String getRandomProxy() {
-        if (System.currentTimeMillis() - proxiesLastUpdate >= 1000 * 60 * 10 || proxies.size() == 0) {
+    public synchronized static String getRandomProxy() {
+        if (System.currentTimeMillis() - proxiesLastUpdate >= 1000 * 60 * 10) {
             flushProxies();
         }
         int random = new Random().nextInt(proxies.size());
