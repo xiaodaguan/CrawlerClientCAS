@@ -2,10 +2,13 @@ package common.http.sub;
 
 import common.bean.HtmlInfo;
 import common.http.SimpleHttpProcess;
+import common.siteinfo.Siteinfo;
 import common.system.AppContext;
 import common.system.Systemconfig;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.io.File;
 
 /**
  * Created by guanxiaoda on 2017/6/20.
@@ -22,10 +25,14 @@ public class WeixinHttpProcessTest {
     @Test
     public void getTest() throws Exception {
 
-        HtmlInfo htmlInfo = new HtmlInfo();
+        HtmlInfo htmlInfo =  new HtmlInfo();
+
+
+        htmlInfo.setType("META" + File.separator + "weixin_search_weixin");
+        htmlInfo.setMaxRetryTimes(10);
+
         htmlInfo.setEncode("gb2312");
         htmlInfo.setAgent(true);
-        htmlInfo.setMaxRetryTimes(3);
         htmlInfo.setOrignUrl("http://1212.ip138.com/ic.asp");
         SimpleHttpProcess httpProcess = new SimpleHttpProcess();
 

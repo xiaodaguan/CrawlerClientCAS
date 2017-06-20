@@ -260,14 +260,7 @@ public class SimpleHttpProcess implements HttpProcess {
         String key = html.getType();
         if (clientMap.containsKey(key)) {
             if (count++ > 100) {
-                HttpParams params = null;
-                // 是否使用代理，此属性在站点模板中配置(agent)
-                if (html.getAgent() == false)
-                    params = httpParams(html.getAgent());
-                else {
-                    params = httpParams(html.getAgent(), html.getSiteId());
-                }
-                HttpClient client = new DefaultHttpClient(new ThreadSafeClientConnManager(), params);
+                HttpClient client = HttpClients.createDefault();
 
                 clientMap.putIfAbsent(key, client);
                 count = 0;
@@ -275,13 +268,7 @@ public class SimpleHttpProcess implements HttpProcess {
 
             return clientMap.get(key);
         } else {
-            HttpParams params = null;
-            if (html.getAgent() == false)
-                params = httpParams(html.getAgent());
-            else {
-                params = httpParams(html.getAgent(), html.getSiteId());
-            }
-            HttpClient client = new DefaultHttpClient(new ThreadSafeClientConnManager(), params);
+            HttpClient client = HttpClients.createDefault();
 
             clientMap.putIfAbsent(key, client);
             return client;
