@@ -42,83 +42,14 @@ import java.util.Map;
 public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> implements WeixinSearchExtractorAttribute {
 
 
-    public void parseUrl1(List<WeixinData> list, Node dom, Component component, String... args) {
-
+    @Override
+    public void parseUrl(List<WeixinData> list, Node dom, Component component, String... args) {
         if (component == null) return;
         NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
         if (nl == null) return;
         for (int i = 0; i < nl.getLength(); i++) {
             String url = urlProcess(component, nl.item(i));
             list.get(i).setUrl(url);
-        }
-
-
-    }
-
-    @Override
-    public void parseUrl(List<WeixinData> list, Node dom, Component component, String... args) {
-        /**
-         * args: 0 cookie 1 referer 2 domain id
-         */
-        if (args[0] == null || args[0] == "") return;
-
-        if (component == null) return;
-        NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
-        if (nl == null) return;
-
-        String cookie = args[0];
-        String referer = args[1];
-        for (int i = 0; i < nl.getLength(); i++) {
-            String tmpUrl = "http://weixin.sogou.com" + urlProcess(component, nl.item(i));
-
-            Proxy p = Systemconfig.dbService.getProxy(Integer.parseInt(args[2]));
-
-            java.net.Proxy proxy = null;
-            if (p != null) proxy = new java.net.Proxy(java.net.Proxy.Type.HTTP, new InetSocketAddress(p.gethHost().getHostName(), p.gethHost().getPort()));
-
-            String loc = null;
-            try {
-                Systemconfig.sysLog.log("url：" + tmpUrl);
-                Systemconfig.sysLog.log("本次请求通过代理：" + proxy);
-                HttpURLConnection conn = null;
-                if (p != null) conn = (HttpURLConnection) new URL(tmpUrl).openConnection(proxy);
-                else {
-                    conn = (HttpURLConnection) new URL(tmpUrl).openConnection();
-                }
-                Systemconfig.dbService.updateProxyOrder(p.gethHost().getHostName() + ":" + p.gethHost().getPort() + ":" + args[2]);
-
-                conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:38.0) Gecko/20100101 Firefox/38.0");
-                conn.setRequestProperty("Cookie", cookie);
-                conn.setRequestProperty("Referer", referer);
-                HttpURLConnection.setFollowRedirects(false);
-                conn.setFollowRedirects(false);
-                conn.connect();
-                loc = conn.getHeaderField("Location");
-                if (loc != null) {
-                    Systemconfig.sysLog.log(conn.getResponseMessage());
-                    if (loc.contains("antispider")) {
-                        Systemconfig.sysLog.log("ip被屏蔽，请手动验证！@详情页");
-                        System.in.read();
-                        i--;
-                        continue;
-                    }
-                }
-                Systemconfig.sysLog.log("real url: " + loc);
-
-                int sleepTime = 30 + (int) (Math.random() * 30);
-                // int sleepTime = 2;
-                Systemconfig.sysLog.log("sleep..." + sleepTime);
-                TimeUtil.rest(sleepTime);
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            list.get(i).setUrl(loc == null ? "err." : loc);
         }
 
     }
@@ -139,7 +70,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
 
 //        this.parseUrl(list, domtree, comp.get("url"), args[2], args[4], args[6]);
 //        comp.get("url").setXpath("//DIV[@class='txt-box']/H3/A[contains(@id,'title_')]/@href");
-        this.parseUrl1(list, domtree, comp.get("url"), args[2], args[4], args[6]);
+        this.parseUrl(list, domtree, comp.get("url"), args[2], args[4], args[6]);
 //        this.parseUrl1(list, domtree, comp.get("url"), args[2], args[4], args[6]);
 
 

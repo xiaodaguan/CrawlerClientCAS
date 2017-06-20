@@ -155,6 +155,7 @@ public abstract class GenericCommonDownload<T> {
         html.setAgent(siteinfo.getAgent());
         html.setSiteId(siteinfo.getDomainId());
         html.setType(type + File.separator + siteFlag);
+        html.setMaxRetryTimes(10);
         specialHtmlInfo(html);
         return html;
     }

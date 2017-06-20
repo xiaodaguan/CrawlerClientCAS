@@ -25,7 +25,6 @@ public class WeixinDataCommonDownload extends GenericDataCommonDownload<WeixinDa
         String url = getRealUrl(data);
         if (url == null || url.equals("err.")) return;
         // 检测是否需要代理，未来版本改进
-        siteinfo.setAgent(false);
         HtmlInfo html = htmlInfo("DATA");
         if (data.getCrawler_cookie() != null) html.setCookie(data.getCrawler_cookie());
         try {

@@ -24,8 +24,28 @@ public class HtmlInfo {
 	private String acceptEncoding;
 	private int siteId;// 域名，与数据库中proxy_server表中domain_id一一对应
 	private String responseCookie;// 返回的cookie
-	
-	
+	private int retryTimes=0;//重试次数
+	private int maxRetryTimes;//最大重试次数
+
+	public void setRetryTimes(int retryTimes) {
+		this.retryTimes = retryTimes;
+	}
+
+	public int getRetryTimes() {
+		return retryTimes;
+	}
+
+	public int getMaxRetryTimes() {
+		return maxRetryTimes;
+	}
+
+	public void increaseRetryTimes(){
+		retryTimes++;
+	}
+
+	public void setMaxRetryTimes(int maxRetryTimes) {
+		this.maxRetryTimes = maxRetryTimes;
+	}
 
 	public String getResponseCookie() {
 		return responseCookie;

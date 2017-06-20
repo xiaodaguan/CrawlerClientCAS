@@ -4,13 +4,11 @@ import common.bean.HtmlInfo;
 import common.bean.WeixinData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.http.sub.WeixinHttpProcess;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.StringUtil;
 import common.util.TimeUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,7 +57,6 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                     Systemconfig.sysLog.log("ip被屏蔽，请手动验证@列表页，获取cookie后输入控制台回车继续。。。");
                     Scanner sc = new Scanner(System.in);
                     String cookie = sc.nextLine();
-                    WeixinHttpProcess.manuallySetCookie(cookie);
                     continue;
                 }
 
