@@ -141,7 +141,7 @@ public class SimpleHttpProcess implements HttpProcess {
     }
 
     public static String getRandomProxy() {
-        if (System.currentTimeMillis() - proxiesLastUpdate >= 1000 * 60 * 1 || proxies.size() == 0) {
+        if (System.currentTimeMillis() - proxiesLastUpdate >= 1000 * 60 * 10 || proxies.size() == 0) {
             flushProxies();
         }
         int random = new Random().nextInt(proxies.size());
