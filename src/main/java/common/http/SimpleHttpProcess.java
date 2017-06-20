@@ -7,9 +7,7 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.GZIPInputStream;
 
@@ -82,83 +80,26 @@ public class SimpleHttpProcess implements HttpProcess {
 
     int count = 0;
 
+
+    private static List<String> userAgentList = new ArrayList<>();
+
+    static {
+        userAgentList.add("Mozilla/5.0 (compatible; WOW64; MSIE 10.0; Windows NT 6.2)");
+        userAgentList.add("Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) CriOS/27.0.1453.10 Mobile/10B350 Safari/8536.25");
+        userAgentList.add("Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.94 Safari/537.36");
+        userAgentList.add("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)");
+        userAgentList.add("Mozilla/5.0 (iPad; CPU OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3");
+        userAgentList.add("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; en-US) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27");
+        userAgentList.add("Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.9.168 Version/11.52");
+    }
+
+    public static String getRandomUserAgent() {
+        int random = new Random().nextInt(userAgentList.size());
+        return userAgentList.get(random == userAgentList.size() ? random - 1 : random);
+    }
+
     protected static ConcurrentHashSet<String> proxies = new ConcurrentHashSet<>();
     protected static long proxiesLastUpdate;
-
-
-    public byte[] proxyGetBytes(HtmlInfo html, boolean useProxy) {
-        HttpClient client = HttpClients.createDefault();
-        //创建httpget请求对象
-        HttpGet get = null;
-        //System.out.println("weixin http simpleget");
-        try {
-            //清空上次请求
-            html.setContent(null);
-            //将响应码设置为-1，如果整个过程能够顺利执行，会被设置为200,302等有效响应码
-
-
-            get = new HttpGet(html.getOrignUrl().startsWith("http") ? html.getOrignUrl() : "https://" + html.getOrignUrl());
-
-
-            html.setContent(null);
-
-            if (html.getUa() != null) {
-                //设置请求头 user agent
-                get.setHeader("User-Agent", html.getUa());
-            }
-            //设置请求头 connection
-            get.setHeader("Connection", "keep-alive");
-            if (html.getCookie() != null) {
-                //设置请求头 cookie
-                get.setHeader("Cookie", html.getCookie());
-            }
-            if (html.getReferUrl() != null) {
-                get.setHeader("Referer", html.getReferUrl());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // 创建请求响应的可关闭对象（手动关闭）
-        HttpResponse response = null;
-
-        try {
-
-
-            if (response == null) {
-                System.out.println("client.execute(get)出错！：response=null");
-            }
-            if (response.containsHeader("Location")) {
-                //如果响应头中包含了location，一般为302跳转，跳转链接提取方式如下
-                String realUrl = response.getFirstHeader("Location").getValue();
-                //记录302跳转的链接
-                html.setRealUrl(realUrl);
-            }
-            if (response != null && response.getStatusLine().getStatusCode() == 200) {
-                //获取http get请求的实体对象
-                HttpEntity httpEntity = response.getEntity();
-                String result = null;
-                try {
-                    //获取http 请求的内容，并指定编码格式
-                    result = EntityUtils.toString(httpEntity, html.getEncode());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                response.getEntity().getContent().close();
-                //记录http get请求获得的内容
-                //System.out.println("html content:"+result);
-                html.setContent(result);
-            }
-        } catch (HttpHostConnectException | ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (html.getContent() != null) {
-            return html.getContent().getBytes();
-        }
-        return null;
-    }
 
 
     public synchronized static void flushProxies() {
@@ -213,8 +154,104 @@ public class SimpleHttpProcess implements HttpProcess {
         return proxies.iterator().next();
     }
 
+    /**
+     * 普通的get请求
+     *
+     * @return
+     */
+    protected byte[] simpleGet(HtmlInfo html) throws Exception {
 
-    public static void manuallySetCookie(String cookies) {
+        HttpClient hc = httpClient(html);
+
+
+        HttpGet get = new HttpGet(EncoderUtil.encodeKeyWords(html.getOrignUrl(), "utf-8"));
+
+        if (html.getCookie() != null) {
+            get.setHeader("Cookie", html.getCookie());
+        }
+        if (html.getReferUrl() != null) {
+            get.setHeader("Referer", html.getReferUrl());
+        }
+        if (html.getUa() != null) {
+            get.setHeader("User-Agent", html.getUa());
+        }
+        if (html.getAcceptEncoding() != null) {
+            get.setHeader("Accept-Encoding", html.getAcceptEncoding());
+        }
+
+        InputStream in = null;
+        HttpEntity responseEntity = null;
+        try {
+            HttpResponse response = null;
+
+            while (response == null) {
+                if (html.getAgent()) {
+                    String ip_port = getRandomProxy();
+                    String proxyHost = ip_port.split(":")[0];
+                    int proxyPort = Integer.parseInt(ip_port.split(":")[1]);
+                    HttpHost proxy = new HttpHost(proxyHost, proxyPort);
+                    RequestConfig conf = RequestConfig.custom()
+                            .setProxy(proxy)
+                            .setSocketTimeout(5000)
+                            .setConnectTimeout(5000)
+                            .setConnectionRequestTimeout(5000)
+                            .build();
+
+
+                    get.setConfig(conf);
+
+
+                    Systemconfig.sysLog.log("proxy[" + ip_port + "] -> " + html.getOrignUrl());
+                    Systemconfig.sysLog.log("Cookie: " + html.getCookie());
+                    Systemconfig.sysLog.log("User-Agent: " + html.getUa());
+                    Systemconfig.sysLog.log("Referer: " + html.getReferUrl());
+
+                }
+                try {
+                    response = hc.execute(get); //执行get请求，并返回响应对象
+                } catch (Exception e) {
+                    Systemconfig.sysLog.log("请求出错，如果使用了代理，可能是代理失效，否则请确认url正确。");
+                    if (html.getRetryTimes() >= html.getMaxRetryTimes()) {
+                        Systemconfig.sysLog.log("重试次数太多(当前最大重试次数：" + html.getMaxRetryTimes() + ")，跳过当前url，请检查url");
+                        html.setRetryTimes(0);
+                        break;
+                    }
+                    html.increaseRetryTimes();
+
+//                throw new RuntimeException(e);
+                }
+            }
+            // if(response.getStatusLine().getStatusCode() == 200) {
+            responseEntity = response.getEntity();
+            if (responseEntity != null) {
+                in = response.getEntity().getContent();
+                Header h = response.getFirstHeader("Content-Type");
+                if (h != null && h.getValue().indexOf("charset") > -1) {
+                    html.setEncode(h.getValue().substring(h.getValue().indexOf("charset=") + 8).replace(";", ""));
+                    html.setFixEncode(true);
+                }
+                // 头的处理
+                // ...
+                html.setReferUrl(html.getOrignUrl());
+                //
+                return EntityUtils.toByteArray(responseEntity);
+            }
+            // }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                EntityUtils.consume(responseEntity);
+            } catch (IOException e) {
+                // e.printStackTrace();
+            }
+            IOUtils.closeQuietly(in);
+            get.abort();
+        }
+        return null;
+    }
+
+    public void manuallySetCookie(String cookies) {
 
     }
 
@@ -375,94 +412,6 @@ public class SimpleHttpProcess implements HttpProcess {
         getContent(html, null);
     }
 
-    /**
-     * 普通的get请求
-     *
-     * @return
-     */
-    protected byte[] simpleGet(HtmlInfo html) throws Exception {
-
-        HttpClient hc = httpClient(html);
-        Systemconfig.sysLog.log("url: " + html.getOrignUrl());
-
-
-        HttpGet get = new HttpGet(EncoderUtil.encodeKeyWords(html.getOrignUrl(), "utf-8"));
-
-        if (html.getCookie() != null) {
-            get.setHeader("Cookie", html.getCookie());
-        }
-        if (html.getReferUrl() != null) {
-            get.setHeader("Referer", html.getReferUrl());
-        }
-        if (html.getUa() != null) {
-            get.setHeader("User-Agent", html.getUa());
-        }
-        if (html.getAcceptEncoding() != null) {
-            get.setHeader("Accept-Encoding", html.getAcceptEncoding());
-        }
-
-        InputStream in = null;
-        HttpEntity responseEntity = null;
-        try {
-            HttpResponse response = null;
-
-            while (response == null) {
-                if (html.getAgent()) {
-                    String ip_port = getRandomProxy();
-                    String proxyHost = ip_port.split(":")[0];
-                    int proxyPort = Integer.parseInt(ip_port.split(":")[1]);
-                    HttpHost proxy = new HttpHost(proxyHost, proxyPort);
-                    RequestConfig conf = RequestConfig.custom()
-                            .setProxy(proxy)
-                            .setSocketTimeout(5000)
-                            .setConnectTimeout(5000)
-                            .setConnectionRequestTimeout(5000)
-                            .build();
-
-
-                    get.setConfig(conf);
-
-                    Systemconfig.sysLog.log("proxy[" + ip_port + "] -> " + html.getOrignUrl());
-                }
-                try {
-                    response = hc.execute(get); //执行get请求，并返回响应对象
-                } catch (Exception e) {
-                    Systemconfig.sysLog.log("请求出错，如果使用了代理，可能是代理失效，否则请确认url正确。");
-                    if (html.getRetryTimes() >= html.getMaxRetryTimes()) {
-                        Systemconfig.sysLog.log("重试次数太多(当前最大重试次数：" + html.getMaxRetryTimes() + ")，跳过当前url，请检查url");
-                        html.setRetryTimes(0);
-                        break;
-                    }
-                    html.increaseRetryTimes();
-
-//                throw new RuntimeException(e);
-                }
-            }
-            // if(response.getStatusLine().getStatusCode() == 200) {
-            responseEntity = response.getEntity();
-            if (responseEntity != null) {
-                in = response.getEntity().getContent();
-                Header h = response.getFirstHeader("Content-Type");
-                if (h != null && h.getValue().indexOf("charset") > -1) {
-                    html.setEncode(h.getValue().substring(h.getValue().indexOf("charset=") + 8).replace(";", ""));
-                    html.setFixEncode(true);
-                }
-                return EntityUtils.toByteArray(responseEntity);
-            }
-            // }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                EntityUtils.consume(responseEntity);
-            } catch (IOException e) {
-                // e.printStackTrace();
-            }
-            IOUtils.closeQuietly(in);
-            get.abort();
-        }
-        return null;
-    }
 
     protected HttpParams httpParams(boolean agent) {
         HttpParams params = new BasicHttpParams();
@@ -487,21 +436,7 @@ public class SimpleHttpProcess implements HttpProcess {
         params.setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.BROWSER_COMPATIBILITY);
         params.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, requestTime);
         params.setParameter(CoreConnectionPNames.SO_TIMEOUT, readTime);
-//		if (agent) {
-//			Proxy proxy = null;
-//			while (true) {
-//				proxy = Systemconfig.dbService.getProxy(siteId);// 已修改为从数据库读取
-//				if (proxy == null) {
-//					Systemconfig.sysLog.log("未读取有效代理服务器，等待1秒重试...");
-//					TimeUtil.rest(1);
-//
-//				} else {
-//					break;
-//				}
-//			}
-//			HttpHost host = new HttpHost(proxy.gethHost().getHostName(), proxy.gethHost().getPort());
-//			params.setParameter(ConnRoutePNames.DEFAULT_PROXY, host);
-//		}
+
         return params;
     }
 

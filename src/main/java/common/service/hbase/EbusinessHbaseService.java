@@ -94,11 +94,8 @@ public class EbusinessHbaseService extends HbaseService<EbusinessData> {
 		}
 
 	}
-	
-	public void updateProxyOrder(String proxyInfo) {
-	}
 
-	@Override
+    @Override
 	public void saveCommentData(EbusinessData ebusinessData) throws IOException {
 		
 	}

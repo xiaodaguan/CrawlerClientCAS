@@ -13,7 +13,6 @@ import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTable;
 import org.springframework.jdbc.core.RowMapper;
 
-import common.bean.Proxy;
 import common.bean.WxpublicData;
 import common.rmi.packet.SearchKey;
 import common.service.AbstractDBService;
@@ -34,11 +33,6 @@ public abstract class HbaseService<T> extends AbstractDBService<T> {
 
 	@Override
 	public abstract void saveData(T data) throws IOException;
-
-	@Override
-	public Proxy getProxy(int siteId) {
-		return null;
-	}
 
 	@Override
 	public List<SearchKey> searchKeys() {

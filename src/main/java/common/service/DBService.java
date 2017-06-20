@@ -100,15 +100,6 @@ public interface DBService<T> {
 
     void updateUserOrder(String userName);
 
-    Proxy getProxy(int siteId);
-
-    /**
-     * 更新代理使用时间
-     *
-     * @param proxyInfo: ip:port:domainId
-     */
-    public void updateProxyOrder(String proxyInfo);
-
     public int saveGongzhongData(WxpublicData wpd);
 
 

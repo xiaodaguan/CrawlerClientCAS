@@ -6,6 +6,7 @@ import common.bean.HtmlInfo;
 import common.bean.WeixinData;
 import common.download.GenericDataCommonDownload;
 import common.extractor.xpath.weixin.search.WeixinSearchXpathExtractor;
+import common.http.SimpleHttpProcess;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
@@ -59,5 +60,10 @@ public class WeixinDataCommonDownload extends GenericDataCommonDownload<WeixinDa
             TimeUtil.rest(wait);
         }
     }
-
+    @Override
+    public void specialHtmlInfo(HtmlInfo htmlInfo){
+        if(htmlInfo.getReferUrl() == null)
+            htmlInfo.setReferUrl("http://weixin.sogou.com/");
+        htmlInfo.setUa(SimpleHttpProcess.getRandomUserAgent());
+    }
 }

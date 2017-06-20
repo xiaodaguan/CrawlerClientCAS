@@ -1,13 +1,11 @@
 package common.service.oracle;
 
 import common.bean.*;
-import common.rmi.packet.CrawlerType;
 import common.rmi.packet.SearchKey;
 import common.service.AbstractDBService;
 import common.system.Systemconfig;
 
 
-import org.apache.http.HttpHost;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.io.IOException;
@@ -16,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Random;
 
 /**
  * 数据库操作
@@ -28,47 +25,6 @@ public abstract class OracleService<T> extends AbstractDBService<T> {
     public void saveCommentData(T t) throws IOException {
 
     }
-
-
-    public static String PROXY_TABLE = "proxy_server";
-
-    @Override
-    public Proxy getProxy(int siteId) {
-
-        String sql = "select id, ip, port, site_interval from " + PROXY_TABLE + " where domain_id=" + siteId + " and available = 1 and site_last_used < sysdate - 1/24/60/60 order by site_last_used";
-        System.out.println(sql);
-        List<Proxy> proxyList = this.jdbcTemplate.query(sql, new RowMapper<Proxy>() {
-
-            @Override
-            public Proxy mapRow(ResultSet rs, int arg1) throws SQLException {
-                Proxy proxy = new Proxy();
-                int id = rs.getInt(1);
-                HttpHost host = new HttpHost(rs.getString(2), rs.getInt(3));
-                proxy.setId(id);
-                proxy.sethHost(host);
-                return proxy;
-            }
-
-        });
-
-        if (proxyList != null && proxyList.size() != 0) return proxyList.get(0);
-
-        return null;
-
-    }
-
-    public void updateProxyOrder(String proxy_info) {
-        proxy_info = proxy_info.replace("http://", "");
-        String ip = proxy_info.split(":")[0];
-        String port = proxy_info.split(":")[1];
-        String domainId = proxy_info.split(":")[2];
-        String sql = "update " + PROXY_TABLE + " set site_last_used = ? where ip = ? and port = ? and domain_id = ?";
-        this.jdbcTemplate.update(sql, new Timestamp(System.currentTimeMillis()), ip, Integer.parseInt(port), Integer.parseInt(domainId));
-        Systemconfig.sysLog.log("proxy:{" + proxy_info + "} last used updated.");
-    }
-
-
-    public static String HEADER_TABLE = "headers";
 
 
     @Override

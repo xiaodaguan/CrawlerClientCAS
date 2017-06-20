@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
 
 /**
  * 数据库操作
@@ -22,20 +21,14 @@ public abstract class MysqlService<T> extends AbstractDBService<T> {
 	public void saveCommentData(T t) throws IOException {
 
 	}
-	public void updateProxyOrder(String proxyInfo) {
-	}
+
 	public int saveGongzhongData(WxpublicData wpd) {
 		return 0;
 
 	};
-	
 
-	@Override
-	public Proxy getProxy(int siteId){
-		return null;
-	}
 
-	@Override
+    @Override
 	public abstract void saveData(T data);
 	@Override
 	public List<SearchKey> searchKeys() {
