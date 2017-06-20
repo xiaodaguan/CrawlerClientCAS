@@ -192,25 +192,25 @@ public class SimpleHttpProcess implements HttpProcess {
                     HttpHost proxy = new HttpHost(proxyHost, proxyPort);
                     RequestConfig conf = RequestConfig.custom()
                             .setProxy(proxy)
-                            .setSocketTimeout(5000)
-                            .setConnectTimeout(5000)
-                            .setConnectionRequestTimeout(5000)
+                            .setSocketTimeout(6000)
+                            .setConnectTimeout(6000)
+                            .setConnectionRequestTimeout(6000)
                             .build();
 
 
                     get.setConfig(conf);
 
 
-                    Systemconfig.sysLog.log("proxy[" + ip_port + "] -> " + html.getOrignUrl());
-                    Systemconfig.sysLog.log("Cookie: " + html.getCookie());
-                    Systemconfig.sysLog.log("User-Agent: " + html.getUa());
-                    Systemconfig.sysLog.log("Referer: " + html.getReferUrl());
+//                    Systemconfig.sysLog.log("proxy[" + ip_port + "] -> " + html.getOrignUrl());
+//                    Systemconfig.sysLog.log("Cookie: " + html.getCookie());
+//                    Systemconfig.sysLog.log("User-Agent: " + html.getUa());
+//                    Systemconfig.sysLog.log("Referer: " + html.getReferUrl());
 
                 }
                 try {
                     response = hc.execute(get); //执行get请求，并返回响应对象
                 } catch (Exception e) {
-                    Systemconfig.sysLog.log("请求出错，如果使用了代理，可能是代理失效，否则请确认url正确。");
+                    Systemconfig.sysLog.log("请求出错，如果使用了代理，可能是代理失效，否则请确认url正确。["+html.getRetryTimes()+"]");
                     if (html.getRetryTimes() >= html.getMaxRetryTimes()) {
                         Systemconfig.sysLog.log("重试次数太多(当前最大重试次数：" + html.getMaxRetryTimes() + ")，跳过当前url，请检查url");
                         html.setRetryTimes(0);

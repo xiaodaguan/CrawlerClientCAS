@@ -50,8 +50,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             html.setOrignUrl(nexturl);
             try {
 
-                Systemconfig.sysLog.log(keyword + ": " + url + "downloading...");
-                Systemconfig.sysLog.log("downloading : " + nexturl);
+                Systemconfig.sysLog.log("downloading...["+ keyword + "]: " + url );
                 http.getContent(html);//
 
                 while (checkBlock(html)) {// 验证是否被屏蔽
@@ -105,7 +104,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
 //                break;
             } finally {
                 int wait = siteinfo.getDownInterval() + (int) Math.random() * 30;
-                Systemconfig.sysLog.log("wait " + wait + " secs to download next...");
+                Systemconfig.sysLog.log("wait " + wait + " secs to download next keyword...");
                 TimeUtil.rest(wait);
             }
         }
