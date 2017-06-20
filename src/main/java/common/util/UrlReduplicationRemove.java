@@ -43,7 +43,7 @@ public class UrlReduplicationRemove {
         int t = 800000;
         int k = 10;
         int n = size * k < t ? t : size * k;// 保证在8K万以上
-        double error = 0.01d;
+        double error = 0.0001d;
         int m = new Double(Math.log(error) * n / (Math.log(1d - Math.pow(Math.E, -0.6d)) * 0.6)).intValue();
         log.info("初始化数量" + m + "############" + n + " 数据表" + "中url数量:" + size);
         bloomFilters = new BloomFilter<String>(m, n);
