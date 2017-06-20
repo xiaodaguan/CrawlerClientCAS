@@ -201,7 +201,7 @@ public class SimpleHttpProcess implements HttpProcess {
                     get.setConfig(conf);
 
 
-//                    Systemconfig.sysLog.log("proxy[" + ip_port + "] -> " + html.getOrignUrl());
+                    Systemconfig.sysLog.log("proxy[" + ip_port + "] -> " + html.getOrignUrl());
 //                    Systemconfig.sysLog.log("Cookie: " + html.getCookie());
 //                    Systemconfig.sysLog.log("User-Agent: " + html.getUa());
 //                    Systemconfig.sysLog.log("Referer: " + html.getReferUrl());
