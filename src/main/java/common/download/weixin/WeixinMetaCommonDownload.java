@@ -20,7 +20,7 @@ import java.util.Scanner;
  * @author grs
  */
 public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinData> {
-    private static String cookies = "";
+    private static String cookies = null;
 
     public WeixinMetaCommonDownload(SearchKey key) {
         super(key);
@@ -54,12 +54,13 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 Systemconfig.sysLog.log("downloading : " + nexturl);
                 http.getContent(html);//
 
-                if (checkBlock(html)) {// 验证是否被屏蔽
+                while (checkBlock(html)) {// 验证是否被屏蔽
                     Systemconfig.sysLog.log("ip被屏蔽，请手动验证@列表页，获取cookie后输入控制台回车继续。。。");
                     Scanner sc = new Scanner(System.in);
-                    String cookie = sc.nextLine();
-                    html.setCookie(cookie);
-                    continue;
+                    String verifiedCookie = sc.nextLine();
+                    cookies = verifiedCookie;
+                    html.setCookie(verifiedCookie);
+                    http.getContent(html);
                 }
 
                 // 如果有response cookie 则更新cookie，后续列表页下载可以继续使用
@@ -153,9 +154,11 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
     }
 
     @Override
-    public void specialHtmlInfo(HtmlInfo htmlInfo){
-        if(htmlInfo.getReferUrl() == null)
+    public void specialHtmlInfo(HtmlInfo htmlInfo) {
+        if (htmlInfo.getReferUrl() == null)
             htmlInfo.setReferUrl("http://weixin.sogou.com/");
+        if (htmlInfo.getCookie() == null && cookies != null)
+            htmlInfo.setCookie(cookies);
         htmlInfo.setUa(SimpleHttpProcess.getRandomUserAgent());
     }
 }
