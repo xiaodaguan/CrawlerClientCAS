@@ -1,13 +1,12 @@
 package common.download.bbs;
 
-import java.util.concurrent.CountDownLatch;
-
 import common.bean.BBSData;
 import common.bean.HtmlInfo;
-import common.bean.ReplyData;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
+
+import java.util.concurrent.CountDownLatch;
 
 /**
  * 下载详细页面
@@ -40,8 +39,8 @@ public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
                 }
                 // 解析数据
                 url = xpath.templateContentPage(data, html);
-       
-                
+
+
                 Systemconfig.sysLog.log(data.getTitle() + "解析完成。。。");
                 if (dataCheck(data, html.getContent())) {
                     Systemconfig.dbService.saveData(data);

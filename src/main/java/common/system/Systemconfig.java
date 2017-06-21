@@ -200,7 +200,7 @@ public class Systemconfig {
             sysLog.log("没有找到相应的数据库服务，系统退出！！");
             System.exit(-1);
         }
-        
+
         
         
         if (distribute) {
