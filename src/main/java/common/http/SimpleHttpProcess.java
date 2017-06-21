@@ -19,6 +19,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import net.sf.json.JSON;
+import net.sf.json.util.JSONUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -56,6 +58,8 @@ import common.util.StringUtil;
 import common.util.TimeUtil;
 import common.util.UserAgent;
 import org.eclipse.jetty.util.ConcurrentHashSet;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * 普通http请求处理
@@ -112,20 +116,29 @@ public class SimpleHttpProcess implements HttpProcess {
         InputStream is = null;
         BufferedReader reader = null;
         try {
-            URLConnection conn = new URL("http://dev.kuaidaili.com/api/getproxy/?orderid=964219644645119&num=100&b_pcchrome=1&b_pcie=1&b_pcff=1&protocol=1&method=2&an_ha=1&sep=1").openConnection();
+            URLConnection conn = new URL("http://guanxiaoda.cn:8000/?types=0&count=100").openConnection();
             conn.connect();
             is = conn.getInputStream();
             reader = new BufferedReader(new InputStreamReader(is));
             String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("{ \"proxies\":");
             while ((line = reader.readLine()) != null) {
-                if (line.contains(":"))
-                    if (line.split(":").length == 2) {
-
-                        proxies.add(line);
-                    }
+               stringBuilder.append(line);
             }
+            stringBuilder.append("}");
+            String jsonText = stringBuilder.toString();
 
+            JSONObject jsonObject = new JSONObject(jsonText);
+            JSONArray array = (JSONArray) jsonObject.get("proxies");
 
+            for(int i=0;i<array.length();i++){
+                if(array.getJSONArray(i).length()==3) {
+                    String host = array.getJSONArray(i).getString(0);
+                    int port = array.getJSONArray(i).getInt(1);
+                    proxies.add(host + ":" + port);
+                }
+            }
             long timestamp = System.currentTimeMillis();
             Systemconfig.sysLog.log("proxy flush time: " + new Date(timestamp));
             Systemconfig.sysLog.log("proxy count: " + proxies.size());
@@ -164,7 +177,7 @@ public class SimpleHttpProcess implements HttpProcess {
      */
     protected byte[] simpleGet(HtmlInfo html) throws Exception {
 
-        HttpClient hc = httpClient(html);
+        HttpClient httpClient = httpClient(html);
 
 
         HttpGet get = new HttpGet(EncoderUtil.encodeKeyWords(html.getOrignUrl(), "utf-8"));
@@ -211,7 +224,7 @@ public class SimpleHttpProcess implements HttpProcess {
 
                 }
                 try {
-                    response = hc.execute(get); //执行get请求，并返回响应对象
+                    response = httpClient.execute(get); //执行get请求，并返回响应对象
                 } catch (Exception e) {
                     Systemconfig.sysLog.log("请求出错，如果使用了代理，可能是代理失效，否则请确认url正确。["+html.getRetryTimes()+"]");
                     if (html.getRetryTimes() >= html.getMaxRetryTimes()) {
