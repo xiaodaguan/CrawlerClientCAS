@@ -7,6 +7,7 @@ import common.bean.HtmlInfo;
 import common.bean.NewsData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
+import common.http.SimpleHttpProcess;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.util.TimeUtil;
@@ -100,11 +101,8 @@ public class NewsMetaCommonDownload extends GenericMetaCommonDownload<NewsData> 
 
     @Override
     protected void specialHtmlInfo(HtmlInfo html) {
-        if (html.getSite().equals("baidu_news_search")) {
-            html.setReferUrl("http://news.baidu.com");
-            html.setCookie("BAIDUID=AE6A9BCA58B8CEBCF4AC160505049A93:FG=1; favoriteTips=ok; Hm_lvt_e9e114d958ea263de46e080563e254c4=1409106616,1409540228,1409725298,1409800157; BDUSS=Gs1Z3B1NklIU0xSYXZwdGQ5QnlyamlseldVcVYxS0VwRGoxZDFFNlJLRDFycGRUQVFBQUFBJCQAAAAAAAAAAAEAAAD9k1QKd3NncnMwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPUhcFP1IXBTV; LOCALGX=%u5317%u4EAC%7C%30%7C%u5317%u4EAC%7C%30; BDNVCODE=5407D7C4D634B4056646753; Hm_lpvt_e9e114d958ea263de46e080563e254c4=1409800157; BAIDUID=AE6A9BCA58B8CEBCF4AC160505049A93:FG=1; BD_CK_SAM=1; BDSVRTM=258; H_PS_PSSID=");
-        }
 
+        html.setUa(SimpleHttpProcess.getRandomUserAgent());
     }
 
 }
