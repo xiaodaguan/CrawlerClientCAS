@@ -166,6 +166,8 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		html.setSite("sina");
 		
 		SinaUserLoginEntity loginEntity = getEntity(user);
+		if(loginEntity==null)return false;
+
 		String postLoginUrl = "http://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.2)";
 		String pwdString = loginEntity.getServertime() + "\t"
 				+ loginEntity.getNonce() + "\n" + loginEntity.getPassword();
@@ -381,6 +383,9 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		if((entity.getShowpin() != null && entity.getShowpin().equals("1"))){
 
 			Systemconfig.dbService.updateUserValid(user.getName(), 6);
+
+			System.err.println("新浪微博登陆需要验证码   login faild return null");
+
 			return null;
 			//System.err.println("新浪微博登陆需要验证码，从validateImg文件夹查看验证码，将验证码写入相同名字的文本文件并复制到validateImg文件夹！");
 			//addPicDoor(entity);
