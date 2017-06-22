@@ -27,6 +27,26 @@ public class HtmlInfo {
 	private int retryTimes=0;//重试次数
 	private int maxRetryTimes;//最大重试次数
 
+	private boolean changeProxy=false;//是否需要切换ip
+
+	private String proxy;
+
+	public String getProxy() {
+		return proxy;
+	}
+
+	public void setProxy(String proxy) {
+		this.proxy = proxy;
+	}
+
+	public boolean getChangeProxy() {
+		return changeProxy;
+	}
+
+	public void setChangeProxy(boolean changeProxy) {
+		this.changeProxy = changeProxy;
+	}
+
 	public void setRetryTimes(int retryTimes) {
 		this.retryTimes = retryTimes;
 	}

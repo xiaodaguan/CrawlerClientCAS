@@ -34,6 +34,12 @@ public class WeixinDataCommonDownload extends GenericDataCommonDownload<WeixinDa
                 html.setOrignUrl(url);
 
                 http.getContent(html);
+                while (checkBlock(html)) {// 验证是否被屏蔽
+                    Systemconfig.sysLog.log("ip被屏蔽，准备切换ip。。。");
+                    html.setChangeProxy(true);
+
+                    http.getContent(html);
+                }
                 // html.setContent();
                 if (html.getContent() == null) {
                     Systemconfig.sysLog.log("get html content failed.");
@@ -65,5 +71,10 @@ public class WeixinDataCommonDownload extends GenericDataCommonDownload<WeixinDa
         if(htmlInfo.getReferUrl() == null)
             htmlInfo.setReferUrl("http://weixin.sogou.com/");
         htmlInfo.setUa(SimpleHttpProcess.getRandomUserAgent());
+    }
+
+    private boolean checkBlock(HtmlInfo html) {
+        if (html.getContent().contains("您的访问过于频繁") && html.getContent().contains("验证")) return true;
+        else return false;
     }
 }

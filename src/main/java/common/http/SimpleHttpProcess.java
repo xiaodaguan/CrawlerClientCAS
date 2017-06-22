@@ -2,6 +2,7 @@ package common.http;
 
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -102,72 +103,51 @@ public class SimpleHttpProcess implements HttpProcess {
         return userAgentList.get(random == userAgentList.size() ? random - 1 : random);
     }
 
-    protected static ConcurrentHashSet<String> proxies = new ConcurrentHashSet<>();
-    static{
-        flushProxies();
-    }
-    protected static long proxiesLastUpdate;
 
 
-    public synchronized static void flushProxies() {
 
-        Systemconfig.sysLog.log(">>>>>>>>>>>>>flushing proxy....");
-        proxies.clear();
-        InputStream is = null;
-        BufferedReader reader = null;
-        try {
-            URLConnection conn = new URL("http://guanxiaoda.cn:8000/?types=0&count=100").openConnection();
-            conn.connect();
-            is = conn.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(is));
-            String line;
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("{ \"proxies\":");
-            while ((line = reader.readLine()) != null) {
-               stringBuilder.append(line);
-            }
-            stringBuilder.append("}");
-            String jsonText = stringBuilder.toString();
-
-            JSONObject jsonObject = new JSONObject(jsonText);
-            JSONArray array = (JSONArray) jsonObject.get("proxies");
-
-            for(int i=0;i<array.length();i++){
-                if(array.getJSONArray(i).length()==3) {
-                    String host = array.getJSONArray(i).getString(0);
-                    int port = array.getJSONArray(i).getInt(1);
-                    proxies.add(host + ":" + port);
-                }
-            }
-            long timestamp = System.currentTimeMillis();
-            Systemconfig.sysLog.log("proxy flush time: " + new Date(timestamp));
-            Systemconfig.sysLog.log("proxy count: " + proxies.size());
-            proxiesLastUpdate = timestamp;
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                reader.close();
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public synchronized static String getRandomProxy() {
-        if (System.currentTimeMillis() - proxiesLastUpdate >= 1000 * 60 * 10) {
-            flushProxies();
-        }
-        int random = new Random().nextInt(proxies.size());
-        int i = 0;
-        for (String str : proxies) {
-            if (i++ == random)
-                return str;
-        }
+        try {
+            java.net.URL url = new java.net.URL("http://dynamic.goubanjia.com/dynamic/get/76f9f03884ee46dc24331c820eef62ba.html?ttl&random=yes");
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            connection.setConnectTimeout(3000);
+            connection = (HttpURLConnection)url.openConnection();
 
-        return proxies.iterator().next();
+            InputStream raw = connection.getInputStream();
+            InputStream in = new BufferedInputStream(raw);
+            byte[] data = new byte[in.available()];
+            int bytesRead = 0;
+            int offset = 0;
+            while(offset < data.length) {
+                bytesRead = in.read(data, offset, data.length - offset);
+                if(bytesRead == -1) {
+                    break;
+                }
+                offset += bytesRead;
+            }
+            in.close();
+            raw.close();
+            String[] res = new String(data, "UTF-8").split("\n");
+            List ipList = new ArrayList<>();
+            for (String ip : res) {
+                try {
+                    String[] parts = ip.split(",");
+                    if (Integer.parseInt(parts[1]) > 0) {
+                        ipList.add(parts[0]);
+                    }
+                } catch (Exception e) {
+                }
+            }
+            if (ipList.size() > 0) {
+//                Systemconfig.sysLog.log("获取动态IP:" + ipList );
+                return (String) ipList.get(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(">>>>>>>>>>>>>>获取IP出错");
+        }
+        return null;
     }
 
     /**
@@ -202,22 +182,24 @@ public class SimpleHttpProcess implements HttpProcess {
 
             while (response == null) {
                 if (html.getAgent()) {
-                    String ip_port = getRandomProxy();
-                    String proxyHost = ip_port.split(":")[0];
-                    int proxyPort = Integer.parseInt(ip_port.split(":")[1]);
-                    HttpHost proxy = new HttpHost(proxyHost, proxyPort);
-                    RequestConfig conf = RequestConfig.custom()
-                            .setProxy(proxy)
-                            .setSocketTimeout(6000)
-                            .setConnectTimeout(6000)
-                            .setConnectionRequestTimeout(6000)
-                            .build();
+                    if(html.getChangeProxy()||html.getProxy()==null) {
+                        String ip_port = getRandomProxy();
+                        String proxyHost = ip_port.split(":")[0];
+                        int proxyPort = Integer.parseInt(ip_port.split(":")[1]);
+                        HttpHost proxy = new HttpHost(proxyHost, proxyPort);
+                        RequestConfig conf = RequestConfig.custom()
+                                .setProxy(proxy)
+                                .setSocketTimeout(6000)
+                                .setConnectTimeout(6000)
+                                .setConnectionRequestTimeout(6000)
+                                .build();
 
 
-                    get.setConfig(conf);
+                        get.setConfig(conf);
+                        Systemconfig.sysLog.log("proxy[" + ip_port + "] -> " + html.getOrignUrl());
+                        html.setProxy(ip_port);
+                    }
 
-
-                    Systemconfig.sysLog.log("proxy[" + ip_port + "] -> " + html.getOrignUrl());
 //                    Systemconfig.sysLog.log("Cookie: " + html.getCookie());
 //                    Systemconfig.sysLog.log("User-Agent: " + html.getUa());
 //                    Systemconfig.sysLog.log("Referer: " + html.getReferUrl());

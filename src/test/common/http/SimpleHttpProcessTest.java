@@ -1,7 +1,9 @@
 package common.http;
 
 import common.bean.HtmlInfo;
+import common.system.Systemconfig;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.*;
@@ -14,49 +16,63 @@ import java.net.URLConnection;
  */
 public class SimpleHttpProcessTest {
 
-    private static  SimpleHttpProcess shp = new SimpleHttpProcess();
+    @BeforeClass
+    public static void beforeAll() {
+        Systemconfig.sysLog.start();
+    }
+
+    private static SimpleHttpProcess shp = new SimpleHttpProcess();
+
     @Test
-    public void testRandomUA(){
+    public void testRandomUA() {
         System.out.println(shp.getRandomUserAgent());
     }
 
-    @Test
-    public void testFlushProxy(){
-        SimpleHttpProcess simpleHttpProcess = new SimpleHttpProcess();
-        System.out.println(simpleHttpProcess.proxies);
-        Assert.assertNotEquals(0,simpleHttpProcess.proxies.size());
-    }
 
     @Test
-    public void testNewsGet(){
-        HtmlInfo htmlInfo =  new HtmlInfo();
+    public void testGet() {
+        HtmlInfo htmlInfo = new HtmlInfo();
 
 
-        htmlInfo.setType("META" + File.separator + "baidu_search_test");
+        htmlInfo.setType("META" + File.separator + "test");
         htmlInfo.setMaxRetryTimes(10);
 
         htmlInfo.setEncode("utf-8");
-        htmlInfo.setAgent(false);
-        htmlInfo.setOrignUrl("http://news.baidu.com/ns?word=%E9%9D%92%E5%B2%9B%E4%BA%A4%E9%80%9A&tn=news&from=news&cl=2&rn=20&ct=1");
+        htmlInfo.setAgent(true);
+//        htmlInfo.setOrignUrl("http://weixin.sogou.com/weixin?type=2&query=%E9%9D%92%E5%B2%9B%E4%BA%A4%E9%80%9A");
+        htmlInfo.setOrignUrl("http://weixin.sogou.com");
         htmlInfo.setUa("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
         SimpleHttpProcess httpProcess = new SimpleHttpProcess();
-        httpProcess.getContent(htmlInfo);
 
-        System.out.println(htmlInfo.getContent());
+        int right = 0;
+        int block = 0;
+        for (int i = 0; i < 10; i++) {
+            httpProcess.getContent(htmlInfo);
+            if (htmlInfo.getContent().contains("搜狗微信搜索_订阅号及文章内容独家收录，一搜即达"))
+                right++;
+            if (htmlInfo.getContent().contains("您的访问过于频繁"))
+                block++;
+
+
+        }
+        System.out.println(right);
+        System.out.println(block);
+        Assert.assertEquals(10, right);
+        Assert.assertEquals(0,block);
     }
 
     @Test
     public void test1() throws IOException {
         URL url = new URL("http://news.baidu.com/ns?word=%E9%9D%92%E5%B2%9B%E4%BA%A4%E9%80%9A&tn=news&from=news&cl=2&rn=20&ct=1");
         URLConnection conn = url.openConnection();
-        conn.addRequestProperty("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+        conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
 
         conn.connect();
         InputStream is = conn.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line;
         StringBuilder sb = new StringBuilder();
-        while((line = reader.readLine())!= null){
+        while ((line = reader.readLine()) != null) {
             sb.append(line).append("\r\n");
 
         }

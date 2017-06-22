@@ -54,11 +54,9 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 http.getContent(html);//
 
                 while (checkBlock(html)) {// 验证是否被屏蔽
-                    Systemconfig.sysLog.log("ip被屏蔽，请手动验证@列表页，获取cookie后输入控制台回车继续。。。");
-                    Scanner sc = new Scanner(System.in);
-                    String verifiedCookie = sc.nextLine();
-                    cookies = verifiedCookie;
-                    html.setCookie(verifiedCookie);
+                    Systemconfig.sysLog.log("ip被屏蔽，准备切换ip。。。");
+                    html.setChangeProxy(true);
+
                     http.getContent(html);
                 }
 
@@ -127,7 +125,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
      * @param html
      * @return true: 被屏蔽
      */
-    protected boolean checkBlock(HtmlInfo html) {
+    private boolean checkBlock(HtmlInfo html) {
         if (html.getContent().contains("您的访问过于频繁") && html.getContent().contains("验证")) return true;
         else return false;
     }
