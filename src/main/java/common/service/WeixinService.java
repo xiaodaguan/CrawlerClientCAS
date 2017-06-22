@@ -29,8 +29,11 @@ public class WeixinService extends BaseService<WeixinData> {
 
     @Override
     public int saveData(WeixinData data) {
+        checkData(data);
         return weixinMapper.create(data);
     }
+
+
 
     @Override
     public WeixinData getData(int id){

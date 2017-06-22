@@ -21,7 +21,7 @@ public class ServiceTest {
 
     @BeforeClass
     public static void before(){
-        Systemconfig.crawlerType = 15;
+        Systemconfig.crawlerType = 1;
 
         String crawlerTypeName = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
         String typeName = crawlerTypeName.substring(0, crawlerTypeName.indexOf("_"));
@@ -37,21 +37,16 @@ public class ServiceTest {
     public void createTest(){
         NewsData data = new NewsData();
 
-        Class<?> cls = data.getClass();
-        for(Field field : cls.getFields()){
-            String name = field.getName();
-            System.out.println(name);
-        }
     }
 
     @Test
-    public void getByDayTest(){
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("tablename","news_data");
-        paramMap.put("insertColName","inserttime");
-        paramMap.put("offset",1);
-        int c = dbService.getDataCountByDay(paramMap);
-        System.out.println("昨日数据量:"+c);
-        Assert.assertNotEquals(0,c);
+    public void checkTest(){
+        NewsData data = new NewsData();
+        data.setTitle("test");
+        data.setUrl("testurl");
+
+        dbService.checkData(data);
+        System.out.println("ok.");
     }
+
 }

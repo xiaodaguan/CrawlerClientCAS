@@ -1,6 +1,7 @@
 # readme
 
-## 开发中...
+## 开发中...要点记录
+
 
 
 2017-06-16
@@ -41,7 +42,7 @@ src/main/resource/
 ## 开发
 
 #### 持久层
-照猫画虎四步走
+
 1. 新建 XxxMapper.java
 2. 实现 XxxService.java
 3. 新建 mapper-xxx.xml
@@ -51,3 +52,7 @@ src/main/resource/
 ## todo
 
 对保存成功的数据进行bloomfilter add处理
+初始化bloomfilter耗时太长，修改方案：
+- 初始化功能从爬虫客户端分离出来，独立进行
+- 读数据库，获得游标，遍历的同时add进bloomfilter，不要select 装配到list之后再遍历
+- 可以配合sql语句，启用多个线程初始化bf，提升效率

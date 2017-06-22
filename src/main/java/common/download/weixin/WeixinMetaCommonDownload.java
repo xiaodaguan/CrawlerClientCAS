@@ -4,7 +4,7 @@ import common.pojos.HtmlInfo;
 import common.pojos.WeixinData;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
-import common.http.sub.WeixinHttpProcess;
+import common.http.SimpleHttpProcess;
 import common.rmi.packet.SearchKey;
 import common.system.Systemconfig;
 import common.utils.StringUtil;
@@ -25,9 +25,6 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeixinMetaCommonDownload.class);
 
-
-    private static String cookies = "";
-
     public WeixinMetaCommonDownload(SearchKey key) {
         super(key);
     }
@@ -37,7 +34,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
 
         List<WeixinData> alllist = new ArrayList<WeixinData>();
         List<WeixinData> list = new ArrayList<WeixinData>();
-        String url = getRealUrl(siteinfo, key.getSITE_ID() != null ? key.getKEYWORD() : gloaburl);//
+        String url = gloaburl;
         int page = getRealPage(siteinfo);
         String keyword = key.getKEYWORD();
         map.put(keyword, 1);
@@ -56,16 +53,14 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             html.setOrignUrl(nexturl);
             try {
 
-                LOGGER.info(keyword + ": " + url + "downloading...");
-                LOGGER.info("downloading : " + nexturl);
+                LOGGER.error("downloading...["+ keyword + "]: " + url );
                 http.getContent(html);//
 
-                if (checkBlock(html)) {// 验证是否被屏蔽
-                    LOGGER.info("ip被屏蔽，请手动验证@列表页，获取cookie后输入控制台回车继续。。。");
-                    Scanner sc = new Scanner(System.in);
-                    String cookie = sc.nextLine();
-                    WeixinHttpProcess.manuallySetCookie(cookie);
-                    continue;
+                while (checkBlock(html)) {// 验证是否被屏蔽
+                    LOGGER.error("ip被屏蔽，准备切换ip。。。");
+                    html.setChangeProxy(true);
+                    TimeUtil.rest(siteinfo.getDownInterval());
+                    http.getContent(html);
                 }
 
                 // 如果有response cookie 则更新cookie，后续列表页下载可以继续使用
@@ -74,22 +69,22 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 }
 
                 if (ifStop(html.getContent(), last)) break;
-                nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl, html.getCookie());
+                nexturl = xpath.templateListPage(list, html, map.get(keyword), keyword, nexturl);
 
                 if (list.size() == 0) {
-                    LOGGER.info(keyword + ": " + url + "元数据页面解析为空！！");
+                    LOGGER.error(keyword + ": " + url + "元数据页面解析为空！！");
                     TimeUtil.rest(siteinfo.getDownInterval());
-//                    break;
-                }else {
-                    LOGGER.info(keyword + ": " + url + "元数据页面解析完成。第[" + map.get(keyword) + "/" + page + "]页");
+                    break;
+                } else {
+                    LOGGER.error(keyword + ": " + url + "元数据页面解析完成。第[" + map.get(keyword) + "/" + page + "]页");
 
                     last = html.getContent();
                     totalCount += list.size();
                     Systemconfig.urlFilter.filterDuplication(list);
                     if (list.size() == 0) {
-                        LOGGER.info("无新数据。");
-                        if (alllist.size() == 0) TimeUtil.rest(siteinfo.getDownInterval());
-//                    break;
+                        LOGGER.error("无新数据。");
+                        TimeUtil.rest(siteinfo.getDownInterval());
+                        break;
                     } else {
                         dtc.process(list, siteinfo.getDownInterval(), null, key);
                     }
@@ -98,19 +93,19 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
 
                 map.put(keyword, map.get(keyword) + 1);
                 if (map.get(keyword) > page) {
-                    LOGGER.info("达到最大页数");
+                    LOGGER.error("达到最大页数");
 
                     break;
                 }
                 url = nexturl;
 
             } catch (Exception e) {
-                LOGGER.info("列表页异常{" + keyword + "}   [" + url + "]");
+                LOGGER.error("列表页异常{" + keyword + "}   [" + url + "]");
                 e.printStackTrace();
 //                break;
-            }finally{
+            } finally {
                 int wait = siteinfo.getDownInterval() + (int) Math.random() * 30;
-                LOGGER.info("wait " + wait + " secs to download next...");
+                LOGGER.error("wait " + wait + " secs to download next keyword...");
                 TimeUtil.rest(wait);
             }
         }
@@ -133,7 +128,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
      * @param html
      * @return true: 被屏蔽
      */
-    protected boolean checkBlock(HtmlInfo html) {
+    private boolean checkBlock(HtmlInfo html) {
         if (html.getContent().contains("您的访问过于频繁") && html.getContent().contains("验证")) return true;
         else return false;
     }
@@ -149,7 +144,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             String lastPage = StringUtil.regMatcher(last, "<DOCUMENT>", "/DOCUMENT>");
             if (currPage != null && lastPage != null) {
                 if (currPage.equals(lastPage)) {
-                    LOGGER.info("当前页和上一页内容相同，已是最后一页，退出.");
+                    System.out.println("当前页和上一页内容相同，已是最后一页，退出.");
                     return true;
                 }
             }
@@ -158,10 +153,10 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
         return false;
     }
 
-    private void loadCookie(HtmlInfo html) {
-
-        cookies = StringUtil.getContent("config/weixin_search_meta.txt").replace("\r\n", "").replace("\n", "").trim();
-        html.setCookie(cookies);
+    @Override
+    public void specialHtmlInfo(HtmlInfo htmlInfo) {
+        if (htmlInfo.getReferUrl() == null)
+            htmlInfo.setReferUrl("http://weixin.sogou.com/");
+        htmlInfo.setUa(SimpleHttpProcess.getRandomUserAgent());
     }
-
 }

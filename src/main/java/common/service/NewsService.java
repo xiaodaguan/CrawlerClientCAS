@@ -4,9 +4,12 @@ import common.mapper.NewsMapper;
 import common.mapper.WeixinMapper;
 import common.pojos.NewsData;
 import common.pojos.WeixinData;
+import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,8 +33,11 @@ public class NewsService extends BaseService<NewsData> {
 
     @Override
     public int saveData(NewsData data) {
+        checkData(data);
         return newsMapper.create(data);
     }
+
+
 
     @Override
     public NewsData getData(int id) {

@@ -3,7 +3,7 @@
 <mapper namespace="common.mapper.BaseMapper">
     <select id="getAllMD5ByType" parameterType="map"
             resultType="String" statementType="STATEMENT">
-        select md5 from ${tablename}
+        select md5 from ${tablename} where rownum &lt; 10
     </select>
     <select id="getTotalCountByType" parameterType="map" resultType="int" statementType="STATEMENT">
         select count(id) from ${tablename}
@@ -14,7 +14,5 @@
     </select>
 
 
-    <select id="getCountByDay" resultType="int" parameterType="map" statementType="STATEMENT">
-        select count(*) from ${tablename} where trunc(${insertColName}) = trunc(sysdate)-${offset}
-    </select>
+
 </mapper>

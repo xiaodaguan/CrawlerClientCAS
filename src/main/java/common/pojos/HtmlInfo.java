@@ -1,5 +1,7 @@
 package common.pojos;
 
+import common.rmi.packet.SearchKey;
+
 /**
  * 网页信息
  * 
@@ -24,8 +26,19 @@ public class HtmlInfo {
 	private String acceptEncoding;
 	private int siteId;// 域名，与数据库中proxy_server表中domain_id一一对应
 	private String responseCookie;// 返回的cookie
-	
-	
+	private boolean changeProxy;
+	private Object proxy;
+	private int retryTimes;
+	private int maxRetryTimes;
+	private SearchKey searchKey;
+
+	public SearchKey getSearchKey() {
+		return searchKey;
+	}
+
+	public void setSearchKey(SearchKey searchKey) {
+		this.searchKey = searchKey;
+	}
 
 	public String getResponseCookie() {
 		return responseCookie;
@@ -163,4 +176,35 @@ public class HtmlInfo {
 		this.fileType = fileType;
 	}
 
+    public void setChangeProxy(boolean changeProxy) {
+        this.changeProxy = changeProxy;
+    }
+
+	public boolean getChangeProxy() {
+		return changeProxy;
+	}
+
+	public Object getProxy() {
+		return proxy;
+	}
+
+	public void setProxy(String proxy) {
+		this.proxy = proxy;
+	}
+
+	public int getRetryTimes() {
+		return retryTimes;
+	}
+
+	public int getMaxRetryTimes() {
+		return maxRetryTimes;
+	}
+
+	public void setRetryTimes(int retryTimes) {
+		this.retryTimes = retryTimes;
+	}
+
+	public void increaseRetryTimes() {
+		this.retryTimes++;
+	}
 }

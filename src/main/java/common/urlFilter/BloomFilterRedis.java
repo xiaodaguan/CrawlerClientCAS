@@ -28,7 +28,7 @@ public class BloomFilterRedis {
         List<CommonData> duplication = new ArrayList<>();
         while (iter.hasNext()) {
             CommonData data = iter.next();
-            if (!Systemconfig.urlFilter.contains(data.getMd5())) {
+            if (Systemconfig.urlFilter.contains(data.getMd5())) {
                 iter.remove();
                 duplication.add(data);
             }

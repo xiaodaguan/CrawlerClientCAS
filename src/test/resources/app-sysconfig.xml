@@ -92,7 +92,6 @@
 				<entry key="jd_ebusiness_search" value="common.http.sub.JdHttpProcess" />
 				<entry key="hz18_agricalture_monitor" value="common.http.sub.Hz18HttpProcess" />
 				<entry key="qdfp_agricalture_monitor" value="common.http.sub.QdfpHttpProcess" />
-				<entry key="weixin_weixin_search" value="common.http.sub.WeixinHttpProcess" />
 				<entry key="hexun_person_search" value="common.http.sub.HexunPersonHttpProcess" />
 			</map>
 		</property>

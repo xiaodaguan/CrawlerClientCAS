@@ -211,7 +211,6 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		Systemconfig.dbService.updateUserOrder(loginEntity.getUsername());
 		if (entity != null && entity.indexOf("retcode=0") > -1) {
             LOGGER.info(loginEntity.getUsername() + "\tlogin success.\r\n");
 			
@@ -383,7 +382,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		entity.setServertime(jsonInfo.getString("servertime"));
 		if((entity.getShowpin() != null && entity.getShowpin().equals("1"))){
 
-			Systemconfig.dbService.updateUserValid(user.getName(), 6);
+//			Systemconfig.dbService.updateUserValid(user.getName(), 6);
 			return null;
 			//LOGGER.error("新浪微博登陆需要验证码，从validateImg文件夹查看验证码，将验证码写入相同名字的文本文件并复制到validateImg文件夹！");
 			//addPicDoor(entity);

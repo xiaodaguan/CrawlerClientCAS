@@ -42,26 +42,10 @@ public interface DBService<T> {
      */
     public List<SearchKey> getAllSearchKeys();
 
-    /**
-     * 获得需要登录的网站的用户
-     *
-     * @param site
-     * @return
-     */
-    List<UserAttribute> getLoginUsers(String site);
 
-    /**
-     * 更新微博账号valid有效字段，
-     * @param userName 微博账号名称
-     * @param mark     字段标识
-     */
-    void updateUserValid(String userName,int mark);
-
-    void updateUserOrder(String userName);
-
+    void checkData(T data);
 
     T getData(int id);
 
 
-    int getDataCountByDay(Map<String, Object> paramMap);
 }

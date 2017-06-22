@@ -85,59 +85,58 @@ public class Job {
         while (true) {
             cLogger.start(crawlerNameOrCMD, crawlerNameOrCMD);//name, note
             LOGGER.info("loop start...");
-            
-            if(Systemconfig.crawlerType==39){
-            	String []dailies = {"人民日报","人们日报海外版","新华每日电讯","解放军报","求是","光明日报",
-            			"经济日报","科技日报","工人日报","中国青年报","农民日报","人民日报","人民日报海外版",
-            			"光明日报","经济日报","解放军报","中国青年报","参考消息"};
-            	
-            	List<SearchKey> prekeys  = null;
-            	try{
-            		prekeys= Systemconfig.dbService.getAllSearchKeys();
-            	}catch(Exception e){
-            		e.printStackTrace();
-            	}
-            	keys = new LinkedList<SearchKey>();
-            	for (String dialy : dailies) {
-            		for (SearchKey searchKey : prekeys) {
-            			SearchKey sk = new SearchKey();
-                        sk.setKEYWORD(searchKey.getKEYWORD()+" "+dialy);
+
+            if (Systemconfig.crawlerType == 39) {
+                String[] dailies = {"人民日报", "人们日报海外版", "新华每日电讯", "解放军报", "求是", "光明日报",
+                        "经济日报", "科技日报", "工人日报", "中国青年报", "农民日报", "人民日报", "人民日报海外版",
+                        "光明日报", "经济日报", "解放军报", "中国青年报", "参考消息"};
+
+                List<SearchKey> prekeys = null;
+                try {
+                    prekeys = Systemconfig.dbService.getAllSearchKeys();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                keys = new LinkedList<SearchKey>();
+                for (String dialy : dailies) {
+                    for (SearchKey searchKey : prekeys) {
+                        SearchKey sk = new SearchKey();
+                        sk.setKEYWORD(searchKey.getKEYWORD() + " " + dialy);
                         sk.setCATEGORY_CODE(searchKey.getCATEGORY_CODE());
                         sk.setSITE_ID(searchKey.getSITE_ID());
-            			keys.add(sk);
-					}
-				}
+                        keys.add(sk);
+                    }
+                }
+            } else {
+                try {
+                    keys = Systemconfig.dbService.getAllSearchKeys();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            else{
-            	try{
-            		keys = Systemconfig.dbService.getAllSearchKeys();
-            	}catch(Exception e){
-            		e.printStackTrace();
-            	}
-            }
-            
+
             LOGGER.info(keys.size() + "个关键词将采集:");
             out:
             for (SearchKey sk : keys) {
-            	
+
                 for (String site : Systemconfig.allSiteinfos.keySet()) {
 
                     Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
                     sk.setSITE_NAME(site);
-                    
+
                     createThreadPool(site, siteinfo);
-                    
+
                     String taskName = sk.getSITE_NAME() + sk.getKEYWORD();
-                    if (Systemconfig.finish.get(taskName) == null 
-                    		|| Systemconfig.finish.get(taskName)) {
+                    if (Systemconfig.finish.get(taskName) == null
+                            || Systemconfig.finish.get(taskName)) {
 
                         job.submitSearchKey(sk);
-                        
+
                         Systemconfig.finish.put(taskName, false);
                         LOGGER.info(taskName + "     任务提交");
-                        
-                    }else{
-                    	LOGGER.info(taskName + "     任务未提交，或已完成！！！");
+
+                    } else {
+                        LOGGER.info(taskName + "     任务未提交，或已完成！！！");
                     }
                 }
             }
@@ -150,16 +149,16 @@ public class Job {
                 if (start + 1000 * 3600 * 24 < System.currentTimeMillis()) {
                     //单循环最大24h
                     LOGGER.info("single loop time out, stopping...");
-                    
+
                     Set<String> taskNames = Systemconfig.taskResultMap.keySet();
                     //接收的任务
                     for (String taskName : taskNames) {
                         if (!Systemconfig.taskResultMap.get(taskName).isDone()) {
-                        	LOGGER.info(taskName+"任务被强制停止");
+                            LOGGER.info(taskName + "任务被强制停止");
                             Systemconfig.taskResultMap.get(taskName).cancel(true);
-                            if(!Systemconfig.taskResultMap.get(taskName).isDone()){
-                            	Systemconfig.taskResultMap.get(taskName).cancel(true);
-                            	LOGGER.info(taskName+"任务第一次强制停止失败，再次被强制停止");
+                            if (!Systemconfig.taskResultMap.get(taskName).isDone()) {
+                                Systemconfig.taskResultMap.get(taskName).cancel(true);
+                                LOGGER.info(taskName + "任务第一次强制停止失败，再次被强制停止");
                             }
                         }
                     }
@@ -192,13 +191,13 @@ public class Job {
             keys = Systemconfig.dbService.getAllSearchKeys();
             LOGGER.info(keys.size() + "个关键词将采集:");
 
-            LOGGER.info(">>keys: \n"+keys);
-            LOGGER.info(">>crawler map: \n"+CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType));
+            LOGGER.info(">>keys: \n" + keys);
+            LOGGER.info(">>crawler map: \n" + CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType));
             out:
             for (SearchKey sk : keys) {
                 String site = sk.getSITE_NAME() + "_" + CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
                 Siteinfo siteinfo = Systemconfig.allSiteinfos.get(site);
-                if (siteinfo == null){
+                if (siteinfo == null) {
                     LOGGER.info("siteinfo is null");
                     continue;
                 }
@@ -225,7 +224,7 @@ public class Job {
                         }
                     }
                     LOGGER.info("all taskResultMap stopped. ");
-                    
+
                     Systemconfig.finish.clear();
                     Systemconfig.taskResultMap.clear();
                     //Systemconfig.finish = new HashMap<>();
@@ -257,16 +256,16 @@ public class Job {
         for (String taskName : taskNames) {
             if (Systemconfig.taskResultMap.containsKey(taskName)) {
                 if (Systemconfig.taskResultMap.get(taskName).isDone()) {
-                	Systemconfig.finish.put(taskName,true);
+                    Systemconfig.finish.put(taskName, true);
                 } else {
                     runningTaskCount++;
                 }
             }
         }
         if (runningTaskCount > 0) allFinished = false;
-        else{
-        	Systemconfig.finish.clear();
-        	Systemconfig.taskResultMap.clear();
+        else {
+            Systemconfig.finish.clear();
+            Systemconfig.taskResultMap.clear();
         }
         LOGGER.info("Systemconfi.task stat: ");
         LOGGER.info("running task count: " + runningTaskCount + " / total task count: " + Systemconfig.taskResultMap.size());
@@ -274,51 +273,6 @@ public class Job {
         return allFinished;
     }
 
-
-
-
-
-
-
-    /**
-     * 运行站点的某个搜索词或垂直网址
-     *
-     * @param si
-     * @param sk
-     * @param vi
-     */
-    public static void runSearchKey(Siteinfo si, SearchKey sk, ViewInfo vi) {
-        /* 状态 */
-        String taskId = sk.getKEYWORD() + " " + sk.getSITE_NAME() + " " + new Date().toString();
-
-        String site = si.getSiteName();
-        sk.setSITE_NAME(site);
-        // 每个站点属性值设置一次
-        if (vi != null) {
-            vi.setName(site);
-            String type = site.substring(site.indexOf("_") + 1);// 采集类型
-            String name = site.substring(0, site.indexOf("_"));// 站点名
-            File f = new File("typeConf" + File.separator + type + "_" + name + ".xml");
-            if (f.exists()) vi.setFile(StringUtil.getContent(f));
-            vi.setThreadNum(si.getThreadNum());
-            vi.setInterval(si.getDownInterval());
-            vi.setCrawlerCycle(si.getCycleTime());
-        }
-
-        String searchKey = sk.getSITE_NAME() + sk.getKEYWORD();
-        // 该爬虫是初次运行和完成后才会再次执行
-        if (Systemconfig.finish.get(searchKey) == null || Systemconfig.finish.get(searchKey)) {
-            // 爬虫名和爬虫地址
-            InnerInfo ii = new ViewInfo().new InnerInfo();
-            ii.setSearchKey(sk);
-            ii.setAlive(0);
-            vi.getCrawlers().put(sk.getKEYWORD(), ii);
-
-            job.submitSearchKey(sk);
-
-            Systemconfig.finish.put(searchKey, false);
-        }
-    }
 
     /**
      * 获取 每一轮(爬虫启动)之间等待时间
@@ -339,33 +293,12 @@ public class Job {
      * @return
      */
     private static boolean createThreadPool(String site, Siteinfo siteinfo) {
-        if (siteinfo.getLogin()) {
 
-            if (Systemconfig.users == null) Systemconfig.users = new HashMap<String, List<UserAttribute>>();
-            if (Systemconfig.users.get(site) == null) {
-                List<UserAttribute> list = Systemconfig.dbService.getLoginUsers(site);
-                Systemconfig.users.put(site, list);
-                if (list.size() == 0) {
-                    LOGGER.info("没有可用账号！本轮采集退出");
-                    return true;
-                }
-                if (Job.getMetaThreadPoolMap().get(site) == null){
-                    if(!siteinfo.getSiteName().contains("sina")) {
-                        Job.getMetaThreadPoolMap().put(site, Executors.newFixedThreadPool(list.size()));
-                    }
-                    else{
-                        Job.getMetaThreadPoolMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
-                    }
-                }
-            }
+        if (Job.getMetaThreadPoolMap().get(site) == null) {
+            Job.getMetaThreadPoolMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
         }
-        else
-         {
-            if (Job.getMetaThreadPoolMap().get(site) == null) {
-            	Job.getMetaThreadPoolMap().put(site, Executors.newFixedThreadPool(siteinfo.getThreadNum()));
-            }
 
-        }
+
         return false;
     }
 

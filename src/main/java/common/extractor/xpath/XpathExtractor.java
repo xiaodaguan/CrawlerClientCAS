@@ -169,9 +169,6 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 
 	/**
 	 * 获得真实内容
-	 * 
-	 * @param content
-	 * @param siteinfo
 	 * @return
 	 * @throws IOException 
 	 * @throws SAXException 
@@ -223,7 +220,6 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 	 * 
 	 * @param domtree
 	 * @param component
-	 * @param strings
 	 * @return
 	 */
 	public String parsePageNext(Node domtree, Component component, String... args) {
@@ -265,8 +261,18 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 				args(html.getContent(), String.valueOf(siteinfo.getSiteFlag()), keyword));
 		if (list.size() == 0)
 			return null;
-		attrSet(list, siteinfo.getSiteFlag(), keyword[0], Integer.parseInt(keyword[2]));
+		attrSet(list, siteinfo.getSiteFlag(), html.getSearchKey().getKEYWORD(), html.getSearchKey().getCATEGORY_CODE());
 		return parseNext(domtree, comp.getComponents().get("next"), new String[] { keyword[1], page + "" });
+	}
+
+	protected void attrSet(List<T> list, int siteflag, String key, int code) {
+		for (T t : list) {
+			CommonData cd = (CommonData) t;
+			cd.setSearchKey(key);
+			cd.setCategoryCode(code);
+			cd.setMd5(MD5Util.MD5(cd.getUrl()));
+			cd.setSiteId(siteflag);
+		}
 	}
 
 	/**
@@ -279,23 +285,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 	 */
 	public abstract void processList(List<T> list, Node domtree, Map<String, Component> components, String... args);
 
-	/**
-	 * 共有属性设置
-	 * 
-	 * @param list
-	 * @param siteflag
-	 * @param key
-	 * @param code
-	 */
-	protected void attrSet(List<T> list, int siteflag, String key, int code) {
-		for (T t : list) {
-			CommonData cd = (CommonData) t;
-			cd.setSearchKey(key);
-			cd.setCategoryCode(code);
-			cd.setMd5(MD5Util.MD5(cd.getUrl()));
-			cd.setSiteId(siteflag);
-		}
-	}
+
 
 	/**
 	 * 解析列表页的下一页

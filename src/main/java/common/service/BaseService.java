@@ -1,11 +1,13 @@
 package common.service;
 
+import common.pojos.NewsData;
 import common.rmi.packet.SearchKey;
 import common.mapper.BaseMapper;
-import common.system.UserAttribute;
+import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,10 +31,34 @@ public abstract class BaseService<T> implements DBService<T> {
     }
 
     @Override
-    public int saveData(T data){
-        return 0;
-    }
+    public abstract int saveData(T data);
 
+    @Override
+    public void checkData(T data) {
+        Class cls = data.getClass();
+        Class superCls = cls.getSuperclass();
+
+        Field[] fields = cls.getDeclaredFields();
+        Field[] commonFields = superCls.getDeclaredFields();
+
+        Field[] allFields = (Field[]) ArrayUtils.addAll(fields,commonFields);
+
+        for(Field field: allFields){
+            field.setAccessible(true);
+            try {
+                Object o = field.get(data);
+                if(o==null) {
+                    if(field.getType() == String.class){
+                        field.set(data,"NULL");
+                    }
+                }else{
+                }
+
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public T getData(int id){
@@ -54,21 +80,6 @@ public abstract class BaseService<T> implements DBService<T> {
         return baseMapper.selectAllSearchKeyword();
     }
 
-    @Override
-    public List<UserAttribute> getLoginUsers(String site) {
-        return null;
-    }
-
-    @Override
-    public void updateUserValid(String userName, int mark) {
-
-    }
-
-    @Override
-    public void updateUserOrder(String userName) {
-
-    }
-
 
     @Override
     public int getDataCount(String tablename){
@@ -77,8 +88,4 @@ public abstract class BaseService<T> implements DBService<T> {
         return baseMapper.getTotalCountByType(paramMap);
     }
 
-    @Override
-    public int getDataCountByDay(Map<String, Object> paramMap){
-        return baseMapper.getCountByDay(paramMap);
-    }
 }

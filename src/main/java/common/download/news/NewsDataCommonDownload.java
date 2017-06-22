@@ -1,5 +1,6 @@
 package common.download.news;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.concurrent.CountDownLatch;
 
 import common.pojos.HtmlInfo;
@@ -14,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 下载详细页面
- * 
+ *
  * @author grs
  */
 public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> implements Runnable {
@@ -55,39 +56,15 @@ public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> 
 				LOGGER.info("关键词：[" + key.getKEYWORD() + "] " + data.getTitle() + "解析完成。。。");
 				Systemconfig.dbService.saveData(data);
 
-				/* 状态 */
-				int curr = Integer.parseInt(StringUtil.regMatcher(data.getCompleteSize(), "current: ", "/"));
-				int rest = Integer.parseInt(StringUtil.regMatcher(data.getCompleteSize(), "rest: ", "]"));
-				double per = (double) curr / (curr + rest);
-				if (data.getCompleteSize().contains("rest: 0")) {
-					// 判断为结束
-					LOGGER.info("关键词：[" + key.getKEYWORD() + "] 全部详细页面采集完成。");
-				}
 				LOGGER.info("关键词：[" + key.getKEYWORD() + "] " + data.getTitle() + "保存完成。。。");
 			}
-			// if(data.getSameUrl()!=null && count != null && data.getId()>0) {
-			// //采集链接
-			// SearchKey searchKey = new SearchKey();
-			// searchKey.setKey(data.getSameUrl());
-			// searchKey.setId(data.getId());
-			// searchKey.setSite(siteFlag);
-			// TimeUtil.rest(siteinfo.getDownInterval()-10);
-			// new NewsMetaCommonDownload(searchKey).process();
-			// }
+
 		} catch (Exception e) {
 			LOGGER.info("采集出现异常【" + key + "】" + url, e);
-			// synchronized (key) {
-			// key.savedCountDecrease();
-			// }
-			// Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setSavedCount(key.getSavedCount());
-			if (data.getCompleteSize().contains("rest: 0")) {
-				// 判断为结束
-				LOGGER.info("关键词：[" + key.getKEYWORD() + "] 全部详细页面采集完成。");
-			}
+
 		} finally {
 			if (count != null)
 				count.countDown();
-//			LOGGER.info("当前collect进度: " + data.getCompleteSize());
 			TimeUtil.rest(1);
 		}
 	}

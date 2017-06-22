@@ -97,7 +97,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                             ||content.contains("\\u8bf7\\u8f93\\u5165\\u9a8c\\u8bc1")){
                         LOGGER.info("你的行为有些异常，请输入验证码：");
                         //搜索过程中的验证码问题，数据库回写
-                        Systemconfig.dbService.updateUserValid(userAttribute.getName(), 5);
+//                        Systemconfig.dbService.updateUserValid(userAttribute.getName(), 5);
                         TimeUtil.rest(siteinfo.getDownInterval());
                         break;
                     }
