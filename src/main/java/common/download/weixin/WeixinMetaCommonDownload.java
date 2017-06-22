@@ -56,7 +56,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
                 while (checkBlock(html)) {// 验证是否被屏蔽
                     Systemconfig.sysLog.log("ip被屏蔽，准备切换ip。。。");
                     html.setChangeProxy(true);
-
+                    TimeUtil.rest(siteinfo.getDownInterval());
                     http.getContent(html);
                 }
 
