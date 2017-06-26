@@ -31,7 +31,7 @@ public class AspectTest {
         HellWorld hell = (HellWorld) AppContext.appContext.getBean("hell");
 //        HelloWorld hw = new HelloWorld();
             hw.sayHi();
-            hell.sayHi();
+            hell.sayHi("gxd");
 
 
     }

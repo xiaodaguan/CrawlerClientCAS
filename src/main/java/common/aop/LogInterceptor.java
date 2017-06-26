@@ -16,7 +16,7 @@ public class LogInterceptor {
 
 
 
-    @Pointcut("execution(* common.other.*.sayHi())")
+    @Pointcut("execution(* common.other..sayHi(..))")
     private void whatever(){}
 
     @Before("whatever()")

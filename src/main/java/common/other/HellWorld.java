@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
  */
 public class HellWorld {
 
-    public void sayHi(){
-        System.out.println("hell");
+    public void sayHi(String name){
+        System.out.println("hell"+name);
     }
 }
