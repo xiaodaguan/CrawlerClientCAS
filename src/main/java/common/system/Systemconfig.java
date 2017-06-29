@@ -1,6 +1,7 @@
 package common.system;
 
 import common.rmi.packet.CrawlerType;
+import common.scheduler.Scheduler;
 import common.service.DBService;
 import common.siteinfo.Siteinfo;
 import common.urlFilter.BloomFilterRedis;
@@ -54,6 +55,7 @@ public class Systemconfig {
      */
     public static HtmlExtractor htmlAutoExtractor = new HtmlExtractor();
     public static BloomFilterRedis urlFilter;
+    public static Scheduler scheduler;
     public static int force_init_bf;
     /**
      * 文件存储路径
@@ -108,11 +110,11 @@ public class Systemconfig {
     /**
      * 一共需要部署多少台爬虫
      */
-    public static int crawlerCount=0;
+    public static int crawlerCount = 0;
     /**
      * 当前爬虫的编号
      */
-    public static int crawlerNum=0;
+    public static int crawlerNum = 0;
     /**
      * 爬虫索引(第几个爬虫)
      */
@@ -130,16 +132,16 @@ public class Systemconfig {
     /**
      * 配置加载完成后，系统初始化操作
      */
-    
-    public void initialSys(){
-    	Properties props = new Properties();
-        InputStream is=null;
+
+    public void initialSys() {
+        Properties props = new Properties();
+        InputStream is = null;
         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");
         try {
             props.load(is);
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 is.close();
             } catch (IOException e) {
@@ -150,7 +152,6 @@ public class Systemconfig {
     }
 
 
-
     public void initial() {
         value();
         initialSys();
@@ -159,14 +160,35 @@ public class Systemconfig {
 
     }
 
+    public static void initDBService() {
+
+        String typeName = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
+
+        String serviceName = typeName.substring(0, typeName.indexOf("_")) + "Service";
+        dbService = (DBService) AppContext.appContext.getBean(serviceName);
+        String typename = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
+        String tablename = typename.substring(0, typename.indexOf("_")) + "_data";
+        int c = dbService.getDataCount(tablename);
+        LOGGER.info("DB service init succeed, {} has {} items.", tablename, c);
+    }
+
     public static void initUrlFilter() {
 
-            urlFilter = (BloomFilterRedis) AppContext.appContext.getBean("bloomFilterRedis");
-            if(urlFilter == null) {
-                LOGGER.error("redis 配置有误，系统退出！！");
-                System.exit(-1);
-            }
-            urlFilter.init();
+        urlFilter = (BloomFilterRedis) AppContext.appContext.getBean("bloomFilterRedis");
+        if (urlFilter == null) {
+            LOGGER.error("redis 配置有误，系统退出！！");
+            System.exit(-1);
+        }
+        urlFilter.init();
+    }
+
+    public static void initScheduler() {
+        scheduler = (Scheduler) AppContext.appContext.getBean("defaultScheduler");
+        if(scheduler == null){
+            LOGGER.error("scheduler 配置有误，系统退出！！");
+            System.exit(-1);
+        }
+        scheduler.init();
     }
 
     /**
@@ -299,15 +321,5 @@ public class Systemconfig {
         Systemconfig.mode = mode;
     }
 
-    public static void initDBService() {
 
-        String typeName = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
-
-        String serviceName = typeName.substring(0,typeName.indexOf("_"))+"Service";
-        dbService = (DBService) AppContext.appContext.getBean(serviceName);
-        String typename = CrawlerType.getCrawlerTypeMap().get(Systemconfig.crawlerType).name().toLowerCase();
-        String tablename= typename.substring(0,typename.indexOf("_"))+"_data";
-        int c = dbService.getDataCount(tablename);
-        LOGGER.info("DB service init succeed, {} has {} items.", tablename, c);
-    }
 }

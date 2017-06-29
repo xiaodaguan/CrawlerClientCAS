@@ -2,13 +2,15 @@ package common.pojos;
 
 import common.rmi.packet.SearchKey;
 
+import java.io.Serializable;
+
 /**
  * 网页信息
  * 
  * @author grs
  *
  */
-public class HtmlInfo {
+public class HtmlInfo implements Serializable{
 
 	private String site;// web站点
 	private String orignUrl;// 采集源链接——最终链接部分可能会不同
