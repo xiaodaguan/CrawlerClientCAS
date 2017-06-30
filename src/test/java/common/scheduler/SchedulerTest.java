@@ -34,7 +34,7 @@ public class SchedulerTest {
 
 
         long reply = scheduler.submitTask(task);
-        System.out.println(reply);
+        System.out.println("current:"+reply);
         Assert.assertNotEquals(0,reply);
     }
 
@@ -44,5 +44,25 @@ public class SchedulerTest {
         System.out.println(task.getOrignUrl());
         Assert.assertEquals("guanxiaoda.cn", task.getOrignUrl());
 
+    }
+
+
+    @Test
+    public void getLeftTest(){
+        Long left = scheduler.getLeftTaskCount();
+        Assert.assertNotEquals(Long.valueOf(0), left);
+    }
+
+    @Test
+    public void getTtoalTest(){
+        Long total = scheduler.getTotalTaskCount();
+        System.out.println(total);
+        Assert.assertNotEquals(Long.valueOf(0),total);
+    }
+
+    @Test
+    public void removeTest(){
+        scheduler.removeAllTask();
+        Assert.assertNull(scheduler.getTask());
     }
 }
