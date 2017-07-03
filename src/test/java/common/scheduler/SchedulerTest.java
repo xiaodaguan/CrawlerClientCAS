@@ -62,7 +62,6 @@ public class SchedulerTest {
 
     @Test
     public void removeTest(){
-        scheduler.removeAllTask();
-        Assert.assertNull(scheduler.getTask());
+         scheduler.removeAllTask();
     }
 }
