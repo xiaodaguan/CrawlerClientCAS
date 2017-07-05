@@ -1,6 +1,7 @@
 package common.scheduler;
 
 import common.pojos.HtmlInfo;
+import common.system.Systemconfig;
 import common.utils.SerializeUtil;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
@@ -23,9 +24,9 @@ public class DefaultScheduler implements Scheduler<HtmlInfo> {
     @Override
     public void init() {
         jedis = new JedisCluster(hostAndPortSet);
-        TASK_QUEUE = "TASK_QUEUE";
+        TASK_QUEUE = "TASK_QUEUE_" + Systemconfig.crawlerType;
         TASK_POPPED = "TASK_POPPED";
-        TASK_QUEUE_TOTAL_COUNT = "TOTAL_TASK_COUNT";
+        TASK_QUEUE_TOTAL_COUNT = "TOTAL_TASK_COUNT_" + Systemconfig.crawlerType;
     }
 
     public void setHostAndPortSet(Set<HostAndPort> hostAndPortSet) {

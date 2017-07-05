@@ -54,9 +54,15 @@ public class Systemconfig {
      * 自动抽取
      */
     public static HtmlExtractor htmlAutoExtractor = new HtmlExtractor();
+    /**
+     * url 去重
+     */
     public static BloomFilterRedis urlFilter;
-    public static Scheduler scheduler;
     public static int force_init_bf;
+    /**
+     * 调度器
+     */
+    public static Scheduler scheduler;
     /**
      * 文件存储路径
      */
@@ -129,32 +135,10 @@ public class Systemconfig {
      */
     public static String mode;
 
-    /**
-     * 配置加载完成后，系统初始化操作
-     */
-
-    public void initialSys() {
-        Properties props = new Properties();
-        InputStream is = null;
-        is = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");
-        try {
-            props.load(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
 
     public void initial() {
-        value();
-        initialSys();
+        value();//运行前缀和表名
+//        initialSys();
         htmlAutoExtractor.init();
 
 
@@ -201,6 +185,10 @@ public class Systemconfig {
         }
     }
 
+    /**
+     * 设置系统运行前缀 Systemconfig.RUN_PREFIX(e.g., "news_search_"c)
+     * 设置表名 Systemconfig.table
+     */
     private void value() {
         CrawlerType ct = CrawlerType.getCrawlerTypeMap().get(crawlerType);
         if (ct != null) {

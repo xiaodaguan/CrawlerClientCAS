@@ -18,7 +18,7 @@ public class HtmlInfo implements Serializable{
 	private String encode;// 页面编码
 	private String content;// 页面内容
 	private boolean agent;// 代理
-	private String crawlerType;// 采集的页面类型：列表页，内容页，引文页，被引页
+	private String crawlerType;// 采集的页面类型：列表页(META)，内容页(DATA)，引文页，被引页
 	private boolean addHead;// 更换请求头
 	private String referUrl;// 上一个页面链接
 	private String cookie;// 页面cookie
@@ -26,13 +26,22 @@ public class HtmlInfo implements Serializable{
 	private String fileType = ".htm";// 文件类型
 	private String ua;// user agent
 	private String acceptEncoding;
-	private int siteId;// 域名，与数据库中proxy_server表中domain_id一一对应
+	private int siteId;//
 	private String responseCookie;// 返回的cookie
 	private boolean changeProxy;
 	private Object proxy;
 	private int retryTimes;
 	private int maxRetryTimes;
 	private SearchKey searchKey;
+	private int mediaType;// 采集的媒体类型：见crawlerType
+
+	public int getMediaType() {
+		return mediaType;
+	}
+
+	public void setMediaType(int mediaType) {
+		this.mediaType = mediaType;
+	}
 
 	public SearchKey getSearchKey() {
 		return searchKey;

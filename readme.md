@@ -2,9 +2,20 @@
 
 ## 开发中...要点记录
 
+#### crawler engine
 
+- 关于初始化任务队列
+    - 由单独的进程进行，与采集系统互不影响，便于控制轮询时间
+    - 每种媒体类型对应一个任务队列，命名："TASK_QUEUE_${mediaType}"
 
-2017-06-16
+- 获取任务(HtmlInfo)
+    - 必要信息：
+        - url
+        - mediaType: 媒体类型(新闻、微博等)
+        - crawlType: 采集类型(META/DATA)
+        - searchKey: 记录关键词信息(categoryCode等)
+
+#### mybatis注意事项
 
 mybatis 插入数据，oracle通过序列生成自增主键，setId()给实体
 
