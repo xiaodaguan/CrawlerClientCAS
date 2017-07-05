@@ -4,6 +4,7 @@ import common.bean.HtmlInfo;
 import common.http.NeedCookieHttpProcess;
 import common.system.Systemconfig;
 import common.system.UserAttr;
+import common.system.UserManager;
 import common.util.EncoderUtil;
 import common.util.StringUtil;
 import net.sf.json.JSONObject;
@@ -84,6 +85,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 				cookie = user.getCookie();
 			else if(!login(user)) {
 				Systemconfig.sysLog.log(user.getName()+"登陆失败！没有采集到数据");
+				UserManager.deleteUser(html.getSite(),user);
 				return null;
 			}
 			get.setHeader("Cookie", cookie);

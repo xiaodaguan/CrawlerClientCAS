@@ -41,7 +41,7 @@ public class WeiboSearchDataCommonDownload extends GenericDataCommonDownload<Wei
 		// 每次保证只有有效用户个执行，某个任务完成后，等待的下一个任务开始执行
 		UserAttr ua = UserManager.getUser(siteFlag);
 		while (ua == null) {
-			Systemconfig.sysLog.log("暂时没有可用账号用于采集，等待账号中……");
+			Systemconfig.sysLog.log("暂时没有空闲账号，等待账号中……");
 			TimeUtil.rest(10);
 			ua = UserManager.getUser(siteFlag);
 		}
