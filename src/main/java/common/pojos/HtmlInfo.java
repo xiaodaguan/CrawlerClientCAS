@@ -1,6 +1,7 @@
 package common.pojos;
 
 import common.rmi.packet.SearchKey;
+import common.system.UserAttribute;
 
 import java.io.Serializable;
 
@@ -34,6 +35,15 @@ public class HtmlInfo implements Serializable{
 	private int maxRetryTimes;
 	private SearchKey searchKey;
 	private int mediaType;// 采集的媒体类型：见crawlerType
+	private UserAttribute user;//采集账户
+
+	public UserAttribute getUser() {
+		return user;
+	}
+
+	public void setUser(UserAttribute user) {
+		this.user = user;
+	}
 
 	public int getMediaType() {
 		return mediaType;

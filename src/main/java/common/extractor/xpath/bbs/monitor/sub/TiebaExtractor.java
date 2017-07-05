@@ -5,7 +5,7 @@ import net.sf.json.JSONObject;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
 import common.siteinfo.Component;
 import common.utils.StringUtil;
@@ -13,8 +13,8 @@ import common.utils.StringUtil;
 public class TiebaExtractor extends BbsMonitorXpathExtractor {
 
 	@Override
-	public void parsePubtime(BBSData videoData, Node dom,
-			Component component, String... args) {
+	public void parsePubtime(BbsData videoData, Node dom,
+                             Component component, String... args) {
 		// component.setXpath("//LI/SPAN[@class='j_reply_data']");
 		NodeList nl = commonList(component.getXpath(), dom);
 		if (nl == null)
@@ -62,8 +62,8 @@ public class TiebaExtractor extends BbsMonitorXpathExtractor {
 //	}
 	
 	@Override
-	public void parseReplyCount(BBSData data, Node domtree,
-			Component component, String... ags) {
+	public void parseReplyCount(BbsData data, Node domtree,
+                                Component component, String... ags) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {

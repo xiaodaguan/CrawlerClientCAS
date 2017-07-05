@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.HtmlInfo;
 import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
@@ -28,7 +28,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(XcarExtractor.class);
 
 	@Override
-	public void processList(List<BBSData> list, Node domtree, Map<String, Component> components, String... args) {
+	public void processList(List<BbsData> list, Node domtree, Map<String, Component> components, String... args) {
 		this.parseTitle(list, domtree, components.get("title"));
 
 		if (list.size() == 0)
@@ -43,7 +43,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 
 	}
 
-	public void parseBrief(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parseBrief(List<BbsData> list, Node dom, Component component, String... args) {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
@@ -52,7 +52,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 		}
 	}
 
-	public void parseAuthor(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parseAuthor(List<BbsData> list, Node dom, Component component, String... args) {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
@@ -62,7 +62,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 		}
 	}
 
-	public void parsePubtime(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parsePubtime(List<BbsData> list, Node dom, Component component, String... args) {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
@@ -71,7 +71,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 		}
 	}
 
-	public void parseCommentCount(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parseCommentCount(List<BbsData> list, Node dom, Component component, String... args) {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
@@ -82,7 +82,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 		}
 	}
 
-	public void parseClickCount(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parseClickCount(List<BbsData> list, Node dom, Component component, String... args) {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
@@ -118,7 +118,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 	}
 
 	@Override
-	public void parseReplyCount(BBSData data, Node domtree, Component component, String... ags) {
+	public void parseReplyCount(BbsData data, Node domtree, Component component, String... ags) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if (nl == null)
 			return;
@@ -132,7 +132,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 	}
 
 	@Override
-	public String templateContentPage(BBSData data, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+	public String templateContentPage(BbsData data, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		// create(content);
 		Node domtree = getRealDOM(html);

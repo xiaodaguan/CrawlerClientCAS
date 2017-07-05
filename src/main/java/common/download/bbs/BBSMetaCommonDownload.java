@@ -3,7 +3,7 @@ package common.download.bbs;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author grs
  */
-public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> implements Runnable {
+public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BbsData> implements Runnable {
 
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BBSMetaCommonDownload.class);
@@ -28,8 +28,8 @@ public class BBSMetaCommonDownload extends GenericMetaCommonDownload<BBSData> im
 	}
 
 	public void process() {
-		List<BBSData> alllist = new ArrayList<BBSData>();
-		List<BBSData> list = new ArrayList<BBSData>();
+		List<BbsData> alllist = new ArrayList<BbsData>();
+		List<BbsData> list = new ArrayList<BbsData>();
 		String url = getRealUrl(siteinfo, gloaburl);
 		int page = getRealPage(siteinfo);
 		String keyword = key.getKEYWORD();

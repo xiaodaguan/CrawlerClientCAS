@@ -14,6 +14,7 @@
         - mediaType: 媒体类型(新闻、微博等)
         - crawlType: 采集类型(META/DATA)
         - searchKey: 记录关键词信息(categoryCode等)
+        - data: meta数据
 
 #### mybatis注意事项
 
@@ -25,12 +26,12 @@ sql的每个字段，实体对应的属性都必须有值，否则无法写入�
 
 ## 架构
 
-- 任务队列：redis-cluster  
+- 任务队列：redis-cluster[√]
 - url过滤：bloom filter redis[√]
 - CrawlerClient
-- 持久层：mybatis[进行中]
+- 持久层：mybatis[]
     - BaseService[√]
-    - WeixinService[]
+    - WeixinService[√]
     - ...
 - 配置管理：zookeeper
 

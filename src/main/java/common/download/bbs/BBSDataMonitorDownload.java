@@ -1,6 +1,6 @@
 package common.download.bbs;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
@@ -17,10 +17,10 @@ import java.util.concurrent.CountDownLatch;
  *
  * @author grs
  */
-public class BBSDataMonitorDownload extends GenericDataCommonDownload<BBSData> {
+public class BBSDataMonitorDownload extends GenericDataCommonDownload<BbsData> {
     private static final Logger LOGGER = LoggerFactory.getLogger(BBSDataMonitorDownload.class);
 
-    public BBSDataMonitorDownload(String siteFlag, BBSData vd, CountDownLatch endCount, SearchKey key) {
+    public BBSDataMonitorDownload(String siteFlag, BbsData vd, CountDownLatch endCount, SearchKey key) {
         super(siteFlag, vd, endCount, key);
     }
 

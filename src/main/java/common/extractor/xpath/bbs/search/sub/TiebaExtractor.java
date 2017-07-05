@@ -1,6 +1,6 @@
 package common.extractor.xpath.bbs.search.sub;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.Component;
@@ -56,7 +56,7 @@ public class TiebaExtractor extends BbsSearchXpathExtractor {
 //	}
 
 	@Override
-	public void parseReplyCount(BBSData data, Node domtree, Component component, String... ags) {
+	public void parseReplyCount(BbsData data, Node domtree, Component component, String... ags) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if (nl == null)
 			return;

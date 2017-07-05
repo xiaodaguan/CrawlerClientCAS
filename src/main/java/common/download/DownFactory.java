@@ -3,7 +3,7 @@ package common.download;
 import java.util.concurrent.CountDownLatch;
 
 import common.pojos.AgricaltureData;
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.BlogData;
 import common.pojos.ClientData;
 import common.pojos.CommonData;
@@ -50,7 +50,7 @@ import common.download.video.VideoDataCommonDownload;
 import common.download.video.VideoMetaCommonDownload;
 import common.download.weibo.WeiboDataCommonDownload;
 import common.download.weibo.WeiboSearchDataCommonDownload;
-import common.download.weibo.WeiboSearchMetaCommonDownload;
+import common.download.weibo.WeiboMetaCommonDownload;
 import common.download.weibo.WeiboUserMonitorMetaCommonDownload;
 import common.download.weixin.WeixinDataCommonDownload;
 import common.download.weixin.WeixinMetaCommonDownload;
@@ -85,7 +85,7 @@ public class DownFactory {
 		case 6:
 			return new BlogMetaCommonDownload(key);
 		case 7:
-			return new WeiboSearchMetaCommonDownload(key);
+			return new WeiboMetaCommonDownload(key);
 		case 8:
 			return new WeiboUserMonitorMetaCommonDownload(key);
 		case 9:// return new SokuVideoMetaCommonDownload(key);
@@ -146,9 +146,9 @@ public class DownFactory {
 		case 2:
 			return (GenericDataCommonDownload<T>) new NewsDataCommonDownload(siteFlag, (NewsData) data, count, key);
 		case 3:
-			return (GenericDataCommonDownload<T>) new BBSDataCommonDownload(siteFlag, (BBSData) data, count, key);
+			return (GenericDataCommonDownload<T>) new BBSDataCommonDownload(siteFlag, (BbsData) data, count, key);
 		case 4:
-			return (GenericDataCommonDownload<T>) new BBSDataMonitorDownload(siteFlag, (BBSData) data, count, key);
+			return (GenericDataCommonDownload<T>) new BBSDataMonitorDownload(siteFlag, (BbsData) data, count, key);
 		case 5:
 		case 6:
 			return (GenericDataCommonDownload<T>) new BlogDataCommonDownload(siteFlag, (BlogData) data, count, key);

@@ -2,7 +2,7 @@ package common.download.bbs;
 
 import java.util.concurrent.CountDownLatch;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.HtmlInfo;
 import common.download.GenericDataCommonDownload;
 import common.rmi.packet.SearchKey;
@@ -15,10 +15,10 @@ import org.slf4j.LoggerFactory;
  *
  * @author grs
  */
-public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
+public class BBSDataCommonDownload extends GenericDataCommonDownload<BbsData> {
     private static final Logger LOGGER = LoggerFactory.getLogger(BBSDataCommonDownload.class);
 
-    public BBSDataCommonDownload(String siteFlag, BBSData vd, CountDownLatch endCount, SearchKey key) {
+    public BBSDataCommonDownload(String siteFlag, BbsData vd, CountDownLatch endCount, SearchKey key) {
         super(siteFlag, vd, endCount, key);
     }
 
@@ -66,7 +66,7 @@ public class BBSDataCommonDownload extends GenericDataCommonDownload<BBSData> {
      * @param html
      * @return 是否可存储
      */
-    private boolean dataCheck(BBSData data, String html) {
+    private boolean dataCheck(BbsData data, String html) {
         if (data.getTitle() != null && data.getPubdate() != null) {
             return true;
         }

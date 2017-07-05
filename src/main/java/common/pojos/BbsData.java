@@ -3,7 +3,7 @@ package common.pojos;
 import java.util.List;
 
 @SuppressWarnings("serial")
-public class BBSData extends CommonData {
+public class BbsData extends CommonData {
 
 	private String author;
 	private String brief;

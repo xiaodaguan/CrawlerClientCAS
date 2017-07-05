@@ -1,6 +1,6 @@
 package common.extractor.xpath.bbs.search;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.HtmlInfo;
 import common.pojos.ReplyData;
 import common.extractor.xpath.XpathExtractor;
@@ -27,13 +27,13 @@ import java.util.Map;
  * 论坛抽取实现类
  * @author grs
  */
-public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements BbsSearchExtractorAttribute {
+public class BbsSearchXpathExtractor extends XpathExtractor<BbsData> implements BbsSearchExtractorAttribute {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BbsSearchXpathExtractor.class);
 
 	@Override
-	public void processList(List<BBSData> list, Node domtree,
-			Map<String, Component> components, String... args) {
+	public void processList(List<BbsData> list, Node domtree,
+                            Map<String, Component> components, String... args) {
 		this.parseTitle(list, domtree, components.get("title"));
 
 		if (list.size() == 0) return;
@@ -41,7 +41,7 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 	}
 
 	@Override
-	public void parseUrl(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parseUrl(List<BbsData> list, Node dom, Component component, String... args) {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if(nl==null) return;
 		for(int i = 0;i < nl.getLength();i++) {
@@ -49,11 +49,11 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		}
 	}
 	@Override
-	public void parseTitle(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parseTitle(List<BbsData> list, Node dom, Component component, String... args) {
 		if(component==null) return;
 		NodeList nl = head(component.getXpath(), dom);
 		for(int i = 0;i < nl.getLength();i++) {
-			BBSData vd = new BBSData();
+			BbsData vd = new BbsData();
 			vd.setTitle(StringUtil.format(nl.item(i).getTextContent()));
 			list.add(vd);
 		}
@@ -68,8 +68,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 	}
 	
 	@Override
-	public String templateContentPage(BBSData data, HtmlInfo html, int page,
-			String... keyword) throws SAXException, IOException {
+	public String templateContentPage(BbsData data, HtmlInfo html, int page,
+                                      String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 //		create(content);
 		if (html.getContent().contains("抱歉，您访问的贴子被隐藏")) {
@@ -121,8 +121,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 
 
 	@Override
-	public void parseContent(BBSData data, Node dom, Component component,
-			String... args) {
+	public void parseContent(BbsData data, Node dom, Component component,
+                             String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if(nl==null) return;
 		String brief = "";
@@ -132,8 +132,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		data.setContent(StringUtil.format(brief)!=""?StringUtil.format(brief):"  \n");
 	}
 	@Override
-	public void parseAuthor(BBSData data, Node dom, Component component,
-			String... args) {
+	public void parseAuthor(BbsData data, Node dom, Component component,
+                            String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if(nl==null) return;
 		String author = "";
@@ -145,8 +145,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		data.setAuthor(StringUtil.format(author));
 	}
 	@Override
-	public void parsePubtime(BBSData data, Node dom, Component component,
-			String... args) {
+	public void parsePubtime(BbsData data, Node dom, Component component,
+                             String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
@@ -162,8 +162,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		}
 	}
 	@Override
-	public void parseClickCount(BBSData data, Node domtree,
-			Component component, String... ags) {
+	public void parseClickCount(BbsData data, Node domtree,
+                                Component component, String... ags) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
@@ -175,8 +175,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		}
 	}
 	@Override
-	public void parseSource(BBSData data, Node domtree, Component component,
-			String... args) {
+	public void parseSource(BbsData data, Node domtree, Component component,
+                            String... args) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
@@ -185,8 +185,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		}
 	}
 	@Override
-	public void parseReplyCount(BBSData data, Node domtree,
-			Component component, String... ags) {
+	public void parseReplyCount(BbsData data, Node domtree,
+                                Component component, String... ags) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
@@ -198,8 +198,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		}
 	}
 	@Override
-	public void parseColumn(BBSData data, Node domtree, Component component,
-			String... ags) {
+	public void parseColumn(BbsData data, Node domtree, Component component,
+                            String... ags) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
@@ -208,8 +208,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		}
 	}
 	@Override
-	public void parseImgUrl(BBSData data, Node domtree, Component component,
-			String... args) {
+	public void parseImgUrl(BbsData data, Node domtree, Component component,
+                            String... args) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		String url = "";
@@ -221,8 +221,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 		data.setImgUrl(url);
 	}
 	@Override
-	public void parsePageTitle(BBSData data, Node domtree, Component component,
-			String... args) {
+	public void parsePageTitle(BbsData data, Node domtree, Component component,
+                               String... args) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if(nl==null) return;
 		if(nl.item(0)!=null) {
@@ -269,8 +269,8 @@ public class BbsSearchXpathExtractor extends XpathExtractor<BBSData> implements 
 	}
 
 	@Override
-	public void processPage(BBSData data, Node domtree,
-			Map<String, Component> map, String... args) {
+	public void processPage(BbsData data, Node domtree,
+                            Map<String, Component> map, String... args) {
 	}
 	
 }

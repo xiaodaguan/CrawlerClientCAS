@@ -14,7 +14,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.HtmlInfo;
 import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.monitor.BbsMonitorXpathExtractor;
@@ -29,7 +29,7 @@ public class TianyaExtractor extends BbsMonitorXpathExtractor {
 
 
 	@Override
-	public void processList(List<BBSData> list, Node domtree, Map<String, Component> components, String... args) {
+	public void processList(List<BbsData> list, Node domtree, Map<String, Component> components, String... args) {
 		this.parseTitle(list, domtree, components.get("title"));
 
 		if (list.size() == 0)
@@ -42,7 +42,7 @@ public class TianyaExtractor extends BbsMonitorXpathExtractor {
 	}
 
 	@Override
-	public String templateContentPage(BBSData data, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+	public String templateContentPage(BbsData data, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		// create(content);
 		Node domtree = getRealDOM(html);
@@ -102,7 +102,7 @@ public class TianyaExtractor extends BbsMonitorXpathExtractor {
 		return next;
 	}
 
-	public void parseClickCount(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parseClickCount(List<BbsData> list, Node dom, Component component, String... args) {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
@@ -111,7 +111,7 @@ public class TianyaExtractor extends BbsMonitorXpathExtractor {
 		}
 	}
 
-	public void parseReplyCount(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parseReplyCount(List<BbsData> list, Node dom, Component component, String... args) {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;
@@ -120,7 +120,7 @@ public class TianyaExtractor extends BbsMonitorXpathExtractor {
 		}
 	}
 
-	public void parseAuthor(List<BBSData> list, Node dom, Component component, String... args) {
+	public void parseAuthor(List<BbsData> list, Node dom, Component component, String... args) {
 		NodeList nl = head(component.getXpath(), dom, list.size(), component.getName());
 		if (nl == null)
 			return;

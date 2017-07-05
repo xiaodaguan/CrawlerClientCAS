@@ -26,10 +26,10 @@ import java.util.concurrent.Future;
 /**
  * 微博搜索列表页下载
  */
-public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<WeiboData> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(WeiboSearchMetaCommonDownload.class);
+public class WeiboMetaCommonDownload extends GenericMetaCommonDownload<WeiboData> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeiboMetaCommonDownload.class);
 
-    public WeiboSearchMetaCommonDownload(SearchKey key) {
+    public WeiboMetaCommonDownload(SearchKey key) {
         super(key);
     }
 

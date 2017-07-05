@@ -1,6 +1,6 @@
 package common.extractor.xpath.bbs.search.sub;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.HtmlInfo;
 import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
@@ -71,7 +71,7 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 	}
 
 	@Override
-	public void parseReplyCount(BBSData data, Node domtree, Component component, String... ags) {
+	public void parseReplyCount(BbsData data, Node domtree, Component component, String... ags) {
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if (nl == null)
 			return;
@@ -85,7 +85,7 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 	}
 
 	@Override
-	public void parsePubtime(BBSData data, Node dom, Component component, String... args) {
+	public void parsePubtime(BbsData data, Node dom, Component component, String... args) {
 		// NodeList nl = commonList(component.getXpath(), dom);
 		// if(nl==null) return;
 		// if(nl.item(0)!=null) {
@@ -112,7 +112,7 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 	}
 
 	@Override
-	public String templateContentPage(BBSData data, HtmlInfo html, int page, String... keyword)
+	public String templateContentPage(BbsData data, HtmlInfo html, int page, String... keyword)
 			throws SAXException, IOException {
 		{
 			Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
@@ -179,7 +179,7 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 
 	}
 
-	public String templateContentPage1(BBSData data, HtmlInfo html, int page, String... keyword) {
+	public String templateContentPage1(BbsData data, HtmlInfo html, int page, String... keyword) {
 
 		ExtractResult result = null;
 		try {
@@ -213,36 +213,36 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 	}
 
 	@Override
-	public void parseContent(BBSData data, Node dom, Component component, String... args) {
+	public void parseContent(BbsData data, Node dom, Component component, String... args) {
 	}
 
 	@Override
-	public void parseAuthor(BBSData data, Node dom, Component component, String... args) {
-
-	}
-
-	@Override
-	public void parseClickCount(BBSData data, Node domtree, Component component, String... ags) {
+	public void parseAuthor(BbsData data, Node dom, Component component, String... args) {
 
 	}
 
 	@Override
-	public void parseSource(BBSData data, Node domtree, Component component, String... args) {
+	public void parseClickCount(BbsData data, Node domtree, Component component, String... ags) {
 
 	}
 
 	@Override
-	public void parseColumn(BBSData data, Node domtree, Component component, String... ags) {
+	public void parseSource(BbsData data, Node domtree, Component component, String... args) {
 
 	}
 
 	@Override
-	public void parseImgUrl(BBSData data, Node domtree, Component component, String... args) {
+	public void parseColumn(BbsData data, Node domtree, Component component, String... ags) {
 
 	}
 
 	@Override
-	public void parsePageTitle(BBSData data, Node domtree, Component component, String... args) {
+	public void parseImgUrl(BbsData data, Node domtree, Component component, String... args) {
+
+	}
+
+	@Override
+	public void parsePageTitle(BbsData data, Node domtree, Component component, String... args) {
 
 	}
 
@@ -263,7 +263,7 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 	}
 
 	@Override
-	public void processPage(BBSData data, Node domtree, Map<String, Component> map, String... args) {
+	public void processPage(BbsData data, Node domtree, Map<String, Component> map, String... args) {
 	}
 
 }

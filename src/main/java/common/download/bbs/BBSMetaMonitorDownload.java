@@ -1,6 +1,6 @@
 package common.download.bbs;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.pojos.HtmlInfo;
 import common.download.DataThreadControl;
 import common.download.GenericMetaCommonDownload;
@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author grs
  */
-public class BBSMetaMonitorDownload extends GenericMetaCommonDownload<BBSData> implements Runnable {
+public class BBSMetaMonitorDownload extends GenericMetaCommonDownload<BbsData> implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(BBSMetaMonitorDownload.class);
 
 
@@ -34,8 +34,8 @@ public class BBSMetaMonitorDownload extends GenericMetaCommonDownload<BBSData> i
             ua = UserManager.getUser(siteFlag);
             UserManager.releaseUser(siteFlag, ua);
         }
-        List<BBSData> alllist = new ArrayList<BBSData>();
-        List<BBSData> list = new ArrayList<BBSData>();
+        List<BbsData> alllist = new ArrayList<BbsData>();
+        List<BbsData> list = new ArrayList<BbsData>();
         String url = getRealUrl(siteinfo, gloaburl);
         int page = getRealPage(siteinfo);
         String keyword = key.getKEYWORD();

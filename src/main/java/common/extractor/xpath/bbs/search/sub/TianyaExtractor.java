@@ -3,7 +3,7 @@ package common.extractor.xpath.bbs.search.sub;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.pojos.BBSData;
+import common.pojos.BbsData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.utils.StringUtil;
@@ -22,7 +22,7 @@ public class TianyaExtractor extends BbsSearchXpathExtractor {
 	 * @return
 	 */
 	@Override
-	public void parseAuthor(BBSData vd, Node dom, Component component, String... args) {
+	public void parseAuthor(BbsData vd, Node dom, Component component, String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		String author = "";
 		if(nl.item(0)!=null)  {
@@ -46,7 +46,7 @@ public class TianyaExtractor extends BbsSearchXpathExtractor {
 	}
 	
 	@Override
-	public void parsePubtime(BBSData vd, Node dom, Component component, String... args) {
+	public void parsePubtime(BbsData vd, Node dom, Component component, String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if(nl!=null && nl.item(0)!=null) {
 			String time = StringUtil.format(nl.item(0).getTextContent().replace("时间：", ""));
@@ -54,7 +54,7 @@ public class TianyaExtractor extends BbsSearchXpathExtractor {
 		}
 	}
 	@Override
-	public void parseSource(BBSData vd, Node dom, Component component, String... args) {
+	public void parseSource(BbsData vd, Node dom, Component component, String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if(nl!=null && nl.item(0)!=null) {
 			String c = StringUtil.format(nl.item(0).getTextContent().replace("来自：", ""));
@@ -63,7 +63,7 @@ public class TianyaExtractor extends BbsSearchXpathExtractor {
 		
 	}
 	@Override
-	public void parseClickCount(BBSData vd, Node dom, Component component, String... args) {
+	public void parseClickCount(BbsData vd, Node dom, Component component, String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if(nl!=null && nl.item(0)!=null) {
 			String time = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d");
@@ -75,7 +75,7 @@ public class TianyaExtractor extends BbsSearchXpathExtractor {
 		
 	}
 	@Override
-	public void parseReplyCount(BBSData vd, Node dom, Component component, String... args) {
+	public void parseReplyCount(BbsData vd, Node dom, Component component, String... args) {
 		NodeList nl = commonList(component.getXpath(), dom);
 		if(nl!=null && nl.item(0)!=null) {
 			String time = StringUtil.extractMulti(nl.item(0).getTextContent(), "\\d");
