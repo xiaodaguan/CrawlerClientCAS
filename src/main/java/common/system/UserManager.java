@@ -2,6 +2,7 @@ package common.system;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import common.system.Systemconfig;
 import common.util.UserAgent;
@@ -32,7 +33,7 @@ public class UserManager {
         return null;
     }
 
-    public static List<String> getAllUserNames(String siteFlag){
+    public static List<String> getAllUserNames(String siteFlag) {
         List<String> list = new ArrayList<>(Systemconfig.users.size());
         for (UserAttr attr : Systemconfig.users.get(siteFlag)) {
             list.add(attr.getName());
@@ -62,6 +63,27 @@ public class UserManager {
             }
         }
         Systemconfig.sysLog.log("用户" + user.getName() + "释放.");
+    }
+
+    private static ConcurrentHashMap<String, Integer> userFailedTimes = new ConcurrentHashMap<>();
+
+    public synchronized static void incrFailedTime(String siteFlag, UserAttr user) {
+        String key = siteFlag + ":" + user.getName();
+        if (!userFailedTimes.containsKey(key))
+            userFailedTimes.put(key, 1);
+        else {
+            int curr = userFailedTimes.get(key);
+            userFailedTimes.put(key, curr + 1);
+        }
+
+        if (userFailedTimes.get(key) >= 5) {
+            deleteUser(siteFlag, user);
+        }
+    }
+
+    public synchronized static void deleteUser(String siteFlag, UserAttr user) {
+
+        Systemconfig.users.get(siteFlag).remove(user);
     }
 
 }

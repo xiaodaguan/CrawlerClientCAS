@@ -48,7 +48,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
         // 每次保证只有有效用户个执行，某个任务完成后，等待的下一个任务开始执行
         UserAttr ua = UserManager.getUser(siteFlag);
         while (ua == null) {
-            Systemconfig.sysLog.log("暂时没有可用账号用于采集，等待账号中……");
+            Systemconfig.sysLog.log("暂时没有空闲账号，等待账号中…… 空闲："+UserManager.getAvailableUserNames(siteFlag)+", 全部："+UserManager.getAllUserNames(siteFlag));
             TimeUtil.rest(10);
             ua = UserManager.getUser(siteFlag);
         }
@@ -84,7 +84,7 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
             int totalCount = 0;
             int repeatPage = 0;
             int MAX_REPEAT_PAGE = 1;
-            int retry = 5;
+            int retry = 2;
             while (nexturl != null && !nexturl.equals("")) {
                 list.clear();
 
@@ -95,9 +95,9 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
 
                     String content = html.getContent();
 
-                    if(content.contains("请输入验证码")||
+                    if (content.contains("请输入验证码") ||
                             content.contains("\u8bf7\u8f93\u5165\u9a8c\u8bc1")
-                            ||content.contains("\\u8bf7\\u8f93\\u5165\\u9a8c\\u8bc1")){
+                            || content.contains("\\u8bf7\\u8f93\\u5165\\u9a8c\\u8bc1")) {
                         Systemconfig.sysLog.log("你的行为有些异常，请输入验证码：");
                         //搜索过程中的验证码问题，数据库回写
                         Systemconfig.dbService.updateUserValid(userAttr.getName(), 5);
@@ -120,13 +120,14 @@ public class WeiboSearchMetaCommonDownload extends GenericMetaCommonDownload<Wei
                     String processedHtmlSource = html.getContent();
                     if (list.size() == 0) {
                         Systemconfig.sysLog.log("--" + userAttr + " --" + keyword + ": " + url + "元数据页面解析为空！！");
-
+                        UserManager.incrFailedTime(siteFlag, userAttr);
                         if (retry-- >= 0) {
                             nexturl = html.getOrignUrl();
-                            UserManager.releaseUser(siteFlag, userAttr);
 
-                            userAttr = UserManager.getUser(siteFlag);
-                            Systemconfig.sysLog.log("账户切换至: " + userAttr.getName() + "");
+                            userAttr = UserManager.getUser(siteFlag);// 切换账户，此时上一账户尚未release，可以get到另一账户
+                            Systemconfig.sysLog.log("账户切换至: " + userAttr.getName() + ". retry[" + retry + "]");
+
+                            UserManager.releaseUser(siteFlag, userAttr);// 切换完再release
                             TimeUtil.rest(siteinfo.getDownInterval());
                             continue;
                         }
