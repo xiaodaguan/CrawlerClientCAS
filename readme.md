@@ -36,7 +36,7 @@ mvn install:install-file -Dfile=lib/hbase-0.94.16-security.jar -DgroupId=org.apa
 mvn install:install-file -Dfile=lib/mail.jar -DgroupId=com.sun.mail -DartifactId=mail -Dversion=1.0 -Dpackaging=jar
 ```
 
-2. 打包 mvn clean package
+2. 打包 mvn clean package -DskipTests
 3. 复制 config 目录到target/
 ```
 cp -r config target/
