@@ -27,7 +27,7 @@ public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> 
 		if (url == null)
 			return;
 		// 检测是否需要代理，未来版本改进
-		siteinfo.setAgent(false);
+
 		HtmlInfo html = htmlInfo("DATA");
 		if (html.getEncode().contains(";"))
 			System.out.println();
