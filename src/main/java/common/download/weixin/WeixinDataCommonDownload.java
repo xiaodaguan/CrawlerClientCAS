@@ -61,7 +61,7 @@ public class WeixinDataCommonDownload extends GenericDataCommonDownload<WeixinDa
         } finally {
             if (count != null) count.countDown();
 
-            int wait = siteinfo.getDownInterval() + (int) Math.random() * 30;
+            int wait = siteinfo.getDownInterval();
             Systemconfig.sysLog.log("wait " + wait + " secs to download next...");
             TimeUtil.rest(wait);
         }

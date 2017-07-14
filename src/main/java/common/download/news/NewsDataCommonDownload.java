@@ -53,17 +53,17 @@ public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> 
 				Systemconfig.dbService.saveData(data);
 
 				/* 状态 */
-				int curr = Integer.parseInt(StringUtil.regMatcher(data.getCompleteSize(), "current: ", "/"));
-				int rest = Integer.parseInt(StringUtil.regMatcher(data.getCompleteSize(), "rest: ", "]"));
-				double per = (double) curr / (curr + rest);
-				if (data.getCompleteSize().contains("rest: 0")) {
-					// 判断为结束
-					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
-				}
-				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "保存完成。。。");
-				synchronized (key) {
-					key.savedCountIncrease();
-				}
+//				int curr = Integer.parseInt(StringUtil.regMatcher(data.getCompleteSize(), "current: ", "/"));
+//				int rest = Integer.parseInt(StringUtil.regMatcher(data.getCompleteSize(), "rest: ", "]"));
+//				double per = (double) curr / (curr + rest);
+//				if (data.getCompleteSize().contains("rest: 0")) {
+//					// 判断为结束
+//					Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
+//				}
+//				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] " + data.getTitle() + "保存完成。。。");
+//				synchronized (key) {
+//					key.savedCountIncrease();
+//				}
 			}
 			// if(data.getSameUrl()!=null && count != null && data.getId()>0) {
 			// //采集链接
@@ -80,10 +80,10 @@ public class NewsDataCommonDownload extends GenericDataCommonDownload<NewsData> 
 			// key.savedCountDecrease();
 			// }
 			// Systemconfig.crawlerStatus.getTasks().get(key.getCrawlerStatusId()).setSavedCount(key.getSavedCount());
-			if (data.getCompleteSize().contains("rest: 0")) {
-				// 判断为结束
-				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
-			}
+//			if (data.getCompleteSize().contains("rest: 0")) {
+//				// 判断为结束
+//				Systemconfig.sysLog.log("关键词：[" + key.getKey() + "] 全部详细页面采集完成。");
+//			}
 		} finally {
 			if (count != null)
 				count.countDown();
