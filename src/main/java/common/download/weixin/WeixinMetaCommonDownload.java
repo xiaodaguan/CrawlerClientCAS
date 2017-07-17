@@ -99,7 +99,7 @@ public class WeixinMetaCommonDownload extends GenericMetaCommonDownload<WeixinDa
             } catch (Exception e) {
                 Systemconfig.sysLog.log("列表页异常{" + keyword + "}   [" + url + "]");
                 e.printStackTrace();
-//                break;
+                break;
             } finally {
                 int wait = siteinfo.getDownInterval() + (int) Math.random() * 30;
                 Systemconfig.sysLog.log("wait " + wait + " secs to download next keyword...");
