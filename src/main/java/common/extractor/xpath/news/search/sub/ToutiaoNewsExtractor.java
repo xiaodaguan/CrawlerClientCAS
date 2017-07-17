@@ -87,7 +87,7 @@ public class ToutiaoNewsExtractor extends NewsSearchXpathExtractor {
 					this.parseContent(data, domtree, comp.getComponents().get("content"), html.getContent());
 
 
-					this.parseImgUrl(data, domtree, comp.getComponents().get("img_url").getXpath(), null);
+					this.parseImgUrl(data, domtree, comp.getComponents().get("img_url").getXpath(), html.getContent());
 				}catch (Exception e){
 					e.printStackTrace();
 				}
