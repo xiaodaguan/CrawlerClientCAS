@@ -1,5 +1,6 @@
 package common.extractor.xpath.news.search;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import common.system.Systemconfig;
 import common.util.ExtractResult;
 import common.util.MD5Util;
 import common.util.StringUtil;
+import org.xml.sax.SAXException;
 
 /**
  * 抽取实现类
@@ -24,7 +26,8 @@ import common.util.StringUtil;
 public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implements NewsSearchExtractorAttribute {
 
 	@Override
-	public String templateContentPage(NewsData data, HtmlInfo html, int page, String... keyword) {
+	public String templateContentPage(NewsData data, HtmlInfo html, int page, String... keyword) throws IOException, SAXException {
+
 		ExtractResult result = null;
 		try {
 			result = Systemconfig.extractor.extract(html.getContent(), html.getEncode(), data.getUrl());

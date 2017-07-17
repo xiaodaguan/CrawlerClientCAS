@@ -40,9 +40,9 @@
 				<entry key="sino_frgmedia_search" value="common.extractor.xpath.frgmedia.search.sub.SinoExtractor" />
 				<entry key="chinaru_frgmedia_search" value="common.extractor.xpath.frgmedia.search.sub.ChinaruExtractor" />
 				
-				
-			
+
 				<entry key="baidu_news_search" 		value="common.extractor.xpath.news.search.sub.BaiduExtractor" />
+				<entry key="toutiao_news_search"    value="common.extractor.xpath.news.search.sub.ToutiaoNewsExtractor" />
 				<entry key="baidu_press_search" 	value="common.extractor.xpath.press.search.sub.BaiduExtractor" />
 				<entry key="soku_video_search" 		value="common.extractor.xpath.video.search.sub.SokuVideoSearchXpathExtractor" />
 				<entry key="zaker_client_search" 	value="common.extractor.xpath.client.search.sub.ZakerExtractor" />
