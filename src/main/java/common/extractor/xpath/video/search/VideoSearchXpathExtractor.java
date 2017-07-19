@@ -88,7 +88,7 @@ public class VideoSearchXpathExtractor extends XpathExtractor<VideoData> impleme
 			return null;
 		}
 		//LOGGER.info("class : "+this.getClass());
-		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到元数据的配置组件
+		CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));//得到元数据的配置组件
 		this.parseTitle(list, domtree, comp.getComponents().get("title"));
 		if (list.size() == 0) return null;
 		this.parseUrl(list, domtree, comp.getComponents().get("url"), html.getContent());

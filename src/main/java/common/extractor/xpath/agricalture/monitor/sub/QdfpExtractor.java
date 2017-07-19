@@ -38,7 +38,7 @@ public class QdfpExtractor extends AgricaltureMonitorXpathExtractor implements A
 		list.clear();
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		Node domtree = getRealDOM(html);
-		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));// 得到元数据的配置组件
+		CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
 		if (page != 1) {
 			/**
 			 * keyword 0: search_keyword 1: search_url(list) 2: ... 3: cookies

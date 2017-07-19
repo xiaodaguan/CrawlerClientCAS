@@ -191,7 +191,7 @@ public class Systemconfig {
      */
     private void value() {
         CrawlerType ct = CrawlerType.getCrawlerTypeMap().get(crawlerType);
-        if (ct != null) {
+        if (ct != null && !ct.name().equalsIgnoreCase("NOTYPE")) {
             RUN_PREFIX = ct.name() + "_";
             table = table == null ? "" : table;
             String str = ct.name().substring(0, ct.name().indexOf("_")).toLowerCase() + "_data";

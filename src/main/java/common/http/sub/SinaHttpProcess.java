@@ -2,7 +2,6 @@ package common.http.sub;
 
 import common.pojos.HtmlInfo;
 import common.http.NeedCookieHttpProcess;
-import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.utils.EncoderUtil;
 import common.utils.StringUtil;
@@ -74,7 +73,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 //		get.addHeader("User-Agent",user==null?userAgent:user.getUserAgent());
 		get.addHeader("User-Agent",user==null?userAgent:user.getUserAgent());
 
-		if(html.getType().startsWith("LOGIN"))
+		if(html.getCrawlerType().startsWith("LOGIN"))
 			get.setHeader("Content-Type", "application/x-www-form-urlencoded");
 		if(redirectURL != null){
 			get.setHeader("Referer", redirectURL);
@@ -82,7 +81,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		
 		if (cookie != null && !cookie.equals("")) {
 			get.setHeader("Cookie", cookie);
-		} else if(!html.getType().contains("LOGIN")) {
+		} else if(!html.getCrawlerType().contains("LOGIN")) {
 			if(user.getCookie() != null && !user.getCookie().equals("")) 
 				cookie = user.getCookie();
 			else if(!login(user)) {
@@ -165,7 +164,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		}
 		HtmlInfo html = new HtmlInfo();
 		html.setEncode("utf-8");
-		html.setType("LOGIN");
+		html.setCrawlerType("LOGIN");
 		html.setSite("sina");
 		
 		SinaUserLoginEntity loginEntity = getEntity(user);
@@ -294,7 +293,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		html.setSite("sina");
 		html.setOrignUrl(url);
 		html.setEncode("utf-8");
-		html.setType("LOGIN");
+		html.setCrawlerType("LOGIN");
 		getContent(html, user);
 		String str = html.getContent();
 		long signedIn = loginPast(user);
@@ -362,7 +361,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		
 		HtmlInfo html = new HtmlInfo();
 		html.setOrignUrl(preloginurl);
-		html.setType("LOGIN");
+		html.setCrawlerType("LOGIN");
 		html.setSite("sina");
 		html.setEncode("utf-8");
 		html.setReferUrl(null);
@@ -398,7 +397,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		HtmlInfo html = new HtmlInfo();
 		html.setOrignUrl(picUrl);
 		html.setSite("sina");
-		html.setType("LOGIN");
+		html.setCrawlerType("LOGIN");
 		html.setEncode("utf-8");
 		downloadVPic(html, validateImgPath, picName);
 		

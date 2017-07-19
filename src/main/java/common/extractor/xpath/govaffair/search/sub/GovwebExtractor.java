@@ -43,7 +43,7 @@ public class GovwebExtractor extends GovAffairSearchXpathExtractor {
 	            LOGGER.info("DOM解析为NULL！！");
 	            return null;
 	        }
-	        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到元数据的配置组件
+	        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));//得到元数据的配置组件
 	        if(domtree==null|comp==null)return null;
 	        //comp.getComponents().get("content")
 	        //comp.getComponents().get("content").setXpath("//DIV//P");

@@ -46,7 +46,7 @@ public class FrgmediaSearchXpathExtractor extends XpathExtractor<FrgmediaData>
             return null;
         }
         CommonComponent comp = getRealComp(siteinfo,
-                html.getType().substring(0, html.getType().indexOf(File.separator)));// 得到元数据的配置组件
+                html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
         if (domtree == null | comp == null)
             return null;
         this.parseContent(data, domtree, comp.getComponents().get("content"), html.getContent());

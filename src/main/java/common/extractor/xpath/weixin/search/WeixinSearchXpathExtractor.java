@@ -1,7 +1,6 @@
 package common.extractor.xpath.weixin.search;
 
 import common.pojos.HtmlInfo;
-import common.pojos.Proxy;
 import common.pojos.WeixinData;
 import common.pojos.WxpublicData;
 import common.extractor.xpath.XpathExtractor;
@@ -26,10 +25,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +99,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
             LOGGER.info("DOM解析为NULL！！");
             return null;
         }
-        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));// 得到元数据的配置组件
+        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
 
         processList(list, domtree, comp.getComponents(), html.getContent(), String.valueOf(siteinfo.getSiteFlag()), keyword[3], keyword[2], keyword[1], keyword[0], siteinfo.getDomainId() + "");
         if (list.size() == 0) return null;
@@ -123,7 +118,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
 
         HtmlInfo html = new HtmlInfo();
         html.setEncode("utf-8");
-        html.setType("DATA");
+        html.setCrawlerType("DATA");
         html.setCookie("ABTEST=0|1428050026|v1; IPLOC=CN1200; SUID=2BB1E29FE518920A00000000551E506A; SUID=2BB1E29F2524920A00000000551E506A; SUV=008864049FE2B12B551E506A6FCAF436; weixinIndexVisited=1; SUIR=1428052952; SNUID=FF65364BD3D6C11DAF2665E6D40EF01C; sct=2; wapsogou_qq_nickname=");
         extractor.parseGongzhong(wd, html, "");
     }

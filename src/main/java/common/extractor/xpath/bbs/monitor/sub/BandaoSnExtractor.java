@@ -47,7 +47,7 @@ public class BandaoSnExtractor extends BbsMonitorXpathExtractor {
             LOGGER.info("DOM解析为NULL！！");
             return null;
         }
-        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到元数据的配置组件
+        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));//得到元数据的配置组件
         if (page == 1) {
             this.parseContent(data, domtree, comp.getComponents().get("content"), html.getContent());
 //			this.parseBrief(data, domtree, comp.getComponents().get("brief"), html.getContent());

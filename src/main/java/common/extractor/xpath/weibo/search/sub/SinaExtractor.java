@@ -24,13 +24,13 @@ public class SinaExtractor extends WeiboSearchXpathExtractor {
         String content = html.getContent();
         if (content == null) return null;
 
-        if (html.getType().contains("META/")||html.getType().contains("META\\") ){
+        if (html.getCrawlerType().contains("META/")||html.getCrawlerType().contains("META\\") ){
             String temp = StringUtil.regMatcher(content, "<script>STK && STK.pageletM && STK.pageletM.view\\(\\{\"pid\":\"pl_weibo_direct\",", "\\)</script>");
             if (temp != null) {
                 content = "{" + temp;
                 content = JsonUtil.getStringByKey(content, "html");
             }
-        } else if (html.getType().contains("DATA/")||html.getType().contains("DATA\\")) {
+        } else if (html.getCrawlerType().contains("DATA/")||html.getCrawlerType().contains("DATA\\")) {
 
         } else {
             LOGGER.info("页面dom解析异常，请查看！");

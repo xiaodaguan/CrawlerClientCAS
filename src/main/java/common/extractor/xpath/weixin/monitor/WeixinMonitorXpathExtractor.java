@@ -77,7 +77,7 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 		HtmlInfo html = new HtmlInfo();
 
 		String charSet = "UTF-8";
-		html.setType("DATA");
+		html.setCrawlerType("DATA");
 		html.setEncode(charSet);
 		html.setOrignUrl(url);
 		html.setCookie("Set-Cookie: wxuin=20156425; Path=/; Expires=Fri, 02-Jan-1970 00:00:00 GMT");
@@ -113,7 +113,7 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 			html = new HtmlInfo();
 
 			charSet = "UTF-8";
-			html.setType("DATA");
+			html.setCrawlerType("DATA");
 			html.setEncode(charSet);
 			html.setOrignUrl(url);
 			html.setCookie("Set-Cookie: wxuin=20156425; Path=/; Expires=Fri, 02-Jan-1970 00:00:00 GMT");
@@ -174,8 +174,8 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
-		CommonComponent comp = getRealComp(siteinfo, html.getType()
-				.substring(0, html.getType().indexOf(File.separator)));// 得到元数据的配置组件
+		CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType()
+				.substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
 		
 		
 		processList(list, domtree, comp.getComponents(),

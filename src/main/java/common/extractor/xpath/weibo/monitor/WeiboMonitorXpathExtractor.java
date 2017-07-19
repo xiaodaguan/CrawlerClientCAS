@@ -59,7 +59,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
             return;
         }
 
-        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
+        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));//得到数据的配置组件
         if (first) {
             parseAuthor(data, domtree, comp.getComponents().get("author"));
             parseAuthorImg(data, domtree, comp.getComponents().get("author_img"));
@@ -108,7 +108,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
             LOGGER.info("DOM解析为NULL！！");
             return null;
         }
-        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
+        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));//得到数据的配置组件
         parseWeiboMid(list, domtree, comp.getComponents().get("weibo_mid"));
         if (list.size() == 0) return null;
         parseWeiboContent(list, domtree, comp.getComponents().get("weibo_content"));
@@ -160,7 +160,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
             LOGGER.info("DOM解析为NULL！！");
             return null;
         }
-        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
+        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));//得到数据的配置组件
         parseRttAuthor(list, domtree, comp.getComponents().get("rtt_author"));
         parseRttAuthorImg(list, domtree, comp.getComponents().get("rtt_author_img"));
         parseRttAuthorUrl(list, domtree, comp.getComponents().get("rtt_author_url"));
@@ -198,7 +198,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
             LOGGER.info("DOM解析为NULL！！");
             return null;
         }
-        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
+        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));//得到数据的配置组件
         parseCommentAuthor(list, domtree, comp.getComponents().get("comment_author"));
         if(list.size()==0) {
             LOGGER.info("没有抓取到评论."+html.getOrignUrl());
@@ -240,7 +240,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
             LOGGER.info("DOM解析为NULL！！");
             return null;
         }
-        String type = html.getType().substring(0, html.getType().indexOf(File.separator));
+        String type = html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator));
         CommonComponent comp = getRealComp(siteinfo, type);//得到元数据的配置组件
         parseRelationAuthor(list, domtree, comp.getComponents().get("fans_author"), html.getContent());
         if (list.size() == 0) return null;

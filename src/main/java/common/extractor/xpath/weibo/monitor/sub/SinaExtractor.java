@@ -75,7 +75,7 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
 //            LOGGER.info("DOM解析为NULL！！");
 //            return null;
 //
-        CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));//得到数据的配置组件
+        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));//得到数据的配置组件
         String cont = html.getContent();
         if(cont.contains("\"msg\": null")){
             return null;
@@ -181,7 +181,7 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
     protected Node getRealDOM(HtmlInfo html) throws SAXException, IOException {
         String content = html.getContent();
         String con = "";
-        String flag = html.getType().substring(0, html.getType().indexOf(File.separator));
+        String flag = html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator));
         if (html.getOrignUrl().contains("http://weibo.com/p/aj/mblog/mbloglist")) {
             try {
                 con = JsonUtil.getStringByKey(content, "data");

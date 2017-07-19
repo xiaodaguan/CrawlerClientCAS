@@ -38,6 +38,10 @@ public class HtmlInfo implements Serializable{
 	private UserAttribute user;//采集账户
 	private CommonData data;
 
+	@Override
+	public String toString(){
+		return "site[], url[], crawlerType[], mediaType[]";
+	}
 
 	public CommonData getData() {
 		return data;
@@ -159,13 +163,7 @@ public class HtmlInfo implements Serializable{
 		this.agent = agent;
 	}
 
-	public String getType() {
-		return crawlerType;
-	}
 
-	public void setType(String type) {
-		this.crawlerType = type;
-	}
 
 	public boolean getAddHead() {
 		return addHead;

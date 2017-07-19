@@ -1,7 +1,6 @@
 package common.scheduler;
 
 import common.pojos.HtmlInfo;
-import common.system.AppContext;
 import common.system.Systemconfig;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -18,6 +17,7 @@ public class SchedulerTest {
     @BeforeClass
     public static void beforeAll(){
 
+        Systemconfig.crawlerType = 1;
         ApplicationContext context = new ClassPathXmlApplicationContext("app-redis.xml");
         scheduler = (Scheduler) context.getBean("defaultScheduler");
         scheduler.init();
@@ -29,7 +29,7 @@ public class SchedulerTest {
     @Test
     public void submitTest(){
         HtmlInfo task = new HtmlInfo();
-        task.setType("TEST");
+        task.setCrawlerType("TEST");
         task.setOrignUrl("guanxiaoda.cn");
 
 

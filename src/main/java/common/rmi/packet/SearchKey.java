@@ -27,6 +27,11 @@ public class SearchKey implements Serializable {
 	private int PRIORITY;
 	private int KEYWORD_BELONG;
 
+	@Override
+	public String toString(){
+		return "CategoryCode["+CATEGORY_CODE+"], Keyword["+KEYWORD+"], SiteId[{"+SITE_ID+"}], SiteName["+SITE_NAME+"]";
+	}
+
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}

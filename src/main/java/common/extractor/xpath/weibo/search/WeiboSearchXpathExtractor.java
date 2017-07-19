@@ -93,7 +93,7 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
-		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));// 得到数据的配置组件
+		CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到数据的配置组件
 		parseCommentAuthor(list, domtree, comp.getComponents().get("comment_author"));
 		parseCommentAuthorUrl(list, domtree, comp.getComponents().get("comment_author_url"));
 		parseCommentAuthorImg(list, domtree, comp.getComponents().get("comment_author_img"));
@@ -205,7 +205,7 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
-		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));// 得到数据的配置组件
+		CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到数据的配置组件
 		parseRttAuthor(list, domtree, comp.getComponents().get("rtt_author"));
 		parseRttAuthorImg(list, domtree, comp.getComponents().get("rtt_author_img"));
 		parseRttAuthorUrl(list, domtree, comp.getComponents().get("rtt_author_url"));

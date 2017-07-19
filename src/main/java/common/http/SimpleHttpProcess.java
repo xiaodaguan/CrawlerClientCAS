@@ -234,7 +234,7 @@ public class SimpleHttpProcess implements HttpProcess {
 
     @Override
     public HttpClient httpClient(HtmlInfo html) {
-        String key = html.getType();
+        String key = html.getCrawlerType();
         if (clientMap.containsKey(key)) {
             if (count++ > 100) {
                 HttpClient client = HttpClients.createDefault();
@@ -328,7 +328,7 @@ public class SimpleHttpProcess implements HttpProcess {
         }
         html.setContent(con);
         if (Systemconfig.createFile) {
-            String tmp = Systemconfig.filePath + File.separator + html.getType() + File.separator
+            String tmp = Systemconfig.filePath + File.separator + html.getCrawlerType() + File.separator
                     + MD5Util.MD5(html.getOrignUrl()) + html.getFileType();
             if (html.getAddHead()) {
                 StringUtil.writeFile(tmp, html.getOrignUrl() + "\r\n" + html.getContent(), html.getEncode());
@@ -346,7 +346,7 @@ public class SimpleHttpProcess implements HttpProcess {
             // + html.getType() + File.separator
             // + MD5Util.MD5(html.getOrignUrl()) + html.getFileType());
             // fos.write(fromURL);
-            String folderName = Systemconfig.filePath + File.separator + html.getType();
+            String folderName = Systemconfig.filePath + File.separator + html.getCrawlerType();
             if (!new File(folderName).exists())
                 new File(folderName).mkdirs();
             String fileName = folderName + File.separator + MD5Util.MD5(html.getOrignUrl()) + html.getFileType();
@@ -527,7 +527,7 @@ public class SimpleHttpProcess implements HttpProcess {
 
     public String getJsonContentUtf8(String url, String... args) {
         HtmlInfo html = new HtmlInfo();
-        html.setType("DATA");
+        html.setCrawlerType("DATA");
         html.setOrignUrl(url);
         html.setEncode("utf-8");
         html.setReferUrl(args[0]);
@@ -538,7 +538,7 @@ public class SimpleHttpProcess implements HttpProcess {
 
     public String getJsonContentGb2312(String url, String... args) {
         HtmlInfo html = new HtmlInfo();
-        html.setType("DATA");
+        html.setCrawlerType("DATA");
         html.setOrignUrl(url);
         html.setEncode("gb2312");
         html.setReferUrl(args[0]);

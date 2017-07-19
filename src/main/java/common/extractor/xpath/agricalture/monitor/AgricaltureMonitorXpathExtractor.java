@@ -384,7 +384,7 @@ public class AgricaltureMonitorXpathExtractor extends XpathExtractor<Agricalture
 			LOGGER.info("DOM解析为NULL！！");
 			return null;
 		}
-		CommonComponent comp = getRealComp(siteinfo, html.getType().substring(0, html.getType().indexOf(File.separator)));// 得到元数据的配置组件
+		CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
 		processList(list, domtree, comp.getComponents(), args(html.getContent(), String.valueOf(siteinfo.getSiteFlag()), keyword));
 		if (list.size() == 0)
 			return null;

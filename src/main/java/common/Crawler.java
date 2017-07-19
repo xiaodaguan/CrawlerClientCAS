@@ -26,12 +26,14 @@ public class Crawler {
     public static String mediaTypeFull = null;// e.g., "news_search"
     public static String mediaTypePrefix = null; // e.g., "news"
 
-    static {
-        // 读取配置
-        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        AppContext.initAppCtx(path);
-    }
 
+
+    /**
+     * 初始化，加载配置
+     *
+     * @param crawlerName 爬虫名称，用处自定
+     * @param mediaType   媒体类型: 1->NewsSearch, 2->NewsMonitor
+     */
     public Crawler(String crawlerName, int mediaType) {
         if (mediaType == 0) {
             LOGGER.error("未定义爬虫媒体类型");
@@ -58,7 +60,7 @@ public class Crawler {
 
         //
         while (true) {
-            // 先用同步阻塞方式处理
+
             //  getTask()
             HtmlInfo task = Systemconfig.scheduler.getTask();
             if (task.getOrignUrl() == null) {
@@ -78,23 +80,31 @@ public class Crawler {
 
             submitOrSave(task, listData, nextUrl);
 
+            // sleep {} seconds.
+            try {
+                Thread.sleep(1000 * 1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
 
     }
 
     /**
      * 如果当前任务类型是列表页，则将后续链接生成任务提交；如果是详情页，则保存数据
-     * @param task 当前任务
+     *
+     * @param task     当前任务
      * @param listData 如果是列表页，则为解析所得meta数据，如果是详情页，则数据存储为list的首个元素
-     * @param nextUrl 解析所得后续url
+     * @param nextUrl  解析所得后续url
      */
     private void submitOrSave(HtmlInfo task, List listData, String nextUrl) {
-        if(task.getCrawlerType().equalsIgnoreCase("meta")){
-            if(nextUrl!=null){
+        if (task.getCrawlerType().equalsIgnoreCase("meta")) {
+            if (nextUrl != null) {
                 task.setOrignUrl(nextUrl);
                 Systemconfig.scheduler.submitTask(task);
             }
-            for(Object obj: listData){
+            for (Object obj : listData) {
                 CommonData data = (CommonData) obj;
                 HtmlInfo followTask = new HtmlInfo();
                 followTask.setOrignUrl(data.getUrl());
@@ -106,7 +116,7 @@ public class Crawler {
 
                 Systemconfig.scheduler.submitTask(followTask);
             }
-        }else{
+        } else {
             try {
                 Systemconfig.dbService.saveData(listData.get(0));
             } catch (IOException e) {
