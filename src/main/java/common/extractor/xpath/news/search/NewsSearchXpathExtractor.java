@@ -38,9 +38,11 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 		// 标题需要处理
 		// 搜索词里面带有特殊符号的情况
 		boolean spe = false;
-		if (data.getSearchKey().indexOf("_") > -1 || data.getSearchKey().indexOf("-") > -1) {
-			spe = true;
-			title = title.replace(data.getSearchKey(), "{temp}");
+		if(data.getSearchKey()!= null) {
+			if (data.getSearchKey().indexOf("_") > -1 || data.getSearchKey().indexOf("-") > -1) {
+				spe = true;
+				title = title.replace(data.getSearchKey(), "{temp}");
+			}
 		}
 		// 其他情况
 		if (title.indexOf("_") > -1) {

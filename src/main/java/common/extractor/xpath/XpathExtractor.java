@@ -33,6 +33,27 @@ import common.utils.StringUtil;
 public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(XpathExtractor.class);
 
+
+	public String extract(HtmlInfo task, List<T> listData){
+		String nextUrl = null;
+		try {
+			if (task.getCrawlerType().equalsIgnoreCase("meta")) {
+				nextUrl = templateListPage(listData, task, 1);
+				return nextUrl;
+			} else {
+				T data = (T) task.getData();
+
+				templateContentPage(data, task);
+				listData.add(data);
+			}
+
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	/**
 	 * 供测试
 	 * 
@@ -292,7 +313,6 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
 	 * 
 	 * @param domtree
 	 * @param component
-	 * @param strings
 	 * @return
 	 */
 	public String parseNext(Node domtree, Component component, String... args) {

@@ -135,7 +135,7 @@ public class SokuVideoSearchXpathExtractor extends VideoSearchXpathExtractor imp
 			String updownUrl = "http://v.youku.com/action/getVideoPlayInfo?beta&"
 					+ "timestamp=<timestamp>&"
 					+ "vid=<vid>&"
-					+ "showid=<showid>&param%5B%5D=share&param%5B%5D=favo&param%5B%5D=download&param%5B%5D=phonewatch&param%5B%5D=updown&callback=tuijsonp2";
+					+ "showid=<showid>&param%5B%5D=share&param%5B%5D=favo&param%5B%5D=downloader&param%5B%5D=phonewatch&param%5B%5D=updown&callback=tuijsonp2";
 			String realUpdownUrl = updownUrl.replace("<timestamp>", timestamp+"").
 					replace("<vid>", vid).replace("<showid>", showid);
 			content = this.getHtmlContent(realUpdownUrl,null);

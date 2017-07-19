@@ -36,6 +36,16 @@ public class HtmlInfo implements Serializable{
 	private SearchKey searchKey;
 	private int mediaType;// 采集的媒体类型：见crawlerType
 	private UserAttribute user;//采集账户
+	private CommonData data;
+
+
+	public CommonData getData() {
+		return data;
+	}
+
+	public void setData(CommonData data) {
+		this.data = data;
+	}
 
 	public UserAttribute getUser() {
 		return user;

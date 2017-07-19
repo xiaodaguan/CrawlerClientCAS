@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import common.extractor.xpath.XpathExtractor;
+import common.system.Systemconfig;
+import common.utils.StringUtil;
 import org.xml.sax.SAXException;
 
 import common.pojos.HtmlInfo;

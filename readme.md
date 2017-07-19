@@ -8,10 +8,11 @@
     - 由单独的进程进行，与采集系统互不影响，便于控制轮询时间
     - 每种媒体类型对应一个任务队列，命名："TASK_QUEUE_${mediaType}"
 
-- 获取任务(HtmlInfo)
+- 获取任务(HtmlInfo task)
     - 必要信息：
         - url
-        - mediaType: 媒体类型(新闻、微博等)
+        - mediaType: 媒体类型(新闻搜索、微博监控等)
+        - siteFlag: 站点标识(baidu)
         - crawlType: 采集类型(META/DATA)
         - searchKey: 记录关键词信息(categoryCode等)
         - data: meta数据
@@ -29,6 +30,9 @@ sql的每个字段，实体对应的属性都必须有值，否则无法写入�
 - 任务队列：redis-cluster[√]
 - url过滤：bloom filter redis[√]
 - CrawlerClient
+    - downloader
+    - extractor
+    - save
 - 持久层：mybatis[]
     - BaseService[√]
     - WeixinService[√]
