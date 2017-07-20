@@ -40,7 +40,7 @@ public class HtmlInfo implements Serializable{
 
 	@Override
 	public String toString(){
-		return "site[], url[], crawlerType[], mediaType[]";
+		return "site["+site+"], url["+orignUrl+"], crawlerType["+crawlerType+"], mediaType["+mediaType+"], searchkey["+searchKey+"]";
 	}
 
 	public CommonData getData() {

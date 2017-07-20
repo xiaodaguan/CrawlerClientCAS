@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,7 +45,10 @@ public class ExtractorTest {
         CommonData data = new NewsData();
         data.setTitle("关晓炟");
         data.setUrl("http://guanxiaoda.cn");
+        data.setPubdate(new Date());
+
         task.setData(data);
+
 
         List listData = DataHelper.createDataList(1);
 

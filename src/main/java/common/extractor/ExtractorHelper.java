@@ -9,16 +9,16 @@ import common.utils.StringUtil;
  * Created by guanxiaoda on 2017/7/18.
  */
 public class ExtractorHelper {
-    public static XpathExtractor createExtractor(HtmlInfo task, String mediaTypeFull, String mediaTypePrefix){
-        XpathExtractor extractor =null;
+    public static XpathExtractor createExtractor(HtmlInfo task, String mediaTypeFull, String mediaTypePrefix) {
+        XpathExtractor extractor = null;
 
-                String siteFlag = task.getSite();//e.g., "baidu"
-        String extractorFlag = siteFlag+"_"+mediaTypeFull;
+        String siteFlag = task.getSite();//e.g., "baidu_news_search"
+        String extractorFlag = siteFlag;
         String extractorPath = Systemconfig.siteExtractClass.get(extractorFlag);
-        if(extractorPath == null)
-            extractorPath = "common.extractor.xpath."+mediaTypeFull.replace("_",".")+"."+ StringUtil.upperFirstLetter(mediaTypePrefix)+ (Systemconfig.crawlerType%2==1?"Search":"Monitor")+"XpathExtractor";
+        if (extractorPath == null)
+            extractorPath = "common.extractor.xpath." + mediaTypeFull.toLowerCase().replace("_", ".") + "." + StringUtil.upperFirstLetter(mediaTypePrefix.toLowerCase()) + (Systemconfig.crawlerType % 2 == 1 ? "Search" : "Monitor") + "XpathExtractor";
         else
-            extractorPath = extractorPath.replace("/",".");
+            extractorPath = extractorPath.replace("/", ".");
         try {
             extractor = (XpathExtractor) Class.forName(extractorPath).newInstance();
 

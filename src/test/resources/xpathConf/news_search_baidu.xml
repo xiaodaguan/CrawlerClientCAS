@@ -4,11 +4,12 @@
     <prop name="siteName" value="baidu_news_search" />
     <prop name="siteFlag" value="1" />
     <prop name="charset" value="utf-8" />
+    <prop name="agent" value="true" />
     <!-- run -->
 
     <prop name="downInterval" value="15" />
     <prop name="page" value="6" />
-    <prop name="threadNum" value="2" />
+    <prop name="threadNum" value="1" />
 
     <!-- test -->
     <!--
@@ -16,8 +17,8 @@
     <prop name="page" value="2" />
     <prop name="threadNum" value="1" />
      -->
-    <!-- <prop name="accessUrl" value="http://news.baidu.com/ns?ie=utf-8&amp;sr=0&amp;cl=2&amp;rn=20&amp;tn=news&amp;ct=0&amp;clk=sortbyrel&amp;word=&lt;keyword&gt;" />-->
-    <prop name="accessUrl" value="http://news.baidu.com/ns?word=&lt;keyword&gt;&amp;ie=utf-8&amp;sr=0&amp;cl=2&amp;rn=20&amp;tn=news&amp;ct=1&amp;clk=sortbyrel" />
+    <!-- <prop name="accessUrl" value="http://news.baidu.com/ns?amp;sr=0&amp;cl=2&amp;rn=50&amp;clk=sortbyrel&amp;word=&lt;keyword&gt;" />-->
+    <prop name="accessUrl" value="http://news.baidu.com/ns?word=&lt;keyword&gt;&amp;cl=2&amp;rn=50&amp;clk=sortbyrel" />
     <!-- 列表页 -->
     <prop name="title" value="//DIV[@class='result']/H3[contains(@class,'title')]/A" />
     <prop name="url" value="//DIV[@class='result']/H3[contains(@class,'title')]/A/@href" />

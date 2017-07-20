@@ -57,36 +57,40 @@ public class Crawler {
 
     public void start() {
 
+        try {
 
-        //
-        while (true) {
+            //
+            while (true) {
 
-            //  getTask()
-            HtmlInfo task = Systemconfig.scheduler.getTask();
-            if (task.getOrignUrl() == null) {
-                continue;
+                //  getTask()
+                HtmlInfo task = Systemconfig.scheduler.getTask();
+                if (task.getOrignUrl() == null) {
+                    continue;
+                }
+                //  downloader()
+                DefaultDownloader downloader = new DefaultDownloader(task);
+                downloader.download();
+
+                //  parse()
+
+                List listData = DataHelper.createDataList(Systemconfig.crawlerType);
+
+                XpathExtractor extractor = ExtractorHelper.createExtractor(task, mediaTypeFull, mediaTypePrefix);
+                String nextUrl = extractor.extract(task, listData);
+                //  save()/submitTasks()
+
+                submitOrSave(task, listData, nextUrl);
+
+                // sleep {} seconds.
+                try {
+                    Thread.sleep(1000 * 3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
-            //  downloader()
-            DefaultDownloader downloader = new DefaultDownloader(task);
-            downloader.download();
-
-            //  parse()
-
-            List listData = DataHelper.createDataList(Systemconfig.crawlerType);
-
-            XpathExtractor extractor = ExtractorHelper.createExtractor(task, mediaTypeFull, mediaTypePrefix);
-            String nextUrl = extractor.extract(task, listData);
-            //  save()/submitTasks()
-
-            submitOrSave(task, listData, nextUrl);
-
-            // sleep {} seconds.
-            try {
-                Thread.sleep(1000 * 1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
+        }catch(Exception e){
+            e.printStackTrace();
         }
 
     }

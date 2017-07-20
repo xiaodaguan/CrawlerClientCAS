@@ -16,6 +16,7 @@
         - crawlType: 采集类型(META/DATA)
         - searchKey: 记录关键词信息(categoryCode等)
         - data: meta数据
+        - encode: 目标页面编码
 
 #### mybatis注意事项
 

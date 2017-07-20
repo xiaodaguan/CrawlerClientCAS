@@ -27,322 +27,324 @@ import common.utils.StringUtil;
 
 /**
  * Xpath抽取类
- * 
+ *
  * @author grs
  */
 public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
-	private static final Logger LOGGER = LoggerFactory.getLogger(XpathExtractor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XpathExtractor.class);
 
 
-	public String extract(HtmlInfo task, List<T> listData){
-		String nextUrl = null;
-		try {
-			if (task.getCrawlerType().equalsIgnoreCase("meta")) {
-				nextUrl = templateListPage(listData, task, 1);
-				return nextUrl;
-			} else {
-				T data = (T) task.getData();
+    public String extract(HtmlInfo task, List<T> listData) {
+        String nextUrl = null;
+        try {
+            if (task.getCrawlerType().equalsIgnoreCase("meta")) {
+                nextUrl = templateListPage(listData, task, 1, task.getSearchKey().getKEYWORD(), nextUrl);
+                return nextUrl;
+            } else {
+                T data = (T) task.getData();
 
-				templateContentPage(data, task);
-				listData.add(data);
-			}
+                templateContentPage(data, task);
+                listData.add(data);
+            }
 
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	/**
-	 * 供测试
-	 * 
-	 * @param ebd
-	 * @param dom
-	 * @param component
-	 * @param args
-	 */
-	public String testPageParse(CommonData ebd, Node dom, Component component, String... args) {
-		NodeList nl = commonList(component.getXpath(), dom);
-		String params = "";
-		if (nl != null) {
-			for (int i = 0; i < nl.getLength(); i++) {
-				params += nl.item(i).getTextContent() + "\r\n";
-			}
-		}
-		params = StringUtil.format(params);
-		// LOGGER.info("result:");
-		return params;
-	}
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-	public String testListParse(List<CommonData> list, Node dom, Component component, String... args) {
-		if (component == null)
-			return null;
-		NodeList nl = commonList(component.getXpath(), dom);
-		if (nl == null)
-			return null;
-		String params = "";
-		for (int i = 0; i < nl.getLength(); i++) {
-			// System.out.print("[" + i + "]:");
-			LOGGER.info(StringUtil.format(nl.item(i).getTextContent()));
-			params += StringUtil.format(nl.item(i).getTextContent()) + "\r\n";
-		}
-		return params;
+    /**
+     * 供测试
+     *
+     * @param ebd
+     * @param dom
+     * @param component
+     * @param args
+     */
+    public String testPageParse(CommonData ebd, Node dom, Component component, String... args) {
+        NodeList nl = commonList(component.getXpath(), dom);
+        String params = "";
+        if (nl != null) {
+            for (int i = 0; i < nl.getLength(); i++) {
+                params += nl.item(i).getTextContent() + "\r\n";
+            }
+        }
+        params = StringUtil.format(params);
+        // LOGGER.info("result:");
+        return params;
+    }
 
-	}
+    public String testListParse(List<CommonData> list, Node dom, Component component, String... args) {
+        if (component == null)
+            return null;
+        NodeList nl = commonList(component.getXpath(), dom);
+        if (nl == null)
+            return null;
+        String params = "";
+        for (int i = 0; i < nl.getLength(); i++) {
+            // System.out.print("[" + i + "]:");
+            LOGGER.info(StringUtil.format(nl.item(i).getTextContent()));
+            params += StringUtil.format(nl.item(i).getTextContent()) + "\r\n";
+        }
+        return params;
 
-	/**
-	 * 检测属性列表数量一致性
-	 * 
-	 * @param len1
-	 * @param len2
-	 * @param s
-	 * @param first
-	 */
-	protected void judge(int len1, int len2, String s, boolean first) {
-		if (first)
-			return;
-		if (len1 != len2) {
-			LOGGER.error("抽取" + s + "属性数量不一致:" + len1 + ":" + len2);
-		}
-	}
+    }
 
-	protected void judge(int len1, int len2, String s) {
-		judge(len1, len2, s, false);
-	}
+    /**
+     * 检测属性列表数量一致性
+     *
+     * @param len1
+     * @param len2
+     * @param s
+     * @param first
+     */
+    protected void judge(int len1, int len2, String s, boolean first) {
+        if (first)
+            return;
+        if (len1 != len2) {
+            LOGGER.error("抽取" + s + "属性数量不一致:" + len1 + ":" + len2);
+        }
+    }
 
-	protected void judge(int len1, int len2) {
-		judge(len1, len2, "", true);
-	}
+    protected void judge(int len1, int len2, String s) {
+        judge(len1, len2, s, false);
+    }
 
-	/**
-	 * 通用的xpath抽取方法
-	 * 
-	 * @param xpath
-	 * @param domtree
-	 * @return
-	 */
-	protected NodeList commonList(String xpath, Node domtree) {
-		if (xpath == null || xpath.equals("") || xpath.startsWith("${"))
-			return null;
-		NodeList list = null;
-		try {
-			list = XPathAPI.selectNodeList(domtree, xpath);
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
+    protected void judge(int len1, int len2) {
+        judge(len1, len2, "", true);
+    }
 
-	/**
-	 * 列表解析，第一个属性
-	 * 
-	 * @param xpath
-	 * @param dom
-	 * @return
-	 */
-	protected NodeList head(String xpath, Node dom) {
-		return commonList(xpath, dom);
-	}
+    /**
+     * 通用的xpath抽取方法
+     *
+     * @param xpath
+     * @param domtree
+     * @return
+     */
+    protected NodeList commonList(String xpath, Node domtree) {
+        if (xpath == null || xpath.equals("") || xpath.startsWith("${"))
+            return null;
+        NodeList list = null;
+        try {
+            list = XPathAPI.selectNodeList(domtree, xpath);
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
-	/**
-	 * 列表页属性解析，需验证属性
-	 * 
-	 * @param xpath
-	 * @param dom
-	 * @param size
-	 * @param flag
-	 * @return
-	 */
-	protected NodeList head(String xpath, Node dom, int size, String flag) {
-		NodeList nl = commonList(xpath, dom);
-		if (nl == null)
-			return null;
-		if (size > 0) {
-			if (flag == null)
-				judge(size, nl.getLength());
-			else
-				judge(size, nl.getLength(), flag);
-		}
-		return nl;
-	}
+    /**
+     * 列表解析，第一个属性
+     *
+     * @param xpath
+     * @param dom
+     * @return
+     */
+    protected NodeList head(String xpath, Node dom) {
+        return commonList(xpath, dom);
+    }
 
-	/**
-	 * Url类型的抽取处理
-	 * 
-	 * @param component
-	 * @param nl
-	 * @return
-	 */
-	protected String urlProcess(Component component, Node nl) {
-		String url = nl.getTextContent();
-		if (!url.startsWith("http")) {
-			if (component.getPrefix() != null && !component.getPrefix().startsWith("${"))
-				url = component.getPrefix() + url;
-		}
-		if (component.getPostfix() != null && !component.getPostfix().startsWith("${"))
-			url = url + component.getPostfix();
+    /**
+     * 列表页属性解析，需验证属性
+     *
+     * @param xpath
+     * @param dom
+     * @param size
+     * @param flag
+     * @return
+     */
+    protected NodeList head(String xpath, Node dom, int size, String flag) {
+        NodeList nl = commonList(xpath, dom);
+        if (nl == null)
+            return null;
+        if (size > 0) {
+            if (flag == null)
+                judge(size, nl.getLength());
+            else
+                judge(size, nl.getLength(), flag);
+        }
+        return nl;
+    }
 
-		return url;
-	}
+    /**
+     * Url类型的抽取处理
+     *
+     * @param component
+     * @param nl
+     * @return
+     */
+    protected String urlProcess(Component component, Node nl) {
+        String url = nl.getTextContent();
+        if (!url.startsWith("http")) {
+            if (component.getPrefix() != null && !component.getPrefix().startsWith("${"))
+                url = component.getPrefix() + url;
+        }
+        if (component.getPostfix() != null && !component.getPostfix().startsWith("${"))
+            url = url + component.getPostfix();
 
-	protected DOMUtil domUtil = new DOMUtil();
+        return url;
+    }
 
-	/**
-	 * 获得真实内容
-	 * @return
-	 * @throws IOException 
-	 * @throws SAXException 
-	 */
-	protected Node getRealDOM(HtmlInfo html) throws SAXException, IOException {
-		return domUtil.ini(html.getContent(), html.getEncode());
-	}
+    protected DOMUtil domUtil = new DOMUtil();
 
-	/**
-	 * 获得真实组件信息
-	 * 
-	 * @param mode
-	 * @param siteinfo
-	 * @return
-	 */
-	protected CommonComponent getRealComp(Siteinfo siteinfo, String mode) {
-		return siteinfo.getCommonComponent().get(mode);
-	}
+    /**
+     * 获得真实内容
+     *
+     * @return
+     * @throws IOException
+     * @throws SAXException
+     */
+    protected Node getRealDOM(HtmlInfo html) throws SAXException, IOException {
+        return domUtil.ini(html.getContent(), html.getEncode());
+    }
 
-	@Override
-	public String templateContentPage(T data, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
-		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
-		Node domtree = getRealDOM(html);
-		// String domcontent = domtree.getTextContent();
-		// LOGGER.info(domcontent);
-		if (domtree == null) {
-			LOGGER.info("DOM解析为NULL！！");
-			return null;
-		}
-		CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType()
-				.substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
-		processPage(data, domtree, comp.getComponents(), html.getContent());
+    /**
+     * 获得真实组件信息
+     *
+     * @param mode
+     * @param siteinfo
+     * @return
+     */
+    protected CommonComponent getRealComp(Siteinfo siteinfo, String mode) {
+        return siteinfo.getCommonComponent().get(mode);
+    }
 
-		return parsePageNext(domtree, comp.getComponents().get("page_next"));
-	}
+    @Override
+    public String templateContentPage(T data, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+        Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
+        Node domtree = getRealDOM(html);
+        // String domcontent = domtree.getTextContent();
+        // LOGGER.info(domcontent);
+        if (domtree == null) {
+            LOGGER.info("DOM解析为NULL！！");
+            return null;
+        }
+        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType()
+                .substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
+        processPage(data, domtree, comp.getComponents(), html.getContent());
 
-	/**
-	 * 内容页属性抽取
-	 * 
-	 * @param data
-	 * @param domtree
-	 * @param map
-	 * @param args
-	 */
-	public abstract void processPage(T data, Node domtree, Map<String, Component> map, String... args);
+        return parsePageNext(domtree, comp.getComponents().get("page_next"));
+    }
 
-	/**
-	 * 解析内容页的下一页
-	 * 
-	 * @param domtree
-	 * @param component
-	 * @return
-	 */
-	public String parsePageNext(Node domtree, Component component, String... args) {
-		if (component == null)
-			return null;
-		NodeList nl = commonList(component.getXpath(), domtree);
-		if (nl == null)
-			return null;
-		if (nl.item(0) != null) {
-			return urlProcess(component, nl.item(0));
-		}
-		return null;
-	}
+    /**
+     * 内容页属性抽取
+     *
+     * @param data
+     * @param domtree
+     * @param map
+     * @param args
+     */
+    public abstract void processPage(T data, Node domtree, Map<String, Component> map, String... args);
 
-	@Override
-	public String templateContentPage(T data, HtmlInfo html, String... keyword) throws SAXException, IOException {
-		return templateContentPage(data, html, 1, keyword);
-	}
+    /**
+     * 解析内容页的下一页
+     *
+     * @param domtree
+     * @param component
+     * @return
+     */
+    public String parsePageNext(Node domtree, Component component, String... args) {
+        if (component == null)
+            return null;
+        NodeList nl = commonList(component.getXpath(), domtree);
+        if (nl == null)
+            return null;
+        if (nl.item(0) != null) {
+            return urlProcess(component, nl.item(0));
+        }
+        return null;
+    }
 
-	@Override
-	public String templateListPage(List<T> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
-		list.clear();
-		/**
-		 * keyword
-		 * 0: search_keyword
-		 * 1: search_url(list)
-		 * 2: ...
-		 * 3: cookies
-		 */
-		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
-		Node domtree = getRealDOM(html);
-		if (domtree == null) {
-			LOGGER.info("DOM解析为NULL！！");
-			return null;
-		}
-		CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType()
-				.substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
-		processList(list, domtree, comp.getComponents(),
-				args(html.getContent(), String.valueOf(siteinfo.getSiteFlag()), keyword));
-		if (list.size() == 0)
-			return null;
-		attrSet(list, siteinfo.getSiteFlag(), html.getSearchKey().getKEYWORD(), html.getSearchKey().getCATEGORY_CODE());
-		return parseNext(domtree, comp.getComponents().get("next"), new String[] { keyword[1], page + "" });
-	}
+    @Override
+    public String templateContentPage(T data, HtmlInfo html, String... keyword) throws SAXException, IOException {
+        return templateContentPage(data, html, 1, keyword);
+    }
 
-	protected void attrSet(List<T> list, int siteflag, String key, int code) {
-		for (T t : list) {
-			CommonData cd = (CommonData) t;
-			cd.setSearchKey(key);
-			cd.setCategoryCode(code);
-			cd.setMd5(MD5Util.MD5(cd.getUrl()));
-			cd.setSiteId(siteflag);
-		}
-	}
+    @Override
+    public String templateListPage(List<T> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+        list.clear();
+        /**
+         * keyword
+         * 0: search_keyword
+         * 1: search_url(list)
+         * 2: ...
+         * 3: cookies
+         */
+        Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
+        Node domtree = getRealDOM(html);
+        if (domtree == null) {
+            LOGGER.info("DOM解析为NULL！！");
+            return null;
+        }
+        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType());// 得到元数据的配置组件
+//        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType()
+//                .substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
+        processList(list, domtree, comp.getComponents(),
+                args(html.getContent(), String.valueOf(siteinfo.getSiteFlag()), keyword));
+        if (list.size() == 0)
+            return null;
+        attrSet(list, siteinfo.getSiteFlag(), html.getSearchKey().getKEYWORD(), html.getSearchKey().getCATEGORY_CODE());
+        return parseNext(domtree, comp.getComponents().get("next"), new String[]{keyword[1], page + ""});
+    }
 
-	/**
-	 * 列表页面属性抽取
-	 * 
-	 * @param list
-	 * @param domtree
-	 * @param components
-	 * @param args
-	 */
-	public abstract void processList(List<T> list, Node domtree, Map<String, Component> components, String... args);
+    protected void attrSet(List<T> list, int siteflag, String key, int code) {
+        for (T t : list) {
+            CommonData cd = (CommonData) t;
+            cd.setSearchKey(key);
+            cd.setCategoryCode(code);
+            cd.setMd5(MD5Util.MD5(cd.getUrl()));
+            cd.setSiteId(siteflag);
+        }
+    }
+
+    /**
+     * 列表页面属性抽取
+     *
+     * @param list
+     * @param domtree
+     * @param components
+     * @param args
+     */
+    public abstract void processList(List<T> list, Node domtree, Map<String, Component> components, String... args);
 
 
+    /**
+     * 解析列表页的下一页
+     *
+     * @param domtree
+     * @param component
+     * @return
+     */
+    public String parseNext(Node domtree, Component component, String... args) {
+        if (component == null)
+            return null;
+        NodeList nl = commonList(component.getXpath(), domtree);
+        if (nl == null)
+            return null;
+        if (nl.item(0) != null) {
+            return urlProcess(component, nl.item(0));
+        }
+        return null;
+    }
 
-	/**
-	 * 解析列表页的下一页
-	 * 
-	 * @param domtree
-	 * @param component
-	 * @return
-	 */
-	public String parseNext(Node domtree, Component component, String... args) {
-		if (component == null)
-			return null;
-		NodeList nl = commonList(component.getXpath(), domtree);
-		if (nl == null)
-			return null;
-		if (nl.item(0) != null) {
-			return urlProcess(component, nl.item(0));
-		}
-		return null;
-	}
-
-	/**
-	 * 0: content 1: siteflag ...
-	 * 
-	 * @param content
-	 * @param siteflag
-	 * @param keyword
-	 * @return
-	 */
-	private String[] args(String content, String siteflag, String... keyword) {
-		String arr[] = new String[keyword.length + 1];
-		arr[0] = content;
-		arr[1] = siteflag;
-		for (int i = 2; i < keyword.length; i++) {
-			arr[i] = keyword[i - 2];
-		}
-		return arr;
-	}
+    /**
+     * 0: content 1: siteflag ...
+     *
+     * @param content
+     * @param siteflag
+     * @param keyword
+     * @return
+     */
+    private String[] args(String content, String siteflag, String... keyword) {
+        String arr[] = new String[keyword.length + 1];
+        arr[0] = content;
+        arr[1] = siteflag;
+        for (int i = 2; i < keyword.length; i++) {
+            arr[i] = keyword[i - 2];
+        }
+        return arr;
+    }
 
 }

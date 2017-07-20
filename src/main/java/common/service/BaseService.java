@@ -51,6 +51,7 @@ public abstract class BaseService<T> implements DBService<T> {
                     if(field.getType() == String.class){
                         field.set(data,"NULL");
                     }
+
                 }else{
                 }
 

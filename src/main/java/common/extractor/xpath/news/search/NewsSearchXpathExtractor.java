@@ -32,7 +32,7 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 			result = Systemconfig.htmlAutoExtractor.extract(html.getContent(), html.getEncode(), data.getUrl());
 		} catch (Exception e) {
 			LOGGER.info("出错url：" + html.getOrignUrl());
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		String title = data.getTitle() == null ? result.getTitle() : data.getTitle();
 		// 标题需要处理
@@ -124,7 +124,6 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	 * @param list
 	 * @param dom
 	 * @param component
-	 * @param strings
 	 */
 	@Override
 	public void parseBrief(List<NewsData> list, Node dom, Component component, String... args) {
@@ -164,7 +163,6 @@ public class NewsSearchXpathExtractor extends XpathExtractor<NewsData> implement
 	 * @param list
 	 * @param dom
 	 * @param component
-	 * @param strings
 	 */
 	@Override
 	public void parsePubtime(List<NewsData> list, Node dom, Component component, String... args) {
