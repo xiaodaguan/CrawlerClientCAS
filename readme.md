@@ -165,6 +165,10 @@ sql的每个字段，实体对应的属性都必须有值，否则无法写入�
 - 数据保存：参考4.4部分
 如需切换到mysql数据库，只需要修改config.properties中数据库连接字段
 
+#### xpath配置管理
+目前是从resource/xpaConf/*.xml读取xpath配置
+如果需要用zookeeper管理可以自行实现，感觉必要性不大
+
 #### 初始化bloomfilter耗时太长，修改方案：
 
 - 初始化功能从爬虫客户端分离出来，独立进行
