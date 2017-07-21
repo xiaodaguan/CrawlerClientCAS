@@ -3,7 +3,7 @@
 
 # readme
 
-## 0 feture
+## 0 feature
 
 - 分布式
 - 断点爬取
