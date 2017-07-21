@@ -2,7 +2,7 @@ package common.extractor.xpath.client.search;
 
 
 import common.pojos.ClientData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.ReplyData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -79,8 +79,8 @@ public class ClientSearchXpathExtractor extends XpathExtractor<ClientData> imple
 	}
 	
 	@Override
-	public String templateContentPage(ClientData data, HtmlInfo html, int page,
-			String... keyword) throws SAXException, IOException {
+	public String templateContentPage(ClientData data, CrawlTask html, int page,
+                                      String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 
 		Node domtree = getRealDOM(html);

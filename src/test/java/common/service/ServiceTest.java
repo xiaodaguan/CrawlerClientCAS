@@ -1,16 +1,11 @@
 package common.service;
 
 import common.pojos.NewsData;
-import common.rmi.packet.CrawlerType;
+import common.task.CrawlerType;
 import common.system.AppContext;
 import common.system.Systemconfig;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by guanxiaoda on 2017/6/19.

@@ -1,11 +1,9 @@
 package common.service;
 
-import common.rmi.packet.SearchKey;
-import common.system.UserAttribute;
+import common.task.SearchKey;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * mysql数据库操作
@@ -21,9 +19,9 @@ public interface DBService<T> {
      * @param list
      * @throws IOException
      */
-    public void saveDatas(List<T> list) throws IOException;
+    public void saveDatas(List<T> list) throws IOException, Exception;
 
-    public int saveData(T t) throws IOException;
+    public int saveData(T t) throws IOException, Exception;
 
     /**
      * 获得表中的md5

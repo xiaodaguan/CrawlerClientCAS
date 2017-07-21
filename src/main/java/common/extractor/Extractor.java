@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.xml.sax.SAXException;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 
 public interface Extractor<T> {
 
@@ -21,7 +21,7 @@ public interface Extractor<T> {
 	 * @throws IOException 
 	 * @throws SAXException 
 	 */
-	public String templateListPage(List<T> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException;
+	public String templateListPage(List<T> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException;
 	
 	/**
 	 * 内容页解析
@@ -33,8 +33,8 @@ public interface Extractor<T> {
 	 * @throws IOException 
 	 * @throws SAXException 
 	 */
-	public String templateContentPage(T data, HtmlInfo html, int page, String... keyword) throws SAXException, IOException;
+	public String templateContentPage(T data, CrawlTask html, int page, String... keyword) throws SAXException, IOException;
 	
-	public String templateContentPage(T data, HtmlInfo html, String... keyword) throws SAXException, IOException;
+	public String templateContentPage(T data, CrawlTask html, String... keyword) throws SAXException, IOException;
 
 }

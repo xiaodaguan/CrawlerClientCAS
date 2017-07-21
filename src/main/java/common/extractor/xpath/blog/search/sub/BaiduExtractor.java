@@ -14,7 +14,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import common.pojos.BlogData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -26,7 +26,7 @@ public class BaiduExtractor extends BlogSearchXpathExtractor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BaiduExtractor.class);
 
 	@Override
-	public String templateListPage(List<BlogData> list, HtmlInfo html, int page, String... keyword)
+	public String templateListPage(List<BlogData> list, CrawlTask html, int page, String... keyword)
 			throws SAXException, IOException {
 		list.clear();
 		/**

@@ -3,10 +3,8 @@ package common.extractor;
 import common.extractor.xpath.XpathExtractor;
 import common.pojos.CommonData;
 import common.pojos.DataHelper;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.NewsData;
-import common.rmi.packet.CrawlerType;
-import common.service.DBService;
 import common.system.AppContext;
 import common.system.Systemconfig;
 import org.junit.BeforeClass;
@@ -35,7 +33,7 @@ public class ExtractorTest {
 
     @Test
     public void createExtractorTest() throws IOException, SAXException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-        HtmlInfo task = new HtmlInfo();
+        CrawlTask task = new CrawlTask();
         task.setOrignUrl("http://guanxiaoda.cn");
         task.setMediaType(1);
         task.setSite("baidu");

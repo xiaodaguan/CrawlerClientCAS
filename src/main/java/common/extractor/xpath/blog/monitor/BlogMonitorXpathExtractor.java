@@ -7,7 +7,7 @@ import java.util.Map;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.BlogData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.Component;
@@ -134,7 +134,7 @@ public class BlogMonitorXpathExtractor extends XpathExtractor<BlogData> implemen
 	}
 
 	@Override
-	public String templateContentPage(BlogData data, HtmlInfo html, int page, String... keyword) {
+	public String templateContentPage(BlogData data, CrawlTask html, int page, String... keyword) {
 		ExtractResult result = null;
 		try {
 			result = Systemconfig.htmlAutoExtractor.extract(html.getContent(), html.getEncode(), data.getUrl());

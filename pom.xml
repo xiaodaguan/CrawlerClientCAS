@@ -24,7 +24,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>common.CrawlerStart</mainClass>
+                            <mainClass>common.Crawler</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

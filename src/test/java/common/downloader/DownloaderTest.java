@@ -1,6 +1,6 @@
 package common.downloader;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import org.junit.Test;
 
 /**
@@ -12,7 +12,7 @@ public class DownloaderTest {
 
     @Test
     public void DownTest(){
-        HtmlInfo task = new HtmlInfo();
+        CrawlTask task = new CrawlTask();
         task.setOrignUrl("http://guanxiaoda.cn");
         task.setRetryTimes(3);
         DefaultDownloader downloader = new DefaultDownloader(task);

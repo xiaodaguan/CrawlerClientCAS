@@ -12,7 +12,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import common.pojos.GovAffairData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -30,7 +30,7 @@ public class GovAffairSearchXpathExtractor extends XpathExtractor<GovAffairData>
 	private static final Logger LOGGER = LoggerFactory.getLogger(GovAffairSearchXpathExtractor.class);
 
 	@Override // templateContentPage
-	public String templateContentPage(GovAffairData data, HtmlInfo html, int page, String... keyword) {
+	public String templateContentPage(GovAffairData data, CrawlTask html, int page, String... keyword) {
 
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		// create(content);

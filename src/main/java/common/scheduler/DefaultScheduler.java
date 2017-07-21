@@ -1,6 +1,6 @@
 package common.scheduler;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.system.Systemconfig;
 import common.utils.SerializeUtil;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * Created by guanxiaoda on 2017/6/28.
  */
-public class DefaultScheduler implements Scheduler<HtmlInfo> {
+public class DefaultScheduler implements Scheduler<CrawlTask> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultScheduler.class);
 
@@ -41,24 +41,25 @@ public class DefaultScheduler implements Scheduler<HtmlInfo> {
     }
 
     @Override
-    public HtmlInfo getTask() {
+    public CrawlTask getTask() {
         LOGGER.info("getting task...");
         List<String> taskStr = jedis.brpop(0, TASK_QUEUE);
 
         if (taskStr == null) {
             return null;
         } else {
-            HtmlInfo task = SerializeUtil.getObjectFromString(taskStr.get(1), HtmlInfo.class);
-            LOGGER.info("got task: {}" , task);
+            CrawlTask task = SerializeUtil.getObjectFromString(taskStr.get(1), CrawlTask.class);
+            LOGGER.info("getting task...[ok]. -> {}" , task);
             return task;
         }
     }
 
 
     @Override
-    public Long submitTask(HtmlInfo task) {
+    public Long submitTask(CrawlTask task) {
         LOGGER.info("submitting task...");
         Long leftCount = jedis.lpush(TASK_QUEUE, SerializeUtil.object2String(task));
+        LOGGER.info("submitting task...[ok].[{}]", task.getOrignUrl());
         jedis.incr(TASK_QUEUE_TOTAL_COUNT);
         return leftCount;
 
@@ -66,7 +67,8 @@ public class DefaultScheduler implements Scheduler<HtmlInfo> {
 
     @Override
     public Long getLeftTaskCount() {
-        return jedis.llen(TASK_QUEUE);
+        Long result = jedis.llen(TASK_QUEUE);
+        return result;
     }
 
     @Override
@@ -76,6 +78,9 @@ public class DefaultScheduler implements Scheduler<HtmlInfo> {
 
     @Override
     public void removeAllTask() {
+        LOGGER.info("removing all task...");
         jedis.del(TASK_QUEUE);
+        jedis.del(TASK_QUEUE_TOTAL_COUNT);
+        LOGGER.info("removing all task...[ok].");
     }
 }

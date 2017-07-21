@@ -8,14 +8,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import common.pojos.AgricaltureData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorExtractorAttribute;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorXpathExtractor;
 import common.siteinfo.Component;
 import common.utils.StringUtil;
 
 public class CncymsExtractor extends AgricaltureMonitorXpathExtractor implements AgricaltureMonitorExtractorAttribute {
-	@Override public String parseNext(Node domtree, Component component, HtmlInfo html, String... args) throws TransformerException {
+	@Override public String parseNext(Node domtree, Component component, CrawlTask html, String... args) throws TransformerException {
 		String currPage = args[1];
 		int curr = Integer.parseInt(currPage);
 

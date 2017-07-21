@@ -11,7 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.VideoData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -76,7 +76,7 @@ public class VideoMonitorXpathExtractor extends XpathExtractor<VideoData> implem
 	}
 	
 	@Override
-	public String templateListPage(List<VideoData> list, HtmlInfo html,
+	public String templateListPage(List<VideoData> list, CrawlTask html,
 			int page, String... keyword) throws SAXException, IOException {
 		list.clear();
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
@@ -103,8 +103,8 @@ public class VideoMonitorXpathExtractor extends XpathExtractor<VideoData> implem
 		return nextPage;
 	}
 	@Override
-	public String templateContentPage(VideoData cd, HtmlInfo html, int page,
-			String... keyword) {
+	public String templateContentPage(VideoData cd, CrawlTask html, int page,
+                                      String... keyword) {
 		return null;
 	}
 	@Override

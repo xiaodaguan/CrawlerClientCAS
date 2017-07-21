@@ -15,7 +15,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import common.pojos.ClientData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.ReplyData;
 import common.extractor.xpath.client.search.ClientSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -59,8 +59,8 @@ public class ZakerExtractor extends ClientSearchXpathExtractor {
 	
 	
 	@Override
-	public String templateContentPage(ClientData data, HtmlInfo html, int page,
-			String... keyword) throws SAXException, IOException {
+	public String templateContentPage(ClientData data, CrawlTask html, int page,
+                                      String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 
 		Node domtree = getRealDOM(html);

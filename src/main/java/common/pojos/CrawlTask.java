@@ -1,6 +1,6 @@
 package common.pojos;
 
-import common.rmi.packet.SearchKey;
+import common.task.SearchKey;
 import common.system.UserAttribute;
 
 import java.io.Serializable;
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author grs
  *
  */
-public class HtmlInfo implements Serializable{
+public class CrawlTask implements Serializable{
 
 	private String site;// web站点
 	private String orignUrl;// 采集源链接——最终链接部分可能会不同

@@ -1,6 +1,6 @@
 package common.extractor.xpath.weibo.search.sub;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.WeiboData;
 import common.extractor.xpath.weibo.search.WeiboSearchXpathExtractor;
 import common.siteinfo.Component;
@@ -20,7 +20,7 @@ public class SinaExtractor extends WeiboSearchXpathExtractor {
     private static final Logger LOGGER = LoggerFactory.getLogger(SinaExtractor.class);
 
     @Override
-    protected Node getRealDOM(HtmlInfo html) throws SAXException, IOException {
+    protected Node getRealDOM(CrawlTask html) throws SAXException, IOException {
         String content = html.getContent();
         if (content == null) return null;
 

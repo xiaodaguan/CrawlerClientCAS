@@ -1,7 +1,6 @@
 package common.service;
 
-import common.pojos.NewsData;
-import common.rmi.packet.SearchKey;
+import common.task.SearchKey;
 import common.mapper.BaseMapper;
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
@@ -26,12 +25,12 @@ public abstract class BaseService<T> implements DBService<T> {
     }
 
     @Override
-    public void saveDatas(List<T> list){
+    public void saveDatas(List<T> list) throws Exception {
 
     }
 
     @Override
-    public abstract int saveData(T data);
+    public abstract int saveData(T data) throws Exception;
 
     @Override
     public void checkData(T data) {

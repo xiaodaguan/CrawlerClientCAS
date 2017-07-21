@@ -1,7 +1,7 @@
 package common.extractor;
 
 import common.extractor.xpath.XpathExtractor;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.system.Systemconfig;
 import common.utils.StringUtil;
 
@@ -9,7 +9,7 @@ import common.utils.StringUtil;
  * Created by guanxiaoda on 2017/7/18.
  */
 public class ExtractorHelper {
-    public static XpathExtractor createExtractor(HtmlInfo task, String mediaTypeFull, String mediaTypePrefix) {
+    public static XpathExtractor createExtractor(CrawlTask task, String mediaTypeFull, String mediaTypePrefix) {
         XpathExtractor extractor = null;
 
         String siteFlag = task.getSite();//e.g., "baidu_news_search"

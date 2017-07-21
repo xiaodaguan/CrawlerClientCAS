@@ -1,7 +1,7 @@
 package common.extractor.xpath.academic.search;
 
 import common.pojos.AgricaltureData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -29,7 +29,7 @@ public class AcademicSearchXpathExtractor extends XpathExtractor<AgricaltureData
 	private static final Logger LOGGER = LoggerFactory.getLogger(AcademicSearchXpathExtractor.class);
 
 	@Override
-	public String templateListPage(List<AgricaltureData> list, HtmlInfo html,
+	public String templateListPage(List<AgricaltureData> list, CrawlTask html,
 			int page, String... keyword) throws SAXException, IOException {
 		list.clear();
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
@@ -102,8 +102,8 @@ public class AcademicSearchXpathExtractor extends XpathExtractor<AgricaltureData
 	}
 	
 	@Override
-	public String templateContentPage(AgricaltureData data, HtmlInfo html, int page,
-			String... keyword) {
+	public String templateContentPage(AgricaltureData data, CrawlTask html, int page,
+                                      String... keyword) {
 		return null;
 	}
 	@Override

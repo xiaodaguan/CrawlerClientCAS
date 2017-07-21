@@ -24,7 +24,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.http.NeedCookieHttpProcess;
 import common.utils.JsonUtil;
 import common.utils.StringUtil;
@@ -36,7 +36,7 @@ public class RenrenHttpProcess extends NeedCookieHttpProcess {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RenrenHttpProcess.class);
 
 	@Override
-	public void getContent(HtmlInfo html, UserAttribute userAttribute) {
+	public void getContent(CrawlTask html, UserAttribute userAttribute) {
 		if(userAttribute == null) {
 			LOGGER.info("没有可用采集登陆用户！");
 			return;
@@ -49,7 +49,7 @@ public class RenrenHttpProcess extends NeedCookieHttpProcess {
 		super.getContent(html, userAttribute);
 	}
 	@Override
-	public byte[] simpleGet(HtmlInfo html, UserAttribute user) {
+	public byte[] simpleGet(CrawlTask html, UserAttribute user) {
 		HttpClient hc = httpClient(html);
 		HttpGet get = new HttpGet(html.getOrignUrl());
 		get.addHeader("User-Agent", user==null?userAgent:user.getUserAgent());
@@ -286,7 +286,7 @@ public class RenrenHttpProcess extends NeedCookieHttpProcess {
 	
 	@Override
 	public boolean verify(UserAttribute user) throws Exception {
-		HtmlInfo html = new HtmlInfo();
+		CrawlTask html = new CrawlTask();
 		html.setOrignUrl("http://tieba.baidu.com");
 		html.setSite("baidu");
 		html.setEncode("gb2312");

@@ -14,7 +14,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import common.pojos.BbsData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -132,7 +132,7 @@ public class XcarExtractor extends BbsSearchXpathExtractor {
 	}
 
 	@Override
-	public String templateContentPage(BbsData data, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+	public String templateContentPage(BbsData data, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		// create(content);
 		Node domtree = getRealDOM(html);

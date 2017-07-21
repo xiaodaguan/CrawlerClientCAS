@@ -15,7 +15,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import common.pojos.ClientData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.ReplyData;
 import common.extractor.xpath.client.search.ClientSearchXpathExtractor;
 import common.http.SimpleHttpProcess;
@@ -84,8 +84,8 @@ public class YidianExtractor extends ClientSearchXpathExtractor {
 	}
 	
 	@Override
-	public String templateContentPage(ClientData data, HtmlInfo html, int page,
-			String... keyword) throws SAXException, IOException {
+	public String templateContentPage(ClientData data, CrawlTask html, int page,
+                                      String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		Node domtree = getRealDOM(html);
 		if(domtree ==null ){
@@ -112,7 +112,7 @@ public class YidianExtractor extends ClientSearchXpathExtractor {
 		domtree = null;
 		return null;
 	}
-	public void parseReplyList(List<ReplyData> list,HtmlInfo html) {
+	public void parseReplyList(List<ReplyData> list,CrawlTask html) {
 		String url = html.getOrignUrl();
 		String commentUrl = "http://www.yidianzixun.com/api/q/?path=contents/comments&version=999999&docid=<id>&count=1000 ";
 		commentUrl = commentUrl.replace("<id>", url.split("&id=")[1].split("&up")[0]);

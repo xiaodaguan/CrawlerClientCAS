@@ -1,6 +1,6 @@
 package common.extractor.xpath.weixin.search;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.WeixinData;
 import common.pojos.WxpublicData;
 import common.extractor.xpath.XpathExtractor;
@@ -87,7 +87,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
     }
 
     @Override
-    public String templateListPage(List<WeixinData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+    public String templateListPage(List<WeixinData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
         list.clear();
         LOGGER.info("parsing list page: " + html.getOrignUrl());
         /**
@@ -116,7 +116,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         wd.setSource("天津论坛");
         wd.setUrl("http://mp.weixin.qq.com/s?__biz=MzA3NjQwNDgwMQ==&mid=206615025&idx=3&sn=5d7138f96701fe22a7f3260ee94a68fb&3rd=MzA3MDU4NTYzMw==&scene=6#rd");
 
-        HtmlInfo html = new HtmlInfo();
+        CrawlTask html = new CrawlTask();
         html.setEncode("utf-8");
         html.setCrawlerType("DATA");
         html.setCookie("ABTEST=0|1428050026|v1; IPLOC=CN1200; SUID=2BB1E29FE518920A00000000551E506A; SUID=2BB1E29F2524920A00000000551E506A; SUV=008864049FE2B12B551E506A6FCAF436; weixinIndexVisited=1; SUIR=1428052952; SNUID=FF65364BD3D6C11DAF2665E6D40EF01C; sct=2; wapsogou_qq_nickname=");
@@ -162,7 +162,7 @@ public class WeixinSearchXpathExtractor extends XpathExtractor<WeixinData> imple
         }
     }
 
-    public void parseGongzhong(WeixinData data, HtmlInfo html, String content) throws SAXException {
+    public void parseGongzhong(WeixinData data, CrawlTask html, String content) throws SAXException {
         LOGGER.info("正在解析文章：" + data.getTitle() + "的公众号信息.");
         String url = "http://weixin.sogou.com/weixin?type=1&query=" + data.getAuthor() + "&page=1";
         int page = 1;

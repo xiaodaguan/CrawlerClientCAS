@@ -1,7 +1,7 @@
 package common.extractor.xpath.agricalture.monitor.sub;
 
 import common.pojos.AgricaltureData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorExtractorAttribute;
 import common.extractor.xpath.agricalture.monitor.AgricaltureMonitorXpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -34,7 +34,7 @@ public class QdfpExtractor extends AgricaltureMonitorXpathExtractor implements A
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(QdfpExtractor.class);
 
-	@Override public String templateListPage(List<AgricaltureData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+	@Override public String templateListPage(List<AgricaltureData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
 		list.clear();
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		Node domtree = getRealDOM(html);
@@ -72,7 +72,7 @@ public class QdfpExtractor extends AgricaltureMonitorXpathExtractor implements A
 		return arr;
 	}
 
-	@Override public String parseNext(Node domtree, Component component, HtmlInfo html, String... args) throws TransformerException {
+	@Override public String parseNext(Node domtree, Component component, CrawlTask html, String... args) throws TransformerException {
 		// if (html.getResponseCookie() == null ||
 		// html.getResponseCookie().equals(""))
 		// return null;

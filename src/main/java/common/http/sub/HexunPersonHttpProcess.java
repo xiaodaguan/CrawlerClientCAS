@@ -11,7 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.http.SimpleHttpProcess;
 import common.utils.EncoderUtil;
 import org.slf4j.Logger;
@@ -23,7 +23,7 @@ public class HexunPersonHttpProcess extends SimpleHttpProcess {
 	/**
 	 * 对url需使用gb2312编码
 	 */
-	@Override protected byte[] simpleGet(HtmlInfo html) {
+	@Override protected byte[] simpleGet(CrawlTask html) {
 
 		HttpClient hc = httpClient(html);
 		LOGGER.info("url: " + html.getOrignUrl());

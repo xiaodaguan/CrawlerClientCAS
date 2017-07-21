@@ -14,7 +14,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import common.pojos.CommonData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.AgricaltureData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -370,7 +370,7 @@ public class AgricaltureMonitorXpathExtractor extends XpathExtractor<Agricalture
 
 	}
 
-	@Override public String templateListPage(List<AgricaltureData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+	@Override public String templateListPage(List<AgricaltureData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
 		list.clear();
 		/**
 		 * keyword 0: search_keyword 1: search_url(list) 2: ... 3: cookies
@@ -407,7 +407,7 @@ public class AgricaltureMonitorXpathExtractor extends XpathExtractor<Agricalture
 	 * @return
 	 * @throws TransformerException
 	 */
-	public String parseNext(Node domtree, Component component, HtmlInfo html, String... args) throws TransformerException {
+	public String parseNext(Node domtree, Component component, CrawlTask html, String... args) throws TransformerException {
 
 		NodeList nl = commonList(component.getXpath(), domtree);
 		if (nl.item(0) != null) {

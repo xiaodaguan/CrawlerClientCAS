@@ -9,7 +9,7 @@
         select count(id) from ${tablename}
     </select>
 
-    <select id="selectAllSearchKeyword" resultType="common.rmi.packet.SearchKey">
+    <select id="selectAllSearchKeyword" resultType="common.task.SearchKey">
         select * from search_keyword
     </select>
 

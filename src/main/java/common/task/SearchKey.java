@@ -1,4 +1,4 @@
-package common.rmi.packet;
+package common.task;
 
 import java.io.Serializable;
 import java.sql.Time;

@@ -18,7 +18,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import common.pojos.ClientData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.ReplyData;
 import common.extractor.xpath.client.search.ClientSearchXpathExtractor;
 import common.http.SimpleHttpProcess;
@@ -33,7 +33,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ToutiaoExtractor.class);
 
 	@Override
-	public String templateListPage(List<ClientData> list, HtmlInfo html, int page, String... keyword)
+	public String templateListPage(List<ClientData> list, CrawlTask html, int page, String... keyword)
 			throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 
@@ -96,7 +96,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 	}
 
 	@Override
-	public String templateContentPage(ClientData data, HtmlInfo html, int page, String... keyword)
+	public String templateContentPage(ClientData data, CrawlTask html, int page, String... keyword)
 			throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 
@@ -211,7 +211,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 		}
 	}
 
-	public void parseRelaylist(ClientData data, HtmlInfo html, List<ReplyData> list) {
+	public void parseRelaylist(ClientData data, CrawlTask html, List<ReplyData> list) {
 		String url = html.getOrignUrl();
 		String content = html.getContent();
 		String group_id = extractOne(url, "\\d+");
@@ -278,7 +278,7 @@ public class ToutiaoExtractor extends ClientSearchXpathExtractor {
 		}
 	}
 
-	public void parseRelaylist2(ClientData data, HtmlInfo html, List<ReplyData> list) {
+	public void parseRelaylist2(ClientData data, CrawlTask html, List<ReplyData> list) {
 		String url = html.getOrignUrl();
 		String content = html.getContent();
 		String group_id = extractOne(url, "\\d+");

@@ -1,6 +1,6 @@
 package common.system;
 
-import common.rmi.packet.CrawlerType;
+import common.task.CrawlerType;
 import common.scheduler.Scheduler;
 import common.service.DBService;
 import common.siteinfo.Siteinfo;
@@ -9,12 +9,9 @@ import common.utils.HtmlExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.*;
 
 /**
@@ -175,15 +172,6 @@ public class Systemconfig {
         scheduler.init();
     }
 
-    /**
-     * 创建数据采集线程池
-     */
-    public static void createDataThreadPool() {
-        for (String site : allSiteinfos.keySet()) {
-            int num = allSiteinfos.get(site).getThreadNum();
-            Job.DATA_THREAD_POOL_MAP.put(site, Executors.newFixedThreadPool(num > 5 ? 5 : num));
-        }
-    }
 
     /**
      * 设置系统运行前缀 Systemconfig.RUN_PREFIX(e.g., "news_search_"c)

@@ -15,7 +15,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import common.pojos.CommonData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.extractor.AbstractExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -34,7 +34,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
     private static final Logger LOGGER = LoggerFactory.getLogger(XpathExtractor.class);
 
 
-    public String extract(HtmlInfo task, List<T> listData) {
+    public String extract(CrawlTask task, List<T> listData) {
         String nextUrl = null;
         try {
             if (task.getCrawlerType().equalsIgnoreCase("meta")) {
@@ -196,7 +196,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
      * @throws IOException
      * @throws SAXException
      */
-    protected Node getRealDOM(HtmlInfo html) throws SAXException, IOException {
+    protected Node getRealDOM(CrawlTask html) throws SAXException, IOException {
         return domUtil.ini(html.getContent(), html.getEncode());
     }
 
@@ -212,7 +212,7 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
     }
 
     @Override
-    public String templateContentPage(T data, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+    public String templateContentPage(T data, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         // String domcontent = domtree.getTextContent();
@@ -258,12 +258,12 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
     }
 
     @Override
-    public String templateContentPage(T data, HtmlInfo html, String... keyword) throws SAXException, IOException {
+    public String templateContentPage(T data, CrawlTask html, String... keyword) throws SAXException, IOException {
         return templateContentPage(data, html, 1, keyword);
     }
 
     @Override
-    public String templateListPage(List<T> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+    public String templateListPage(List<T> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
         list.clear();
         /**
          * keyword

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.PressData;
 import common.pojos.NewsData;
 import common.extractor.xpath.XpathExtractor;
@@ -28,7 +28,7 @@ public class PressSearchXpathExtractor extends XpathExtractor<PressData> impleme
 	private static final Logger LOGGER = LoggerFactory.getLogger(PressSearchXpathExtractor.class);
 
 	@Override
-	public String templateContentPage(PressData data, HtmlInfo html, int page, String... keyword) {
+	public String templateContentPage(PressData data, CrawlTask html, int page, String... keyword) {
 		ExtractResult result = null;
 		try {
 			result = Systemconfig.htmlAutoExtractor.extract(html.getContent(), html.getEncode(), data.getUrl());

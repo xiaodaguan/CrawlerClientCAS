@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.UserData;
 import common.pojos.WeiboData;
 import common.extractor.xpath.XpathExtractor;
@@ -37,7 +37,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
 
 
     @Override
-    public String templateContentPage(WeiboData data, HtmlInfo html, int page, String... keyword) {
+    public String templateContentPage(WeiboData data, CrawlTask html, int page, String... keyword) {
         return null;
     }
 
@@ -51,7 +51,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
      * @throws IOException
      * @throws SAXException
      */
-    public void templateUser(UserData data, HtmlInfo html, boolean first, String... keyword) throws SAXException, IOException {
+    public void templateUser(UserData data, CrawlTask html, boolean first, String... keyword) throws SAXException, IOException {
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
@@ -101,7 +101,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
      * @throws IOException
      * @throws SAXException
      */
-    public String templateListPage(List<WeiboData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+    public String templateListPage(List<WeiboData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
@@ -153,7 +153,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
      * @throws IOException
      * @throws SAXException
      */
-    public String templateRtt(List<WeiboData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+    public String templateRtt(List<WeiboData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
@@ -191,7 +191,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
      * @throws IOException
      * @throws SAXException
      */
-    public String templateComment(List<WeiboData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+    public String templateComment(List<WeiboData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);
         if (domtree == null) {
@@ -232,7 +232,7 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
      * @throws IOException
      * @throws SAXException
      */
-    public String templateRelation(List<UserData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+    public String templateRelation(List<UserData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
         list.clear();
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
         Node domtree = getRealDOM(html);

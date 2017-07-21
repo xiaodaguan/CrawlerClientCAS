@@ -1,17 +1,13 @@
 package common.scheduler;
 
-import common.pojos.CommonData;
-import common.pojos.HtmlInfo;
-import common.pojos.NewsData;
-import common.rmi.packet.SearchKey;
+import common.pojos.CrawlTask;
+import common.task.SearchKey;
 import common.system.Systemconfig;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.Date;
 
 /**
  * Created by guanxiaoda on 2017/6/29.
@@ -32,14 +28,18 @@ public class SchedulerTest {
 
 
     @Test
+    public void removeTest(){
+        scheduler.removeAllTask();
+    }
+    @Test
     public void submitTest(){
-        HtmlInfo task = new HtmlInfo();
+        CrawlTask task = new CrawlTask();
         task.setCrawlerType("META");
         task.setOrignUrl("http://news.baidu.com/ns?word=%E9%9D%92%E5%B2%9B%E4%BA%A4%E9%80%9A&tn=news&from=news&cl=2&rn=20&ct=1");
-        task.setEncode("gb2312");
+        task.setEncode("utf-8");
 
         SearchKey sk = new SearchKey();
-        sk.setKEYWORD("青岛交通");
+        sk.setKEYWORD("青岛 交通");
         sk.setCATEGORY_CODE(0);
         sk.setSITE_ID("baidu");
         sk.setSITE_NAME("baidu");
@@ -65,9 +65,9 @@ public class SchedulerTest {
 
     @Test
     public void getTaskTest(){
-        HtmlInfo task = scheduler.getTask();
+        CrawlTask task = scheduler.getTask();
         System.out.println(task.getOrignUrl());
-        Assert.assertEquals("guanxiaoda.cn", task.getOrignUrl());
+        Assert.assertEquals("http://www.baidu.com", task.getOrignUrl());
 
     }
 
@@ -85,8 +85,4 @@ public class SchedulerTest {
         Assert.assertNotEquals(Long.valueOf(0),total);
     }
 
-    @Test
-    public void removeTest(){
-         scheduler.removeAllTask();
-    }
 }

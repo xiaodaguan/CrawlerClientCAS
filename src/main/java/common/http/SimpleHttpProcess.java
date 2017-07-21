@@ -1,6 +1,6 @@
 package common.http;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.system.Systemconfig;
 import common.system.UserAttribute;
 import common.utils.*;
@@ -134,7 +134,7 @@ public class SimpleHttpProcess implements HttpProcess {
      *
      * @return
      */
-    protected byte[] simpleGet(HtmlInfo html) throws Exception {
+    protected byte[] simpleGet(CrawlTask html) throws Exception {
 
         HttpClient httpClient = httpClient(html);
 
@@ -233,7 +233,7 @@ public class SimpleHttpProcess implements HttpProcess {
     }
 
     @Override
-    public HttpClient httpClient(HtmlInfo html) {
+    public HttpClient httpClient(CrawlTask html) {
         String key = html.getCrawlerType();
         if (clientMap.containsKey(key)) {
             if (count++ > 100) {
@@ -253,7 +253,7 @@ public class SimpleHttpProcess implements HttpProcess {
     }
 
     @Override
-    public void getContent(HtmlInfo html, UserAttribute userAttr) {
+    public void getContent(CrawlTask html, UserAttribute userAttr) {
         byte[] fromURL = null;
         try {
             fromURL = userAttr == null ? simpleGet(html) : simpleGet(html, userAttr);
@@ -275,7 +275,7 @@ public class SimpleHttpProcess implements HttpProcess {
         }
     }
 
-    private void htm(HtmlInfo html, byte[] fromURL) {
+    private void htm(CrawlTask html, byte[] fromURL) {
         String con = null;
         try {
             // con = new String(fromURL, "gb2312");//神奇的bug
@@ -339,7 +339,7 @@ public class SimpleHttpProcess implements HttpProcess {
         con = null;
     }
 
-    private void pdf(HtmlInfo html, byte[] fromURL) {
+    private void pdf(CrawlTask html, byte[] fromURL) {
         FileOutputStream fos = null;
         try {
             // fos = new FileOutputStream(Systemconfig.filePath + File.separator
@@ -367,12 +367,12 @@ public class SimpleHttpProcess implements HttpProcess {
 
     }
 
-    protected byte[] simpleGet(HtmlInfo html, UserAttribute user) throws Exception {
+    protected byte[] simpleGet(CrawlTask html, UserAttribute user) throws Exception {
         return simpleGet(html);
     }
 
     @Override
-    public void getContent(HtmlInfo html) {
+    public void getContent(CrawlTask html) {
         getContent(html, null);
     }
 
@@ -526,7 +526,7 @@ public class SimpleHttpProcess implements HttpProcess {
     }
 
     public String getJsonContentUtf8(String url, String... args) {
-        HtmlInfo html = new HtmlInfo();
+        CrawlTask html = new CrawlTask();
         html.setCrawlerType("DATA");
         html.setOrignUrl(url);
         html.setEncode("utf-8");
@@ -537,7 +537,7 @@ public class SimpleHttpProcess implements HttpProcess {
     }
 
     public String getJsonContentGb2312(String url, String... args) {
-        HtmlInfo html = new HtmlInfo();
+        CrawlTask html = new CrawlTask();
         html.setCrawlerType("DATA");
         html.setOrignUrl(url);
         html.setEncode("gb2312");

@@ -1,6 +1,6 @@
 package common.extractor.xpath.weibo.monitor.sub;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.UserData;
 import common.pojos.WeiboData;
 import common.extractor.xpath.weibo.monitor.WeiboMonitorXpathExtractor;
@@ -68,7 +68,7 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
      * @throws IOException
      */
     @Override
-    public String templateComment(List<WeiboData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+    public String templateComment(List<WeiboData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
         Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 //        Node domtree = getRealDOM(html);
 //        if (domtree == null) {
@@ -178,7 +178,7 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
     }
 
     @Override
-    protected Node getRealDOM(HtmlInfo html) throws SAXException, IOException {
+    protected Node getRealDOM(CrawlTask html) throws SAXException, IOException {
         String content = html.getContent();
         String con = "";
         String flag = html.getCrawlerType().substring(0, html.getCrawlerType().indexOf(File.separator));

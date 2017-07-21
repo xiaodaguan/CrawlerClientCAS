@@ -15,7 +15,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.WeixinData;
 import common.extractor.xpath.XpathExtractor;
 import common.http.SimpleHttpProcess;
@@ -74,7 +74,7 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 
 				+ "";
 
-		HtmlInfo html = new HtmlInfo();
+		CrawlTask html = new CrawlTask();
 
 		String charSet = "UTF-8";
 		html.setCrawlerType("DATA");
@@ -110,7 +110,7 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 			}
 			url = "http://mp.weixin.qq.com" + "/mp/getappmsgext?" + "__biz=" + biz + "&mid=" + mid + "&uin=" + uin
 					+ "&key=" + key;
-			html = new HtmlInfo();
+			html = new CrawlTask();
 
 			charSet = "UTF-8";
 			html.setCrawlerType("DATA");
@@ -154,7 +154,7 @@ public class WeixinMonitorXpathExtractor extends XpathExtractor<WeixinData> impl
 	}
 	
 	@Override
-	public String templateListPage(List<WeixinData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+	public String templateListPage(List<WeixinData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
 		list.clear();
 		
 		

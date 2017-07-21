@@ -24,7 +24,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.rmi.packet.CrawlerType;
+import common.task.CrawlerType;
 import common.siteinfo.Siteinfo;
 import common.utils.DOMUtil;
 import common.utils.StringUtil;
@@ -74,7 +74,6 @@ public class AppContext {
 
         readConfig();
 
-        Systemconfig.createDataThreadPool();
         LOGGER.info("init. ok. ");
     }
 

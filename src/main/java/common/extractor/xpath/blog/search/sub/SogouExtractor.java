@@ -1,7 +1,7 @@
 package common.extractor.xpath.blog.search.sub;
 
 import common.pojos.BlogData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.extractor.xpath.blog.search.BlogSearchXpathExtractor;
 import common.siteinfo.Component;
 import common.system.Systemconfig;
@@ -19,7 +19,7 @@ public class SogouExtractor extends BlogSearchXpathExtractor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SogouExtractor.class);
 
 	@Override
-	public String templateContentPage(BlogData data, HtmlInfo html, int page, String... keyword) {
+	public String templateContentPage(BlogData data, CrawlTask html, int page, String... keyword) {
 
 		ExtractResult result = null;
 		try {

@@ -15,7 +15,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.WeiboData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -86,7 +86,7 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 	 * @throws IOException
 	 * @throws SAXException
 	 */
-	public String templateComment(List<WeiboData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+	public String templateComment(List<WeiboData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		Node domtree = getRealDOM(html);
 		if (domtree == null) {
@@ -198,7 +198,7 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 	 * @throws IOException
 	 * @throws SAXException
 	 */
-	public String templateRtt(List<WeiboData> list, HtmlInfo html, int page, String... keyword) throws SAXException, IOException {
+	public String templateRtt(List<WeiboData> list, CrawlTask html, int page, String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 		Node domtree = getRealDOM(html);
 		if (domtree == null) {

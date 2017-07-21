@@ -8,6 +8,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
@@ -26,17 +27,25 @@ public class NewsService extends BaseService<NewsData> {
     }
 
     @Override
-    public void saveDatas(List<NewsData> list) {
+    public void saveDatas(List<NewsData> list) throws Exception {
         for (NewsData data : list)
             saveData(data);
     }
 
     @Override
-    public int saveData(NewsData data) {
+    public int saveData(NewsData data) throws Exception {
         checkData(data);
-        return newsMapper.create(data);
-    }
+        int result = 0;
+        try {
+            newsMapper.create(data);
+            LOGGER.info("保存完成.[{}]", data.getTitle());
+        } catch (Exception e) {
+            LOGGER.error("data 保存失败!");
+            throw new RuntimeException(e);
+        }
 
+        return result;
+    }
 
 
     @Override

@@ -1,6 +1,6 @@
 package common.http.sub;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.http.NeedCookieHttpProcess;
 import common.system.UserAttribute;
 import common.utils.EncoderUtil;
@@ -60,14 +60,14 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		this.redirectURL = redirectURL;
 	}
 	@Override
-	public void getContent(HtmlInfo html, UserAttribute userAttribute) {
+	public void getContent(CrawlTask html, UserAttribute userAttribute) {
 		if(userAttribute != null)
 			redirectURL = userAttribute.getReferer();
 		super.getContent(html, userAttribute);
 	}
 	
 	@Override
-	protected byte[] simpleGet(HtmlInfo html, UserAttribute user) {
+	protected byte[] simpleGet(CrawlTask html, UserAttribute user) {
 		HttpClient hc = httpClient(html);
 		HttpGet get = new HttpGet(EncoderUtil.encodeKeyWords(html.getOrignUrl(), "utf-8" ));
 //		get.addHeader("User-Agent",user==null?userAgent:user.getUserAgent());
@@ -125,7 +125,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		return null;
 	}
 	
-	public HttpResponse cookie(HtmlInfo html, String agent) {
+	public HttpResponse cookie(CrawlTask html, String agent) {
 		HttpClient hc = httpClient(html);
 		HttpGet get = new HttpGet(html.getOrignUrl());
 		get.addHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -162,7 +162,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 			LOGGER.info("用户不存在，数据无法采集！");
 			return false;
 		}
-		HtmlInfo html = new HtmlInfo();
+		CrawlTask html = new CrawlTask();
 		html.setEncode("utf-8");
 		html.setCrawlerType("LOGIN");
 		html.setSite("sina");
@@ -227,7 +227,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		}
 	}
 	
-	private byte[] postRequest(HtmlInfo html, List<NameValuePair> form_data, String refererURL, String agent){
+	private byte[] postRequest(CrawlTask html, List<NameValuePair> form_data, String refererURL, String agent){
 		HttpPost postMethod = new HttpPost(html.getOrignUrl());
 		postMethod.addHeader("Content-Type", "application/x-www-form-urlencoded");
 		postMethod.addHeader("Host", StringUtil.getHost(html.getOrignUrl()));
@@ -288,7 +288,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 	@Override
 	public boolean verify(UserAttribute user) {
 		String url = "http://weibo.com";
-		HtmlInfo html = new HtmlInfo();
+		CrawlTask html = new CrawlTask();
 		html.setCookie(user.getCookie());
 		html.setSite("sina");
 		html.setOrignUrl(url);
@@ -359,7 +359,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		String preloginurl = "http://login.sina.com.cn/sso/prelogin.php?entry=sso&callback=sinaSSOController.preloginCallBack&su="+ usernameBase64
 				+ "&checkpin=1&rsakt=mod&client=ssologin.js(v1.4.5)&_=" + (new Date().getTime() / 1000);
 		
-		HtmlInfo html = new HtmlInfo();
+		CrawlTask html = new CrawlTask();
 		html.setOrignUrl(preloginurl);
 		html.setCrawlerType("LOGIN");
 		html.setSite("sina");
@@ -394,7 +394,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		String validateImgPath = "validateImg";
 		String picUrl = "http://login.sina.com.cn/cgi/pin.php?s=0&p=" + entity.getPcid() + "&r=" +  Math.round(Math.random()*8)+Math.round(Math.random()*8)+Math.round(Math.random()*8)+Math.round(Math.random()*8)+Math.round(Math.random()*8)+Math.round(Math.random()*8);
 		String picName = entity.getUsername();
-		HtmlInfo html = new HtmlInfo();
+		CrawlTask html = new CrawlTask();
 		html.setOrignUrl(picUrl);
 		html.setSite("sina");
 		html.setCrawlerType("LOGIN");
@@ -427,7 +427,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 		entity.setPicNO(door);
 	}
 	//需要验证码，下载到本地
-	private boolean downloadVPic(HtmlInfo html, String picDir,String fileName) {
+	private boolean downloadVPic(CrawlTask html, String picDir, String fileName) {
 		HttpGet getMethod = null;
 		try {
 			String url = EncoderUtil.encodeKeyWords(html.getOrignUrl(), html.getEncode());

@@ -1,14 +1,9 @@
 package common.other;
 
-import common.rmi.packet.CrawlerType;
-import common.service.DBService;
 import common.system.AppContext;
 import common.system.Systemconfig;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.FileNotFoundException;
 
 /**
  * Created by guanxiaoda on 2017/6/23.

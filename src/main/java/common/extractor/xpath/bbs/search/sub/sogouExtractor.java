@@ -1,7 +1,7 @@
 package common.extractor.xpath.bbs.search.sub;
 
 import common.pojos.BbsData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.ReplyData;
 import common.extractor.xpath.bbs.search.BbsSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -112,7 +112,7 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 	}
 
 	@Override
-	public String templateContentPage(BbsData data, HtmlInfo html, int page, String... keyword)
+	public String templateContentPage(BbsData data, CrawlTask html, int page, String... keyword)
 			throws SAXException, IOException {
 		{
 			Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
@@ -179,7 +179,7 @@ public class sogouExtractor extends BbsSearchXpathExtractor {
 
 	}
 
-	public String templateContentPage1(BbsData data, HtmlInfo html, int page, String... keyword) {
+	public String templateContentPage1(BbsData data, CrawlTask html, int page, String... keyword) {
 
 		ExtractResult result = null;
 		try {

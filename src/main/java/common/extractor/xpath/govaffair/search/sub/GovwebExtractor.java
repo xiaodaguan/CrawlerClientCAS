@@ -11,7 +11,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import common.pojos.GovAffairData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.extractor.xpath.govaffair.search.GovAffairSearchXpathExtractor;
 import common.siteinfo.CommonComponent;
 import common.siteinfo.Component;
@@ -28,7 +28,7 @@ public class GovwebExtractor extends GovAffairSearchXpathExtractor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GovwebExtractor.class);
 
 	@Override
-	public String templateContentPage(GovAffairData data, HtmlInfo html, int page, String... keyword) {
+	public String templateContentPage(GovAffairData data, CrawlTask html, int page, String... keyword) {
 		{
 			Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 	//		create(content);

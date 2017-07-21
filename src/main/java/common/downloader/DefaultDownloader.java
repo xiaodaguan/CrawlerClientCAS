@@ -1,6 +1,6 @@
 package common.downloader;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -17,9 +17,9 @@ public class DefaultDownloader implements DownloaderIterface{
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultDownloader.class);
 
     private static OkHttpClient httpClient;
-    private static HtmlInfo task;
+    private static CrawlTask task;
 
-    public DefaultDownloader(HtmlInfo task){
+    public DefaultDownloader(CrawlTask task){
         this.task = task;
         httpClient = new OkHttpClient().newBuilder()
         .addInterceptor(new RetryInterceptor(task.getRetryTimes()))

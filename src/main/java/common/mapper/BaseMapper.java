@@ -1,6 +1,6 @@
 package common.mapper;
 
-import common.rmi.packet.SearchKey;
+import common.task.SearchKey;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

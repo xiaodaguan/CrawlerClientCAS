@@ -6,12 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import common.extractor.xpath.XpathExtractor;
-import common.system.Systemconfig;
-import common.utils.StringUtil;
 import org.xml.sax.SAXException;
 
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 
 /**
  * 数据抽取类
@@ -27,15 +24,15 @@ public abstract class AbstractExtractor<T> implements Extractor<T> {
     protected static final SimpleDateFormat sdf5 = new SimpleDateFormat("yyyy-");
 
     @Override
-    public abstract String templateListPage(List<T> list, HtmlInfo html,
+    public abstract String templateListPage(List<T> list, CrawlTask html,
                                             int page, String... keyword) throws SAXException, IOException;
 
     @Override
-    public abstract String templateContentPage(T data, HtmlInfo html, int page,
+    public abstract String templateContentPage(T data, CrawlTask html, int page,
                                                String... keyword) throws SAXException, IOException;
 
     @Override
-    public abstract String templateContentPage(T data, HtmlInfo html,
+    public abstract String templateContentPage(T data, CrawlTask html,
                                                String... keyword) throws SAXException, IOException;
 
     /**

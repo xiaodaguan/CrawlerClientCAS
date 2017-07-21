@@ -1,7 +1,7 @@
 package common.extractor.xpath.bbs.monitor;
 
 import common.pojos.BbsData;
-import common.pojos.HtmlInfo;
+import common.pojos.CrawlTask;
 import common.pojos.ReplyData;
 import common.extractor.xpath.XpathExtractor;
 import common.siteinfo.CommonComponent;
@@ -68,7 +68,7 @@ public class BbsMonitorXpathExtractor extends XpathExtractor<BbsData> implements
 	}
 	
 	@Override
-	public String templateContentPage(BbsData data, HtmlInfo html, int page,
+	public String templateContentPage(BbsData data, CrawlTask html, int page,
                                       String... keyword) throws SAXException, IOException {
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(html.getSite());
 //		create(content);
