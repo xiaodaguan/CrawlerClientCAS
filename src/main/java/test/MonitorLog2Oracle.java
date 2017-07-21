@@ -32,6 +32,7 @@ public class MonitorLog2Oracle {
 				Process proc = null;
 				try {
 					proc = Runtime.getRuntime().exec("sh config/count.sh");
+					//proc.waitFor();
 					InputStream is = proc.getInputStream();
 
 					//InputStream is = new FileInputStream("config/test.log");
@@ -63,7 +64,7 @@ public class MonitorLog2Oracle {
 					e.printStackTrace();
 				}
 				long startTime = System.currentTimeMillis();
-				while (startTime + 24 * 3600 * 1000 - 5 * 60 * 1000 > System.currentTimeMillis()) {
+				while (startTime + 6 * 3600 * 1000 > System.currentTimeMillis()) {
 					Log.log("beating");
 					Thread.sleep(5 * 60 * 1000);
 				}
