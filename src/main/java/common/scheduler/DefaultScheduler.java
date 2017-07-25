@@ -59,7 +59,7 @@ public class DefaultScheduler implements Scheduler<CrawlTask> {
     public Long submitTask(CrawlTask task) {
         LOGGER.info("submitting task...");
         Long leftCount = jedis.lpush(TASK_QUEUE, SerializeUtil.object2String(task));
-        LOGGER.info("submitting task...[ok].[{}]", task.getOrignUrl());
+        LOGGER.info("submitting task...[ok].[{}]", task);
         jedis.incr(TASK_QUEUE_TOTAL_COUNT);
         return leftCount;
 

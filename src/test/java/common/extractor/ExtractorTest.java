@@ -7,6 +7,7 @@ import common.pojos.CrawlTask;
 import common.pojos.NewsData;
 import common.system.AppContext;
 import common.system.Systemconfig;
+import common.utils.MD5Util;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -41,9 +42,10 @@ public class ExtractorTest {
         task.setEncode("utf-8");
 
         CommonData data = new NewsData();
-        data.setTitle("关晓炟");
-        data.setUrl("http://guanxiaoda.cn");
+        data.setTitle("简书：Java反射——获取Class对象");
+        data.setUrl("http://www.jianshu.com/p/efaa8567fce6");
         data.setPubdate(new Date());
+        data.setMd5(MD5Util.MD5(data.getUrl()));
 
         task.setData(data);
 
@@ -51,15 +53,14 @@ public class ExtractorTest {
         List listData = DataHelper.createDataList(1);
 
         XpathExtractor extractor = ExtractorHelper.createExtractor(task, "news_search", "news");
-        System.out.println(extractor.toString());
+//        System.out.println(extractor.toString());
 
         task.setContent(content);
 
 
         extractor.extract(task,listData);
 
-        System.out.println(((NewsData)listData.get(0)).getTitle());
-        System.out.println(((NewsData)listData.get(0)).getContent());
+        System.out.println("解析结果：\r\n"+(NewsData)listData.get(0));
         System.out.println("ok.");
     }
 

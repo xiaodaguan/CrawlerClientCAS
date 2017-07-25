@@ -30,6 +30,8 @@ public class SchedulerTest {
     @Test
     public void removeTest(){
         scheduler.removeAllTask();
+        Long left = scheduler.getLeftTaskCount();
+        System.out.println("当前队列中任务总数：" + left);
     }
     @Test
     public void submitTest(){
@@ -59,7 +61,7 @@ public class SchedulerTest {
 
 
         long reply = scheduler.submitTask(task);
-        System.out.println("current:"+reply);
+        System.out.println("当前队列中任务总数:"+reply);
         Assert.assertNotEquals(0,reply);
     }
 
