@@ -188,12 +188,6 @@ public class SimpleHttpProcess implements HttpProcess {
                     response = httpClient.execute(get); //执行get请求，并返回响应对象
                 } catch (Exception e) {
                     LOGGER.error("请求出错，如果使用了代理，可能是代理失效，否则请确认url正确。[" + html.getRetryTimes() + "]");
-                    if (html.getRetryTimes() >= html.getMaxRetryTimes()) {
-                        LOGGER.error("重试次数太多(当前最大重试次数：" + html.getMaxRetryTimes() + ")，跳过当前url，请检查url");
-                        html.setRetryTimes(0);
-                        break;
-                    }
-                    html.increaseRetryTimes();
 
 //                throw new RuntimeException(e);
                 }

@@ -23,6 +23,8 @@ public class ProxyManager {
     }
 
     public void run() {
+
+        Systemconfig.proxyPoolRedis.clearAll();
         while (true) {
             try {
                 String oneProxy = getOneFromProvider();

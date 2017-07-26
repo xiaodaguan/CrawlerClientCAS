@@ -74,7 +74,9 @@ public class ProxyPoolRedis {
     }
 
     public void clearAll(){
+        LOGGER.info("清空代理池...");
         redis.del(PROXY_POOL);
+        LOGGER.info("清空代理池...[ok].");
     }
 
 

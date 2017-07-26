@@ -97,6 +97,8 @@ public class Executor implements Runnable{
                 followTask.setSearchKey(task.getSearchKey());
                 followTask.setData(data);
                 followTask.setAgent(task.getAgent());
+                followTask.setRetryTimes(task.getRetryTimes());
+                followTask.setInterval(task.getInterval());
 
 
                 Systemconfig.scheduler.submitTask(followTask);

@@ -32,4 +32,20 @@ public class DownloaderTest {
 
         System.out.println(task.getContent());
     }
+
+    @Test
+    public void proxyDownTest(){
+        CrawlTask task = new CrawlTask();
+        task.setOrignUrl("http://www.whatismyip.com.tw/");
+        task.setAgent(true);
+        task.setEncode("utf-8");
+        task.setCrawlerType("data");
+        task.setSite("test");
+        task.setMediaType(1);
+        DefaultDownloader downloader = new DefaultDownloader(task);
+        downloader.download();
+        System.out.println(task.getContent());
+    }
+
+
 }

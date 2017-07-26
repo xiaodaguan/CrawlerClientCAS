@@ -47,11 +47,18 @@ public class SeedManager {
 
 
                     CrawlTask task = new CrawlTask();
-                    task.setCrawlerType("META");
-                    task.setOrignUrl(siteinfo.getUrl().replace("<keyword>", searchKey.getKEYWORD()));
-                    task.setEncode(siteinfo.getCharset());
-                    task.setSearchKey(searchKey);
-                    task.setSite(siteinfo.getSiteName());
+                    task.setCrawlerType("META");// META, DATA
+                    task.setOrignUrl(siteinfo.getUrl().replace("<keyword>", searchKey.getKEYWORD()));//http://news.baidu.com/ns?word=青岛 交通委 王勇&cl=2&rn=50&clk=sortbyrel
+                    task.setEncode(siteinfo.getCharset());//utf-8
+                    task.setSearchKey(searchKey);// CategoryCode[4], Keyword[青岛 交通委 王勇], SiteId[{2}], SiteName[null]
+
+                    task.setSite(siteinfo.getSiteName());//baidu_news_search
+
+                    if(task.getSite().contains("baidu")) {
+                        task.setAgent(true);
+                        task.setRetryTimes(3);
+                        task.setInterval(1);
+                    }
 
                     tasks.add(task);
                 }
