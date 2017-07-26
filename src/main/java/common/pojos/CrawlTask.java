@@ -13,6 +13,8 @@ import java.io.Serializable;
  */
 public class CrawlTask implements Serializable{
 
+	private static final long serialVersionUID = 666L;
+
 	private String site;// web站点
 	private String orignUrl;// 采集源链接——最终链接部分可能会不同
 	private String realUrl;// 最终链接，无变化为null
@@ -31,16 +33,24 @@ public class CrawlTask implements Serializable{
 	private String responseCookie;// 返回的cookie
 	private boolean changeProxy;
 	private Object proxy;
-	private int retryTimes;
-	private int maxRetryTimes;
+	private int retryTimes=5;//重试次数
 	private SearchKey searchKey;
 	private int mediaType;// 采集的媒体类型：见crawlerType
 	private UserAttribute user;//采集账户
 	private CommonData data;
+	private int interval = 30;//任务完成-获取下一个任务之间的休息间隔时间
 
 	@Override
 	public String toString(){
 		return "site["+site+"], url["+orignUrl+"], crawlerType["+crawlerType+"], mediaType["+mediaType+"], searchkey["+searchKey+"]";
+	}
+
+	public int getInterval() {
+		return interval;
+	}
+
+	public void setInterval(int interval) {
+		this.interval = interval;
 	}
 
 	public CommonData getData() {
@@ -223,10 +233,6 @@ public class CrawlTask implements Serializable{
 
 	public int getRetryTimes() {
 		return retryTimes;
-	}
-
-	public int getMaxRetryTimes() {
-		return maxRetryTimes;
 	}
 
 	public void setRetryTimes(int retryTimes) {

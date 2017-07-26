@@ -18,10 +18,17 @@ public class RedisClusterTest {
     public static void beforeAll(){
         Systemconfig.crawlerType = 1;
 
-        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        AppContext.initAppCtx(path);
+
 
     }
+
+    @Test
+    public void initTest(){
+        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        AppContext.initAppCtx(path);
+    }
+
+
 
 
 }

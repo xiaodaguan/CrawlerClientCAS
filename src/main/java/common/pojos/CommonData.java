@@ -18,7 +18,10 @@ public class CommonData implements Serializable{
 	protected String completeSize;
 	
 	
-	
+	@Override
+	public String toString(){
+		return "{\r\n[title]"+title+",\r\n [url]"+url+",\r\n [pubdate]"+pubdate+",\r\n [md5]"+md5+",\r\n [content]"+content+"\r\n}";
+	}
 	public String getCompleteSize() {
 		return completeSize;
 	}
