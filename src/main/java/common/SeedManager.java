@@ -34,10 +34,17 @@ public class SeedManager {
         List<CrawlTask> tasks = new ArrayList<>();
         Set<String> allSiteNames = Systemconfig.allSiteinfos.keySet();
 
+        /**
+         * 三层嵌套组合：关键词+类型+站点
+         * 例如：xxxxx + news_search + baidu
+         */
         for (SearchKey searchKey : allSearchKeys) {
             List<Integer> mediaTypes = searchKey.getMediaTypeList();
             for(int mediaType: mediaTypes) {
-                String mediaTypeFull = CrawlerType.getCrawlerTypeMap().get(mediaType).name();
+                CrawlerType crawlerType = CrawlerType.getCrawlerTypeMap().get(mediaType);
+                if(crawlerType == null)
+                    continue;
+                String mediaTypeFull = crawlerType.name();
 
                 for (String siteInfoName : allSiteNames) {
                     if(!siteInfoName.toLowerCase().contains(mediaTypeFull.toLowerCase()))
@@ -61,6 +68,11 @@ public class SeedManager {
                     }
 
                     tasks.add(task);
+                    try {
+                        Thread.sleep(1000*30);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
