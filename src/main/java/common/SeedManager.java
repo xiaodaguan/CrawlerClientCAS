@@ -68,6 +68,8 @@ public class SeedManager {
                         task.setInterval(1);
                     }
 
+                    Systemconfig.scheduler.submitTask(task);
+
                     try {
                         LOGGER.info("等待提交下一个关键词...");
                         Thread.sleep(1000 * 30);
