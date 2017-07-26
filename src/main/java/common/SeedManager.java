@@ -6,12 +6,16 @@ import common.system.AppContext;
 import common.system.Systemconfig;
 import common.task.CrawlerType;
 import common.task.SearchKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class SeedManager {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SeedManager.class);
 
     public SeedManager() {
         Systemconfig.crawlerType = 1;//无所谓，每种都可以获取serachkey
@@ -21,7 +25,10 @@ public class SeedManager {
 
     public void generate() {
 
+        LOGGER.info("从数据库获取关键词...");
         List<SearchKey> allSearchKeys = Systemconfig.dbService.getAllSearchKeys();
+        LOGGER.info("获取{}个关键词", allSearchKeys.size());
+        LOGGER.info("生成种子列表...");
         List<CrawlTask> allTasks = searchKeys2Tasks(allSearchKeys);
         for (CrawlTask task : allTasks) {
 

@@ -48,13 +48,13 @@ public class Siteinfo implements Serializable {
 	public String toString() {
 		String tmp = "";
 		tmp = "[siteName]" + siteName + 
-				"[siteFlag]" + siteFlag + 
+				"[siteFlag]" + siteFlag
 //				"[charset]" + charset + 
-				"[downInterval]" + downInterval +
+//				"[downInterval]" + downInterval +
 //				 "[category]" + category + 
-				"[threadNum]" + threadNum + 
+//				"[threadNum]" + threadNum +
 //				"[url]" + url + 
-				"[page]" + page
+//				"[page]" + page
 //				+ "[agent]" + agent + "[login]" + login + "[hostDomain]" + hostDomain + "[keyUrl]" + keyUrl
 //				+ "[subSite]" + subSite + "[commonComponent]" + commonComponent + "[cycleTime]" + cycleTime
 				+"\r\n";
