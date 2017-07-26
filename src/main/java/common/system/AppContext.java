@@ -72,6 +72,12 @@ public class AppContext {
         Systemconfig.initUrlFilter();
         Systemconfig.initScheduler();
 
+        if(Systemconfig.crawlerType==7||Systemconfig.crawlerType==8){
+            Systemconfig.readWeiboAccount();
+        }
+
+
+
         readConfig();
 
         LOGGER.info("init. ok. ");

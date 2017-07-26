@@ -171,7 +171,9 @@ public class Systemconfig {
         }
         scheduler.init();
     }
+    public static void readWeiboAccount() {
 
+    }
 
     /**
      * 设置系统运行前缀 Systemconfig.RUN_PREFIX(e.g., "news_search_"c)

@@ -21,9 +21,7 @@ public class UserManager {
      * @return
      */
     public synchronized static UserAttribute getUser(String siteFlag) {
-//		int in = siteFlag.indexOf("_");
-//		if(in==-1) in = siteFlag.length();
-//		String typeConf = siteFlag.substring(0, in);
+
         List<UserAttribute> list = Systemconfig.users.get(siteFlag);
         if (list == null) return null;
         for (UserAttribute ua : list) {
