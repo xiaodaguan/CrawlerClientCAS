@@ -75,4 +75,36 @@
             </set>
         </property>
     </bean>
+
+
+    <bean id="proxyPoolRedis" class="common.proxy.ProxyPoolRedis">
+        <property name="hostAndPortSet">
+            <set>
+                <bean class="redis.clients.jedis.HostAndPort" >
+                    <constructor-arg type="java.lang.String" value="${host1}"/>
+                    <constructor-arg type="int" value="${port1}"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort" >
+                    <constructor-arg type="java.lang.String" value="${host2}"/>
+                    <constructor-arg type="int" value="${port2}"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort" >
+                    <constructor-arg type="java.lang.String" value="${host3}"/>
+                    <constructor-arg type="int" value="${port3}"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort" >
+                    <constructor-arg type="java.lang.String" value="${host4}"/>
+                    <constructor-arg type="int" value="${port4}"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort" >
+                    <constructor-arg type="java.lang.String" value="${host5}"/>
+                    <constructor-arg type="int" value="${port5}"/>
+                </bean>
+                <bean class="redis.clients.jedis.HostAndPort" >
+                    <constructor-arg type="java.lang.String" value="${host6}"/>
+                    <constructor-arg type="int" value="${port6}"/>
+                </bean>
+            </set>
+        </property>
+    </bean>
 </beans>

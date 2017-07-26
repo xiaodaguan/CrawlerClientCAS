@@ -1,5 +1,6 @@
 package common.system;
 
+import common.proxy.ProxyPoolRedis;
 import common.task.CrawlerType;
 import common.scheduler.Scheduler;
 import common.service.DBService;
@@ -132,6 +133,11 @@ public class Systemconfig {
      */
     public static String mode;
 
+    /**
+     * 代理池管理
+     */
+    public static ProxyPoolRedis proxyPoolRedis;
+
 
     public void initial() {
         value();//运行前缀和表名
@@ -173,6 +179,15 @@ public class Systemconfig {
     }
 
 
+
+    public static void initProxyManager() {
+        proxyPoolRedis = (ProxyPoolRedis)AppContext.appContext.getBean("proxyPoolRedis");
+        if(proxyPoolRedis ==null){
+            LOGGER.error("代理池配置有误，系统退出！！");
+            System.exit(-1);
+        }
+        proxyPoolRedis.init();
+    }
     /**
      * 设置系统运行前缀 Systemconfig.RUN_PREFIX(e.g., "news_search_"c)
      * 设置表名 Systemconfig.table
@@ -296,6 +311,7 @@ public class Systemconfig {
     public void setMode(String mode) {
         Systemconfig.mode = mode;
     }
+
 
 
 }

@@ -172,6 +172,14 @@ public class StringUtil {
 		return null;
 	}
 
+
+	public static boolean regFullMatch(String target, String pattern){
+		Pattern p = Pattern.compile("^"+pattern+"$");
+		Matcher m = p.matcher(target);
+		return m.find();
+	}
+
+
 	/**
 	 * 匹配起始和结束位置之间的内容，匹配全部，返回列表
 	 * 
@@ -479,5 +487,6 @@ public class StringUtil {
 		cs[0]-=32;
 		return String.valueOf(cs);
 	}
+
 
 }

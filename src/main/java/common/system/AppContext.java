@@ -71,6 +71,7 @@ public class AppContext {
         Systemconfig.initDBService();
         Systemconfig.initUrlFilter();
         Systemconfig.initScheduler();
+        Systemconfig.initProxyManager();
 
         readConfig();
 
