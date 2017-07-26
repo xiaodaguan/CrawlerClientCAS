@@ -2,6 +2,8 @@ package common.task;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SearchKey implements Serializable {
@@ -32,6 +34,21 @@ public class SearchKey implements Serializable {
 		return "CategoryCode["+CATEGORY_CODE+"], Keyword["+KEYWORD+"], SiteId[{"+SITE_ID+"}], SiteName["+SITE_NAME+"]";
 	}
 
+	public List<Integer> getMediaTypeList(){
+		if(TYPE==null||TYPE.length()==0){
+			return null;
+		}
+
+		String[] strArray = TYPE.split(";");
+		ArrayList<Integer> integerArrayList = new ArrayList<>();
+		for(String str: strArray){
+			if(str.length()>0){
+				int type = Integer.parseInt(str);
+				integerArrayList.add(type);
+			}
+		}
+		return integerArrayList;
+	}
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}

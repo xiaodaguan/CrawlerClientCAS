@@ -88,12 +88,16 @@ public class Executor implements Runnable{
             for (Object obj : listData) {
                 CommonData data = (CommonData) obj;
                 CrawlTask followTask = new CrawlTask();
+
+                /* 继承属性 */
                 followTask.setOrignUrl(data.getUrl());
                 followTask.setMediaType(task.getMediaType());
                 followTask.setCrawlerType("DATA");
                 followTask.setSite(task.getSite());
                 followTask.setSearchKey(task.getSearchKey());
                 followTask.setData(data);
+                followTask.setAgent(task.getAgent());
+
 
                 Systemconfig.scheduler.submitTask(followTask);
             }
