@@ -10,7 +10,7 @@
     </select>
 
     <select id="selectAllSearchKeyword" resultType="common.task.SearchKey">
-        select * from search_keyword
+        select * from search_keyword where trunc(propose_time) >= trunc(sysdate) - 7 order by priority desc
     </select>
 
 
