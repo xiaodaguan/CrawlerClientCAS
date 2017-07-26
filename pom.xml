@@ -57,37 +57,17 @@
 
     <dependencies>
         <!--> local <-->
-        <dependency>
-            <groupId>org.mozilla.intl</groupId>
-            <artifactId>chardet</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>crwlerlog</groupId>
-            <artifactId>crwlerlog</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache</groupId>
-            <artifactId>hadoop</artifactId>
-            <version>1.0.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hbase</artifactId>
-            <version>0.94.16</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.0</version>
-        </dependency>
+
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.mozilla.intl</groupId>
+            <artifactId>chardet</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!--> remote <-->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>

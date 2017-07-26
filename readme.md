@@ -12,6 +12,8 @@
 ## 1 部署·运行
 
 1. 安装redis-cluster(3 * master+3 * slave)，配置见config.properties
+2. 安装maven
+2. 运行mvnInstallJars.sh
 2. 配置文件config.properties
 	- 数据库连接信息
 	- 布隆过滤器设置：可接受的误判率，预计实体总数
