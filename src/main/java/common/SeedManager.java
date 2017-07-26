@@ -28,17 +28,11 @@ public class SeedManager {
         LOGGER.info("从数据库获取关键词...");
         List<SearchKey> allSearchKeys = Systemconfig.dbService.getAllSearchKeys();
         LOGGER.info("获取{}个关键词", allSearchKeys.size());
-        LOGGER.info("生成种子列表...");
-        List<CrawlTask> allTasks = searchKeys2Tasks(allSearchKeys);
-        for (CrawlTask task : allTasks) {
-
-            Systemconfig.scheduler.submitTask(task);
-
-        }
+        LOGGER.info("生成种子列表并提交...");
+        generateAndSubmit(allSearchKeys);
     }
 
-    private List<CrawlTask> searchKeys2Tasks(List<SearchKey> allSearchKeys) {
-        List<CrawlTask> tasks = new ArrayList<>();
+    private void generateAndSubmit(List<SearchKey> allSearchKeys) {
         Set<String> allSiteNames = Systemconfig.allSiteinfos.keySet();
 
         /**
@@ -47,14 +41,14 @@ public class SeedManager {
          */
         for (SearchKey searchKey : allSearchKeys) {
             List<Integer> mediaTypes = searchKey.getMediaTypeList();
-            for(int mediaType: mediaTypes) {
+            for (int mediaType : mediaTypes) {
                 CrawlerType crawlerType = CrawlerType.getCrawlerTypeMap().get(mediaType);
-                if(crawlerType == null)
+                if (crawlerType == null)
                     continue;
                 String mediaTypeFull = crawlerType.name();
 
                 for (String siteInfoName : allSiteNames) {
-                    if(!siteInfoName.toLowerCase().contains(mediaTypeFull.toLowerCase()))
+                    if (!siteInfoName.toLowerCase().contains(mediaTypeFull.toLowerCase()))
                         continue;
 
                     Siteinfo siteinfo = Systemconfig.allSiteinfos.get(siteInfoName);
@@ -68,28 +62,27 @@ public class SeedManager {
 
                     task.setSite(siteinfo.getSiteName());//baidu_news_search
 
-                    if(task.getSite().contains("baidu")) {
+                    if (task.getSite().contains("baidu")) {
                         task.setAgent(true);
                         task.setRetryTimes(3);
                         task.setInterval(1);
                     }
 
-                    tasks.add(task);
                     try {
-                        Thread.sleep(1000*30);
+                        LOGGER.info("等待提交下一个关键词...");
+                        Thread.sleep(1000 * 30);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }
-        return tasks;
     }
 
     /**
      * 删除全部待采集任务
      */
-    public void clearAll(){
+    public void clearAll() {
 
         Systemconfig.scheduler.removeAllTask();
     }
@@ -97,11 +90,11 @@ public class SeedManager {
     public static void main(String[] args) throws InterruptedException {
 
         SeedManager seedManager = new SeedManager();
-        while(true) {
+        while (true) {
             seedManager.clearAll();//清空
             seedManager.generate();//生成
 
-            Thread.sleep(1000*3600*24);//等待
+            Thread.sleep(1000 * 60 * 5);//等待
         }
     }
 }
