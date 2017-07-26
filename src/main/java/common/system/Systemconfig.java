@@ -177,7 +177,9 @@ public class Systemconfig {
         }
         scheduler.init();
     }
+    public static void readWeiboAccount() {
 
+    }
 
 
     public static void initProxyManager() {
