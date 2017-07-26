@@ -29,9 +29,10 @@ public class Executor implements Runnable{
 
         //
         while (true) {
+            CrawlTask task = null;
             try {
                 //  getTask
-                CrawlTask task = Systemconfig.scheduler.getTask();
+                task = Systemconfig.scheduler.getTask();
                 if(Systemconfig.urlFilter.contains(MD5Util.MD5(task.getOrignUrl()))) {
                     LOGGER.info("已采集过的url[{}]，跳过", task.getOrignUrl());
                     continue;
@@ -63,7 +64,7 @@ public class Executor implements Runnable{
 
                 LOGGER.info("sleeping...");
                 try {
-                    Thread.sleep(1000 * 3);
+                    Thread.sleep(1000 * task.getInterval());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
