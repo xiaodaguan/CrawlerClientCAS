@@ -28,8 +28,8 @@ public class DefaultDownloader implements DownloaderIterface {
         clientBuilder = new OkHttpClient().newBuilder()
                 .addInterceptor(new RetryInterceptor(task.getRetryTimes()))
                 .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(300, TimeUnit.SECONDS)
-                .writeTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
 
         ;
 
@@ -79,6 +79,9 @@ public class DefaultDownloader implements DownloaderIterface {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            response.body().close();
+            response.close();
         }
 
         task.setContent(builder.toString());

@@ -6,12 +6,16 @@ import common.system.AppContext;
 import common.system.Systemconfig;
 import common.task.CrawlerType;
 import common.task.SearchKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class SeedManager {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SeedManager.class);
 
     public SeedManager() {
         Systemconfig.crawlerType = 1;//无所谓，每种都可以获取serachkey
@@ -21,26 +25,30 @@ public class SeedManager {
 
     public void generate() {
 
+        LOGGER.info("从数据库获取关键词...");
         List<SearchKey> allSearchKeys = Systemconfig.dbService.getAllSearchKeys();
-        List<CrawlTask> allTasks = searchKeys2Tasks(allSearchKeys);
-        for (CrawlTask task : allTasks) {
-
-            Systemconfig.scheduler.submitTask(task);
-
-        }
+        LOGGER.info("获取{}个关键词", allSearchKeys.size());
+        LOGGER.info("生成种子列表并提交...");
+        generateAndSubmit(allSearchKeys);
     }
 
-    private List<CrawlTask> searchKeys2Tasks(List<SearchKey> allSearchKeys) {
-        List<CrawlTask> tasks = new ArrayList<>();
+    private void generateAndSubmit(List<SearchKey> allSearchKeys) {
         Set<String> allSiteNames = Systemconfig.allSiteinfos.keySet();
 
+        /**
+         * 三层嵌套组合：关键词+类型+站点
+         * 例如：xxxxx + news_search + baidu
+         */
         for (SearchKey searchKey : allSearchKeys) {
             List<Integer> mediaTypes = searchKey.getMediaTypeList();
-            for(int mediaType: mediaTypes) {
-                String mediaTypeFull = CrawlerType.getCrawlerTypeMap().get(mediaType).name();
+            for (int mediaType : mediaTypes) {
+                CrawlerType crawlerType = CrawlerType.getCrawlerTypeMap().get(mediaType);
+                if (crawlerType == null)
+                    continue;
+                String mediaTypeFull = crawlerType.name();
 
                 for (String siteInfoName : allSiteNames) {
-                    if(!siteInfoName.toLowerCase().contains(mediaTypeFull.toLowerCase()))
+                    if (!siteInfoName.toLowerCase().contains(mediaTypeFull.toLowerCase()))
                         continue;
 
                     Siteinfo siteinfo = Systemconfig.allSiteinfos.get(siteInfoName);
@@ -54,23 +62,29 @@ public class SeedManager {
 
                     task.setSite(siteinfo.getSiteName());//baidu_news_search
 
-                    if(task.getSite().contains("baidu")) {
+                    if (task.getSite().contains("baidu")) {
                         task.setAgent(true);
                         task.setRetryTimes(3);
                         task.setInterval(1);
                     }
 
-                    tasks.add(task);
+                    Systemconfig.scheduler.submitTask(task);
+
+                    try {
+                        LOGGER.info("等待提交下一个关键词...");
+                        Thread.sleep(1000 * 30);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
-        return tasks;
     }
 
     /**
      * 删除全部待采集任务
      */
-    public void clearAll(){
+    public void clearAll() {
 
         Systemconfig.scheduler.removeAllTask();
     }
@@ -78,11 +92,11 @@ public class SeedManager {
     public static void main(String[] args) throws InterruptedException {
 
         SeedManager seedManager = new SeedManager();
-        while(true) {
+        while (true) {
             seedManager.clearAll();//清空
             seedManager.generate();//生成
 
-            Thread.sleep(1000*3600*24);//等待
+            Thread.sleep(1000 * 60 * 5);//等待
         }
     }
 }
