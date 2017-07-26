@@ -79,6 +79,9 @@ public class DefaultDownloader implements DownloaderIterface {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            response.body().close();
+            response.close();
         }
 
         task.setContent(builder.toString());
