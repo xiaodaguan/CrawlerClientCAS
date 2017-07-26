@@ -2,7 +2,32 @@
 
 <userList>
     <user>
-        <account>1354805597rzy@sina.com</account>
+        <name>1354805597rzy@sina.com</name>
         <passwd>649859709</passwd>
+        <siteFlag>7</siteFlag>
+        <valid>1</valid>
+    </user>
+
+
+
+    <user>
+        <name>1111@sina.com</name>
+        <passwd>1111</passwd>
+        <siteFlag>7</siteFlag>
+        <valid>1</valid>
+    </user>
+
+    <user>
+        <name>2222@sina.com</name>
+        <passwd>2222</passwd>
+        <siteFlag>7</siteFlag>
+        <valid>1</valid>
+    </user>
+
+    <user>
+        <name>3333@sina.com</name>
+        <passwd>3333</passwd>
+        <siteFlag>7</siteFlag>
+        <valid>-1</valid>
     </user>
 </userList>

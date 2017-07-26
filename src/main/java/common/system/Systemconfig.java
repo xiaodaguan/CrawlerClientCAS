@@ -7,12 +7,15 @@ import common.service.DBService;
 import common.siteinfo.Siteinfo;
 import common.urlFilter.BloomFilterRedis;
 import common.utils.HtmlExtractor;
+import common.utils.UserAgent;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -178,9 +181,46 @@ public class Systemconfig {
         scheduler.init();
     }
     public static void readWeiboAccount() {
+        try {
+            String path = "accountConf/weibo.xml";
+            SAXReader reader = new SAXReader();
+            Document doc = reader.read(new File(path));
+            Element root = doc.getRootElement();
+            List<UserAttribute> list = new ArrayList<UserAttribute>();
+            for (Iterator i = root.elementIterator("user"); i.hasNext();) {
+                Element ele = (Element) i.next();
+                String valid  = ele.elementText("valid");
+                if(!valid.equals("1")){
+                    continue;
+                }
+                String name      = ele.elementText("name");
+                String passwd    = ele.elementText("passwd");
+                String siteFlag  = ele.elementText("siteFlag");
 
+                UserAttribute user = new UserAttribute();
+                user.setName(name);
+                user.setPass(passwd);
+                user.setSiteFlag(siteFlag);
+                user.setUsed(0);
+                user.setAgentIndex(UserAgent.getUserAgentIndex());
+                list.add(user);
+
+
+
+//                ua.setName(rs.getString(1));
+//                ua.setPass(rs.getString(2));
+//                ua.setSiteFlag(rs.getString(3));
+//                ua.setId(rs.getInt(4));
+//                ua.setCookie(rs.getString(5));
+//                ua.setUserAgent(rs.getString(6));
+//                ua.setUsed(0);
+//                ua.setAgentIndex(UserAgent.getUserAgentIndex());
+            }
+            Systemconfig.users.put("weibos",list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 
     public static void initProxyManager() {
         proxyPoolRedis = (ProxyPoolRedis)AppContext.appContext.getBean("proxyPoolRedis");

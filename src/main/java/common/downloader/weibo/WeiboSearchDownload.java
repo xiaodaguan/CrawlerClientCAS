@@ -39,7 +39,6 @@ public class WeiboSearchDownload extends DefaultDownloader {
 				.connectTimeout(15, TimeUnit.SECONDS)
 				.readTimeout(300,  TimeUnit.SECONDS)
 				.writeTimeout(300,  TimeUnit.SECONDS)
-
 				.build();
 
 
