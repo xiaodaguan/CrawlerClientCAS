@@ -46,6 +46,11 @@ public class Executor implements Runnable{
                 DefaultDownloader downloader = new DefaultDownloader(task);
                 downloader.download();
 
+                if(task.getContent() == null || task.getContent().length() < 10){
+                    LOGGER.error("下载页面内容出错，跳过解析");
+                    continue;
+                }
+
                 //  parse
 
                 List listData = DataHelper.createDataList(Systemconfig.crawlerType);
