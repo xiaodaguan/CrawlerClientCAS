@@ -11,6 +11,8 @@ import common.utils.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
@@ -67,6 +69,8 @@ public class Executor implements Runnable {
             } catch (Exception e) {
                 if (e instanceof SQLIntegrityConstraintViolationException)
                     LOGGER.error("插入错误：违反数据库约束");
+                else if (e instanceof SocketTimeoutException)
+                    LOGGER.error("请求错误：隧道连接超时");
                 else
                     e.printStackTrace();
             } finally {
