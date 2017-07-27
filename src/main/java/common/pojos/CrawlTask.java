@@ -15,7 +15,7 @@ public class CrawlTask implements Serializable{
 
 	private static final long serialVersionUID = 666L;
 
-	private String site;// web站点
+	private String site;// web站点     siteinfo.getSiteName()
 	private String orignUrl;// 采集源链接——最终链接部分可能会不同
 	private String realUrl;// 最终链接，无变化为null
 	private String encode;// 页面编码

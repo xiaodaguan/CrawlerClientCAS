@@ -19,6 +19,25 @@ public class UserAttribute implements Serializable {
     private String referer;
     private boolean hadRun;//是否曾经运行过
     private Date lastLoginTime;//上次登陆时间
+    private boolean valid;// true 有效，false失效
+    private int tryCount;
+
+
+    public void setTryCount(int tryCount) {
+        this.tryCount = tryCount;
+    }
+
+    public int getTryCount() {
+        return tryCount;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
 
     @Override
     public String toString() {

@@ -12,7 +12,7 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class Siteinfo implements Serializable {
 	/** 站点名称，必须 */
-	protected String siteName;
+	protected String siteName;  //baidu_news_search
 	/** 站点标识，必须 */
 	protected int siteFlag;
 	/** 站点编码，必须 */

@@ -25,9 +25,12 @@ public class UserManager {
         List<UserAttribute> list = Systemconfig.users.get(siteFlag);
         if (list == null) return null;
         for (UserAttribute ua : list) {
-            if (ua.getUsed() > 0) continue;
-            ua.setUsed(1);
-            return ua;
+            if (ua.getUsed() > 0 ) continue;
+            if(ua.isValid()) {
+                ua.setTryCount(0);
+                ua.setUsed(1);
+                return ua;
+            }
         }
         return null;
     }
@@ -43,7 +46,7 @@ public class UserManager {
     public static List<String> getAvailableUserNames(String siteFlag) {
         List<String> list = new ArrayList<>(Systemconfig.users.size());
         for (UserAttribute attr : Systemconfig.users.get(siteFlag)) {
-            if (attr.getUsed() > 0) continue;
+            if (attr.getUsed() > 0 ||!attr.isValid()) continue;
             else list.add(attr.getName());
         }
         return list;
@@ -54,13 +57,18 @@ public class UserManager {
 //		if(in==-1) in = siteFlag.length();
 //		String typeConf = siteFlag.substring(0, in);
         if (user == null) return;
-        List<UserAttribute> list = Systemconfig.users.get(siteFlag);
-        for (UserAttribute ua : list) {
-            if (ua.equals(user)) {
-                ua.setUsed(0);
-                UserAgent.releaseUserAgent(ua.getId());
-            }
-        }
+//        List<UserAttribute> list = Systemconfig.users.get(siteFlag);
+//        for (UserAttribute ua : list) {
+//            if (ua.equals(user)) {
+//                ua.setUsed(0);
+//                ua.setTryCount(0);
+//                UserAgent.releaseUserAgent(ua.getId());
+//            }
+//        }
+
+        user.setUsed(0);
+        user.setTryCount(0);
+        UserAgent.releaseUserAgent(user.getId());
         LOGGER.info("用户" + user.getName() + "释放.");
     }
 

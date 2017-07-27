@@ -86,6 +86,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 				cookie = user.getCookie();
 			else if(!login(user)) {
 				LOGGER.info(user.getName()+"登陆失败！没有采集到数据");
+				user.setValid(false);
 				return null;
 			}
 			get.setHeader("Cookie", cookie);

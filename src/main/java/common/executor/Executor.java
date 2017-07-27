@@ -50,6 +50,8 @@ public class Executor implements Runnable{
 
                 List listData = DataHelper.createDataList(Systemconfig.crawlerType);
 
+
+
                 XpathExtractor extractor = ExtractorHelper.createExtractor(task, mediaTypeFull, mediaTypePrefix);
                 String nextUrl = extractor.extract(task, listData);
                 //  save/submitTasks and add filter

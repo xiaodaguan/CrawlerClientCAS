@@ -202,6 +202,8 @@ public class Systemconfig {
                 user.setPass(passwd);
                 user.setSiteFlag(siteFlag);
                 user.setUsed(0);
+                user.setValid(true);
+                user.setTryCount(0);
                 user.setAgentIndex(UserAgent.getUserAgentIndex());
                 list.add(user);
 

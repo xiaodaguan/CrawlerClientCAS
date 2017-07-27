@@ -19,9 +19,9 @@ import java.util.concurrent.TimeUnit;
 public class DefaultDownloader implements DownloaderIterface {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultDownloader.class);
 
-    private static OkHttpClient httpClient;
-    private static CrawlTask task;
-    private static OkHttpClient.Builder clientBuilder;
+    protected static OkHttpClient httpClient;
+    protected static CrawlTask task;
+    protected static OkHttpClient.Builder clientBuilder;
 
     public DefaultDownloader(CrawlTask task) {
         this.task = task;
