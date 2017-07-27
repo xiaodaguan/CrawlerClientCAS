@@ -73,7 +73,7 @@ public class Executor implements Runnable {
 
                 LOGGER.info("sleeping...");
                 try {
-                    Thread.sleep(1000 * task.getInterval());
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
