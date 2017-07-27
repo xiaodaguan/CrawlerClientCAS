@@ -37,7 +37,7 @@ public class DefaultDownloader implements DownloaderIterface {
     }
 
     @Override
-    public void download() {
+    public void download() throws IOException {
 
         if (task.getAgent()) {
             String hostPort = Systemconfig.proxyPoolRedis.randomGetOne();
@@ -59,7 +59,7 @@ public class DefaultDownloader implements DownloaderIterface {
             response = httpClient.newCall(request).execute();
         } catch (IOException e) {
             LOGGER.error("httpClient 请求失败. url: {}", task.getOrignUrl());
-            e.printStackTrace();
+            throw new IOException(e);
         }
 
         if (!response.isSuccessful()) {

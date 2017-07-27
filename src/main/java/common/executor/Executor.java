@@ -11,15 +11,18 @@ import common.utils.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
-public class Executor implements Runnable{
+public class Executor implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(Executor.class);
 
     private String mediaTypeFull;
     private String mediaTypePrefix;
 
-    public Executor(String mediaTypeFull, String mediaTypePrefix){
+    public Executor(String mediaTypeFull, String mediaTypePrefix) {
         this.mediaTypeFull = mediaTypeFull;
         this.mediaTypePrefix = mediaTypePrefix;
     }
@@ -33,7 +36,7 @@ public class Executor implements Runnable{
             try {
                 //  getTask
                 task = Systemconfig.scheduler.getTask();
-                if(Systemconfig.urlFilter.contains(MD5Util.MD5(task.getOrignUrl()))) {
+                if (Systemconfig.urlFilter.contains(MD5Util.MD5(task.getOrignUrl()))) {
                     LOGGER.info("已采集过的url[{}]，跳过", task.getOrignUrl());
                     continue;
                 }
@@ -45,6 +48,11 @@ public class Executor implements Runnable{
                 //  download
                 DefaultDownloader downloader = new DefaultDownloader(task);
                 downloader.download();
+
+                if (task.getContent() == null || task.getContent().length() < 10) {
+                    LOGGER.error("下载页面内容出错，跳过解析");
+                    continue;
+                }
 
                 //  parse
 
@@ -61,12 +69,17 @@ public class Executor implements Runnable{
 
                 // sleep
             } catch (Exception e) {
-                e.printStackTrace();
-            }finally {
+                if (e instanceof SQLIntegrityConstraintViolationException)
+                    LOGGER.error("插入错误：违反数据库约束");
+                else if (e instanceof SocketTimeoutException)
+                    LOGGER.error("请求错误：隧道连接超时");
+                else
+                    e.printStackTrace();
+            } finally {
 
                 LOGGER.info("sleeping...");
                 try {
-                    Thread.sleep(1000 * task.getInterval());
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

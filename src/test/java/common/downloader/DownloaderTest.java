@@ -6,6 +6,8 @@ import common.system.Systemconfig;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
+
 /**
  * Created by guanxiaoda on 2017/7/18.
  */
@@ -21,7 +23,7 @@ public class DownloaderTest {
 
 
     @Test
-    public void DownTest(){
+    public void DownTest() throws IOException {
 //        CrawlTask task = new CrawlTask();
 //        task.setOrignUrl("http://guanxiaoda.cn");
 //        task.setRetryTimes(3);
@@ -34,7 +36,7 @@ public class DownloaderTest {
     }
 
     @Test
-    public void proxyDownTest(){
+    public void proxyDownTest() throws IOException {
         CrawlTask task = new CrawlTask();
         task.setOrignUrl("http://www.whatismyip.com.tw/");
         task.setAgent(true);
