@@ -218,12 +218,14 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
 			html.setOrignUrl(url);
 			html.setReferUrl(postLoginUrl);
 			cookie(html, user.getUserAgent());
-//			LOGGER.info(cookie);
+			LOGGER.info("weibo account:[{}]  cookie:[{}]",user.getName(),cookie);
 			user.setCookie(cookie);
             user.setLastLoginTime(new Date());
 			return true;
 		} else {
 			LOGGER.info(loginEntity.getUsername() + "\tlogin fail.");
+			ses.shutdown();
+			user.setValid(false);
 			return false;
 		}
 	}
