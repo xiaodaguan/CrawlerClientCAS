@@ -121,10 +121,8 @@ public class SinaExtractor extends WeiboSearchXpathExtractor {
                 } else if (s.contains("hour") || s.contains("小时前")) {
                     c.set(Calendar.HOUR, c.get(Calendar.HOUR) - num);
                 } else if (s.contains("今天")) {
-                    s = s.replace("今天", c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE) + " ");
-                    System.out.println("s1:"+s);
+                    s = s.replace("今天", c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH)+1) + "-" + c.get(Calendar.DATE) + " ");
                     d = super.timeProcess(s);
-                    System.out.println("d1:"+d.toLocaleString());
                     return d;
                 } else if (s.contains("day") || s.contains("天前")) {
                     c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH) - num);
