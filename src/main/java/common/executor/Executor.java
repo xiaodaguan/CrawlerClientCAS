@@ -43,29 +43,18 @@ public class Executor implements Runnable {
                     continue;
                 }
                 //  download
-                //DefaultDownloader downloader = new DefaultDownloader(task);
-                DefaultDownloader downloader = DownloaderHelper.createDownloader(task);
-
-                downloader.download();
+                DownloaderHelper.createDownloader(task).download();
 
                 if (task.getContent() == null || task.getContent().length() < 10) {
                     LOGGER.error("下载页面内容出错，跳过解析");
                     continue;
                 }
-
-                //  parse
-
                 List listData = DataHelper.createDataList(Systemconfig.crawlerType);
-
-
-
+                //  parse
                 XpathExtractor extractor = ExtractorHelper.createExtractor(task, mediaTypeFull, mediaTypePrefix);
                 String nextUrl = extractor.extract(task, listData);
                 //  save/submitTasks and add filter
-
                 submitOrSave(task, listData, nextUrl);
-
-
                 // sleep
             } catch (Exception e) {
                 if (e instanceof SQLIntegrityConstraintViolationException)
@@ -75,10 +64,9 @@ public class Executor implements Runnable {
                 else
                     e.printStackTrace();
             } finally {
-
                 LOGGER.info("sleeping...");
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(1000*task.getInterval());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -125,10 +113,14 @@ public class Executor implements Runnable {
             //Systemconfig.dbService.saveData(listData.get(0));
             //Systemconfig.urlFilter.add(MD5Util.MD5(task.getOrignUrl()));
         }
+//
+//        WeiboData data = (WeiboData) listData.get(0);
+//
+//        WeiboData newsData =data;
 
-        WeiboData data = (WeiboData) listData.get(0);
+        NewsData data = (NewsData) listData.get(0);
 
-        WeiboData newsData =data;
+        NewsData newsData =data;
         System.out.println("\n\n一条博客信息：");
         System.out.println("SearchKey   :"+newsData.getSearchKey());
         System.out.println("Title       :"+newsData.getTitle());

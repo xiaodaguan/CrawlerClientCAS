@@ -74,8 +74,7 @@ public class WeiboSearchDownload extends DefaultDownloader {
 		if ((!userAttr_tmp.getHadRun())||userAttr_tmp.getCookie()==null){
 			http = new SinaHttpProcess();
 			//http.monitorLogin(userAttr_tmp);
-
-			//http.login(userAttr_tmp);
+			http.login(userAttr_tmp);
 			userAttr_tmp.setHadRun(true);
 			LOGGER.info("监测用户{}",userAttr_tmp.getName());
 		}
@@ -86,11 +85,11 @@ public class WeiboSearchDownload extends DefaultDownloader {
 	@Override
 	public void download() {
 
-
 		prePorcess();
 
 		String cookie = task.getUser().getCookie();
-		cookie = "SINAGLOBAL=716716251336.0381.1500174700637; UM_distinctid=15d5ef29e23f1-09069fb84-722e3659-140000-15d5ef29e2478; un=15841920324; UOR=,,login.sina.com.cn; un=1354805597rzy@sina.com; wvr=6; SSOLoginState=1501225072; SCF=AnuvTe-9uSaubZg2U2czIFcCMEm7i5K58zGkG1HnYMrB9ur_9sULjW6E_K1Bny6f9X7hv8Fz0v8Q0G6xiiVAyNg.; SUB=_2A250fpAgDeRhGeRK61UZ8SbIzz2IHXVXDYborDV8PUNbmtBeLULRkW8aq2fz8EREMyhiW3YFINHAN-iUbg..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WFLaUa9E2iGSFaS52z1uGc35JpX5KMhUgL.FozXehMReKnXSh22dJLoIpjLxKqLBozLBKnLxK-LB-BL1K5LxK.LBo2LB.et; SUHB=0nlvn8Tz0qbNFt; ALF=1532761070; _s_tentry=-; Apache=5692819065880.03.1501225079464; ULV=1501225079508:16:16:6:5692819065880.03.1501225079464:1501118360031";
+		//cookie = "SINAGLOBAL=716716251336.0381.1500174700637; UM_distinctid=15d5ef29e23f1-09069fb84-722e3659-140000-15d5ef29e2478; un=15841920324; UOR=,,login.sina.com.cn; un=1354805597rzy@sina.com; wvr=6; SSOLoginState=1501225072; SCF=AnuvTe-9uSaubZg2U2czIFcCMEm7i5K58zGkG1HnYMrB9ur_9sULjW6E_K1Bny6f9X7hv8Fz0v8Q0G6xiiVAyNg.; SUB=_2A250fpAgDeRhGeRK61UZ8SbIzz2IHXVXDYborDV8PUNbmtBeLULRkW8aq2fz8EREMyhiW3YFINHAN-iUbg..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WFLaUa9E2iGSFaS52z1uGc35JpX5KMhUgL.FozXehMReKnXSh22dJLoIpjLxKqLBozLBKnLxK-LB-BL1K5LxK.LBo2LB.et; SUHB=0nlvn8Tz0qbNFt; ALF=1532761070; _s_tentry=-; Apache=5692819065880.03.1501225079464; ULV=1501225079508:16:16:6:5692819065880.03.1501225079464:1501118360031";
+
 		String Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
 		String Accept_Encoding = "gzip, deflate, sdch";
 		String Accept_Language="zh-CN,zh;q=0.8";
@@ -102,24 +101,6 @@ public class WeiboSearchDownload extends DefaultDownloader {
 		System.out.println("cookie:"+cookie);
 
 		httpClient = clientBuilder.build();
-//		Request request = new Request.Builder()
-//				.url(task.getOrignUrl())
-//
-//				.addHeader("User-Agent",task.getUa()==null? "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36":task.getUa())
-
-//		.addHeader("Accept",Accept)
-//		.addHeader("Accept_Encoding",Accept_Encoding)
-//		.addHeader("Accept_Language",Accept_Language)
-//		.addHeader("Connection",Connection)
-//		.addHeader("Host",Host)
-//		.addHeader("Upgrade_Insecure_Requests",Upgrade_Insecure_Requests)
-//
-//				.addHeader("Cookie",cookie)
-//				/**
-//				 * 可以扩展其他header
-//				 */
-//				.build();
-
 
 
 		Object obj = new Request.Builder();

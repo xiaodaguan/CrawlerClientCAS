@@ -19,9 +19,9 @@ import java.util.concurrent.TimeUnit;
 public class DefaultDownloader extends AbastractDownloader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultDownloader.class);
 
-    protected static OkHttpClient httpClient;
-    protected static CrawlTask task;
-    protected static OkHttpClient.Builder clientBuilder;
+    protected OkHttpClient httpClient;
+    protected CrawlTask task;
+    protected OkHttpClient.Builder clientBuilder;
 
     public DefaultDownloader(CrawlTask task) {
         this.task = task;
@@ -32,8 +32,6 @@ public class DefaultDownloader extends AbastractDownloader {
                 .writeTimeout(15, TimeUnit.SECONDS)
 
         ;
-
-
     }
 
     @Override
@@ -83,7 +81,6 @@ public class DefaultDownloader extends AbastractDownloader {
             response.body().close();
             response.close();
         }
-
         task.setContent(builder.toString());
         if (task.getContent() == null)
             LOGGER.error("downloader content failure. url:{}", task.getOrignUrl());
