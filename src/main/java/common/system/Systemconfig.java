@@ -204,19 +204,9 @@ public class Systemconfig {
                 user.setUsed(0);
                 user.setValid(true);
                 user.setTryCount(0);
+                user.setRunStatus(false);
                 user.setAgentIndex(UserAgent.getUserAgentIndex());
                 list.add(user);
-
-
-
-//                ua.setName(rs.getString(1));
-//                ua.setPass(rs.getString(2));
-//                ua.setSiteFlag(rs.getString(3));
-//                ua.setId(rs.getInt(4));
-//                ua.setCookie(rs.getString(5));
-//                ua.setUserAgent(rs.getString(6));
-//                ua.setUsed(0);
-//                ua.setAgentIndex(UserAgent.getUserAgentIndex());
             }
             Systemconfig.users.put("sina_weibo_search",list);
         } catch (Exception e) {

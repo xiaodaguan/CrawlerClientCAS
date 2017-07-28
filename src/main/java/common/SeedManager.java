@@ -18,7 +18,7 @@ public class SeedManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(SeedManager.class);
 
     public SeedManager() {
-        Systemconfig.crawlerType = 1;//无所谓，每种都可以获取serachkey
+        Systemconfig.crawlerType = 7;//指定获取serachkey的爬虫类型
         String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         AppContext.initAppCtx(path);
     }
@@ -48,6 +48,7 @@ public class SeedManager {
                 String mediaTypeFull = crawlerType.name();
 
                 for (String siteInfoName : allSiteNames) {
+
                     if (!siteInfoName.toLowerCase().contains(mediaTypeFull.toLowerCase()))
                         continue;
 
@@ -92,7 +93,9 @@ public class SeedManager {
     public static void main(String[] args) throws InterruptedException {
 
         SeedManager seedManager = new SeedManager();
-        while (true) {
+
+        while (true)
+        {
             seedManager.clearAll();//清空
             seedManager.generate();//生成
 

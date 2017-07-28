@@ -59,14 +59,12 @@ public class AppContext {
         String[] arry = new String[list.size()];
         list.toArray(arry);
 
-
 //        appContext = new FileSystemXmlApplicationContext(arry);
         appContext = new ClassPathXmlApplicationContext(arry);
 
         list.clear();
         files = null;
         arry = null;
-
 
         Systemconfig.initDBService();
         Systemconfig.initUrlFilter();
@@ -76,19 +74,13 @@ public class AppContext {
         if(Systemconfig.crawlerType==7||Systemconfig.crawlerType==8){
             Systemconfig.readWeiboAccount();
         }
-
-
-
         readConfig();
 
         LOGGER.info("init. ok. ");
     }
 
     public static void readConfig() {// 读取配置
-
         readConfigFromFile();
-
-
     }
 
     private static String typeConfFolder = "typeConf";
@@ -120,7 +112,6 @@ public class AppContext {
         String prefix = CrawlerType.getCrawlerTypeMap().
                 get(Systemconfig.crawlerType).name().toLowerCase();
 
-
         @Override
         public boolean accept(File f) {
             return f.getName().startsWith(prefix) && !f.getName().replace(xpathConfFolder, "").replace(File.separator, "").startsWith(".") && f.getName().endsWith("xml");
@@ -132,7 +123,7 @@ public class AppContext {
      */
     public static void readConfigFromFile() {
         // xpathConfFolder = 'typeConfFolder'
-        String path = "src/main/resources/".replace("/", File.separator);
+        String path = "src/main/resources".replace("/", File.separator);
         File[] xpathFs = new File(path + File.separator + xpathConfFolder).listFiles(new MyFileFilter());
         if (xpathFs == null) {
             LOGGER.info("没有可运行配置站点");

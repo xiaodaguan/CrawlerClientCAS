@@ -20,8 +20,25 @@ public class UserAttribute implements Serializable {
     private boolean hadRun;//是否曾经运行过
     private Date lastLoginTime;//上次登陆时间
     private boolean valid;// true 有效，false失效
+    private boolean runStatus;// true 正在运行，false 没有运行
     private int tryCount;
 
+
+    public boolean isRunStatus() {
+        return runStatus;
+    }
+
+    public void setStat(int stat) {
+        this.stat = stat;
+    }
+
+    public void setRunStatus(boolean runStatus) {
+        this.runStatus = runStatus;
+    }
+
+    public boolean isHadRun() {
+        return hadRun;
+    }
 
     public void setTryCount(int tryCount) {
         this.tryCount = tryCount;

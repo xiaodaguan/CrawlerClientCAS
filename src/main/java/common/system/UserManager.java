@@ -28,6 +28,7 @@ public class UserManager {
             if (ua.getUsed() > 0 ) continue;
             if(ua.isValid()) {
                 ua.setTryCount(0);
+                ua.setRunStatus(true);
                 ua.setUsed(1);
                 return ua;
             }
@@ -68,6 +69,7 @@ public class UserManager {
 
         user.setUsed(0);
         user.setTryCount(0);
+        user.setRunStatus(false);
         UserAgent.releaseUserAgent(user.getId());
         LOGGER.info("用户" + user.getName() + "释放.");
     }
