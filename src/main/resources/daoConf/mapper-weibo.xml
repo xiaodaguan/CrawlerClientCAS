@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper.TestMapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common.mapper.WeiboData">
+    <select id="read" resultType="common.pojos.WeiboData">
+        select * from Weibo_DATA where id=${id}
+    </select>
+
+    <insert id="create" parameterType="common.pojos.WeiboData" >
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select weibo_data_seq.nextval from dual
+        </selectKey>
+        INSERT INTO Weibo_DATA
+        (id, url, pubtime, insert_time, md5, user_id, comment_count, rtt_count, mid, comment_url, rtt_url, author, author_url, search_keyword, category_code, author_img, content, source, site_id, img_url, reliability, gps, old_id)
+        VALUES
+        (#{id},#{url},#{pubtime},sysdate,#{md5},#{uid},#{commentNum}, #{rttNum},#{mid},#{commentUrl},#{rttUrl},#{author},#{authorurl}, #{searchKey},#{categoryCode},#{authorImg},#{content},#{source},#{siteId},#{imgUrl},#{source},null,null,null)
+    </insert>
+
+</mapper>

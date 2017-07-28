@@ -129,7 +129,7 @@ public class Systemconfig {
     /**
      * 用户管理
      */
-    public static HashMap<String, List<UserAttribute>> users;
+    public static HashMap<String, List<UserAttribute>> users = new HashMap<String, List<UserAttribute>>();
 
     /**
      * 运行模式 test/run
@@ -182,7 +182,7 @@ public class Systemconfig {
     }
     public static void readWeiboAccount() {
         try {
-            String path = "accountConf/weibo.xml";
+            String path = "src/main/resources/accountConf/weibo.xml";
             SAXReader reader = new SAXReader();
             Document doc = reader.read(new File(path));
             Element root = doc.getRootElement();
@@ -218,7 +218,7 @@ public class Systemconfig {
 //                ua.setUsed(0);
 //                ua.setAgentIndex(UserAgent.getUserAgentIndex());
             }
-            Systemconfig.users.put("weibos",list);
+            Systemconfig.users.put("sina_weibo_search",list);
         } catch (Exception e) {
             e.printStackTrace();
         }

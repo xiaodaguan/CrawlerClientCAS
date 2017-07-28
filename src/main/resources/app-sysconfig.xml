@@ -148,6 +148,16 @@
 	</bean>
 
 
+	<bean id="weiboMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="common.mapper.WeiboMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="weiboService" class="common.service.WeiboService">
+		<property name="weiboMapper" ref="weiboMapper"/>
+		<property name="baseMapper" ref="baseMapper"/>
+	</bean>
+
+
 
 	<!-- redis -->
 	<bean id="bloomFilterRedis" class="common.urlFilter.BloomFilterRedis">

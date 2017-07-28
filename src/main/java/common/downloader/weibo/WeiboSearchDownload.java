@@ -41,6 +41,22 @@ public class WeiboSearchDownload extends DefaultDownloader {
 	private UserAttribute userAttr;
 
 	private void prePorcess() {
+
+
+
+		System.out.println("#############################################");
+		System.out.println("#############################################");
+		System.out.println("#############################################");
+		System.out.println("############# in weibo ######################");
+		System.out.println("#############################################");
+		System.out.println("#############################################");
+		System.out.println("#############################################");
+
+
+		if(true)
+			return ;
+
+
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(task.getSite());
 
 		String siteFlag = "7";
@@ -73,6 +89,11 @@ public class WeiboSearchDownload extends DefaultDownloader {
 
 
 		prePorcess();
+
+
+		System.out.println();
+		if(true)
+		return ;
 		String cookie = task.getUser().getCookie();
 		Request request = new Request.Builder()
 				.url(task.getOrignUrl())

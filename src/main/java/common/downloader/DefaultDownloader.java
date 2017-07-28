@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by guanxiaoda on 2017/7/18.
  */
-public class DefaultDownloader implements DownloaderIterface {
+public class DefaultDownloader extends AbastractDownloader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultDownloader.class);
 
     protected static OkHttpClient httpClient;
