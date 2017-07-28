@@ -116,7 +116,7 @@ public class SinaExtractor extends WeiboSearchXpathExtractor {
                 } else if (s.contains("hour") || s.contains("小时前")) {
                     c.set(Calendar.HOUR, c.get(Calendar.HOUR) - num);
                 } else if (s.contains("今天")) {
-                    s = s.replace("今天", c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH)+1) + "-" + c.get(Calendar.DATE) + "");
+                    s = s.replace("今天", c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH)+1) + "-" + c.get(Calendar.DATE) + " ");
                     d = super.timeProcess(s);
                     return d;
                 } else if (s.contains("day") || s.contains("天前")) {
