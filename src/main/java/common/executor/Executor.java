@@ -45,7 +45,7 @@ public class Executor implements Runnable {
                 //  download
                 DownloaderHelper.createDownloader(task).download();
 
-                if (task.getContent() == null || task.getContent().length() < 10) {
+                if (task.getContent() == null || task.getContent().length() < 5) {
                     LOGGER.error("下载页面内容出错，跳过解析");
                     continue;
                 }
