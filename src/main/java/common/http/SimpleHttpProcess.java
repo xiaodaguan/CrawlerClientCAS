@@ -3,9 +3,6 @@ package common.http;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.*;
@@ -18,18 +15,12 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
-import net.sf.json.JSON;
-import net.sf.json.util.JSONUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.conn.scheme.Scheme;
@@ -49,18 +40,15 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import common.bean.HtmlInfo;
-import common.bean.Proxy;
 import common.system.Systemconfig;
 import common.system.UserAttr;
 import common.util.CharsetDetector;
 import common.util.EncoderUtil;
 import common.util.MD5Util;
 import common.util.StringUtil;
-import common.util.TimeUtil;
 import common.util.UserAgent;
-import org.eclipse.jetty.util.ConcurrentHashSet;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import redis.clients.jedis.HostAndPort;
+import redis.clients.jedis.JedisCluster;
 
 /**
  * 普通http请求处理
@@ -69,6 +57,7 @@ import org.json.JSONObject;
  * @since 2014年1月
  */
 public class SimpleHttpProcess implements HttpProcess {
+
     private static final String[] charsets = new String[]{"utf-8", "gbk", "gb2312", "big5"};
     protected int readTime = 180000;
     protected int connectNum = 3;
@@ -87,6 +76,7 @@ public class SimpleHttpProcess implements HttpProcess {
 
 
     private static List<String> userAgentList = new ArrayList<>();
+    private static JedisCluster redis;
 
     static {
         userAgentList.add("Mozilla/5.0 (compatible; WOW64; MSIE 10.0; Windows NT 6.2)");
@@ -96,6 +86,20 @@ public class SimpleHttpProcess implements HttpProcess {
         userAgentList.add("Mozilla/5.0 (iPad; CPU OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3");
         userAgentList.add("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; en-US) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27");
         userAgentList.add("Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.9.168 Version/11.52");
+
+        Set<HostAndPort> hostAndPortSet = new HashSet<>();
+        hostAndPortSet.add(new HostAndPort("localhost", 7001));
+        hostAndPortSet.add(new HostAndPort("localhost", 7002));
+        hostAndPortSet.add(new HostAndPort("localhost", 7003));
+        hostAndPortSet.add(new HostAndPort("localhost", 8001));
+        hostAndPortSet.add(new HostAndPort("localhost", 8002));
+        hostAndPortSet.add(new HostAndPort("localhost", 8003));
+
+        try {
+            redis = new JedisCluster(hostAndPortSet);
+        }catch (Exception e){
+            Systemconfig.sysLog.log("连接redis集群失败", e);
+        }
     }
 
     public static String getRandomUserAgent() {
@@ -105,9 +109,26 @@ public class SimpleHttpProcess implements HttpProcess {
 
 
 
+    private static final String PROXY_POOL = "PROXY_POOL";
 
+    public synchronized static String getRandomProxyFromPool() {
 
-    public synchronized static String getRandomProxy() {
+            while(redis.llen(PROXY_POOL) == 0){
+
+                Systemconfig.sysLog.log("当前代理池中无代理ip，等待重试..");
+                try {
+                    Thread.sleep(1000*10);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            int randomIndex =  new Random().nextInt(Math.toIntExact(redis.llen(PROXY_POOL)));
+            String proxyHostAndPort = redis.lindex(PROXY_POOL, randomIndex);
+            return proxyHostAndPort;
+    }
+
+    public synchronized static String getRandomProxyFromProvider() {
         try {
             java.net.URL url = new java.net.URL("http://dynamic.goubanjia.com/dynamic/get/76f9f03884ee46dc24331c820eef62ba.html?ttl&random=yes");
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -183,7 +204,7 @@ public class SimpleHttpProcess implements HttpProcess {
             while (response == null) {
                 if (html.getAgent()) {
                     if(html.getChangeProxy()||html.getProxy()==null) {
-                        String ip_port = getRandomProxy();
+                        String ip_port = getRandomProxyFromPool();
                         String proxyHost = ip_port.split(":")[0];
                         int proxyPort = Integer.parseInt(ip_port.split(":")[1]);
                         HttpHost proxy = new HttpHost(proxyHost, proxyPort);

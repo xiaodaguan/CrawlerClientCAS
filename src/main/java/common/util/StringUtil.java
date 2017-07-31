@@ -26,6 +26,12 @@ public class StringUtil {
         return readStream(is, "utf-8");
     }
 
+	public static boolean regFullMatch(String target, String pattern){
+		Pattern p = Pattern.compile("^"+pattern+"$");
+		Matcher m = p.matcher(target);
+		return m.find();
+	}
+
 
     /**
      * \r\n
