@@ -1,19 +1,18 @@
 package common;
 
 import common.http.SimpleHttpProcess;
+import common.system.Systemconfig;
 import common.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class ProxyPool {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProxyPool.class);
 
-    private static Set<HostAndPort> hostAndPortSet = new HashSet<>();
+    private static Set<HostAndPort> hostAndPortSet;
     private static JedisCluster redis;
 
     static {
@@ -59,24 +58,24 @@ public class ProxyPool {
 
         String pattern = "[http[s]*://]*\\d+\\.\\d+\\.\\d+\\.\\d+:\\d+";
         if (!StringUtil.regFullMatch(proxyHostAndPort, pattern)) {
-            LOGGER.error("代理格式有误，添加失败！");
+            Systemconfig.sysLog.log("代理格式有误，添加失败！");
             return;
         }
         if (contains(PROXY_POOL, proxyHostAndPort)) {
-            LOGGER.error("该代理ip[{}]已在代理池中", proxyHostAndPort);
+            Systemconfig.sysLog.log("该代理ip["+proxyHostAndPort+"]已在代理池中");
             Long count = redis.llen(PROXY_POOL);
-            LOGGER.info("当前代理池中代理个数:{}", count);
+            Systemconfig.sysLog.log("当前代理池中代理个数:"+count);
             return;
         }
-        LOGGER.info("add proxy {} to {}...", proxyHostAndPort, PROXY_POOL);
+        Systemconfig.sysLog.log("add proxy "+proxyHostAndPort+" to "+PROXY_POOL+"..." );
 
         Long afterAdd = redis.lpush(PROXY_POOL, proxyHostAndPort);//压入一个代理ip
 
-        LOGGER.info("当前代理池中代理个数:{}", afterAdd);
+        Systemconfig.sysLog.log("当前代理池中代理个数:"+afterAdd);
         if (afterAdd > 10) {//如果代理池中ip数量超过10，则推出一个(最老的)，保持代理池中最多10个ip
-            LOGGER.info("代理池已满，删除最早的代理...");
+            Systemconfig.sysLog.log("代理池已满，删除最早的代理...");
             String delProxy = redis.rpop(PROXY_POOL);
-            LOGGER.info("代理池已满，删除最早的代理{}...[ok].", delProxy);
+            Systemconfig.sysLog.log("代理池已满，删除最早的代理["+delProxy+"]...[ok].");
         }
     }
 
@@ -93,9 +92,9 @@ public class ProxyPool {
     }
 
     public static void clearAll() {
-        LOGGER.info("清空代理池...");
+        Systemconfig.sysLog.log("清空代理池...");
         redis.del(PROXY_POOL);
-        LOGGER.info("清空代理池...[ok].");
+        Systemconfig.sysLog.log("清空代理池...[ok].");
     }
 
 
