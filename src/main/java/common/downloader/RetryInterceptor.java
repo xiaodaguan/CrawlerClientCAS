@@ -28,8 +28,10 @@ public class RetryInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-//        LOGGER.info("retryNum={}" , retryNum);
+        LOGGER.info("intercept(Chain chain)");
         Response response = chain.proceed(request);
+        System.out.println("Response response = chain.proceed(request);");
+        System.out.println(response.headers());
         while (!response.isSuccessful() && retryNum < maxRetry) {
             retryNum++;
             LOGGER.info("retryNum={}",retryNum);

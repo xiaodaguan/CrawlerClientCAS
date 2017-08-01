@@ -19,10 +19,18 @@ public class UserAttribute implements Serializable {
     private String referer;
     private boolean hadRun;//是否曾经运行过
     private Date lastLoginTime;//上次登陆时间
+    private Date lastUsedTime;//上次登陆时间
     private boolean valid;// true 有效，false失效
     private boolean runStatus;// true 正在运行，false 没有运行
     private int tryCount;
 
+    public void setLastUsedTime(Date lastUsedTime) {
+        this.lastUsedTime = lastUsedTime;
+    }
+
+    public Date getLastUsedTime() {
+        return lastUsedTime;
+    }
 
     public boolean isRunStatus() {
         return runStatus;

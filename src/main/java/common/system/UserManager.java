@@ -2,6 +2,7 @@ package common.system;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import common.utils.UserAgent;
 import org.slf4j.Logger;
@@ -24,14 +25,20 @@ public class UserManager {
 
         List<UserAttribute> list = Systemconfig.users.get(siteFlag);
         if (list == null) return null;
+
+        List<UserAttribute> listValid =  new ArrayList<UserAttribute>();
         for (UserAttribute ua : list) {
-            if (ua.getUsed() > 0 ) continue;
+            //if (ua.getUsed() > 0 ) continue;
             if(ua.isValid()) {
-                ua.setTryCount(0);
                 ua.setRunStatus(true);
                 ua.setUsed(1);
-                return ua;
+//                return ua;
+                listValid.add(ua);
             }
+        }
+        if(listValid.size()>0){
+            Random rand = new Random();
+            return  listValid.get(rand.nextInt(listValid.size()));
         }
         return null;
     }
@@ -68,7 +75,7 @@ public class UserManager {
 //        }
 
         user.setUsed(0);
-        user.setTryCount(0);
+        //user.setTryCount(0);
         user.setRunStatus(false);
         UserAgent.releaseUserAgent(user.getId());
         LOGGER.info("用户" + user.getName() + "释放.");

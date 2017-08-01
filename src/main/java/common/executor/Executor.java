@@ -103,35 +103,11 @@ public class Executor implements Runnable {
                 followTask.setRetryTimes(task.getRetryTimes());
                 followTask.setInterval(task.getInterval());
 
-
                 Systemconfig.scheduler.submitTask(followTask);
             }
         } else {
-
-
-
-            //Systemconfig.dbService.saveData(listData.get(0));
-            //Systemconfig.urlFilter.add(MD5Util.MD5(task.getOrignUrl()));
+            Systemconfig.dbService.saveData(listData.get(0));
+            Systemconfig.urlFilter.add(MD5Util.MD5(task.getOrignUrl()));
         }
-//
-//        WeiboData data = (WeiboData) listData.get(0);
-//
-//        WeiboData newsData =data;
-
-        NewsData data = (NewsData) listData.get(0);
-
-        NewsData newsData =data;
-        System.out.println("\n\n一条博客信息：");
-        System.out.println("SearchKey   :"+newsData.getSearchKey());
-        System.out.println("Title       :"+newsData.getTitle());
-        System.out.println("Brief       :"+newsData.getBrief());
-        System.out.println("Pubtime     :"+newsData.getPubtime());
-        System.out.println("Pubdate     :"+newsData.getPubdate().toLocaleString());
-        System.out.println("Md5         :"+newsData.getMd5());
-        System.out.println("ImgUrl      :"+newsData.getImgUrl());
-        System.out.println("Url         :"+newsData.getUrl());
-        System.out.println("Content     :"+newsData.getContent());
-        System.out.println("\n\n");
-
     }
 }

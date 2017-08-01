@@ -46,7 +46,6 @@ public class Crawler {
 
     }
 
-
     public void start(int threadNum) {
 
         ExecutorService threadPool = Executors.newFixedThreadPool(threadNum);
@@ -55,10 +54,9 @@ public class Crawler {
 
     }
 
-
     public static void main(String[] args) {
         //Crawler crawler = new Crawler("BaiduNewsSearch", 1);
         Crawler crawler = new Crawler("WeiboSearchSina", 7);
-        crawler.start(3);
+        crawler.start(1);
     }
 }

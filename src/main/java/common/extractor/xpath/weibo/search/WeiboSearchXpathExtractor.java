@@ -184,6 +184,7 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 			return;
 		for (int i = 0; i < nl.getLength(); i++) {
 			list.get(i).setUid(nl.item(i).getTextContent());
+
 		}
 	}
 
@@ -242,6 +243,7 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 			return;
 		for (int i = 0; i < nl.getLength(); i++) {
 			list.get(i).setUid(nl.item(i).getTextContent());
+
 		}
 	}
 
@@ -335,7 +337,7 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 	 * @param list
 	 * @param dom
 	 * @param component
-	 * @param strings
+	 * @param args
 	 */
 	@Override
 	public void parseContent(List<WeiboData> list, Node dom, Component component, String... args) {
@@ -416,7 +418,6 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 	 * @param list
 	 * @param dom
 	 * @param component
-	 * @param strings
 	 */
 	@Override
 	public void parsePubtime(List<WeiboData> list, Node dom, Component component, String... args) {
@@ -586,6 +587,8 @@ public class WeiboSearchXpathExtractor extends XpathExtractor<WeiboData> impleme
 			return;
 		String str = nl.item(0).getTextContent();
 		data.setUid(str);
+
+
 
 	}
 

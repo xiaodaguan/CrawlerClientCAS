@@ -221,8 +221,13 @@ public abstract class XpathExtractor<T> extends AbstractExtractor<T> {
             LOGGER.info("DOM解析为NULL！！");
             return null;
         }
-        CommonComponent comp = getRealComp(siteinfo, html.getCrawlerType()
-                .substring(0, html.getCrawlerType().indexOf(File.separator)));// 得到元数据的配置组件
+
+        String mode = html.getCrawlerType();
+        if(mode.contains(File.separator)){
+            mode =  html.getCrawlerType()
+                    .substring(0, html.getCrawlerType().indexOf(File.separator));
+        }
+        CommonComponent comp = getRealComp(siteinfo, mode);// 得到元数据的配置组件
         processPage(data, domtree, comp.getComponents(), html.getContent());
 
         return parsePageNext(domtree, comp.getComponents().get("page_next"));

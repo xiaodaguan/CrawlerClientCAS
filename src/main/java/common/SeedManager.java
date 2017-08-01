@@ -67,6 +67,9 @@ public class SeedManager {
                         task.setAgent(true);
                         task.setRetryTimes(3);
                         task.setInterval(1);
+                    }else{
+                        task.setAgent(false);
+                        task.setRetryTimes(1);
                     }
 
                     Systemconfig.scheduler.submitTask(task);
