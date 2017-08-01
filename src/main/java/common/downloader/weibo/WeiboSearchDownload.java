@@ -112,8 +112,6 @@ public class WeiboSearchDownload extends DefaultDownloader {
 		}
 		Request request = ((Request.Builder)obj).build();
 
-		System.out.println("request：\n"+request.headers());
-
 		Response response = null;
 		try {
 			response = httpClient.newCall(request).execute();
