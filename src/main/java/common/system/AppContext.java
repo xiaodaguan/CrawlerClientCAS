@@ -264,7 +264,9 @@ public class AppContext {
             }
             File f = new File(file);
             if (!f.delete()) {
-                LOGGER.error(f + "没有被删除");
+                if(f.exists()) {
+                    LOGGER.error(f + "没有被删除");
+                }
             }
             LOGGER.info("系统初始化站点：" + si);
         } catch (BeansException e) {

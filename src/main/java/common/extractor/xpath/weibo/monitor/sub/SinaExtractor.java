@@ -129,6 +129,7 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
                 {
                     String commentUserId = commentUser.getLong("id") + "";
                     wd.setUid(commentUserId);
+
                     String commentUserName = commentUser.getString("screen_name");
                     wd.setAuthor(commentUserName);
                     String commentUserImg = commentUser.getString("profile_image_url");
@@ -388,6 +389,7 @@ public class SinaExtractor extends WeiboMonitorXpathExtractor {
         NodeList nl = head(component.getXpath(), domtree, list.size(), component.getName());
         for (int i = 0; i < nl.getLength(); i++) {
             list.get(i).setUid(nl.item(i).getTextContent().replace("/", ""));
+
         }
     }
 

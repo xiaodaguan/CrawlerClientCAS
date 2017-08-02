@@ -4,10 +4,7 @@ import common.downloader.DefaultDownloader;
 import common.downloader.DownloaderHelper;
 import common.extractor.ExtractorHelper;
 import common.extractor.xpath.XpathExtractor;
-import common.pojos.CommonData;
-import common.pojos.CrawlTask;
-import common.pojos.DataHelper;
-import common.pojos.NewsData;
+import common.pojos.*;
 import common.system.Systemconfig;
 import common.utils.MD5Util;
 import org.slf4j.Logger;
@@ -31,7 +28,6 @@ public class Executor implements Runnable {
 
     @Override
     public void run() {
-
         //
         while (true) {
             CrawlTask task = null;
@@ -42,38 +38,23 @@ public class Executor implements Runnable {
                     LOGGER.info("已采集过的url[{}]，跳过", task.getOrignUrl());
                     continue;
                 }
-
                 LOGGER.info("task count: left/total[{}/{}]", Systemconfig.scheduler.getLeftTaskCount(), Systemconfig.scheduler.getTotalTaskCount());
                 if (task.getOrignUrl() == null) {
                     continue;
                 }
                 //  download
-                //DefaultDownloader downloader = new DefaultDownloader(task);
+                DownloaderHelper.createDownloader(task).download();
 
-                DefaultDownloader downloader = DownloaderHelper.createDownloader(task);
-
-
-
-                downloader.download();
-
-                if (task.getContent() == null || task.getContent().length() < 10) {
+                if (task.getContent() == null || task.getContent().length() < 5) {
                     LOGGER.error("下载页面内容出错，跳过解析");
                     continue;
                 }
-
-                //  parse
-
                 List listData = DataHelper.createDataList(Systemconfig.crawlerType);
-
-
-
+                //  parse
                 XpathExtractor extractor = ExtractorHelper.createExtractor(task, mediaTypeFull, mediaTypePrefix);
                 String nextUrl = extractor.extract(task, listData);
                 //  save/submitTasks and add filter
-
                 submitOrSave(task, listData, nextUrl);
-
-
                 // sleep
             } catch (Exception e) {
                 if (e instanceof SQLIntegrityConstraintViolationException)
@@ -83,10 +64,9 @@ public class Executor implements Runnable {
                 else
                     e.printStackTrace();
             } finally {
-
                 LOGGER.info("sleeping...");
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(1000*task.getInterval());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -123,29 +103,11 @@ public class Executor implements Runnable {
                 followTask.setRetryTimes(task.getRetryTimes());
                 followTask.setInterval(task.getInterval());
 
-
                 Systemconfig.scheduler.submitTask(followTask);
             }
         } else {
-
-            NewsData data = (NewsData) listData.get(0);
-
-            NewsData newsData =data;
-            System.out.println("\n\n一条博客信息：");
-            System.out.println("SearchKey   :"+newsData.getSearchKey());
-            System.out.println("Title       :"+newsData.getTitle());
-            System.out.println("Brief       :"+newsData.getBrief());
-            System.out.println("Pubtime     :"+newsData.getPubtime());
-            System.out.println("Pubdate     :"+newsData.getPubdate().toLocaleString());
-            System.out.println("Md5         :"+newsData.getMd5());
-            System.out.println("ImgUrl      :"+newsData.getImgUrl());
-            System.out.println("Url         :"+newsData.getUrl());
-            System.out.println("Content     :"+newsData.getContent());
-            System.out.println("\n\n");
-
-            //Systemconfig.dbService.saveData(listData.get(0));
-            //Systemconfig.urlFilter.add(MD5Util.MD5(task.getOrignUrl()));
+            Systemconfig.dbService.saveData(listData.get(0));
+            Systemconfig.urlFilter.add(MD5Util.MD5(task.getOrignUrl()));
         }
-
     }
 }

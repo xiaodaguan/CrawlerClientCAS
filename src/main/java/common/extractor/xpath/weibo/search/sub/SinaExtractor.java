@@ -24,13 +24,13 @@ public class SinaExtractor extends WeiboSearchXpathExtractor {
         String content = html.getContent();
         if (content == null) return null;
 
-        if (html.getCrawlerType().contains("META/")||html.getCrawlerType().contains("META\\") ){
+        if (html.getCrawlerType().contains("META")||html.getCrawlerType().contains("META/")||html.getCrawlerType().contains("META\\") ){
             String temp = StringUtil.regMatcher(content, "<script>STK && STK.pageletM && STK.pageletM.view\\(\\{\"pid\":\"pl_weibo_direct\",", "\\)</script>");
             if (temp != null) {
                 content = "{" + temp;
                 content = JsonUtil.getStringByKey(content, "html");
             }
-        } else if (html.getCrawlerType().contains("DATA/")||html.getCrawlerType().contains("DATA\\")) {
+        } else if (html.getCrawlerType().contains("DATA")||html.getCrawlerType().contains("DATA/")||html.getCrawlerType().contains("DATA\\")) {
 
         } else {
             LOGGER.info("页面dom解析异常，请查看！");
@@ -101,6 +101,8 @@ public class SinaExtractor extends WeiboSearchXpathExtractor {
     @Override
     public Date timeProcess(String s) {
         Date d = super.timeProcess(s);
+
+
         if (d == null) {
             Calendar c = Calendar.getInstance();
             if (s.indexOf("月") > -1 || s.indexOf("日") > -1) {
@@ -110,6 +112,7 @@ public class SinaExtractor extends WeiboSearchXpathExtractor {
                 s = s.replace("年", "-").replace("月", "-").replace("日", "");
                 d = super.timeProcess(s);
             }
+
             if (d == null) {
 
                 int num = Integer.parseInt(StringUtil.extractMulti(s, "\\d"));
@@ -118,7 +121,7 @@ public class SinaExtractor extends WeiboSearchXpathExtractor {
                 } else if (s.contains("hour") || s.contains("小时前")) {
                     c.set(Calendar.HOUR, c.get(Calendar.HOUR) - num);
                 } else if (s.contains("今天")) {
-                    s = s.replace("今天", c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE) + "");
+                    s = s.replace("今天", c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH)+1) + "-" + c.get(Calendar.DATE) + " ");
                     d = super.timeProcess(s);
                     return d;
                 } else if (s.contains("day") || s.contains("天前")) {

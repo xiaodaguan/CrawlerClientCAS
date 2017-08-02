@@ -1,6 +1,7 @@
 package common.downloader.weibo;
 
 import java.io.*;
+import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -31,79 +32,86 @@ import org.slf4j.LoggerFactory;
 public class WeiboSearchDownload extends DefaultDownloader {
 	private static final Logger LOGGER = LoggerFactory.getLogger(WeiboSearchDownload.class);
 
-
+	private static SinaHttpProcess  http ;
 
 	public WeiboSearchDownload(CrawlTask task){
 		super(task);
 	}
 
-
-	private UserAttribute userAttr;
-
 	private void prePorcess() {
-
-
-
-		System.out.println("#############################################");
-		System.out.println("#############################################");
-		System.out.println("#############################################");
-		System.out.println("############# in weibo ######################");
-		System.out.println("#############################################");
-		System.out.println("#############################################");
-		System.out.println("#############################################");
-
-
-		if(true)
-			return ;
-
 
 		Siteinfo siteinfo = Systemconfig.allSiteinfos.get(task.getSite());
 
-		String siteFlag = "7";
+		String siteFlag = task.getSite();
 
 		// 每次保证只有有效用户个执行，某个任务完成后，等待的下一个任务开始执行
-		UserAttribute ua = UserManager.getUser(siteFlag);
-		while (ua == null) {
+		UserAttribute userAttr_tmp = UserManager.getUser(siteFlag);
+		while (userAttr_tmp == null) {
 			LOGGER.info("暂时没有可用账号用于采集，等待账号中……");
 			TimeUtil.rest(10);
-			ua = UserManager.getUser(siteFlag);
+			userAttr_tmp = UserManager.getUser(siteFlag);
 		}
-		userAttr = ua;
+		http = new SinaHttpProcess();
+		if ((!userAttr_tmp.getHadRun())||
+				userAttr_tmp.getCookie()==null||
+				!http.verify(userAttr_tmp)){
+			//http.monitorLogin(userAttr_tmp);
+			if(!http.login(userAttr_tmp)){
+				LOGGER.info("监测用户{},登陆失败",userAttr_tmp.getName());
+				return ;
+			}
 
-
-		SinaHttpProcess  http = new SinaHttpProcess();
-		if (!userAttr.getHadRun()) {
-			http.monitorLogin(userAttr);
-			ua.setHadRun(true);
-			System.out.println("监测用户！！！" + userAttr.getName());
+			userAttr_tmp.setTryCount(0);
+			userAttr_tmp.setHadRun(true);
+			LOGGER.info("监测用户{}",userAttr_tmp.getName());
+			TimeUtil.rest(5);
 		}
-		LOGGER.info("用户{}使用中！",userAttr.getName());
-		task.setUser(userAttr);
+		//微博账号使用的时间间隔
+		if(userAttr_tmp.getLastUsedTime()!=null){
+			long currentTime = System.currentTimeMillis();
+			long lastTime = userAttr_tmp.getLastUsedTime().getTime();
+			while((currentTime-lastTime)<task.getInterval()*1000){
+				currentTime = System.currentTimeMillis();
+				TimeUtil.rest(5);
+			}
+		}
+		userAttr_tmp.setLastUsedTime(new Date());
+		LOGGER.info("用户{}使用中！",userAttr_tmp.getName());
+		task.setUser(userAttr_tmp);
 	}
-
-
-
 
 	@Override
 	public void download() {
-
-
 		prePorcess();
-
-
-		System.out.println();
-		if(true)
-		return ;
+		if(task.getUser()==null){
+			return ;
+		}
 		String cookie = task.getUser().getCookie();
-		Request request = new Request.Builder()
-				.url(task.getOrignUrl())
+		//cookie = "SINAGLOBAL=716716251336.0381.1500174700637; UM_distinctid=15d5ef29e23f1-09069fb84-722e3659-140000-15d5ef29e2478; un=15841920324; UOR=,,login.sina.com.cn; un=1354805597rzy@sina.com; wvr=6; SSOLoginState=1501225072; SCF=AnuvTe-9uSaubZg2U2czIFcCMEm7i5K58zGkG1HnYMrB9ur_9sULjW6E_K1Bny6f9X7hv8Fz0v8Q0G6xiiVAyNg.; SUB=_2A250fpAgDeRhGeRK61UZ8SbIzz2IHXVXDYborDV8PUNbmtBeLULRkW8aq2fz8EREMyhiW3YFINHAN-iUbg..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WFLaUa9E2iGSFaS52z1uGc35JpX5KMhUgL.FozXehMReKnXSh22dJLoIpjLxKqLBozLBKnLxK-LB-BL1K5LxK.LBo2LB.et; SUHB=0nlvn8Tz0qbNFt; ALF=1532761070; _s_tentry=-; Apache=5692819065880.03.1501225079464; ULV=1501225079508:16:16:6:5692819065880.03.1501225079464:1501118360031";
 
-				.addHeader("User-Agent",task.getUa()==null? "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36":task.getUa())
-				.addHeader("Cookie",cookie)
-				/**
-				 * 可以扩展其他header
-				 */
-				.build();
+		String Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+		String Accept_Encoding = "gzip, deflate, sdch";
+		String Accept_Language="zh-CN,zh;q=0.8";
+		String Connection="keep-alive";
+		//String Host="s.weibo.com";
+		String Upgrade_Insecure_Requests="1";
+		httpClient = clientBuilder.build();
+
+		Object obj = new Request.Builder();
+		((Request.Builder)obj).url(task.getOrignUrl());
+		((Request.Builder)obj).addHeader("User-Agent",task.getUa()==null? "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36":task.getUa());
+		((Request.Builder)obj).addHeader("Accept",Accept);
+		((Request.Builder)obj).addHeader("Accept_Encoding",Accept_Encoding);
+		((Request.Builder)obj).addHeader("Accept_Language",Accept_Language);
+		((Request.Builder)obj).addHeader("Connection",Connection);
+//		//((Request.Builder)obj).addHeader("Host",Host);
+//		((Request.Builder)obj).addHeader("Upgrade_Insecure_Requests",Upgrade_Insecure_Requests);
+
+		if(cookie!=null){
+			((Request.Builder)obj).addHeader("Cookie",cookie);
+		}
+		Request request = ((Request.Builder)obj).build();
+
 		Response response = null;
 		try {
 			response = httpClient.newCall(request).execute();
@@ -111,7 +119,6 @@ public class WeiboSearchDownload extends DefaultDownloader {
 			LOGGER.error("httpClient 请求失败. url: {}",task.getOrignUrl());
 			e.printStackTrace();
 		}
-
 		if(!response.isSuccessful()){
 			LOGGER.error("downloader 下载失败. url: {}",task.getOrignUrl());
 		}
@@ -130,20 +137,14 @@ public class WeiboSearchDownload extends DefaultDownloader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		task.setContent(builder.toString());
 		if(task.getContent()==null)
 			LOGGER.error("downloader content failure. url:{}", task.getOrignUrl());
-
-//        response.body();
+		postPorcess();
 	}
-
 	private void postPorcess() {
-
-
-
-
-
+		UserAttribute userAttr = task.getUser();
+		UserManager.releaseUser(task.getSite(),userAttr);
 	}
 
 }

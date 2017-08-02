@@ -225,8 +225,6 @@ public class WeiboMonitorXpathExtractor extends XpathExtractor<WeiboData> implem
      * @param list
      * @param html
      * @param page
-     * @param siteFlag
-     * @param collectFlag
      * @param keyword
      * @return
      * @throws IOException

@@ -206,9 +206,14 @@ public class Systemconfig {
                 user.setTryCount(0);
                 user.setRunStatus(false);
                 user.setAgentIndex(UserAgent.getUserAgentIndex());
+
+                LOGGER.info("weibo account {}:[{}]",siteFlag,user);
+
                 list.add(user);
             }
             Systemconfig.users.put("sina_weibo_search",list);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
