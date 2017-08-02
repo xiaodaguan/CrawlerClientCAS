@@ -71,7 +71,7 @@ public class AppContext {
         Systemconfig.initScheduler();
         Systemconfig.initProxyManager();
 
-        if(Systemconfig.crawlerType==7||Systemconfig.crawlerType==8){
+        if(Systemconfig.crawlerType==7){//||Systemconfig.crawlerType==8
             Systemconfig.readWeiboAccount();
         }
         readConfig();

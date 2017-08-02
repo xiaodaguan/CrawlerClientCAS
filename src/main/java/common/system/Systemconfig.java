@@ -212,8 +212,6 @@ public class Systemconfig {
                 list.add(user);
             }
             Systemconfig.users.put("sina_weibo_search",list);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

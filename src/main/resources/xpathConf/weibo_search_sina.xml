@@ -71,22 +71,5 @@
     <prop name="rtt_prefix" value="http://weibo.com"/>
     <prop name="rtt_next_prefix" value="http://weibo.com/aj/mblog/info/big?"/>
 
-    <!--
-    <prop name="url" value="//DL/DD[@class='content']/P[last()]/A[1]/@href" />
-    <prop name="author_url" value="//DL/DD[@class='content']/P[1]/A[1]/@href" />
-    <prop name="author" value="//DL/DD[@class='content']/P[1]/A[1]" />
-    <prop name="pubtime" value="//DL/DD[@class='content']/P[last()]/A[1]" />
-    <prop name="source" value="//DL/DD[@class='content']/P[last()]/A[2]" />
-    <prop name="content" value="//DL/DD[@class='content']/P[1]/EM" />
-    <prop name="img_url" value="]/DD[@class='content']/UL/LI/IMG[1]/@src" />
-    <prop name="author_img" value="//DL/DT[@class='face']/A/IMG/@src" />
-    <prop name="rtt_num" value="//DD[@class='content']/P/SPAN/A[2]" />
-    <prop name="comment_num" value="//DD[@class='content']/P/SPAN/A[4]" />
-    <prop name="mid" value="//DL[@action-type]/@mid" />
-    <prop name="uid" value="//DL/DD[@class='content']/P[1]/A[1]/@usercard" />
-    <prop name="rtt_content" value="]/DD[@class='content']/DL/DT/EM" />
-    <prop name="next" value="//A[contains(.,'下一页')]/@href" />
-    <prop name="next_prefix" value="http://s.weibo.com" />
 
-    -->
 </site>
