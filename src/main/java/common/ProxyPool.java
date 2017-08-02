@@ -3,35 +3,29 @@ package common;
 import common.http.SimpleHttpProcess;
 import common.system.Systemconfig;
 import common.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class ProxyPool {
 
-    private static Set<HostAndPort> hostAndPortSet;
-    private static JedisCluster redis;
+    private static JedisCluster redis=null;
 
     static {
 
-        hostAndPortSet.add(new HostAndPort("localhost", 7001));
-        hostAndPortSet.add(new HostAndPort("localhost", 7002));
-        hostAndPortSet.add(new HostAndPort("localhost", 7003));
-        hostAndPortSet.add(new HostAndPort("localhost", 8001));
-        hostAndPortSet.add(new HostAndPort("localhost", 8002));
-        hostAndPortSet.add(new HostAndPort("localhost", 8003));
     }
 
     private static final String PROXY_POOL = "PROXY_POOL";
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
+        System.out.println("开始....");
         // connect redis
         connect();
+        System.out.println("连接到redis集群.");
         // clear
         clearAll();
 
@@ -41,17 +35,37 @@ public class ProxyPool {
             try {
                 // get a proxy
                 String ip_host = getFromProvider();
+                System.out.println("获取ip： "+ip_host);
 
                 // add to pool
                 addPool(ip_host);
-            }catch(Exception e ){
+                System.out.println("push 成功.");
 
+
+            }catch(Exception e ){
+                e.printStackTrace();
+            }finally {
+                Thread.sleep(1000 * 5);
             }
         }
     }
 
     private static void connect() {
+
+        Set<HostAndPort> hostAndPortSet= new HashSet<>();
+        hostAndPortSet.add(new HostAndPort("192.168.1.103", 7001));
+        hostAndPortSet.add(new HostAndPort("192.168.1.103", 7002));
+        hostAndPortSet.add(new HostAndPort("192.168.1.103", 7003));
+        hostAndPortSet.add(new HostAndPort("192.168.1.103", 8001));
+        hostAndPortSet.add(new HostAndPort("192.168.1.103", 8002));
+        hostAndPortSet.add(new HostAndPort("192.168.1.103", 8003));
+
+//        conf.setti
+
+
         redis = new JedisCluster(hostAndPortSet);
+        System.out.println("集群节点："+redis.getClusterNodes());
+
     }
 
     private static void addPool(String proxyHostAndPort) {
@@ -61,13 +75,20 @@ public class ProxyPool {
             Systemconfig.sysLog.log("代理格式有误，添加失败！");
             return;
         }
-        if (contains(PROXY_POOL, proxyHostAndPort)) {
-            Systemconfig.sysLog.log("该代理ip["+proxyHostAndPort+"]已在代理池中");
-            Long count = redis.llen(PROXY_POOL);
-            Systemconfig.sysLog.log("当前代理池中代理个数:"+count);
-            return;
-        }
-        Systemconfig.sysLog.log("add proxy "+proxyHostAndPort+" to "+PROXY_POOL+"..." );
+
+
+
+
+
+
+            if (contains(PROXY_POOL, proxyHostAndPort)) {
+                Systemconfig.sysLog.log("该代理ip["+proxyHostAndPort+"]已在代理池中");
+                Long count = redis.llen(PROXY_POOL);
+                Systemconfig.sysLog.log("当前代理池中代理个数:"+count);
+                return;
+            }
+
+        Systemconfig.sysLog.log("adding proxy "+proxyHostAndPort+" to "+PROXY_POOL+"..." );
 
         Long afterAdd = redis.lpush(PROXY_POOL, proxyHostAndPort);//压入一个代理ip
 
