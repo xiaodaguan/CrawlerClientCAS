@@ -24,12 +24,12 @@ public class ProxyManager {
 
     public void run() {
 
-        Systemconfig.proxyPoolRedis.clearAll();
+//        Systemconfig.proxyPoolRedis.clearAll();
         while (true) {
             try {
                 String oneProxy = getOneFromProvider();
                 Systemconfig.proxyPoolRedis.addOne(oneProxy);
-                Thread.sleep(1000 * 1);
+                Thread.sleep(1000 * 3);
             } catch (Exception e) {
 
             }
