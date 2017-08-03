@@ -130,7 +130,7 @@ public class SimpleHttpProcess implements HttpProcess {
 
     public synchronized static String getRandomProxyFromProvider() {
         try {
-            java.net.URL url = new java.net.URL("http://dynamic.goubanjia.com/dynamic/get/76f9f03884ee46dc24331c820eef62ba.html?ttl&random=yes");
+            java.net.URL url = new java.net.URL("http://117.132.15.89:8090/proxy");
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
             connection.setConnectTimeout(3000);
             connection = (HttpURLConnection)url.openConnection();
@@ -153,6 +153,8 @@ public class SimpleHttpProcess implements HttpProcess {
             List ipList = new ArrayList<>();
             for (String ip : res) {
                 try {
+                    if(!ip.contains(","))
+                        ip+=",66666";
                     String[] parts = ip.split(",");
                     if (Integer.parseInt(parts[1]) > 0) {
                         ipList.add(parts[0]);
