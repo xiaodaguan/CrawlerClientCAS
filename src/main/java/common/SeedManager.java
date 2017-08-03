@@ -74,12 +74,12 @@ public class SeedManager {
 
                     Systemconfig.scheduler.submitTask(task);
 
-                    try {
-                        LOGGER.info("等待提交下一个关键词...");
-                        Thread.sleep(1000 * 30);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        LOGGER.info("等待提交下一个关键词...");
+//                        Thread.sleep(1000 * 30);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
         }
@@ -92,17 +92,24 @@ public class SeedManager {
 
         Systemconfig.scheduler.removeAllTask();
     }
-
-    public static void main(String[] args) throws InterruptedException {
-
-
-        Systemconfig.crawlerType = 7;//指定获取serachkey的爬虫类型
+    public static void run(int crawlerType) {
+        Systemconfig.crawlerType = crawlerType;//指定获取serachkey的爬虫类型
         SeedManager seedManager = new SeedManager();
-        while (true)
-        {
-            seedManager.clearAll();//清空
-            seedManager.generate();//生成
-            Thread.sleep(1000 * 60 * 5);//等待
+        seedManager.clearAll();//清空
+        seedManager.generate();//生成
+        LOGGER.info("本轮所有任务提交完成，提交总的任务数为：{}",Systemconfig.scheduler.getTotalTaskCount());
+    }
+
+    public static void main(String[] args) {
+
+        while(true) {
+            run(7);
+            try {
+                Thread.sleep(1000 * 60 * 60 * 24);//等待
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
         }
+
     }
 }

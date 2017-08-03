@@ -32,7 +32,7 @@ public class WeiboService extends BaseService<WeiboData> {
         int result = 0;
         try {
             weiboMapper.create(data);
-            LOGGER.info("保存完成.[{}]", data.getTitle());
+            LOGGER.info("保存完成.[{}]", data.getUrl());
         } catch (Exception e) {
             LOGGER.error("data 保存失败!");
             throw new RuntimeException(e);

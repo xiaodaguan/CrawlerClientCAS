@@ -232,7 +232,7 @@
 
 
 
-	<bean id="MetaDataScheduler" class="common.scheduler.MetaDataScheduler">
+	<bean id="metaDataScheduler" class="common.scheduler.MetaDataScheduler">
 		<property name="hostAndPortSet">
 			<set>
 				<bean class="redis.clients.jedis.HostAndPort" >

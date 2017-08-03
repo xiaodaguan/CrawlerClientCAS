@@ -173,7 +173,7 @@ public class Systemconfig {
     }
 
     public static void initScheduler() {
-        scheduler = (Scheduler) AppContext.appContext.getBean("defaultScheduler");
+        scheduler = (Scheduler) AppContext.appContext.getBean("metaDataScheduler");
         if(scheduler == null){
             LOGGER.error("scheduler 配置有误，系统退出！！");
             System.exit(-1);

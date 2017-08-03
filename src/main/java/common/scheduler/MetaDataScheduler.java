@@ -49,20 +49,22 @@ public class MetaDataScheduler implements Scheduler<CrawlTask> {
     @Override
     public CrawlTask getTask() {
         LOGGER.info("getting task...");
-        List<String> taskStr = jedis.brpop(0, TASK_QUEUE_DATA);
 
+        List<String> taskStr = jedis.brpop(1, TASK_QUEUE_DATA);
         if (taskStr == null||taskStr.size()==0) {
+            LOGGER.info("getting data task is null");
             taskStr = jedis.brpop(0, TASK_QUEUE_META);
             if (taskStr == null||taskStr.size()==0) {
+                LOGGER.info("getting meta task is null");
                 return null;
             }else{
                 CrawlTask task = SerializeUtil.getObjectFromString(taskStr.get(1), CrawlTask.class);
-                LOGGER.info("getting data task...[ok]. -> {}" , task);
+                LOGGER.info("getting meta task...[ok]. -> {}" , task);
                 return task;
             }
         } else {
             CrawlTask task = SerializeUtil.getObjectFromString(taskStr.get(1), CrawlTask.class);
-            LOGGER.info("getting meta task...[ok]. -> {}" , task);
+            LOGGER.info("getting data task...[ok]. -> {}" , task);
             return task;
         }
     }
@@ -71,23 +73,45 @@ public class MetaDataScheduler implements Scheduler<CrawlTask> {
     @Override
     public Long submitTask(CrawlTask task) {
         LOGGER.info("submitting task...");
-        Long leftCount = jedis.lpush(TASK_QUEUE_DATA, SerializeUtil.object2String(task));
-        LOGGER.info("submitting task...[ok].[{}]", task);
-        jedis.incr(TASK_QUEUE_TOTAL_COUNT_DATA);
-        return leftCount;
+
+        if(task.getCrawlerType().toLowerCase().contains("meta")){
+            Long leftCount = jedis.lpush(TASK_QUEUE_META, SerializeUtil.object2String(task));
+            LOGGER.info("submitting meta task...[ok].[{}]", task);
+            jedis.incr(TASK_QUEUE_TOTAL_COUNT_META);
+            return leftCount;
+        }else {
+            Long leftCount = jedis.lpush(TASK_QUEUE_DATA, SerializeUtil.object2String(task));
+            LOGGER.info("submitting data task...[ok].[{}]", task);
+            jedis.incr(TASK_QUEUE_TOTAL_COUNT_DATA);
+            return leftCount;
+        }
+
 
     }
 
     @Override
     public Long getLeftTaskCount() {
-        Long result = jedis.llen(TASK_QUEUE_META)+jedis.llen(TASK_QUEUE_DATA);
-        return result;
+        Long len = 0L;
+        if(jedis.llen(TASK_QUEUE_META)!=null){
+            len+=jedis.llen(TASK_QUEUE_META);
+        }
+        if(jedis.llen(TASK_QUEUE_DATA)!=null){
+            len+=jedis.llen(TASK_QUEUE_DATA);
+        }
+        return len;
     }
 
     @Override
     public Long getTotalTaskCount() {
-        return Long.valueOf(jedis.get(TASK_QUEUE_TOTAL_COUNT_META))+
-                Long.valueOf(jedis.get(TASK_QUEUE_TOTAL_COUNT_DATA));
+
+        Long len = 0L;
+        if(jedis.get(TASK_QUEUE_TOTAL_COUNT_META)!=null){
+            len+=Long.valueOf(jedis.get(TASK_QUEUE_TOTAL_COUNT_META));
+        }
+        if(jedis.get(TASK_QUEUE_TOTAL_COUNT_DATA)!=null){
+            len+=Long.valueOf(jedis.get(TASK_QUEUE_TOTAL_COUNT_DATA));
+        }
+        return len;
     }
 
     @Override
