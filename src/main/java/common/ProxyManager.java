@@ -29,9 +29,11 @@ public class ProxyManager {
             try {
                 String oneProxy = getOneFromProvider();
                 Systemconfig.proxyPoolRedis.addOne(oneProxy);
-                Thread.sleep(1000 * 1);
+
             } catch (Exception e) {
 
+            }finally{
+                Thread.sleep(1000 * 3);
             }
         }
     }
