@@ -10,7 +10,14 @@
     </select>
 
     <select id="selectAllSearchKeyword" resultType="common.task.SearchKey">
-        select * from search_keyword where trunc(propose_time) >= trunc(sysdate) - 1 order by priority
+        <!--select * from search_keyword where trunc(propose_time) >= trunc(sysdate) - 1 order by priority desc-->
+        <!---->
+        select * from search_keyword
+            where id in (
+                select max(id) from search_keyword
+                where trunc(propose_time) >= trunc(sysdate) - 7
+                group by keyword
+            ) order by priority desc
     </select>
 
 
