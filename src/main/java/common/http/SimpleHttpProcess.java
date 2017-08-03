@@ -206,7 +206,7 @@ public class SimpleHttpProcess implements HttpProcess {
             while (response == null) {
                 if (html.getAgent()) {
                     if(html.getChangeProxy()||html.getProxy()==null) {
-                        String ip_port = getRandomProxyFromPool();
+                        String ip_port = getRandomProxyFromProvider();
                         String proxyHost = ip_port.split(":")[0];
                         int proxyPort = Integer.parseInt(ip_port.split(":")[1]);
                         HttpHost proxy = new HttpHost(proxyHost, proxyPort);
