@@ -9,6 +9,10 @@ import common.task.SearchKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -99,11 +103,47 @@ public class SeedManager {
         seedManager.generate();//生成
         LOGGER.info("本轮所有任务提交完成，提交总的任务数为：{}",Systemconfig.scheduler.getTotalTaskCount());
     }
+    public static String read(String fileName) {
+            if (!(new File(fileName).exists())) {
+                LOGGER.info("文件不存在:{}",fileName);
+                return null;
+            }
+            try {
+                StringBuffer sb = new StringBuffer();
+                BufferedReader br = new BufferedReader(new FileReader(new File(fileName)));
+                for (String line = br.readLine(); line != null; line = br.readLine()) {
+                    sb.append(line.trim() + "\n");
+                }
+                br.close();
+                return sb.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+    }
 
+
+    private static List<Integer> getCrawlerTypeList(){
+        String path = "src/main/resources/seedConf/seed.txt";
+        String content = read(path);
+        String []lines = content.split("\n");
+
+        List<Integer> crawlerTypeList = new ArrayList<>();
+        for(String line:lines){
+            if(!line.startsWith("#")){
+                int crawlerType = Integer.parseInt(line.split("#")[1]);
+                crawlerTypeList.add(crawlerType);
+            }
+        }
+        return crawlerTypeList;
+    }
     public static void main(String[] args) {
 
         while(true) {
-            run(7);
+            List<Integer> list = getCrawlerTypeList();
+            for(int crawlerType:list){
+                run(crawlerType);
+            }
             try {
                 Thread.sleep(1000 * 60 * 60 * 24);//等待
             }catch (InterruptedException e){

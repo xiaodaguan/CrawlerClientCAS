@@ -31,9 +31,13 @@ public class ProxyManager {
                 Systemconfig.proxyPoolRedis.addOne(oneProxy);
 
             } catch (Exception e) {
-
+                e.printStackTrace();
             }finally{
-                Thread.sleep(1000 * 3);
+                try {
+                    Thread.sleep(1000 * 3);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
     }
