@@ -15,7 +15,7 @@
         select * from search_keyword
             where id in (
                 select max(id) from search_keyword
-                where trunc(propose_time) >= trunc(sysdate) - 7
+                where trunc(propose_time) >= trunc(sysdate) - 1
                 group by keyword
             ) order by priority desc
     </select>

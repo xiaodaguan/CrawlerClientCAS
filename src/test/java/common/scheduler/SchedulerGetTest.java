@@ -15,11 +15,12 @@ public class SchedulerGetTest {
 
     @Test
     public void testMain(){
-        Systemconfig.crawlerType = 7;//指定获取serachkey的爬虫类型
+        Systemconfig.crawlerType = 1;//指定获取serachkey的爬虫类型
 
 
         ApplicationContext context = new ClassPathXmlApplicationContext("app-redis.xml");
-        Scheduler scheduler = (Scheduler) context.getBean("metaDataScheduler");
+        //Scheduler scheduler = (Scheduler) context.getBean("metaDataScheduler");
+        Scheduler scheduler = (Scheduler) context.getBean("defaultScheduler");
         scheduler.init();
         System.out.println(scheduler.getTask());
     }

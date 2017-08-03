@@ -104,22 +104,22 @@ public class SeedManager {
         LOGGER.info("本轮所有任务提交完成，提交总的任务数为：{}",Systemconfig.scheduler.getTotalTaskCount());
     }
     public static String read(String fileName) {
-            if (!(new File(fileName).exists())) {
-                LOGGER.info("文件不存在:{}",fileName);
-                return null;
-            }
-            try {
-                StringBuffer sb = new StringBuffer();
-                BufferedReader br = new BufferedReader(new FileReader(new File(fileName)));
-                for (String line = br.readLine(); line != null; line = br.readLine()) {
-                    sb.append(line.trim() + "\n");
-                }
-                br.close();
-                return sb.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (!(new File(fileName).exists())) {
+            LOGGER.info("文件不存在:{}",fileName);
             return null;
+        }
+        try {
+            StringBuffer sb = new StringBuffer();
+            BufferedReader br = new BufferedReader(new FileReader(new File(fileName)));
+            for (String line = br.readLine(); line != null; line = br.readLine()) {
+                sb.append(line.trim() + "\n");
+            }
+            br.close();
+            return sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
