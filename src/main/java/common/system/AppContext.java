@@ -232,11 +232,11 @@ public class AppContext {
             content = content.replace("${agent}", "false").replace("${login}", "false");
 
             String //path = Thread.currentThread().getContextClassLoader().getResource(".").getPath();
-            path = "src/main/resources";
+            path = "./src/main/resources/";
             String tmp = typeConfFolder + File.separator + name + ".temp";
             StringUtil.writeFile(path+ tmp, content);
 
-            loadDynamicBean(tmp);
+            loadDynamicBean(path+ tmp);
             fe.load = false;
         }
     }
