@@ -24,6 +24,7 @@ public class UserAttribute implements Serializable {
     private boolean runStatus;// true 正在运行，false 没有运行
     private int tryCount;
 
+
     public void setLastUsedTime(Date lastUsedTime) {
         this.lastUsedTime = lastUsedTime;
     }

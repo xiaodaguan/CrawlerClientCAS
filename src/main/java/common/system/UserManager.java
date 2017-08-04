@@ -29,9 +29,10 @@ public class UserManager {
         List<UserAttribute> listValid =  new ArrayList<UserAttribute>();
         for (UserAttribute ua : list) {
             //if (ua.getUsed() > 0 ) continue;
-            if(ua.isValid()) {
+            if(ua.isValid()&&!ua.isRunStatus()) {
                 ua.setRunStatus(true);
                 ua.setUsed(1);
+                ua.setRunStatus(true);
 //                return ua;
                 listValid.add(ua);
             }

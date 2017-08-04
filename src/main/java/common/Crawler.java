@@ -58,7 +58,10 @@ public class Crawler {
         //Crawler crawler = new Crawler("BaiduNewsSearch", 1);
         String crawlerName = "";//WeiboSearchSina
         int mediaType=0;
+
+
         for(String arg:args){
+            LOGGER.info("arg:{}",arg);
             if(arg.toLowerCase().contains("crawlername")){
                 crawlerName = arg.split("=")[1].trim();
             }else if(arg.toLowerCase().contains("mediatype")){
