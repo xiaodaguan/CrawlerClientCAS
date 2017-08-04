@@ -49,6 +49,7 @@ public class AppContext {
         //path = ""
         initEbusinessBrandCode();// 电商垂直商品编码，用于直接设置品牌
         File[] files = new File(path).listFiles();
+        //File[] files = path.listFiles();
         ArrayList<String> list = new ArrayList<String>();
         for (File file : files) {
             if (file.getName().startsWith("app")) {
