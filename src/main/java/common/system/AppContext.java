@@ -232,7 +232,7 @@ public class AppContext {
             content = content.replace("${agent}", "false").replace("${login}", "false");
 
             String //path = Thread.currentThread().getContextClassLoader().getResource(".").getPath();
-            path = "./src/main/resources/";
+            path = "src/main/resources/";
             String tmp = typeConfFolder + File.separator + name + ".temp";
             StringUtil.writeFile(path+ tmp, content);
 
@@ -253,9 +253,16 @@ public class AppContext {
         beanReader.setResourceLoader(appContext);
         beanReader.setEntityResolver(new ResourceEntityResolver(appContext));
         try {
-            Resource[] resources = appContext.getResources(file);
-            beanReader.loadBeanDefinitions(resources);
-            resources = null;
+            try{
+                Resource[] resources = appContext.getResources(file);
+                beanReader.loadBeanDefinitions(resources);
+                resources = null;
+            }catch (Exception e){
+                LOGGER.info("{}",e.getMessage());
+                Resource[] resources = appContext.getResources(("src/main/resources/"+file));
+                beanReader.loadBeanDefinitions(resources);
+                resources = null;
+            }
             String substring = file.substring(file.lastIndexOf(File.separator) + 1, file.indexOf("."));// .xml改成了.
 
             Siteinfo si = (Siteinfo) (appContext.getBean(substring));
