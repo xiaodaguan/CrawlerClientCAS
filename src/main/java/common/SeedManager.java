@@ -23,7 +23,8 @@ public class SeedManager {
 
     public SeedManager() {
 
-        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        String //path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        path = "src/main/resources";
         AppContext.initAppCtx(path);
     }
 
