@@ -44,6 +44,7 @@ public class Crawler {
         Systemconfig.crawlerType = mediaType;
 
         String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        LOGGER.info("path:{}",path);
         AppContext.initAppCtx(path);
     }
 
