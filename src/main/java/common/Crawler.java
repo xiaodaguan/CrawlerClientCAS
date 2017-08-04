@@ -43,10 +43,10 @@ public class Crawler {
 
         Systemconfig.crawlerType = mediaType;
          //this.getClass().getClassLoader().getResource(“.”).getPath();
-        //String path = Thread.currentThread().getContextClassLoader().
-        //        getResource("/src/main/resources").getFile();
-        //String path = this.getClass().getClassLoader().getResource("src/main/resources").getPath();
-        String path = "target/classes";
+        String path = Thread.currentThread().getContextClassLoader().
+                getResource("").getFile();
+
+        //String path = "target/classes";
         LOGGER.info("path:{}",path);
         AppContext.initAppCtx(path);
     }
