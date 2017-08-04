@@ -84,14 +84,15 @@ public class Executor implements Runnable {
      */
     private void submitOrSave(CrawlTask task, List listData, String nextUrl) throws Exception {
         if (task.getCrawlerType().equalsIgnoreCase("meta")) {
-            if (nextUrl != null) {
-                task.setOrignUrl(nextUrl);
-                Systemconfig.scheduler.submitTask(task);
-            }
+
             for (Object obj : listData) {
                 CommonData data = (CommonData) obj;
+                if (Systemconfig.urlFilter.contains(MD5Util.MD5(task.getOrignUrl()))) {
+                    listData.remove(obj);
+                    LOGGER.info("已采集过的url[{}]，跳过", task.getOrignUrl());
+                    continue;
+                }
                 CrawlTask followTask = new CrawlTask();
-
                 /* 继承属性 */
                 followTask.setOrignUrl(data.getUrl());
                 followTask.setMediaType(task.getMediaType());
@@ -102,11 +103,17 @@ public class Executor implements Runnable {
                 followTask.setAgent(task.getAgent());
                 followTask.setRetryTimes(task.getRetryTimes());
                 followTask.setInterval(task.getInterval());
-
                 Systemconfig.scheduler.submitTask(followTask);
+            }
+            if (nextUrl != null && listData.size()>0) {
+                task.setOrignUrl(nextUrl);
+                Systemconfig.scheduler.submitTask(task);
+            }else{
+                LOGGER.info("当前页面已采集完成或者next is null:{}",nextUrl);
             }
         } else {
             Systemconfig.dbService.saveData(listData.get(0));
+            LOGGER.info("一条信息采集并保存完成");
             Systemconfig.urlFilter.add(MD5Util.MD5(task.getOrignUrl()));
         }
     }

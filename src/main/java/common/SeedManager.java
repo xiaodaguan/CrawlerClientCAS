@@ -58,7 +58,6 @@ public class SeedManager {
 
                     Siteinfo siteinfo = Systemconfig.allSiteinfos.get(siteInfoName);
 
-
                     CrawlTask task = new CrawlTask();
                     task.setCrawlerType("META");// META, DATA
                     task.setOrignUrl(siteinfo.getUrl().replace("<keyword>", searchKey.getKEYWORD()));//http://news.baidu.com/ns?word=青岛 交通委 王勇&cl=2&rn=50&clk=sortbyrel
@@ -75,15 +74,7 @@ public class SeedManager {
                         task.setAgent(false);
                         task.setRetryTimes(1);
                     }
-
                     Systemconfig.scheduler.submitTask(task);
-
-//                    try {
-//                        LOGGER.info("等待提交下一个关键词...");
-//                        Thread.sleep(1000 * 30);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
                 }
             }
         }
@@ -121,8 +112,6 @@ public class SeedManager {
         }
         return null;
     }
-
-
     private static List<Integer> getCrawlerTypeList(){
         String path = "src/main/resources/seedConf/seed.txt";
         String content = read(path);
