@@ -94,7 +94,7 @@ public class SeedManager {
         seedManager.generate();//生成
         LOGGER.info("本轮所有任务提交完成，提交总的任务数为：{}",Systemconfig.scheduler.getTotalTaskCount());
     }
-    public static String read(String fileName) {
+    private static String read(String fileName) {
         if (!(new File(fileName).exists())) {
             LOGGER.info("文件不存在:{}",fileName);
             return null;
@@ -126,7 +126,7 @@ public class SeedManager {
         }
         return crawlerTypeList;
     }
-    public static void main(String[] args) {
+    public static void seedMain() {
         while(true) {
             List<Integer> list = getCrawlerTypeList();
             for(int crawlerType:list){

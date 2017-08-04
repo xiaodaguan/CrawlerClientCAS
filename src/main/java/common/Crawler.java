@@ -60,27 +60,34 @@ public class Crawler {
 
     public static void main(String[] args) {
         //Crawler crawler = new Crawler("BaiduNewsSearch", 1);
+        String runtype = "";//crawler   seeds
         String crawlerName = "";//WeiboSearchSina
         int mediaType=0;
 
-
         for(String arg:args){
             LOGGER.info("arg:{}",arg);
-            if(arg.toLowerCase().contains("crawlername")){
+            if(arg.toLowerCase().contains("runtype")){
+                runtype = arg.split("=")[1].trim();
+            }
+            else if(arg.toLowerCase().contains("crawlername")){
                 crawlerName = arg.split("=")[1].trim();
             }else if(arg.toLowerCase().contains("mediatype")){
                 String mediaType_tmp = arg.split("=")[1].trim();
                 mediaType = Integer.parseInt(mediaType_tmp);
             }
+        }if(runtype.equals("seeds")){
+            SeedManager.seedMain();
         }
-        Crawler crawler = new Crawler(crawlerName, mediaType);
-        Map<String,Siteinfo> siteinfoMap = Systemconfig.allSiteinfos;
-        Set<String> siteinfoKeys = siteinfoMap.keySet();
-        for(String siteinfokey:siteinfoKeys){
-            Siteinfo siteinfo = siteinfoMap.get(siteinfokey);
-            if(siteinfo.getSiteFlag()==mediaType){
-                crawler.start(siteinfo.getThreadNum());
-                break;
+        else if(runtype.equals("crawler")){
+            Crawler crawler = new Crawler(crawlerName, mediaType);
+            Map<String, Siteinfo> siteinfoMap = Systemconfig.allSiteinfos;
+            Set<String> siteinfoKeys = siteinfoMap.keySet();
+            for (String siteinfokey : siteinfoKeys) {
+                Siteinfo siteinfo = siteinfoMap.get(siteinfokey);
+                if (siteinfo.getSiteFlag() == mediaType) {
+                    crawler.start(siteinfo.getThreadNum());
+                    break;
+                }
             }
         }
     }
