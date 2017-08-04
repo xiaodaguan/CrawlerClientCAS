@@ -223,7 +223,7 @@ public class SinaHttpProcess extends NeedCookieHttpProcess {
             user.setLastLoginTime(new Date());
 			return true;
 		} else {
-			LOGGER.info(loginEntity.getUsername() + "\tlogin fail.");
+			LOGGER.info( "weibo account : {} login fail.",loginEntity.getUsername());
 			ses.shutdown();
 			user.setValid(false);
 			return false;
