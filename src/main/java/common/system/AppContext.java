@@ -236,7 +236,7 @@ public class AppContext {
             String tmp = typeConfFolder + File.separator + name + ".temp";
             StringUtil.writeFile(path+ tmp, content);
 
-            loadDynamicBean(path+ tmp);
+            loadDynamicBean( tmp);
             fe.load = false;
         }
     }
