@@ -138,7 +138,6 @@ public class SeedManager {
         return crawlerTypeList;
     }
     public static void main(String[] args) {
-
         while(true) {
             List<Integer> list = getCrawlerTypeList();
             for(int crawlerType:list){
