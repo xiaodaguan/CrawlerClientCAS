@@ -1,12 +1,15 @@
 package common;
 
 import common.executor.Executor;
+import common.siteinfo.Siteinfo;
 import common.task.CrawlerType;
 import common.system.AppContext;
 import common.system.Systemconfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,7 +21,6 @@ public class Crawler {
 
     public static String mediaTypeFull = null;// e.g., "news_search"
     public static String mediaTypePrefix = null; // e.g., "news"
-
 
     /**
      * 初始化，加载配置
@@ -43,11 +45,9 @@ public class Crawler {
 
         String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         AppContext.initAppCtx(path);
-
     }
 
     public void start(int threadNum) {
-
         ExecutorService threadPool = Executors.newFixedThreadPool(threadNum);
         for (int i = 0; i < threadNum; i++)
             threadPool.submit(new Executor(mediaTypeFull, mediaTypePrefix));
@@ -56,7 +56,25 @@ public class Crawler {
 
     public static void main(String[] args) {
         //Crawler crawler = new Crawler("BaiduNewsSearch", 1);
-        Crawler crawler = new Crawler("WeiboSearchSina", 7);
-        crawler.start(1);
+        String crawlerName = "";//WeiboSearchSina
+        int mediaType=0;
+        for(String arg:args){
+            if(arg.toLowerCase().contains("crawlername")){
+                crawlerName = arg.split("=")[1].trim();
+            }else if(arg.toLowerCase().contains("mediatype")){
+                String mediaType_tmp = arg.split("=")[1].trim();
+                mediaType = Integer.parseInt(mediaType_tmp);
+            }
+        }
+        Crawler crawler = new Crawler(crawlerName, mediaType);
+        Map<String,Siteinfo> siteinfoMap = Systemconfig.allSiteinfos;
+        Set<String> siteinfoKeys = siteinfoMap.keySet();
+        for(String siteinfokey:siteinfoKeys){
+            Siteinfo siteinfo = siteinfoMap.get(siteinfokey);
+            if(siteinfo.getSiteFlag()==mediaType){
+                crawler.start(siteinfo.getThreadNum());
+                break;
+            }
+        }
     }
 }

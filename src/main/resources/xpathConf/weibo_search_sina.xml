@@ -7,7 +7,7 @@
 
     <prop name="downInterval" value="35"/>
     <prop name="page" value="52"/>
-    <prop name="threadNum" value="1"/>
+    <prop name="threadNum" value="3"/>
 
 
     <prop name="login" value="true"/>
