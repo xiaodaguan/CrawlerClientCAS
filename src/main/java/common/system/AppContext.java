@@ -258,16 +258,13 @@ public class AppContext {
                 beanReader.loadBeanDefinitions(resources);
                 resources = null;
             }catch (Exception e){
+                LOGGER.warn("Exception resources01 {}", e.getMessage());
                 try {
-                    LOGGER.warn("Exception resources01 {}", e.getMessage());
                     Resource resources = appContext.getResource(("src/main/resources/" + file));
                     beanReader.loadBeanDefinitions(resources);
                     resources = null;
                 }catch (Exception ee){
                     LOGGER.warn("Exception resources02 {}", ee.getMessage());
-                    Resource resources = appContext.getResource(("./src/main/resources/" + file));
-                    beanReader.loadBeanDefinitions(resources);
-                    resources = null;
                 }
             }
             String substring = file.substring(file.lastIndexOf(File.separator) + 1, file.indexOf("."));// .xml改成了.
