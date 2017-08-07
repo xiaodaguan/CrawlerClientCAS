@@ -259,12 +259,12 @@ public class AppContext {
                 resources = null;
             }catch (Exception e){
                 try {
-                    LOGGER.info("Exception resources01 {}", e.getMessage());
+                    LOGGER.warn("Exception resources01 {}", e.getMessage());
                     Resource[] resources = appContext.getResources(("src/main/resources/" + file));
                     beanReader.loadBeanDefinitions(resources);
                     resources = null;
                 }catch (Exception ee){
-                    LOGGER.info("Exception resources02 {}", ee.getMessage());
+                    LOGGER.warn("Exception resources02 {}", ee.getMessage());
                     Resource[] resources = appContext.getResources(("target/classes/" + file));
                     beanReader.loadBeanDefinitions(resources);
                     resources = null;
