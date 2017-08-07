@@ -258,10 +258,17 @@ public class AppContext {
                 beanReader.loadBeanDefinitions(resources);
                 resources = null;
             }catch (Exception e){
-                LOGGER.info("{}",e.getMessage());
-                Resource[] resources = appContext.getResources(("src/main/resources/"+file));
-                beanReader.loadBeanDefinitions(resources);
-                resources = null;
+                try {
+                    LOGGER.info("Exception resources01 {}", e.getMessage());
+                    Resource[] resources = appContext.getResources(("src/main/resources/" + file));
+                    beanReader.loadBeanDefinitions(resources);
+                    resources = null;
+                }catch (Exception ee){
+                    LOGGER.info("Exception resources02 {}", ee.getMessage());
+                    Resource[] resources = appContext.getResources(("target/classes/" + file));
+                    beanReader.loadBeanDefinitions(resources);
+                    resources = null;
+                }
             }
             String substring = file.substring(file.lastIndexOf(File.separator) + 1, file.indexOf("."));// .xml改成了.
 
@@ -272,11 +279,11 @@ public class AppContext {
                 si.setSiteFlag(siteConfigs.get(si.getSiteName()).getId());
             }
             File f = new File(file);
-            if (!f.delete()) {
-                if(f.exists()) {
-                    LOGGER.error(f + "没有被删除");
-                }
-            }
+//            if (!f.delete()) {
+//                if(f.exists()) {
+//                    LOGGER.error(f + "没有被删除");
+//                }
+//            }
             LOGGER.info("系统初始化站点：" + si);
         } catch (BeansException e) {
             e.printStackTrace();
