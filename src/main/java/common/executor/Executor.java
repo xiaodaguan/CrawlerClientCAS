@@ -83,7 +83,27 @@ public class Executor implements Runnable {
      * @param nextUrl  解析所得后续url
      */
     private void submitOrSave(CrawlTask task, List listData, String nextUrl) throws Exception {
-        if (task.getCrawlerType().equalsIgnoreCase("meta")) {
+        if (Systemconfig.crawlerType==7&&
+        task.getCrawlerType().equalsIgnoreCase("meta")) {
+
+            for (Object obj : listData) {
+                CommonData data = (CommonData) obj;
+                if (Systemconfig.urlFilter.contains(MD5Util.MD5(task.getOrignUrl()))) {
+                    listData.remove(obj);
+                    LOGGER.info("已采集过的url[{}]，跳过", task.getOrignUrl());
+                    continue;
+                }
+                Systemconfig.dbService.saveData(data);
+                LOGGER.info("一条信息采集并保存完成");
+                Systemconfig.urlFilter.add(MD5Util.MD5(task.getOrignUrl()));
+            }
+            if (nextUrl != null && listData.size()>0) {
+                task.setOrignUrl(nextUrl);
+                Systemconfig.scheduler.submitTask(task);
+            }else{
+                LOGGER.info("当前页面已采集完成或者next is null:{}",nextUrl);
+            }
+        }if (task.getCrawlerType().equalsIgnoreCase("meta")) {
 
             for (Object obj : listData) {
                 CommonData data = (CommonData) obj;
