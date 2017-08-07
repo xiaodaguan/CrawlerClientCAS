@@ -30,16 +30,18 @@ public class UserManager {
         for (UserAttribute ua : list) {
             //if (ua.getUsed() > 0 ) continue;
             if(ua.isValid()&&!ua.isRunStatus()) {
-                ua.setRunStatus(true);
-                ua.setUsed(1);
-                ua.setRunStatus(true);
+
 //                return ua;
                 listValid.add(ua);
             }
         }
         if(listValid.size()>0){
             Random rand = new Random();
-            return  listValid.get(rand.nextInt(listValid.size()));
+            int index = rand.nextInt(listValid.size());
+            UserAttribute ua =  listValid.get(index);
+            ua.setUsed(1);
+            ua.setRunStatus(true);
+            return ua;
         }
         return null;
     }
