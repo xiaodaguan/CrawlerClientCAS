@@ -254,18 +254,18 @@ public class AppContext {
         beanReader.setEntityResolver(new ResourceEntityResolver(appContext));
         try {
             try{
-                Resource[] resources = appContext.getResources(file);
+                Resource resources = appContext.getResource(file);
                 beanReader.loadBeanDefinitions(resources);
                 resources = null;
             }catch (Exception e){
                 try {
                     LOGGER.warn("Exception resources01 {}", e.getMessage());
-                    Resource[] resources = appContext.getResources(("src/main/resources/" + file));
+                    Resource resources = appContext.getResource(("src/main/resources/" + file));
                     beanReader.loadBeanDefinitions(resources);
                     resources = null;
                 }catch (Exception ee){
                     LOGGER.warn("Exception resources02 {}", ee.getMessage());
-                    Resource[] resources = appContext.getResources(("target/classes/" + file));
+                    Resource resources = appContext.getResource(("./src/main/resources/" + file));
                     beanReader.loadBeanDefinitions(resources);
                     resources = null;
                 }
@@ -287,7 +287,7 @@ public class AppContext {
             LOGGER.info("系统初始化站点：" + si);
         } catch (BeansException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
