@@ -279,11 +279,11 @@ public class AppContext {
                 si.setSiteFlag(siteConfigs.get(si.getSiteName()).getId());
             }
             File f = new File(file);
-//            if (!f.delete()) {
-//                if(f.exists()) {
-//                    LOGGER.error(f + "没有被删除");
-//                }
-//            }
+            if (!f.delete()) {
+                if(f.exists()) {
+                    LOGGER.error(f + "没有被删除");
+                }
+            }
             LOGGER.info("系统初始化站点：" + si);
         } catch (BeansException e) {
             e.printStackTrace();
